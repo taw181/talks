@@ -1,0 +1,38 @@
+\appendix
+
+\begin{frame}[t]{Experimental Setup: MOT Laser System}
+    \tiny\svgpos{\linewidth}{0cm}{0cm}{}{Figures/mot_beams}
+\end{frame}
+
+\begin{frame}[t, plain]
+    \tiny\svgpos{.8\linewidth}{0cm}{-.2cm}{}{Figures/mts_beam_setup_doppelpass_latex}
+\end{frame}
+
+\begin{frame}[t]{Zeeman Slower Fields}
+    \picpos{\linewidth}{0cm}{0cm}{zeeman_magnetic_field.pdf}
+\end{frame}
+
+\begin{frame}[t]{Oven Characterisation}
+    \begin{table}[t]
+        \footnotesize
+        \centering
+        \sisetup{tight-spacing=true, table-align-exponent=false}
+        \begin{tabular}{rSS[table-format=2(2)]S[table-format=1.3(2)e1]S[table-format=1.2(2)e1]S[table-format=1.4(2)e1]}
+            \expandableinput Data/oven_loading_fit_results
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}[t]{MOT Decay}
+    \begin{table}[t]
+        \small
+        \centering
+        \bgroup
+        \def\arraystretch{1.2}
+        \sisetup{table-align-exponent=false}
+        \begin{tabular}{lS[table-format=1.2(2)e1]S[table-format=2.1(1)e1]S[table-format=1.2(2)e1]}
+            \expandableinput Data/fitresults_decay_prot
+        \end{tabular}
+        \egroup
+    \end{table}
+\end{frame}

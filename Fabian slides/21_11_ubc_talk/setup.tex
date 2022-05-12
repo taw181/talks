@@ -1,0 +1,28 @@
+\begin{frame}[t]{The BaLi Experiment}
+    An apparatus to combine single (to tens) of Doppler cooled Ba$^+$-ions\\ 
+    \textbf{and} $\approx \num{2e4}$ $^6$Li-atoms at $T\approx\SI{1}{\micro\kelvin}$
+    \picpos{.7\linewidth}{1.5cm}{0.5cm}{experiment_overlay_3_antialiased.png}
+\end{frame}
+
+\begin{frame}[t]{Atom-Ion Experiments}
+    \only<1-3>{
+    The ion induces a dipole moment in the atom ($p \propto \alpha E(r) \propto \frac{1}{r^2}$) that leads to
+    charge-dipole interaction ($\propto\frac{p}{r^2}$)
+   \[ 
+        \setlength{\abovedisplayskip}{2pt}
+        \setlength{\belowdisplayskip}{2pt}
+       V_\text{atom-ion}(r) = \frac{C_6}{r^6} - \frac{C_4}{r^4}
+       \]
+   }
+    \visible<1-3>{\picpos{0.45\linewidth}{0cm}{0cm}{BaLi_PECs_B.pdf}}
+    \visible<2>{\picpos{0.45\linewidth}{0.5\linewidth}{0cm}{atom_ion_coll.png}}
+    \visible<3>{\picpos{0.35\linewidth}{0.5\linewidth}{0cm}{atomionheating.pdf}}
+    \only<4>{We interrogate the ion product state and classify it in four different events.}
+    \visible<4>{\picpos{\linewidth}{0cm}{1cm}{Detection_classification.pdf}}
+    \only<3>{
+        \begin{textblock*}{.2\linewidth}(12.2cm, 2.7cm)
+           \tiny
+            Ziv Meir, et al. "Dynamics of a ground-state cooled ion colliding with ultracold atoms." Physical review letters 117.24 (2016): 243401.
+        \end{textblock*}
+    }
+\end{frame}

@@ -1,0 +1,51 @@
+\begin{frame}[plain, t]
+    \picpos{14cm}{-1cm}{-.5cm}{blackboard.jpg}
+    \begin{textblock*}{1.1\linewidth}(.5cm,.5cm)
+        {\huge \color{white} \textsc{COHERENT CONTROL}}
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Preparation of a spin-polarized atom cloud}
+    % graphics
+    \visible<1->{\picpos{8cm}{1cm}{.5cm}{s12_hyperfine_0}}
+    \visible<2>{\picpos{8cm}{1cm}{.5cm}{s12_hyperfine_1}}
+    \visible<3-4>{\picpos{8cm}{1cm}{.5cm}{s12_hyperfine_3}}
+    \visible<4>{\picpos{8cm}{1cm}{.5cm}{s12_hyperfine_4}}
+    \visible<5>{\picpos{8cm}{1cm}{.5cm}{s12_hyperfine_5}}
+
+    % text blocks
+    \only<1>{ $^6$Li: nuclear spin $I=1$, $D_2$-linewidth $\Gamma\approx\SI{6}{MHz}$}
+    \only<2>{\textbf{1)} Optically pump atoms to $S_{\nicefrac{1}{2}}(F=\nicefrac{1}{2})$}
+    \only<3>{\textbf{2)} Evaporatively cool at high magnetic field to $T\approx\SI{1}{\micro\kelvin}$}
+    \only<4>{\textbf{3)} Selectively illuminate $\ket{2}$, $\nicefrac{E_{recoil}}{U_0}\approx 3$}
+    \only<5>{\textbf{4)} Around $N \approx \SI{20}{k}$ atoms in $\ket{1}$ left}
+\end{frame}
+
+\begin{frame}[t]{Rabi oscillations - Li $\ket{1} \leftrightarrow \ket{2}$}
+    \only<1-2>{\picpos{9cm}{1cm}{2.5cm}{rf_antenna_circuit}}
+    %\only<3>{\picpos{9cm}{1cm}{2cm}{rabi_2d_0}}
+    %\only<3>{\picpos{9cm}{1cm}{2cm}{rabi_2d_1}}
+    %\only<3>{\picpos{9cm}{1cm}{2cm}{rabi_2d_2}}
+    \only<3>{\picpos{9cm}{1cm}{2cm}{20_06_04_oscillation_resonance}}
+    Interaction of two-level system with an oscillating electric field
+    \visible<2->{
+        \[P_{\ket{1}}= \frac{\Omega^2}{\Omega'^2}\, \cos^2\left( \frac{\Omega'\,t}{2}  \right)
+        \qquad\text{with}\quad \Omega' = \sqrt{\Omega^2 + \delta^2}\]
+    }
+    \visible<3>{\vspace{3cm}\\
+    \[ T_\pi = \SI{440(10)}{\micro\second} \qquad \nu_{12} = 73.74102(5)\,\si{\mega\hertz}\]}
+
+\end{frame} 
+
+\begin{frame}[t]{Frequency stability}
+    \only<1>{\picpos{9cm}{1cm}{2cm}{freq_drift_06_04}}
+    \only<2>{\picpos{9cm}{1cm}{2cm}{B_field_drift_06_04}}
+    \only<3>{\picpos{8cm}{1cm}{3cm}{example_ch1_resonance}}
+
+    \only<1>{Relative long term stability of the hyperfine splitting at high magnetic fields
+    \[ \frac{\sigma_{\nu_{12}}}{\nu_{12}} = \num{4e-6}\]}
+    \visible<2->{Attributing the frequency drift solely to the magnetic field, we get
+    \[ \sigma_B = \SI{17}{mG}\,\> \text{at}\,\> \approx\SI{300}{G}\]}
+    \visible<3>{Predicted Feshbach resonances have
+    \[ \mathcal{O}(\Delta_B) = \SI{1}{G} \]}
+\end{frame}
