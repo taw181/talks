@@ -1,9 +1,3 @@
-\begin{frame}[t]{Product state classification}
-    We interrogate the ion product state and classify it as a surivival or one of three loss categories.
-    A loss indicates the formation of a bound state.
-    \picpos{\linewidth}{0cm}{1cm}{Detection_classification.pdf}
-\end{frame}
-
 \begin{frame}[t]{Ion Trapping in RF Fields}
 Poisson's equation forbids 3D DC confinement: $\Delta\phi_\text{el} = 0$ \\
 \quad $\Rightarrow$ Apply time-varying potential in x--y-plane
@@ -55,7 +49,7 @@ Ion is sensitive to stray electric fields $E_\text{stray}$ and DC defocussing
 \end{frame}
 \begin{frame}[t]{Density Dependence of Ba$^+$ Loss on Resonance}
    \visible<1-2>{\picpos{.35\linewidth}{1cm}{0cm}{suppl_fig_2.pdf}}
-   \visible<2>{\picpos{.5\linewidth}{.45\linewidth}{0cm}{fig_3_alt.pdf}}
+   \visible<2>{\picpos{.5\linewidth}{.45\linewidth}{0cm}{fig_3_alt.pdf}} 
    \begin{textblock*}{.5\linewidth}(7.2cm, 5.5cm)
        \visible<1-2>{
         \small
@@ -70,13 +64,13 @@ Ion is sensitive to stray electric fields $E_\text{stray}$ and DC defocussing
 \end{frame}
 
 \begin{frame}[t]{The Forest of Resonances for Li in $ \ket{1}$}
-   \picpos{1.3\linewidth}{-2cm}{0.2cm}{spin1_overview_full.pdf}
+   \picpos{1.3\linewidth}{-2cm}{0.2cm}{spin1_overview_full.pdf} 
    \visible<1->{We scanned a range of \SI{160}{G} and didn't find a region with flat background $>\SI{5}{G}$ wide.}
    \visible<2>{\picpos{4cm}{0.5cm}{4cm}{theory.pdf}}
    \visible<2>{
         \begin{textblock*}{.7\linewidth}(4.7cm, 4.7cm)
            \small Some resonances are much narrower than what we observed in the
-           other channel, theory explores higher order spin-orbit coupling.
+           other channel, theory explores higher order spin-orbit coupling. 
         \end{textblock*}
    }
 \end{frame}
@@ -87,8 +81,8 @@ Ion is sensitive to stray electric fields $E_\text{stray}$ and DC defocussing
           \begin{textblock*}{.55\linewidth}(1em, 1em)
               \small
               Collisional spin polarization is expected to only work with Li in $\ket{2}$!
-              \begin{align*}
-                  &\ket{m_s=-\frac{1}{2}, \,m_I=0}_\text{Li} + \ket{m_s=+\frac{1}{2}} \quad\longrightarrow \\
+              \begin{align*}     
+                   &\ket{m_s=-\frac{1}{2}, \,m_I=0}_\text{Li} + \ket{m_s=+\frac{1}{2}} \quad\longrightarrow \\
                   &\ket{m_s=-\frac{1}{2}, \,m_I=1}_\text{Li} + \ket{m_s=-\frac{1}{2}}
                   \end{align*}
           \end{textblock*}

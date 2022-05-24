@@ -1,30 +1,34 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.5.5)  18 JAN 2022 06:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.8.12)  24 MAY 2022 22:17
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **talk.tex
 (./talk.tex
 LaTeX2e <2020-02-02> patch level 2
-L3 programming layer <2020-02-14> (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamer.cls
+L3 programming layer <2020-02-14>
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2019/09/29 v3.57 A class for typesetting presentations
-(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasemodes.sty (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasemodes.sty
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count167
 )
 \beamer@tempbox=\box45
 \beamer@tempcount=\count168
 \c@beamerpauses=\count169
- (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasedecode.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasedecode.sty
 \beamer@slideinframe=\count170
 \beamer@minimum=\count171
 \beamer@decode@box=\box46
 )
 \beamer@commentbox=\box47
 \beamer@modecount=\count172
-) (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifpdf.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifpdf.sty
 Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
- (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2019/11/07 v1.0c TeX engine tests
 ))
 \headdp=\dimen134
@@ -69,15 +73,19 @@ Package: iftex 2019/11/07 v1.0c TeX engine tests
 \beamer@coveringdepth=\count189
 \beamer@sectionadjust=\count190
 \beamer@tocsectionnumber=\count191
- (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseoptions.sty (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseoptions.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 ))
 \beamer@paperwidth=\skip48
 \beamer@paperheight=\skip49
- (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
- (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
 \Gm@cnth=\count192
@@ -92,39 +100,57 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen156
 \Gm@layoutvoffset=\dimen157
 \Gm@dimlist=\toks15
-) (/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
-) (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 105.
- (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen158
 \Gin@req@width=\dimen159
-) (/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
 \pgfutil@everybye=\toks16
 \pgfutil@tempdima=\dimen160
 \pgfutil@tempdimb=\dimen161
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
+ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
 \pgfutil@abb=\box54
- (/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
+(/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
-)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
-)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
 \pgfkeys@pathtoks=\toks17
 \pgfkeys@temptoks=\toks18
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
+ex
 \pgfkeys@tmptoks=\toks19
 ))
 \pgf@x=\dimen162
@@ -151,20 +177,27 @@ Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
 File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
 )
 Driver file for pgf: pgfsys-pdftex.def
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
 File: pgfsys-pdftex.def 2020/01/08 v3.1.5b (3.1.5b)
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f
 File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
-))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex
 File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgfsyssoftpath@smallbuffer@items=\count266
 \pgfsyssoftpath@bigbuffer@items=\count267
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex
 File: pgfsysprotocol.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -177,18 +210,44 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen172
 \pgfmath@count=\count268
 \pgfmath@box=\box55
 \pgfmath@toks=\toks23
 \pgfmath@stack@operand=\toks24
 \pgfmath@stack@operation=\toks25
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count269
-)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x
 File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@picminx=\dimen173
 \pgf@picmaxx=\dimen174
@@ -204,84 +263,123 @@ File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@yy=\dimen184
 \pgf@zx=\dimen185
 \pgf@zy=\dimen186
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex
 File: pgfcorepathconstruct.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@path@lastx=\dimen187
 \pgf@path@lasty=\dimen188
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex
 File: pgfcorepathusage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@shorten@end@additional=\dimen189
 \pgf@shorten@start@additional=\dimen190
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x
 File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgfpic=\box56
 \pgf@hbox=\box57
 \pgf@layerbox@main=\box58
 \pgf@picture@serial@count=\count270
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex
 File: pgfcoregraphicstate.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgflinewidth=\dimen191
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex
 File: pgfcoretransformations.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@pt@x=\dimen192
 \pgf@pt@y=\dimen193
 \pgf@pt@temp=\dimen194
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex
 File: pgfcoreobjects.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex
 File: pgfcorepathprocessing.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x
 File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgfarrowsep=\dimen195
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgf@max=\dimen196
 \pgf@sys@shading@range@num=\count271
 \pgf@shadingcount=\count272
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex
 File: pgfcoreexternal.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \pgfexternal@startupbox=\box59
-)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x
 File: pgfcorelayers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex
 File: pgfcoretransparency.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex
 File: pgfcorepatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
 File: pgfcorerdf.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 ))) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/xxcolor.sty
 Package: xxcolor 2003/10/24 ver 0.1
 \XC@nummixins=\count273
 \XC@countmixins=\count274
-) (/usr/share/texlive/texmf-dist/tex/generic/atbegshi/atbegshi.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/atbegshi/atbegshi.sty
 Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
-)) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
- (/usr/share/texlive/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
+)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-) (/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
@@ -290,13 +388,16 @@ Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
 \@linkdim=\dimen197
 \Hy@linkcounter=\count275
 \Hy@pagecounter=\count276
- (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count277
@@ -312,16 +413,20 @@ Package hyperref Info: Backreferencing OFF on input line 4567.
 Package hyperref Info: Implicit mode OFF; no redefinition of LaTeX internals.
 Package hyperref Info: Bookmarks ON on input line 4800.
 \c@Hy@tempcnt=\count279
- (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5159.
 \XeTeXLinkMargin=\dimen198
- (/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
 ))
 \Fld@menulength=\count280
 \Field@Width=\dimen199
@@ -344,20 +449,29 @@ Package hyperref Message: Stopped early.
 Package hyperref Info: Driver (autodetected): hpdftex.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
- (/usr/share/texlive/texmf-dist/tex/latex/atveryend/atveryend.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/atveryend/atveryend.sty
 Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
 )
 \Fld@listcount=\count282
 \c@bookmark@seq@number=\count283
- (/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
-)) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaserequires.sty (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasecompatibility.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasefont.sty (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaserequires.sty
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasecompatibility.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasefont.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks26
 \symAMSa=\mathgroup4
@@ -365,23 +479,33 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/sansmathaccent.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/sansmathaccent.sty
 Package: sansmathaccent 2020/01/31
- (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrlfile.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrlfile.sty
 Package: scrlfile 2020/01/24 v3.29 KOMA-Script package (loading files)
-))) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetranslator.sty (/usr/share/texlive/texmf-dist/tex/latex/translator/translator.sty
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetranslator.sty
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator.sty
 Package: translator 2019-05-31 v1.12a Easy translation of strings in LaTeX
-)) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasemisc.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetwoscreens.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseoverlay.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasemisc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetwoscreens.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseoverlay.sty
 \beamer@argscount=\count284
 \beamer@lastskipcover=\skip50
 \beamer@trivlistdepth=\count285
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetitle.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasesection.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetitle.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasesection.sty
 \c@lecture=\count286
 \c@part=\count287
 \c@section=\count288
 \c@subsection=\count289
 \c@subsubsection=\count290
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseframe.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseframe.sty
 \beamer@framebox=\box60
 \beamer@frametitlebox=\box61
 \beamer@zoombox=\box62
@@ -396,21 +520,30 @@ Package: translator 2019-05-31 v1.12a Easy translation of strings in LaTeX
 \beamer@envbody=\toks27
 \framewidth=\dimen258
 \c@framenumber=\count294
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseverbatim.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseverbatim.sty
 \beamer@verbatimfileout=\write4
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseframesize.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseframesize.sty
 \beamer@splitbox=\box63
 \beamer@autobreakcount=\count295
 \beamer@autobreaklastheight=\dimen259
 \beamer@frametitletoks=\toks28
 \beamer@framesubtitletoks=\toks29
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseframecomponents.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseframecomponents.sty
 \beamer@footins=\box64
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasecolor.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasenotes.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasecolor.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasenotes.sty
 \beamer@frameboxcopy=\box65
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetoc.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetemplates.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetoc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetemplates.sty
 \beamer@sbttoks=\toks30
- (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseauxtemplates.sty (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseboxes.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseauxtemplates.sty
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaseboxes.sty
 \bmb@box=\box66
 \bmb@colorbox=\box67
 \bmb@boxshadow=\box68
@@ -423,7 +556,8 @@ Package: translator 2019-05-31 v1.12a Easy translation of strings in LaTeX
 )
 \beamer@blockheadheight=\dimen264
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaselocalstructure.sty (/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbaselocalstructure.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 \@enLab=\toks31
 )
@@ -431,23 +565,29 @@ Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 \c@table=\count297
 \abovecaptionskip=\skip55
 \belowcaptionskip=\skip56
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasenavigation.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasenavigation.sty
 \beamer@section@min@dim=\dimen265
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetheorems.sty (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetheorems.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2020/01/20 v2.17e AMS math features
 \@mathmargin=\skip57
 
 For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01 AMS text
- (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks32
 \ex@=\dimen266
-)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen267
-) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count298
@@ -487,7 +627,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 \mathdisplay@stack=\toks36
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
-) (/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2017/10/31 v2.20.4
 \thm@style=\toks37
 \thm@bodyfont=\toks38
@@ -500,55 +641,85 @@ Package: amsthm 2017/10/31 v2.20.4
 \dth@everypar=\toks42
 )
 \c@theorem=\count310
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasethemes.sty)) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerthemedefault.sty (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerfontthemedefault.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamercolorthemedefault.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerinnerthemedefault.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasethemes.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerthemedefault.sty
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerfontthemedefault.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamercolorthemedefault.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerinnerthemedefault.sty
 \beamer@dima=\dimen275
 \beamer@dimb=\dimen276
-) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerouterthemedefault.sty))) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerouterthemedefault.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2018/08/11 v1.3c Input encoding file
 \inpenc@prehook=\toks43
 \inpenc@posthook=\toks44
-) (/usr/local/share/texmf/tex/latex/ufcd/ufcd.sty
+) (./ufcd.sty
 Package: ufcd 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO,SD)
- (/usr/local/share/texmf/tex/latex/ufcd/ufcd-inputenx.sty
+
+(/home/tom/texmf/tex/latex/ufcd/ufcd-inputenx.sty
 Package: ufcd-inputenx 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
- (/usr/local/share/texmf/tex/latex/ufcd/ufcd-kvopt.sty
+
+(/home/tom/texmf/tex/latex/ufcd/ufcd-kvopt.sty
 Package: ufcd-kvopt 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifxetex.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifxetex.sty
 Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
-) (/usr/share/texlive/texmf-dist/tex/latex/inputenx/inputenx.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/inputenx/inputenx.sty
 Package: inputenx 2019/11/29 v1.12 Enhanced input encoding handling (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/inputenx/ix-alias.def)) (/usr/local/share/texmf/tex/latex/ufcd/beamerthemeufcd.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/inputenx/ix-alias.def))
+(/home/tom/texmf/tex/latex/ufcd/beamerthemeufcd.sty
 Package: beamerthemeufcd 2012/04/17 v1.0 Uni Freiburg Coporate Design (SD)
- (/usr/local/share/texmf/tex/latex/ufcd/ufcd-config.sty
+
+(/home/tom/texmf/tex/latex/ufcd/ufcd-config.sty
 Package: ufcd-config 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
 Package ufcd-config Info: Configuration option `mw' added on input line 214.
 Package ufcd-config Info: Configuration option `fuest' added on input line 215.
+
 Package ufcd-config Info: Configuration option `iif' added on input line 216.
 Package ufcd-config Info: Configuration option `imtek' added on input line 217.
+
 Package ufcd-config Info: Configuration option `tf' added on input line 218.
-Package ufcd-config Info: Configuration option `tf-dekanat' added on input line 219.
-Package ufcd-config Info: Configuration option `tf-dekpamt' added on input line 220.
-Package ufcd-config Info: Configuration option `tf-praktikumsamt' added on input line 221.
-Package ufcd-config Info: Configuration option `tf-bibliothek' added on input line 222.
-Package ufcd-config Info: Configuration option `template-e1' added on input line 223.
-Package ufcd-config Info: Configuration option `template-e2' added on input line 224.
-) (/usr/local/share/texmf/tex/latex/ufcd/ufcd-lang-opt.sty
+Package ufcd-config Info: Configuration option `tf-dekanat' added on input line
+ 219.
+Package ufcd-config Info: Configuration option `tf-dekpamt' added on input line
+ 220.
+Package ufcd-config Info: Configuration option `tf-praktikumsamt' added on inpu
+t line 221.
+Package ufcd-config Info: Configuration option `tf-bibliothek' added on input l
+ine 222.
+Package ufcd-config Info: Configuration option `template-e1' added on input lin
+e 223.
+Package ufcd-config Info: Configuration option `template-e2' added on input lin
+e 224.
+)
+(/home/tom/texmf/tex/latex/ufcd/ufcd-lang-opt.sty
 Package: ufcd-lang-opt 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
- (/usr/local/share/texmf/tex/latex/ufcd/ufcd-lang-setup.sty
+
+(/home/tom/texmf/tex/latex/ufcd/ufcd-lang-setup.sty
 Package: ufcd-lang-setup 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
-)) (/usr/local/share/texmf/tex/latex/ufcd/ufcd-lang-load.sty
+))
+(/home/tom/texmf/tex/latex/ufcd/ufcd-lang-load.sty
 Package: ufcd-lang-load 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2020/02/14 3.40 The Babel package
- (/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
 File: switch.def 2020/02/14 3.40 Babel switching mechanism
-) (/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
- (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
 File: babel.def 2020/02/14 3.40 Babel common definitions
 \babel@savecnt=\count311
 \U@D=\dimen277
- (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read3
 LaTeX Info: Redefining \textlatin on input line 2319.
 \bbl@dirlevel=\count312
@@ -556,20 +727,26 @@ LaTeX Info: Redefining \textlatin on input line 2319.
 Package babel Info: \l@canadian = using hyphenrules for english
 (babel)             (\language0) on input line 102.
 Package babel Info: \l@australian = using hyphenrules for ukenglish
-(babel)             (\language39) on input line 105.
+(babel)             (\language66) on input line 105.
 Package babel Info: \l@newzealand = using hyphenrules for ukenglish
-(babel)             (\language39) on input line 108.
-) (/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngerman.ldf
-Language: ngerman 2018/12/08 v2.11 German support for babel (post-1996 orthography)
- (/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngermanb.ldf
-Language: ngermanb 2018/12/08 v2.11 German support for babel (post-1996 orthography)
+(babel)             (\language66) on input line 108.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngerman.ldf
+Language: ngerman 2018/12/08 v2.11 German support for babel (post-1996 orthogra
+phy)
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngermanb.ldf
+Language: ngermanb 2018/12/08 v2.11 German support for babel (post-1996 orthogr
+aphy)
 Package babel Info: Making " an active character on input line 121.
-)))) (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+))))
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
-(/usr/local/share/texmf/tex/latex/ufcd/ufcd-base.sty
+(/home/tom/texmf/tex/latex/ufcd/ufcd-base.sty
 Package: ufcd-base 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
- (/usr/share/texlive/texmf-dist/tex/latex/base/fixltx2e.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/fixltx2e.sty
 Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
 Applying: [2015/01/01] Old fixltx2e package on input line 46.
 
@@ -589,7 +766,7 @@ Package etex Warning: Extended allocation already in use.
 (etex)                \RequirePackage{etex}
 (etex)                at the start of the document.
 
-)) (/usr/local/share/texmf/tex/latex/ufcd/ufcd-logo.sty
+)) (/home/tom/texmf/tex/latex/ufcd/ufcd-logo.sty
 Package: ufcd-logo 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
 \ufcdWidthI=\skip63
 \ufcdHeightI=\skip64
@@ -603,20 +780,26 @@ Package: ufcd-logo 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
 \ufcdLetterTwoHeightI=\skip72
 \ufcdLetterTwoSumI=\skip73
 \ufcdLetterTwoWidthUNI=\skip74
- (/usr/share/texlive/texmf-dist/tex/latex/grfext/grfext.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/grfext/grfext.sty
 Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
 )
 Package grfext Info: Graphics extension search list:
-(grfext)             [.eps,.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2]
+(grfext)             [.eps,.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG
+,.JPEG,.JBIG2,.JB2]
 (grfext)             \PrependGraphicsExtensions on input line 108.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.eps,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2]
+(grfext)             [.pdf,.eps,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG
+,.JPEG,.JBIG2,.JB2]
 (grfext)             \PrependGraphicsExtensions on input line 109.
-) (/usr/local/share/texmf/tex/latex/ufcd/ufcd-color.sty
+)
+(/home/tom/texmf/tex/latex/ufcd/ufcd-color.sty
 Package: ufcd-color 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
- (/usr/share/texlive/texmf-dist/tex/latex/hycolor/xcolor-patch.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/xcolor-patch.sty
 Package: xcolor-patch 2020/01/27 v1.10 xcolor patch
- (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/hopatch.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/hopatch.sty
 Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
 )))
 \beamer@origsidebarwidth=\dimen278
@@ -636,17 +819,24 @@ Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
 \ufcdBeamerTwoHeightI=\skip80
 \ufcdBeamerTwoSumI=\skip81
 \ufcdBeamerTwoWidthUNI=\skip82
- (/usr/local/share/texmf/tex/latex/ufcd/beamercolorthemeufcd.sty
+
+(/home/tom/texmf/tex/latex/ufcd/beamercolorthemeufcd.sty
 Package: beamercolorthemeufcd 2012/04/17 v1.0 Uni Freiburg Coporate Design (SD)
-) (/usr/local/share/texmf/tex/latex/ufcd/beamerfontthemeufcd.sty
+
+)
+(/home/tom/texmf/tex/latex/ufcd/beamerfontthemeufcd.sty
 Package: beamerfontthemeufcd 2012/04/17 v1.0 Uni Freiburg Coporate Design (SD)
- (/usr/local/share/texmf/tex/latex/ufcd/ufcd-font.sty
+
+(/home/tom/texmf/tex/latex/ufcd/ufcd-font.sty
 Package: ufcd-font 2012/04/17 v1.0 Uni Freiburg Coporate Design (HO)
- (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
-) (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
-) (/usr/share/texmf/tex/latex/lm/lmodern.sty
+)
+(/usr/share/texmf/tex/latex/lm/lmodern.sty
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -680,7 +870,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathptmx.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathptmx.sty
 Package: mathptmx 2005/04/12 PSNFSS-v9.2a Times w/ Math, improved (SPQR, WaS) 
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
@@ -715,7 +906,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/lmr/bx/it --> OT1/ptm/m/it on input line 35.
 LaTeX Info: Redefining \hbar on input line 50.
-) (/usr/share/texmf/tex/latex/tex-gyre/tgtermes.sty
+)
+(/usr/share/texmf/tex/latex/tex-gyre/tgtermes.sty
 Package: tgtermes 2009/09/27 v1.2 TeX Gyre Termes as default roman family
 )
 LaTeX Font Info:    Redeclaring symbol font `bold' on input line 129.
@@ -738,7 +930,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 (Font)                  OT1/ptm/m/it --> OT1/qtm/m/it on input line 129.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/ptm/m/it --> OT1/qtm/m/it on input line 129.
- (/usr/share/texmf/tex/latex/tex-gyre/tgheros.sty
+
+(/usr/share/texmf/tex/latex/tex-gyre/tgheros.sty
 Package: tgheros 2009/09/27 v1.2 TeX Gyre Heros as default sans serif family
 )
 LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 155.
@@ -747,17 +940,25 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/lmss/bx/n --> OT1/qhv/m/n on input line 155.
 LaTeX Info: Redefining \em on input line 158.
-)) (/usr/local/share/texmf/tex/latex/ufcd/beamerinnerthemeufcd.sty
+))
+(/home/tom/texmf/tex/latex/ufcd/beamerinnerthemeufcd.sty
 Package: beamerinnerthemeufcd 2012/04/17 v1.0 Uni Freiburg Coporate Design (SD)
-) (/usr/local/share/texmf/tex/latex/ufcd/beamerouterthemeufcd.sty
+
+)
+(/home/tom/texmf/tex/latex/ufcd/beamerouterthemeufcd.sty
 Package: beamerouterthemeufcd 2012/04/17 v1.0 Uni Freiburg Coporate Design (SD)
-))) (/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2020-02-14 L3 programming layer (loader) 
- (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count313
 \l__pdf_internal_box=\box73
-)) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2020-02-14 L3 Experimental document command parser
 \l__xparse_current_arg_int=\count314
 \g__xparse_grabber_int=\count315
@@ -765,9 +966,11 @@ Package: xparse 2020-02-14 L3 Experimental document command parser
 \l__xparse_v_nesting_int=\count317
 )
 Package: lipsum 2019/01/02 v2.2 150 paragraphs of Lorem Ipsum dummy text
- (/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
+
+(/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
 File: lipsum.ltd.tex 2019/01/02 v2.2 The Lorem ipsum dummy text
-)) (/usr/share/texlive/texmf-dist/tex/latex/textpos/textpos.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/textpos/textpos.sty
 Package: textpos 2019/04/15 v1.9.1
 
 Package: textpos 2019/04/15 1.9.1, absolute positioning of text on the page
@@ -782,20 +985,27 @@ Grid set 16 x 16 = 28.45274pt x 16.00467pt
 \TP@prevdepth=\dimen292
 ) (/usr/share/texlive/texmf-dist/tex/latex/svg/svg.sty
 Package: svg 2020/01/13 v2.02e (include SVG pictures)
- (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrbase.sty
-Package: scrbase 2020/01/24 v3.29 KOMA-Script package (KOMA-Script-independent basics and keyval usage)
-) (/usr/share/texlive/texmf-dist/tex/latex/tools/shellesc.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2020/01/24 v3.29 KOMA-Script package (KOMA-Script-independent 
+basics and keyval usage)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/shellesc.sty
 Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
 Package shellesc Info: Restricted shell escape enabled on input line 77.
-) (/usr/share/texlive/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 )
 \svg@box=\box75
 \c@svg@param@lastpage=\count318
 \c@svg@param@currpage=\count319
-) (/usr/share/texlive/texmf-dist/tex/latex/transparent/transparent.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/transparent/transparent.sty
 Package: transparent 2019/11/29 v1.4 Transparency via pdfTeX's color stack (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/cmbright/cmbright.sty
+
+)
+(/usr/share/texlive/texmf-dist/tex/latex/cmbright/cmbright.sty
 Package: cmbright 2005/04/13 v8.1 (WaS)
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 29.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
@@ -860,24 +1070,34 @@ LaTeX Font Info:    Redeclaring math symbol \varsigma on input line 64.
 LaTeX Font Info:    Redeclaring math symbol \varphi on input line 65.
 LaTeX Info: Redefining \LaTeX on input line 129.
 LaTeX Info: Redefining \LaTeXe on input line 139.
-LaTeX Font Info:    Trying to load font information for T1+cmbr on input line 144.
- (/usr/share/texlive/texmf-dist/tex/latex/cmbright/t1cmbr.fd
+LaTeX Font Info:    Trying to load font information for T1+cmbr on input line 1
+44.
+
+(/usr/share/texlive/texmf-dist/tex/latex/cmbright/t1cmbr.fd
 File: t1cmbr.fd 2005/04/13 v8.1 (WaS)
-)) (/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjustbox.sty
 Package: adjustbox 2019/01/04 v1.2 Adjusting TeX boxes (trim, clip, ...)
- (/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
- (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
 \XKV@toks=\toks46
 \XKV@tempa@toks=\toks47
 )
 \XKV@depth=\count320
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
-)) (/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjcalc.sty
-Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back-ends (calc, etex, pgfmath)
-) (/usr/share/texlive/texmf-dist/tex/latex/adjustbox/trimclip.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/trimclip.sty
 Package: trimclip 2018/04/08 v1.1 Trim and clip general TeX material
- (/usr/share/texlive/texmf-dist/tex/latex/collectbox/collectbox.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/collectbox/collectbox.sty
 Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
 \collectedbox=\box76
 )
@@ -886,7 +1106,8 @@ Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
 \tc@urx=\dimen295
 \tc@ury=\dimen296
 Package trimclip Info: Using driver 'tc-pdftex.def'.
- (/usr/share/texlive/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
 File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
 \adjbox@Width=\dimen297
@@ -897,18 +1118,22 @@ File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 \adjbox@pheight=\dimen302
 \adjbox@pdepth=\dimen303
 \adjbox@ptotalheight=\dimen304
- (/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
 \c@checkoddpage=\count321
-) (/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box77
 \sift@deathcycles=\count322
 \@vwid@loff=\dimen305
 \@vwid@roff=\dimen306
-)) (/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pdfpages.sty
 Package: pdfpages 2020/01/28 v0.5q Insert pages of external PDF documents (AM)
- (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count323
 \calc@Bcount=\count324
@@ -920,12 +1145,14 @@ LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count325
 \calc@Cskip=\skip85
-) (/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
 Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
 )
 \AM@pagewidth=\dimen309
 \AM@pageheight=\dimen310
- (/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pppdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pppdftex.def
 File: pppdftex.def 2020/01/28 v0.5q Pdfpages driver for pdfTeX (AM)
 )
 \AM@pagebox=\box78
@@ -934,23 +1161,31 @@ File: pppdftex.def 2020/01/28 v0.5q Pdfpages driver for pdfTeX (AM)
 \AM@toc@title=\toks49
 \c@AM@survey=\count327
 \AM@templatesizebox=\box79
-) (/usr/share/texlive/texmf-dist/tex/latex/appendixnumberbeamer/appendixnumberbeamer.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/multimedia.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/appendixnumberbeamer/appendixnumberbea
+mer.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/multimedia.sty
 Package: multimedia 2012/05/02 ver 0.02
 \mm@movie=\count328
-) (/usr/share/texlive/texmf-dist/tex/latex/pdfpc-movie/pdfpc-movie.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpc-movie/pdfpc-movie.sty
 Package: pdfpc-movie 2018/07/21 v1.0 pdfpc compatible hyperlinking of movies
- (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
 \pdfpcmovie@remopts=\count329
 \pdfpcmovie@posterbox=\box80
 \pdfpcmovie@posterwd=\dimen311
 \pdfpcmovie@posterht=\dimen312
 \pdfpcmovie@posterdp=\dimen313
-) (/usr/share/texlive/texmf-dist/tex/latex/units/nicefrac.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/units/nicefrac.sty
 Package: nicefrac 1998/08/04 v0.9b Nice fractions
 \L@UnitsRaiseDisplaystyle=\skip86
 \L@UnitsRaiseTextstyle=\skip87
 \L@UnitsRaiseScriptstyle=\skip88
-) (/usr/share/texlive/texmf-dist/tex/latex/braket/braket.sty) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/braket/braket.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen314
 \lightrulewidth=\dimen315
@@ -969,7 +1204,8 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count332
 \@lastruleclass=\count333
 \@thisrulewidth=\dimen326
-) (/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
 Package: siunitx 2020/01/15 v2.7u A comprehensive (SI) units package
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
@@ -981,7 +1217,8 @@ Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 \extratabsurround=\skip89
 \backup@length=\skip90
 \ar@cellbox=\box82
-) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
 Package: l3keys2e 2020-02-14 LaTeX2e option processing using LaTeX3 keys
 )
 \l__siunitx_tmp_box=\box83
@@ -1033,27 +1270,28 @@ File: siunitx-version-1.cfg 2017/11/26 v2.7k siunitx: Version 1 settings
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\\' on input line 62.
+(hyperref)                removing `\\' on input line 75.
 
-(./talk.aux (./title.aux) (./overview.aux) (./setup.aux) (./results.aux) (./final_remarks.aux) (./appendix.aux))
+(./talk.aux (./title.aux) (./overview.aux) (./setup.aux) (./sequence.aux)
+(./results.aux) (./final_remarks.aux))
 \openout1 = `talk.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1104,412 +1342,306 @@ LaTeX Font Info:    ... okay on input line 65.
 \everyMPtoPDFconversion=\toks52
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 504.
- (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-)) ABD: EveryShipout initializing macros
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box91
-Package hyperref Info: Link coloring OFF on input line 65.
- (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package hyperref Info: Link coloring OFF on input line 78.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
- (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count357
 )
-LaTeX Info: Redefining \ref on input line 65.
-LaTeX Info: Redefining \pageref on input line 65.
-LaTeX Info: Redefining \nameref on input line 65.
- (./talk.out) (./talk.out)
+LaTeX Info: Redefining \ref on input line 78.
+LaTeX Info: Redefining \pageref on input line 78.
+LaTeX Info: Redefining \nameref on input line 78.
+
+(./talk.out) (./talk.out)
 \@outlinefile=\write5
 \openout5 = `talk.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmbr/m/n --> OT1/cmss/m/n on input line 65.
+(Font)                  OT1/cmbr/m/n --> OT1/cmss/m/n on input line 78.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmbr/m/n --> OT1/cmss/b/n on input line 65.
+(Font)                  OT1/cmbr/m/n --> OT1/cmss/b/n on input line 78.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmbr/m/n on input line 65.
+(Font)                  OT1/cmss/m/n --> OT1/cmbr/m/n on input line 78.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmbr/b/n on input line 65.
+(Font)                  OT1/cmss/b/n --> OT1/cmbr/b/n on input line 78.
 \symnumbers=\mathgroup8
 \sympureletters=\mathgroup9
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmbr/m/n --> T1/qtm/m/n on input line 65.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 65.
+(Font)                  OT1/cmbr/m/n --> T1/qtm/m/n on input line 78.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmbr/bx/n --> T1/cmbr/b/n on input line 65.
+(Font)                  OT1/cmbr/bx/n --> T1/cmbr/b/n on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmbr/bx/n --> T1/cmbr/b/n on input line 65.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 65.
+(Font)                  OT1/cmbr/bx/n --> T1/cmbr/b/n on input line 78.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/qhv/m/n --> T1/cmbr/m/n on input line 65.
+(Font)                  OT1/qhv/m/n --> T1/cmbr/m/n on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/qhv/m/n --> T1/cmbr/m/n on input line 65.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 65.
+(Font)                  OT1/qhv/m/n --> T1/cmbr/m/n on input line 78.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmbr/m/sl --> T1/cmbr/m/it on input line 65.
+(Font)                  OT1/cmbr/m/sl --> T1/cmbr/m/it on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmbr/m/sl --> T1/cmbr/m/it on input line 65.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 65.
+(Font)                  OT1/cmbr/m/sl --> T1/cmbr/m/it on input line 78.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtl/m/n --> T1/cmtl/m/n on input line 65.
+(Font)                  OT1/cmtl/m/n --> T1/cmtl/m/n on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtl/m/n --> T1/cmtl/m/n on input line 65.
+(Font)                  OT1/cmtl/m/n --> T1/cmtl/m/n on input line 78.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/cmbr/m/n --> T1/cmbr/b/n on input line 65.
+(Font)                  T1/cmbr/m/n --> T1/cmbr/b/n on input line 78.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/cmbr/m/it --> T1/cmbr/b/it on input line 65.
+(Font)                  T1/cmbr/m/it --> T1/cmbr/b/it on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmbr/b/n --> T1/qtm/b/n on input line 65.
+(Font)                  OT1/cmbr/b/n --> T1/qtm/b/n on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/cmbr/b/n --> T1/cmbr/b/n on input line 65.
+(Font)                  T1/cmbr/b/n --> T1/cmbr/b/n on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/cmbr/m/n --> T1/cmbr/b/n on input line 65.
+(Font)                  T1/cmbr/m/n --> T1/cmbr/b/n on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/cmbr/m/it --> T1/cmbr/b/it on input line 65.
+(Font)                  T1/cmbr/m/it --> T1/cmbr/b/it on input line 78.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/cmtl/m/n --> T1/cmtl/b/n on input line 65.
- (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
+(Font)                  T1/cmtl/m/n --> T1/cmtl/b/n on input line 78.
+
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
+-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
-) (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
+)
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-bibliography-dic
+tionary-English.dict
 Dictionary: translator-bibliography-dictionary, Language: English 
-) (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-environment-dictionary-English.dict
+)
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-environment-dict
+ionary-English.dict
 Dictionary: translator-environment-dictionary, Language: English 
-) (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-months-dictionary-English.dict
+)
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-months-dictionar
+y-English.dict
 Dictionary: translator-months-dictionary, Language: English 
-) (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-numbers-dictionary-English.dict
+)
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-numbers-dictiona
+ry-English.dict
 Dictionary: translator-numbers-dictionary, Language: English 
-) (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-theorem-dictionary-English.dict
+)
+(/usr/share/texlive/texmf-dist/tex/latex/translator/translator-theorem-dictiona
+ry-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
-) (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
-) (/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
+)
+(/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
 File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
-) (./talk.nav)
-<ufcd-logo-e1-emblemless-color.pdf, id=19, 95.50682pt x 136.12857pt>
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 65.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-LaTeX Font Info:    Trying to load font information for OT1+cmbr on input line 65.
+)
+(./talk.nav)
+<ufcd-logo-e1-left-a4-color.pdf, id=15, 140.06326pt x 164.99643pt>
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 78.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+LaTeX Font Info:    Trying to load font information for OT1+cmbr on input line 
+78.
  (/usr/share/texlive/texmf-dist/tex/latex/cmbright/ot1cmbr.fd
 File: ot1cmbr.fd 2005/04/13 v8.1 (WaS)
 )
-LaTeX Font Info:    Trying to load font information for OML+cmbrm on input line 65.
- (/usr/share/texlive/texmf-dist/tex/latex/cmbright/omlcmbrm.fd
+LaTeX Font Info:    Trying to load font information for OML+cmbrm on input line
+ 78.
+
+(/usr/share/texlive/texmf-dist/tex/latex/cmbright/omlcmbrm.fd
 File: omlcmbrm.fd 2005/04/13 v8.1 (WaS)
 )
-LaTeX Font Info:    Trying to load font information for OMS+cmbrs on input line 65.
- (/usr/share/texlive/texmf-dist/tex/latex/cmbright/omscmbrs.fd
+LaTeX Font Info:    Trying to load font information for OMS+cmbrs on input line
+ 78.
+
+(/usr/share/texlive/texmf-dist/tex/latex/cmbright/omscmbrs.fd
 File: omscmbrs.fd 2005/04/13 v8.1 (WaS)
 )
-LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line 65.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd
+LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
+ 78.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
-LaTeX Font Info:    Trying to load font information for OT1+qtm on input line 65.
- (/usr/share/texmf/tex/latex/tex-gyre/ot1qtm.fd
+LaTeX Font Info:    Trying to load font information for OT1+qtm on input line 7
+8.
+
+(/usr/share/texmf/tex/latex/tex-gyre/ot1qtm.fd
 File: ot1qtm.fd 2009/09/25 v1.2 font definition file for OT1/qtm
 )
 LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 65.
+(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 78.
 LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 65.
+(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 78.
 LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 65.
+(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 78.
 LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <10.95> not available
-(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 65.
+(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 78.
 LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <8> not available
-(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 65.
+(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 78.
 LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <6> not available
-(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 65.
-LaTeX Font Info:    Trying to load font information for T1+cmtl on input line 65.
- (/usr/share/texlive/texmf-dist/tex/latex/cmbright/t1cmtl.fd
+(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 78.
+LaTeX Font Info:    Trying to load font information for T1+cmtl on input line 7
+8.
+
+(/usr/share/texlive/texmf-dist/tex/latex/cmbright/t1cmtl.fd
 File: t1cmtl.fd 2005/04/13 v8.1 (WaS)
 )
 \openout2 = `title.aux'.
 
  (./title.tex
-
-./title.tex:3: Package xkeyval Error: `blank' undefined in families `beamerframe'.
-
-See the xkeyval package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.3 \end{frame}
-               
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-./title.tex:3: Undefined control sequence.
-\beamer@thmffamily@title ->\scfamily 
-                                     
-l.3 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./title.tex:3: Undefined control sequence.
-\beamer@thmffamily@title ->\scfamily 
-                                     
-l.3 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
 LaTeX Font Info:    Trying to load font information for T1+qtm on input line 3.
+
+
 (/usr/share/texmf/tex/latex/tex-gyre/t1qtm.fd
 File: t1qtm.fd 2009/09/25 v1.2 font definition file for T1/qtm
 )
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 3.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 3.
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
  [1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}pdfTeX warning (ext4): destination with the same identifier (name{Navigation1}) has been already used, duplicate ignored
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}pdfTeX warning (ext4): desti
+nation with the same identifier (name{Navigation1}) has been already used, dupl
+icate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
 l.3 \end{frame}
-                </usr/local/share/texmf/tex/latex/ufcd/logo/uni/pdf/ufcd-logo-e1-emblemless-color.pdf>])
+                </home/tom/texmf/tex/latex/ufcd/logo/uni/pdf/ufcd-logo-e1-left-
+a4-color.pdf>])
 \openout2 = `overview.aux'.
 
  (./overview.tex
-<figures/group_slide.pdf, id=30, 462.45236pt x 219.07478pt>
-File: figures/group_slide.pdf Graphic file (type pdf)
-<use figures/group_slide.pdf>
-Package pdftex.def Info: figures/group_slide.pdf  used on input line 3.
-(pdftex.def)             Requested size: 406.87451pt x 192.74962pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 31.
 
-./overview.tex:3: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.3 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./overview.tex:3: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.3 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./overview.tex:3: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.3 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 3.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[2
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [2
 
 
 
- <./figures/group_slide.pdf>]
+]
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 31.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [3
+
+]
 
 Package textpos Warning: environment textblock* not in vertical mode. 
 (textpos)                Environment textblock* should not have any text
 (textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 15.
+(textpos)                Alignment may work out wrongly. on input line 47.
 
-<figures/BaLi_PECs_B.pdf, id=113, 633.8889pt x 437.73459pt>
+<figures/BaLi_PECs_B.pdf, id=38, 633.8889pt x 437.73459pt>
 File: figures/BaLi_PECs_B.pdf Graphic file (type pdf)
 <use figures/BaLi_PECs_B.pdf>
-Package pdftex.def Info: figures/BaLi_PECs_B.pdf  used on input line 15.
-(pdftex.def)             Requested size: 183.09229pt x 126.43214pt.
-<figures/atom_ion_potential.png, id=114, 391.4625pt x 328.22626pt>
+Package pdftex.def Info: figures/BaLi_PECs_B.pdf  used on input line 47.
+(pdftex.def)             Requested size: 162.74731pt x 112.38562pt.
+<figures/atom_ion_potential.png, id=39, 391.4625pt x 328.22626pt>
 File: figures/atom_ion_potential.png Graphic file (type png)
 <use figures/atom_ion_potential.png>
-Package pdftex.def Info: figures/atom_ion_potential.png  used on input line 15.
-(pdftex.def)             Requested size: 122.06358pt x 102.34508pt.
-./overview.tex:15: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.15 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Package pdftex.def Info: figures/atom_ion_potential.png  used on input line 47.
 
-./overview.tex:15: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.15 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+(pdftex.def)             Requested size: 142.40855pt x 119.40341pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 47.
 
-./overview.tex:15: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.15 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 15.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[3
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+[4
 
  <./figures/BaLi_PECs_B.pdf> <./figures/atom_ion_potential.png>]
 
 Package textpos Warning: environment textblock* not in vertical mode. 
 (textpos)                Environment textblock* should not have any text
 (textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 29.
+(textpos)                Alignment may work out wrongly. on input line 47.
 
-<figures/feshbach_resonance.pdf, id=172, 167.72035pt x 144.99594pt>
-File: figures/feshbach_resonance.pdf Graphic file (type pdf)
-<use figures/feshbach_resonance.pdf>
-Package pdftex.def Info: figures/feshbach_resonance.pdf  used on input line 29.
-(pdftex.def)             Requested size: 162.74731pt x 140.69675pt.
-./overview.tex:29: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.29 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+<figures/partial_waves.png, id=97, 800.9925pt x 336.25626pt>
+File: figures/partial_waves.png Graphic file (type png)
+<use figures/partial_waves.png>
+Package pdftex.def Info: figures/partial_waves.png  used on input line 47.
+(pdftex.def)             Requested size: 305.15588pt x 128.10707pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 47.
 
-./overview.tex:29: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.29 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+[5
 
-./overview.tex:29: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.29 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+ <./figures/partial_waves.png>]
+<figures/feshbach_resonance2.png, id=105, 1128.215pt x 643.40375pt>
+File: figures/feshbach_resonance2.png Graphic file (type png)
+<use figures/feshbach_resonance2.png>
+Package pdftex.def Info: figures/feshbach_resonance2.png  used on input line 66
+.
+(pdftex.def)             Requested size: 223.78221pt x 127.61816pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 66.
 
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 29.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[4
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [6
 
- <./figures/feshbach_resonance.pdf>]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 29.
-
-File: figures/feshbach_resonance.pdf Graphic file (type pdf)
-<use figures/feshbach_resonance.pdf>
-Package pdftex.def Info: figures/feshbach_resonance.pdf  used on input line 29.
-(pdftex.def)             Requested size: 162.74731pt x 140.69675pt.
-<figures/feshbach_resonance_isolated.pdf, id=215, 204.17294pt x 106.47556pt>
+ <./figures/feshbach_resonance2.png>]
+File: figures/feshbach_resonance2.png Graphic file (type png)
+<use figures/feshbach_resonance2.png>
+Package pdftex.def Info: figures/feshbach_resonance2.png  used on input line 66
+.
+(pdftex.def)             Requested size: 223.78221pt x 127.61816pt.
+<figures/feshbach_resonance_isolated.pdf, id=113, 204.17294pt x 106.47556pt>
 File: figures/feshbach_resonance_isolated.pdf Graphic file (type pdf)
 <use figures/feshbach_resonance_isolated.pdf>
-Package pdftex.def Info: figures/feshbach_resonance_isolated.pdf  used on input line 29.
+Package pdftex.def Info: figures/feshbach_resonance_isolated.pdf  used on input
+ line 66.
 (pdftex.def)             Requested size: 187.165pt x 97.60612pt.
 LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 29.
+(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 66.
 LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 29.
+(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 66.
 LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <10> not available
-(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 29.
+(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 66.
 LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <7.4> not available
-(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 29.
-./overview.tex:29: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.29 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 66.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 66.
 
-./overview.tex:29: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.29 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
 
-./overview.tex:29: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.29 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 29.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[5
+[7
 
  <./figures/feshbach_resonance_isolated.pdf>])
 \openout2 = `setup.aux'.
@@ -1517,8 +1649,10 @@ Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 2
  (./setup.tex
 LaTeX Font Info:    Font shape `T1/cmbr/b/n' in size <10.95> not available
 (Font)              Font shape `T1/cmbr/bx/n' tried instead on input line 5.
-LaTeX Font Info:    Trying to load font information for TS1+cmbr on input line 5.
- (/usr/share/texlive/texmf-dist/tex/latex/cmbright/ts1cmbr.fd
+LaTeX Font Info:    Trying to load font information for TS1+cmbr on input line 
+5.
+
+(/usr/share/texlive/texmf-dist/tex/latex/cmbright/ts1cmbr.fd
 File: ts1cmbr.fd 2005/04/13 v8.1 (WaS)
 )
 
@@ -1527,1484 +1661,465 @@ Package textpos Warning: environment textblock* not in vertical mode.
 (textpos)                or printable material appearing before it.
 (textpos)                Alignment may work out wrongly. on input line 5.
 
-<figures/experiment_overlay_3_antialiased.png, id=254, 8081.1pt x 3955.14pt>
+<figures/experiment_overlay_3_antialiased.png, id=153, 8081.1pt x 3955.14pt>
 File: figures/experiment_overlay_3_antialiased.png Graphic file (type png)
 <use figures/experiment_overlay_3_antialiased.png>
-Package pdftex.def Info: figures/experiment_overlay_3_antialiased.png  used on input line 5.
+Package pdftex.def Info: figures/experiment_overlay_3_antialiased.png  used on 
+input line 5.
 (pdftex.def)             Requested size: 284.81091pt x 139.3493pt.
-./setup.tex:5: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.5 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./setup.tex:5: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.5 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./setup.tex:5: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.5 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 5.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[6
-
-
-
- <./figures/experiment_overlay_3_antialiased.png>])
-\openout2 = `results.aux'.
-
- (./results.tex
-<figures/fig_2.pdf, id=265, 520.138pt x 198.75859pt>
-File: figures/fig_2.pdf Graphic file (type pdf)
-<use figures/fig_2.pdf>
-Package pdftex.def Info: figures/fig_2.pdf  used on input line 7.
-(pdftex.def)             Requested size: 366.18457pt x 139.93073pt.
-
-./results.tex:7: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.7 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./results.tex:7: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.7 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 7.
-LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <14.4> not available
-(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 7.
-./results.tex:7: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.7 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 7.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[7
-
-
-
- <./figures/fig_2.pdf>]
-<figures/suppl_fig_2.pdf, id=1846, 237.66728pt x 295.72385pt>
-File: figures/suppl_fig_2.pdf Graphic file (type pdf)
-<use figures/suppl_fig_2.pdf>
-Package pdftex.def Info: figures/suppl_fig_2.pdf  used on input line 19.
-(pdftex.def)             Requested size: 142.40855pt x 177.20102pt.
-<figures/fig_3_alt.pdf, id=1847, 235.41145pt x 169.3138pt>
-File: figures/fig_3_alt.pdf Graphic file (type pdf)
-<use figures/fig_3_alt.pdf>
-Package pdftex.def Info: figures/fig_3_alt.pdf  used on input line 19.
-(pdftex.def)             Requested size: 203.43726pt x 146.31749pt.
-
-./results.tex:19: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.19 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./results.tex:19: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.19 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./results.tex:19: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.19 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 19.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 5.
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
 [8
 
- <./figures/suppl_fig_2.pdf> <./figures/fig_3_alt.pdf
 
-pdfTeX warning: pdflatex (file ./figures/fig_3_alt.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]
-File: figures/suppl_fig_2.pdf Graphic file (type pdf)
-<use figures/suppl_fig_2.pdf>
-Package pdftex.def Info: figures/suppl_fig_2.pdf  used on input line 19.
-(pdftex.def)             Requested size: 142.40855pt x 177.20102pt.
-File: figures/fig_3_alt.pdf Graphic file (type pdf)
-<use figures/fig_3_alt.pdf>
-Package pdftex.def Info: figures/fig_3_alt.pdf  used on input line 19.
-(pdftex.def)             Requested size: 203.43726pt x 146.31749pt.
 
-./results.tex:19: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.19 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+ <./figures/experiment_overlay_3_antialiased.png>]
 
-./results.tex:19: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.19 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Package textpos Warning: environment textblock* not in vertical mode. 
+(textpos)                Environment textblock* should not have any text
+(textpos)                or printable material appearing before it.
+(textpos)                Alignment may work out wrongly. on input line 31.
 
-./results.tex:19: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.19 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+<figures/mot_lasers.png, id=164, 721.69624pt x 523.9575pt>
+File: figures/mot_lasers.png Graphic file (type png)
+<use figures/mot_lasers.png>
+Package pdftex.def Info: figures/mot_lasers.png  used on input line 31.
+(pdftex.def)             Requested size: 223.78221pt x 162.46512pt.
+<figures/mot.png, id=165, 444.66125pt x 371.3875pt>
+File: figures/mot.png Graphic file (type png)
+<use figures/mot.png>
+Package pdftex.def Info: figures/mot.png  used on input line 31.
+(pdftex.def)             Requested size: 142.40855pt x 118.93709pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 31.
 
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 19.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
 [9
 
-]
-<figures/supplements_fig_1.pdf, id=3152, 230.59872pt x 154.2623pt>
-File: figures/supplements_fig_1.pdf Graphic file (type pdf)
-<use figures/supplements_fig_1.pdf>
-Package pdftex.def Info: figures/supplements_fig_1.pdf  used on input line 32.
-(pdftex.def)             Requested size: 162.74731pt x 108.8726pt.
-<figures/fig_4_both.pdf, id=3153, 225.64142pt x 286.69374pt>
-File: figures/fig_4_both.pdf Graphic file (type pdf)
-<use figures/fig_4_both.pdf>
-Package pdftex.def Info: figures/fig_4_both.pdf  used on input line 32.
-(pdftex.def)             Requested size: 142.40855pt x 180.93735pt.
-
-./results.tex:32: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.32 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./results.tex:32: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.32 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./results.tex:32: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.32 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 32.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[10
-
- <./figures/supplements_fig_1.pdf> <./figures/fig_4_both.pdf
-
-pdfTeX warning: pdflatex (file ./figures/fig_4_both.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]
-File: figures/supplements_fig_1.pdf Graphic file (type pdf)
-<use figures/supplements_fig_1.pdf>
-Package pdftex.def Info: figures/supplements_fig_1.pdf  used on input line 32.
-(pdftex.def)             Requested size: 162.74731pt x 108.8726pt.
-File: figures/fig_4_both.pdf Graphic file (type pdf)
-<use figures/fig_4_both.pdf>
-Package pdftex.def Info: figures/fig_4_both.pdf  used on input line 32.
-(pdftex.def)             Requested size: 142.40855pt x 180.93735pt.
-
-./results.tex:32: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.32 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./results.tex:32: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.32 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./results.tex:32: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.32 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 32.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[11
-
-]
-File: figures/supplements_fig_1.pdf Graphic file (type pdf)
-<use figures/supplements_fig_1.pdf>
-Package pdftex.def Info: figures/supplements_fig_1.pdf  used on input line 32.
-(pdftex.def)             Requested size: 162.74731pt x 108.8726pt.
-File: figures/fig_4_both.pdf Graphic file (type pdf)
-<use figures/fig_4_both.pdf>
-Package pdftex.def Info: figures/fig_4_both.pdf  used on input line 32.
-(pdftex.def)             Requested size: 142.40855pt x 180.93735pt.
-
-./results.tex:32: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.32 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./results.tex:32: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.32 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./results.tex:32: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.32 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 32.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[12
-
-])
-\openout2 = `final_remarks.aux'.
-
- (./final_remarks.tex
-<figures/ubc_slide.pdf, id=5124, 846.95395pt x 375.74542pt>
-File: figures/ubc_slide.pdf Graphic file (type pdf)
-<use figures/ubc_slide.pdf>
-Package pdftex.def Info: figures/ubc_slide.pdf  used on input line 3.
-(pdftex.def)             Requested size: 406.87451pt x 180.5048pt.
-
-./final_remarks.tex:3: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.3 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./final_remarks.tex:3: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.3 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./final_remarks.tex:3: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.3 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 3.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[13
-
-
-
- <./figures/UBC_slide.pdf>]
-<figures/thank_slide.pdf, id=5140, 853.07993pt x 374.33826pt>
-File: figures/thank_slide.pdf Graphic file (type pdf)
-<use figures/thank_slide.pdf>
-Package pdftex.def Info: figures/thank_slide.pdf  used on input line 7.
-(pdftex.def)             Requested size: 406.87451pt x 178.53793pt.
-
-./final_remarks.tex:7: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.7 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./final_remarks.tex:7: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.7 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./final_remarks.tex:7: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.7 \end{frame}
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 7.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[14
-
- <./figures/thank_slide.pdf>])
-\openout2 = `appendix.aux'.
-
- (./appendix.tex
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 26.
-
-<figures/paulfalle_xy.pdf, id=5167, 652.9838pt x 254.3329pt>
-File: figures/paulfalle_xy.pdf Graphic file (type pdf)
-<use figures/paulfalle_xy.pdf>
-Package pdftex.def Info: figures/paulfalle_xy.pdf  used on input line 26.
-(pdftex.def)             Requested size: 244.12718pt x 95.08742pt.
-<figures/IonTrap_3_free.png, id=5168, 377.9721pt x 249.45195pt>
-File: figures/IonTrap_3_free.png Graphic file (type png)
-<use figures/IonTrap_3_free.png>
-Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 26.
-(pdftex.def)             Requested size: 113.92436pt x 75.18634pt.
-<figures/ion_dynamics_xt1.pdf, id=5169, 526.96875pt x 408.4871pt>
-File: figures/ion_dynamics_xt1.pdf Graphic file (type pdf)
-<use figures/ion_dynamics_xt1.pdf>
-Package pdftex.def Info: figures/ion_dynamics_xt1.pdf  used on input line 26.
-(pdftex.def)             Requested size: 162.74731pt x 126.15598pt.
-<figures/first_ion_crystals.pdf, id=5170, 435.4014pt x 160.92273pt>
-File: figures/first_ion_crystals.pdf Graphic file (type pdf)
-<use figures/first_ion_crystals.pdf>
-Package pdftex.def Info: figures/first_ion_crystals.pdf  used on input line 26.
-(pdftex.def)             Requested size: 223.78221pt x 82.71037pt.
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 26.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[15
-
-
-
- <./figures/paulfalle_xy.pdf> <./figures/IonTrap_3_free.png> <./figures/ion_dynamics_xt1.pdf
-
-pdfTeX warning: pdflatex (file ./figures/ion_dynamics_xt1.pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> <./figures/first_ion_crystals.pdf
-
-pdfTeX warning: pdflatex (file ./figures/first_ion_crystals.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 26.
-
-File: figures/paulfalle_xy.pdf Graphic file (type pdf)
-<use figures/paulfalle_xy.pdf>
-Package pdftex.def Info: figures/paulfalle_xy.pdf  used on input line 26.
-(pdftex.def)             Requested size: 244.12718pt x 95.08742pt.
-File: figures/IonTrap_3_free.png Graphic file (type png)
-<use figures/IonTrap_3_free.png>
-Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 26.
-(pdftex.def)             Requested size: 113.92436pt x 75.18634pt.
-File: figures/ion_dynamics_xt1.pdf Graphic file (type pdf)
-<use figures/ion_dynamics_xt1.pdf>
-Package pdftex.def Info: figures/ion_dynamics_xt1.pdf  used on input line 26.
-(pdftex.def)             Requested size: 162.74731pt x 126.15598pt.
-File: figures/first_ion_crystals.pdf Graphic file (type pdf)
-<use figures/first_ion_crystals.pdf>
-Package pdftex.def Info: figures/first_ion_crystals.pdf  used on input line 26.
-(pdftex.def)             Requested size: 223.78221pt x 82.71037pt.
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 26.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[16
-
-]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 26.
-
-File: figures/paulfalle_xy.pdf Graphic file (type pdf)
-<use figures/paulfalle_xy.pdf>
-Package pdftex.def Info: figures/paulfalle_xy.pdf  used on input line 26.
-(pdftex.def)             Requested size: 244.12718pt x 95.08742pt.
-File: figures/IonTrap_3_free.png Graphic file (type png)
-<use figures/IonTrap_3_free.png>
-Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 26.
-(pdftex.def)             Requested size: 113.92436pt x 75.18634pt.
-File: figures/ion_dynamics_xt1.pdf Graphic file (type pdf)
-<use figures/ion_dynamics_xt1.pdf>
-Package pdftex.def Info: figures/ion_dynamics_xt1.pdf  used on input line 26.
-(pdftex.def)             Requested size: 162.74731pt x 126.15598pt.
-File: figures/first_ion_crystals.pdf Graphic file (type pdf)
-<use figures/first_ion_crystals.pdf>
-Package pdftex.def Info: figures/first_ion_crystals.pdf  used on input line 26.
-(pdftex.def)             Requested size: 223.78221pt x 82.71037pt.
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Overfull \vbox (26.29485pt too high) detected at line 26
- []
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 26.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[17
-
-]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 26.
-
-File: figures/paulfalle_xy.pdf Graphic file (type pdf)
-<use figures/paulfalle_xy.pdf>
-Package pdftex.def Info: figures/paulfalle_xy.pdf  used on input line 26.
-(pdftex.def)             Requested size: 244.12718pt x 95.08742pt.
-File: figures/IonTrap_3_free.png Graphic file (type png)
-<use figures/IonTrap_3_free.png>
-Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 26.
-(pdftex.def)             Requested size: 113.92436pt x 75.18634pt.
-
-./appendix.tex:26: Package xkeyval Error: `noprogress' undefined in families `multimedia'.
-
-See the xkeyval package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.26 \end{frame}
-                
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-File: figures/ion_dynamics_xt1.pdf Graphic file (type pdf)
-<use figures/ion_dynamics_xt1.pdf>
-Package pdftex.def Info: figures/ion_dynamics_xt1.pdf  used on input line 26.
-(pdftex.def)             Requested size: 162.74731pt x 126.15598pt.
-File: figures/first_ion_crystals.pdf Graphic file (type pdf)
-<use figures/first_ion_crystals.pdf>
-Package pdftex.def Info: figures/first_ion_crystals.pdf  used on input line 26.
-(pdftex.def)             Requested size: 223.78221pt x 82.71037pt.
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Overfull \vbox (26.29485pt too high) detected at line 26
- []
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 26.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[18
-
-]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 26.
-
-File: figures/paulfalle_xy.pdf Graphic file (type pdf)
-<use figures/paulfalle_xy.pdf>
-Package pdftex.def Info: figures/paulfalle_xy.pdf  used on input line 26.
-(pdftex.def)             Requested size: 244.12718pt x 95.08742pt.
-File: figures/IonTrap_3_free.png Graphic file (type png)
-<use figures/IonTrap_3_free.png>
-Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 26.
-(pdftex.def)             Requested size: 113.92436pt x 75.18634pt.
-File: figures/ion_dynamics_xt1.pdf Graphic file (type pdf)
-<use figures/ion_dynamics_xt1.pdf>
-Package pdftex.def Info: figures/ion_dynamics_xt1.pdf  used on input line 26.
-(pdftex.def)             Requested size: 162.74731pt x 126.15598pt.
-File: figures/first_ion_crystals.pdf Graphic file (type pdf)
-<use figures/first_ion_crystals.pdf>
-Package pdftex.def Info: figures/first_ion_crystals.pdf  used on input line 26.
-(pdftex.def)             Requested size: 223.78221pt x 82.71037pt.
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:26: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.26 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 26.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[19
-
-]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 45.
-
-<figures/feshbach_setup_vis.pdf, id=5268, 1481.535pt x 1108.14pt>
-File: figures/feshbach_setup_vis.pdf Graphic file (type pdf)
-<use figures/feshbach_setup_vis.pdf>
-Package pdftex.def Info: figures/feshbach_setup_vis.pdf  used on input line 45.
-(pdftex.def)             Requested size: 162.74731pt x 121.72668pt.
-<figures/opttrapshape3.pdf, id=5269, 701.59717pt x 433.62pt>
-File: figures/opttrapshape3.pdf Graphic file (type pdf)
-<use figures/opttrapshape3.pdf>
-Package pdftex.def Info: figures/opttrapshape3.pdf  used on input line 45.
-(pdftex.def)             Requested size: 183.09229pt x 113.15538pt.
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 45.
-
-./appendix.tex:45: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.45 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:45: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.45 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:45: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.45 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 45.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[20
-
- <./figures/feshbach_setup_vis.pdf> <./figures/opttrapshape3.pdf
-
-pdfTeX warning: pdflatex (file ./figures/opttrapshape3.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 45.
-
-File: figures/feshbach_setup_vis.pdf Graphic file (type pdf)
-<use figures/feshbach_setup_vis.pdf>
-Package pdftex.def Info: figures/feshbach_setup_vis.pdf  used on input line 45.
-(pdftex.def)             Requested size: 162.74731pt x 121.72668pt.
-File: figures/opttrapshape3.pdf Graphic file (type pdf)
-<use figures/opttrapshape3.pdf>
-Package pdftex.def Info: figures/opttrapshape3.pdf  used on input line 45.
-(pdftex.def)             Requested size: 183.09229pt x 113.15538pt.
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 45.
-
-./appendix.tex:45: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.45 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:45: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.45 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:45: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.45 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 45.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[21
-
-]
+ <./figures/mot_lasers.png> <./figures/mot.png>]
+<figures/xodt_schematic.png, id=174, 833.1125pt x 308.15125pt>
+File: figures/xodt_schematic.png Graphic file (type png)
+<use figures/xodt_schematic.png>
+Package pdftex.def Info: figures/xodt_schematic.png  used on input line 31.
+(pdftex.def)             Requested size: 244.12718pt x 90.29726pt.
+<figures/xodt_sim.png, id=175, 639.38875pt x 463.7325pt>
+File: figures/xodt_sim.png Graphic file (type png)
+<use figures/xodt_sim.png>
+Package pdftex.def Info: figures/xodt_sim.png  used on input line 31.
+(pdftex.def)             Requested size: 162.74731pt x 118.0344pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 31.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [10
+
+ <./figures/xodt_schematic.png> <./figures/xodt_sim.png>]
 
 Package textpos Warning: environment textblock* not in vertical mode. 
 (textpos)                Environment textblock* should not have any text
 (textpos)                or printable material appearing before it.
 (textpos)                Alignment may work out wrongly. on input line 49.
 
-<figures/Detection_classification.pdf, id=5287, 755.35085pt x 211.97827pt>
-File: figures/Detection_classification.pdf Graphic file (type pdf)
-<use figures/Detection_classification.pdf>
-Package pdftex.def Info: figures/Detection_classification.pdf  used on input line 49.
-(pdftex.def)             Requested size: 406.87451pt x 114.18192pt.
-./appendix.tex:49: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.49 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+<figures/paulfalle_xy.pdf, id=185, 652.9838pt x 254.3329pt>
+File: figures/paulfalle_xy.pdf Graphic file (type pdf)
+<use figures/paulfalle_xy.pdf>
+Package pdftex.def Info: figures/paulfalle_xy.pdf  used on input line 49.
+(pdftex.def)             Requested size: 223.78221pt x 87.16281pt.
+<figures/IonTrap_3_free.png, id=186, 377.9721pt x 249.45195pt>
+File: figures/IonTrap_3_free.png Graphic file (type png)
+<use figures/IonTrap_3_free.png>
+Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 49.
+(pdftex.def)             Requested size: 142.40855pt x 93.98578pt.
+<figures/ion_dynamics_xt1.pdf, id=187, 526.96875pt x 408.4871pt>
+File: figures/ion_dynamics_xt1.pdf Graphic file (type pdf)
+<use figures/ion_dynamics_xt1.pdf>
+Package pdftex.def Info: figures/ion_dynamics_xt1.pdf  used on input line 49.
+(pdftex.def)             Requested size: 142.40855pt x 110.39272pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 49.
 
-./appendix.tex:49: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.49 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+[11
 
-./appendix.tex:49: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.49 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+ <./figures/paulfalle_xy.pdf> <./figures/IonTrap_3_free.png> <./figures/ion_dyn
+amics_xt1.pdf
 
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 49.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[22
-
- <./figures/Detection_classification.pdf>]
-File: figures/suppl_fig_2.pdf Graphic file (type pdf)
-<use figures/suppl_fig_2.pdf>
-Package pdftex.def Info: figures/suppl_fig_2.pdf  used on input line 64.
-(pdftex.def)             Requested size: 142.40855pt x 177.20102pt.
-File: figures/fig_3_alt.pdf Graphic file (type pdf)
-<use figures/fig_3_alt.pdf>
-Package pdftex.def Info: figures/fig_3_alt.pdf  used on input line 64.
-(pdftex.def)             Requested size: 203.43726pt x 146.31749pt.
-
-./appendix.tex:64: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.64 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:64: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.64 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:64: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.64 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 64.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[23
-
-]
-File: figures/suppl_fig_2.pdf Graphic file (type pdf)
-<use figures/suppl_fig_2.pdf>
-Package pdftex.def Info: figures/suppl_fig_2.pdf  used on input line 64.
-(pdftex.def)             Requested size: 142.40855pt x 177.20102pt.
-File: figures/fig_3_alt.pdf Graphic file (type pdf)
-<use figures/fig_3_alt.pdf>
-Package pdftex.def Info: figures/fig_3_alt.pdf  used on input line 64.
-(pdftex.def)             Requested size: 203.43726pt x 146.31749pt.
-
-./appendix.tex:64: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.64 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:64: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.64 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:64: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.64 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 64.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[24
-
-]
-File: figures/suppl_fig_2.pdf Graphic file (type pdf)
-<use figures/suppl_fig_2.pdf>
-Package pdftex.def Info: figures/suppl_fig_2.pdf  used on input line 64.
-(pdftex.def)             Requested size: 142.40855pt x 177.20102pt.
-File: figures/fig_3_alt.pdf Graphic file (type pdf)
-<use figures/fig_3_alt.pdf>
-Package pdftex.def Info: figures/fig_3_alt.pdf  used on input line 64.
-(pdftex.def)             Requested size: 203.43726pt x 146.31749pt.
-<figures/bootstrap_mpv_median.png, id=5812, 722.7pt x 578.16pt>
-File: figures/bootstrap_mpv_median.png Graphic file (type png)
-<use figures/bootstrap_mpv_median.png>
-Package pdftex.def Info: figures/bootstrap_mpv_median.png  used on input line 64.
-(pdftex.def)             Requested size: 203.43726pt x 162.74825pt.
-<figures/bootstrap_fit_result.png, id=5813, 578.16pt x 433.62pt>
-File: figures/bootstrap_fit_result.png Graphic file (type png)
-<use figures/bootstrap_fit_result.png>
-Package pdftex.def Info: figures/bootstrap_fit_result.png  used on input line 64.
-(pdftex.def)             Requested size: 203.43726pt x 152.57648pt.
-
-./appendix.tex:64: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.64 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:64: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.64 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:64: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.64 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 64.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[25
-
- <./figures/bootstrap_mpv_median.png> <./figures/bootstrap_fit_result.png>]
-<figures/spin1_overview_full.pdf, id=5823, 1445.4pt x 361.35pt>
-File: figures/spin1_overview_full.pdf Graphic file (type pdf)
-<use figures/spin1_overview_full.pdf>
-Package pdftex.def Info: figures/spin1_overview_full.pdf  used on input line 76.
-(pdftex.def)             Requested size: 528.9381pt x 132.23625pt.
-
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 76.
-
-<figures/theory.pdf, id=5824, 319.4802pt x 150.56345pt>
-File: figures/theory.pdf Graphic file (type pdf)
-<use figures/theory.pdf>
-Package pdftex.def Info: figures/theory.pdf  used on input line 76.
-(pdftex.def)             Requested size: 113.81102pt x 53.63533pt.
-./appendix.tex:76: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.76 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:76: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.76 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:76: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.76 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 76.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[26
-
- <./figures/spin1_overview_full.pdf> <./figures/theory.pdf
-
-pdfTeX warning: pdflatex (file ./figures/theory.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]
-File: figures/spin1_overview_full.pdf Graphic file (type pdf)
-<use figures/spin1_overview_full.pdf>
-Package pdftex.def Info: figures/spin1_overview_full.pdf  used on input line 76.
-(pdftex.def)             Requested size: 528.9381pt x 132.23625pt.
-
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 76.
-
-File: figures/theory.pdf Graphic file (type pdf)
-<use figures/theory.pdf>
-Package pdftex.def Info: figures/theory.pdf  used on input line 76.
-(pdftex.def)             Requested size: 113.81102pt x 53.63533pt.
-./appendix.tex:76: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.76 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:76: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.76 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:76: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.76 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 76.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[27
-
-]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 94.
-
-
-./appendix.tex:94: LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.94 \end{frame}
-                
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-./appendix.tex:94: Missing $ inserted.
-<inserted text> 
-                $
-l.94 \end{frame}
-                
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./appendix.tex:94: Display math should end with $$.
-<to be read again> 
-                   \par 
-l.94 \end{frame}
-                
-The `$' that I just saw supposedly matches a previous `$$'.
-So I shall assume that you typed `$$' both times.
-
-./appendix.tex:94: Missing $ inserted.
-<inserted text> 
-                $
-l.94 \end{frame}
-                
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-./appendix.tex:94: Missing $ inserted.
-<inserted text> 
-                $
-l.94 \end{frame}
-                
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-<figures/spin1_decay_1.pdf, id=5859, 584.66428pt x 361.35pt>
-File: figures/spin1_decay_1.pdf Graphic file (type pdf)
-<use figures/spin1_decay_1.pdf>
-Package pdftex.def Info: figures/spin1_decay_1.pdf  used on input line 94.
-(pdftex.def)             Requested size: 244.12718pt x 150.88376pt.
-<figures/atom_ion_int_spinflip.pdf, id=5860, 658.53658pt x 748.15005pt>
-File: figures/atom_ion_int_spinflip.pdf Graphic file (type pdf)
-<use figures/atom_ion_int_spinflip.pdf>
-Package pdftex.def Info: figures/atom_ion_int_spinflip.pdf  used on input line 94.
-(pdftex.def)             Requested size: 101.71863pt x 115.55109pt.
-<figures/spin1_decay_2.pdf, id=5861, 584.66428pt x 361.35pt>
-File: figures/spin1_decay_2.pdf Graphic file (type pdf)
-<use figures/spin1_decay_2.pdf>
-Package pdftex.def Info: figures/spin1_decay_2.pdf  used on input line 94.
-(pdftex.def)             Requested size: 244.12718pt x 150.88376pt.
-./appendix.tex:94: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.94 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:94: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.94 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:94: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.94 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 94.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[28
-
- <./figures/spin1_decay_1.pdf> <./figures/atom_ion_int_spinflip.pdf
-
-pdfTeX warning: pdflatex (file ./figures/atom_ion_int_spinflip.pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> <./figures/spin1_decay_2.pdf
-
-pdfTeX warning: pdflatex (file ./figures/spin1_decay_2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/ion_dynamics_xt1.pdf): PDF in
+clusion: multiple pdfs with page group included in a single page
 >]
 
 Package textpos Warning: environment textblock* not in vertical mode. 
 (textpos)                Environment textblock* should not have any text
 (textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 94.
+(textpos)                Alignment may work out wrongly. on input line 49.
 
-File: figures/spin1_decay_1.pdf Graphic file (type pdf)
-<use figures/spin1_decay_1.pdf>
-Package pdftex.def Info: figures/spin1_decay_1.pdf  used on input line 94.
-(pdftex.def)             Requested size: 244.12718pt x 150.88376pt.
-File: figures/atom_ion_int_spinflip.pdf Graphic file (type pdf)
-<use figures/atom_ion_int_spinflip.pdf>
-Package pdftex.def Info: figures/atom_ion_int_spinflip.pdf  used on input line 94.
-(pdftex.def)             Requested size: 101.71863pt x 115.55109pt.
-File: figures/spin1_decay_2.pdf Graphic file (type pdf)
-<use figures/spin1_decay_2.pdf>
-Package pdftex.def Info: figures/spin1_decay_2.pdf  used on input line 94.
-(pdftex.def)             Requested size: 244.12718pt x 150.88376pt.
-./appendix.tex:94: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.94 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+File: figures/paulfalle_xy.pdf Graphic file (type pdf)
+<use figures/paulfalle_xy.pdf>
+Package pdftex.def Info: figures/paulfalle_xy.pdf  used on input line 49.
+(pdftex.def)             Requested size: 223.78221pt x 87.16281pt.
+File: figures/IonTrap_3_free.png Graphic file (type png)
+<use figures/IonTrap_3_free.png>
+Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 49.
+(pdftex.def)             Requested size: 142.40855pt x 93.98578pt.
+File: figures/ion_dynamics_xt1.pdf Graphic file (type pdf)
+<use figures/ion_dynamics_xt1.pdf>
+Package pdftex.def Info: figures/ion_dynamics_xt1.pdf  used on input line 49.
+(pdftex.def)             Requested size: 142.40855pt x 110.39272pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 49.
 
-./appendix.tex:94: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.94 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-./appendix.tex:94: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.94 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 94.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[29
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+[12
 
 ]
+<figures/feshbach_setup_vis.pdf, id=207, 1481.535pt x 1108.14pt>
+File: figures/feshbach_setup_vis.pdf Graphic file (type pdf)
+<use figures/feshbach_setup_vis.pdf>
+Package pdftex.def Info: figures/feshbach_setup_vis.pdf  used on input line 68.
+
+(pdftex.def)             Requested size: 162.74731pt x 121.72668pt.
+<figures/opt_trap_seq.png, id=208, 583.17876pt x 284.06125pt>
+File: figures/opt_trap_seq.png Graphic file (type png)
+<use figures/opt_trap_seq.png>
+Package pdftex.def Info: figures/opt_trap_seq.png  used on input line 68.
+(pdftex.def)             Requested size: 223.78221pt x 109.00198pt.
+<figures/opttrapshape3.pdf, id=209, 701.59717pt x 433.62pt>
+File: figures/opttrapshape3.pdf Graphic file (type pdf)
+<use figures/opttrapshape3.pdf>
+Package pdftex.def Info: figures/opttrapshape3.pdf  used on input line 68.
+(pdftex.def)             Requested size: 183.09229pt x 113.15538pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 68.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [13
+
+ <./figures/feshbach_setup_vis.pdf> <./figures/opt_trap_seq.png> <./figures/opt
+trapshape3.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/opttrapshape3.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+>]
 
 Package textpos Warning: environment textblock* not in vertical mode. 
 (textpos)                Environment textblock* should not have any text
 (textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 94.
+(textpos)                Alignment may work out wrongly. on input line 68.
 
-File: figures/spin1_decay_1.pdf Graphic file (type pdf)
-<use figures/spin1_decay_1.pdf>
-Package pdftex.def Info: figures/spin1_decay_1.pdf  used on input line 94.
-(pdftex.def)             Requested size: 244.12718pt x 150.88376pt.
-File: figures/atom_ion_int_spinflip.pdf Graphic file (type pdf)
-<use figures/atom_ion_int_spinflip.pdf>
-Package pdftex.def Info: figures/atom_ion_int_spinflip.pdf  used on input line 94.
-(pdftex.def)             Requested size: 101.71863pt x 115.55109pt.
-File: figures/spin1_decay_2.pdf Graphic file (type pdf)
-<use figures/spin1_decay_2.pdf>
-Package pdftex.def Info: figures/spin1_decay_2.pdf  used on input line 94.
-(pdftex.def)             Requested size: 244.12718pt x 150.88376pt.
-./appendix.tex:94: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.94 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+File: figures/feshbach_setup_vis.pdf Graphic file (type pdf)
+<use figures/feshbach_setup_vis.pdf>
+Package pdftex.def Info: figures/feshbach_setup_vis.pdf  used on input line 68.
 
-./appendix.tex:94: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.94 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+(pdftex.def)             Requested size: 162.74731pt x 121.72668pt.
+File: figures/opt_trap_seq.png Graphic file (type png)
+<use figures/opt_trap_seq.png>
+Package pdftex.def Info: figures/opt_trap_seq.png  used on input line 68.
+(pdftex.def)             Requested size: 223.78221pt x 109.00198pt.
+File: figures/opttrapshape3.pdf Graphic file (type pdf)
+<use figures/opttrapshape3.pdf>
+Package pdftex.def Info: figures/opttrapshape3.pdf  used on input line 68.
+(pdftex.def)             Requested size: 183.09229pt x 113.15538pt.
 
-./appendix.tex:94: Undefined control sequence.
-\beamer@thmffamily@frametitle ->\scfamily 
-                                          
-l.94 \end{frame}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Overfull \vbox (5.60399pt too high) detected at line 68
+ []
 
-File: ufcd-logo-e1-emblemless-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-emblemless-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 94.
-(pdftex.def)             Requested size: 36.29295pt x 51.72939pt.
-[30
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 68.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+[14
 
 ])
+\openout2 = `sequence.aux'.
+
+ (./sequence.tex
+<figures/expseq/step1.png, id=229, 488.82625pt x 317.185pt>
+File: figures/expseq/step1.png Graphic file (type png)
+<use figures/expseq/step1.png>
+Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
+<figures/expseq/step2.png, id=230, 494.84875pt x 324.21124pt>
+File: figures/expseq/step2.png Graphic file (type png)
+<use figures/expseq/step2.png>
+Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
+<figures/expseq/step3.png, id=231, 491.8375pt x 305.14pt>
+File: figures/expseq/step3.png Graphic file (type png)
+<use figures/expseq/step3.png>
+Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
+<figures/expseq/step4.png, id=232, 491.8375pt x 312.16624pt>
+File: figures/expseq/step4.png Graphic file (type png)
+<use figures/expseq/step4.png>
+Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
+<figures/expseq/step5.png, id=233, 499.8675pt x 348.30125pt>
+File: figures/expseq/step5.png Graphic file (type png)
+<use figures/expseq/step5.png>
+Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 85.05022pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [15
+
+
+
+ <./figures/expseq/step1.png> <./figures/expseq/step2.png> <./figures/expseq/st
+ep3.png> <./figures/expseq/step4.png> <./figures/expseq/step5.png>]
+File: figures/expseq/step1.png Graphic file (type png)
+<use figures/expseq/step1.png>
+Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
+File: figures/expseq/step2.png Graphic file (type png)
+<use figures/expseq/step2.png>
+Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
+File: figures/expseq/step3.png Graphic file (type png)
+<use figures/expseq/step3.png>
+Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
+File: figures/expseq/step4.png Graphic file (type png)
+<use figures/expseq/step4.png>
+Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
+File: figures/expseq/step5.png Graphic file (type png)
+<use figures/expseq/step5.png>
+Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 85.05022pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [16
+
+]
+File: figures/expseq/step1.png Graphic file (type png)
+<use figures/expseq/step1.png>
+Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
+File: figures/expseq/step2.png Graphic file (type png)
+<use figures/expseq/step2.png>
+Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
+File: figures/expseq/step3.png Graphic file (type png)
+<use figures/expseq/step3.png>
+Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
+File: figures/expseq/step4.png Graphic file (type png)
+<use figures/expseq/step4.png>
+Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
+File: figures/expseq/step5.png Graphic file (type png)
+<use figures/expseq/step5.png>
+Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 85.05022pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [17
+
+]
+File: figures/expseq/step1.png Graphic file (type png)
+<use figures/expseq/step1.png>
+Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
+File: figures/expseq/step2.png Graphic file (type png)
+<use figures/expseq/step2.png>
+Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
+File: figures/expseq/step3.png Graphic file (type png)
+<use figures/expseq/step3.png>
+Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
+File: figures/expseq/step4.png Graphic file (type png)
+<use figures/expseq/step4.png>
+Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
+File: figures/expseq/step5.png Graphic file (type png)
+<use figures/expseq/step5.png>
+Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 85.05022pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [18
+
+]
+File: figures/expseq/step1.png Graphic file (type png)
+<use figures/expseq/step1.png>
+Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
+File: figures/expseq/step2.png Graphic file (type png)
+<use figures/expseq/step2.png>
+Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
+File: figures/expseq/step3.png Graphic file (type png)
+<use figures/expseq/step3.png>
+Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
+File: figures/expseq/step4.png Graphic file (type png)
+<use figures/expseq/step4.png>
+Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
+File: figures/expseq/step5.png Graphic file (type png)
+<use figures/expseq/step5.png>
+Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 85.05022pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [19
+
+])
+\openout2 = `results.aux'.
+
+ (./results.tex
+<figures/fig_2.pdf, id=270, 520.138pt x 198.75859pt>
+File: figures/fig_2.pdf Graphic file (type pdf)
+<use figures/fig_2.pdf>
+Package pdftex.def Info: figures/fig_2.pdf  used on input line 7.
+(pdftex.def)             Requested size: 366.18457pt x 139.93073pt.
+LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 7.
+LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <14.4> not available
+(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 7.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 7.
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [20
+
+
+
+ <./figures/fig_2.pdf>]
+<figures/suppl_fig_2.pdf, id=1850, 237.66728pt x 295.72385pt>
+File: figures/suppl_fig_2.pdf Graphic file (type pdf)
+<use figures/suppl_fig_2.pdf>
+Package pdftex.def Info: figures/suppl_fig_2.pdf  used on input line 19.
+(pdftex.def)             Requested size: 142.40855pt x 177.20102pt.
+<figures/fig_3_alt.pdf, id=1851, 235.41145pt x 169.3138pt>
+File: figures/fig_3_alt.pdf Graphic file (type pdf)
+<use figures/fig_3_alt.pdf>
+Package pdftex.def Info: figures/fig_3_alt.pdf  used on input line 19.
+(pdftex.def)             Requested size: 203.43726pt x 146.31749pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 19.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+
+[21
+
+ <./figures/suppl_fig_2.pdf> <./figures/fig_3_alt.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./figures/fig_3_alt.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+>]
+File: figures/suppl_fig_2.pdf Graphic file (type pdf)
+<use figures/suppl_fig_2.pdf>
+Package pdftex.def Info: figures/suppl_fig_2.pdf  used on input line 19.
+(pdftex.def)             Requested size: 142.40855pt x 177.20102pt.
+File: figures/fig_3_alt.pdf Graphic file (type pdf)
+<use figures/fig_3_alt.pdf>
+Package pdftex.def Info: figures/fig_3_alt.pdf  used on input line 19.
+(pdftex.def)             Requested size: 203.43726pt x 146.31749pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 19.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [22
+
+]
+<figures/supplements_fig_1.pdf, id=3156, 230.59872pt x 154.2623pt>
+File: figures/supplements_fig_1.pdf Graphic file (type pdf)
+<use figures/supplements_fig_1.pdf>
+Package pdftex.def Info: figures/supplements_fig_1.pdf  used on input line 31.
+(pdftex.def)             Requested size: 203.43726pt x 136.09253pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 31.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [23
+
+ <./figures/supplements_fig_1.pdf>]
+File: figures/supplements_fig_1.pdf Graphic file (type pdf)
+<use figures/supplements_fig_1.pdf>
+Package pdftex.def Info: figures/supplements_fig_1.pdf  used on input line 44.
+(pdftex.def)             Requested size: 162.74731pt x 108.8726pt.
+<figures/fig_4_both.pdf, id=3283, 225.64142pt x 286.69374pt>
+File: figures/fig_4_both.pdf Graphic file (type pdf)
+<use figures/fig_4_both.pdf>
+Package pdftex.def Info: figures/fig_4_both.pdf  used on input line 44.
+(pdftex.def)             Requested size: 142.40855pt x 180.93735pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 44.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [24
+
+ <./figures/fig_4_both.pdf>]
+<figures/spin1_overview_full.pdf, id=5122, 1445.4pt x 361.35pt>
+File: figures/spin1_overview_full.pdf Graphic file (type pdf)
+<use figures/spin1_overview_full.pdf>
+Package pdftex.def Info: figures/spin1_overview_full.pdf  used on input line 49
+.
+(pdftex.def)             Requested size: 528.9381pt x 132.23625pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 49.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+
+[25
+
+ <./figures/spin1_overview_full.pdf>])
+\openout2 = `final_remarks.aux'.
+
+ (./final_remarks.tex
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 16.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [26
+
+
+
+]
+<figures/thankyouslide.pdf, id=5152, 796.67719pt x 448.1309pt>
+File: figures/thankyouslide.pdf Graphic file (type pdf)
+<use figures/thankyouslide.pdf>
+Package pdftex.def Info: figures/thankyouslide.pdf  used on input line 21.
+(pdftex.def)             Requested size: 366.18457pt x 205.97859pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 21.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [27
+
+ <./figures/thankyouslide.pdf>])
 \tf@nav=\write6
 \openout6 = `talk.nav'.
 
@@ -3014,27 +2129,39 @@ Package pdftex.def Info: ufcd-logo-e1-emblemless-color.pdf  used on input line 9
 \tf@snm=\write8
 \openout8 = `talk.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 74.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 74.
- (./talk.aux (./title.aux) (./overview.aux) (./setup.aux) (./results.aux) (./final_remarks.aux) (./appendix.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 74.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 74.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 88.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 88.
+ (./talk.aux (./title.aux) (./overview.aux)
+(./setup.aux) (./sequence.aux) (./results.aux) (./final_remarks.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 88.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 88.
 Package rerunfilecheck Info: File `talk.out' has not changed.
-(rerunfilecheck)             Checksum: 804349C93A94F1A9EFED69B6A50B185D;39.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27877 strings out of 481239
- 558209 string characters out of 5920378
- 942369 words of memory out of 5000000
- 42276 multiletter control sequences out of 15000+600000
- 607801 words of font info for 117 fonts, out of 8000000 for 9000
+ 27925 strings out of 481239
+ 559022 string characters out of 5920377
+ 942161 words of memory out of 5000000
+ 42330 multiletter control sequences out of 15000+600000
+ 624164 words of font info for 122 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,23n,84p,771b,1119s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/hfbright/hfbr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/hfbright/hfbr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/hfbright/hfbr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/hfbright/hfbrmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/hfbright/hfbrsy10.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbbx10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbmo10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbmo8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbmr10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbmr8.pfb>
-Output written on talk.pdf (30 pages, 42409394 bytes).
+ 64i,23n,84p,771b,1124s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{/usr/share/texmf
+/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/tex
+-gyre/q-ec.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/hfbright/hfbr10.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/hfbright/hfbr17.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/hfbright/hfbr8.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/hfbright/hfbrmi10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/hfbright/hfbrsy10.pfb></usr/share/texmf/fonts/type1/pub
+lic/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbbx10.pfb
+></usr/share/texmf/fonts/type1/public/cm-super/sfbmo10.pfb></usr/share/texmf/fo
+nts/type1/public/cm-super/sfbmo8.pfb></usr/share/texmf/fonts/type1/public/cm-su
+per/sfbmr10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbmr8.pfb>
+Output written on talk.pdf (27 pages, 27019623 bytes).
 PDF statistics:
- 6200 PDF objects out of 7423 (max. 8388607)
- 4507 compressed objects within 46 object streams
- 62 named destinations out of 1000 (max. 500000)
- 199 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 5242 PDF objects out of 6186 (max. 8388607)
+ 3852 compressed objects within 39 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 192 words of extra memory for PDF output out of 10000 (max. 10000000)
 

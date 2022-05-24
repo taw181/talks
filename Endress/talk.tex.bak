@@ -4,26 +4,27 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[width=1cm, height=1.2cm]{ufcd}
-\usepackage{lipsum} 
+\usepackage{lipsum}
 \usepackage{graphicx}
 \usepackage{textpos}
 \usepackage{svg}
-\usepackage{cmbright}
+ \usepackage{cmbright}
 \usepackage[export]{adjustbox}
 \usepackage{pdfpages}
 \usepackage{appendixnumberbeamer}
-\usepackage{amsmath}
+ \usepackage{amsmath}
 \usepackage{multimedia}
 \usepackage{pdfpc-movie}
 \usepackage{nicefrac}
 \usepackage{braket}
 \usepackage{booktabs}
+\usepackage{xcolor}
 \usepackage{siunitx}\sisetup{
     detect-all,
     alsoload        = synchem,
     range-units     = single,
     range-phrase    = {\text{\,--\,}},
-    list-pair-separator= {, },
+%    list-pair-separator= {, },
     list-separator  = {,},
     list-final-separator = {,},
     per-mode        = fraction,
@@ -41,11 +42,23 @@
     \includegraphics[width=\textwidth]{#5}
   \end{textblock*}
 }
+
 \newcommand{\svgpos}[5]{
   \begin{textblock*}{#1}(#2, #3)
       \includesvg[width=\textwidth, #4]{#5}
   \end{textblock*}
 }
+
+\newcommand{\Ba}{\ensuremath{^{\text{138}}\text{Ba}^{\text +}}}
+\newcommand{\Li}{\ensuremath{^{\text 6}\text{Li}}}
+\newcommand{\ba}{\ensuremath{\text{Ba}^{\text +}}}
+\newcommand{\li}{\ensuremath{\text{Li}}}
+%\newcommand{\ba}{\Ba}
+%\newcommand{\li}{\Li}
+\newcommand{\BaLi}{\Ba -\Li}
+\newcommand{\bali}{\ba -\li}
+
+
 
 \makeatletter\let\expandableinput\@@input\makeatother 
 
@@ -56,19 +69,20 @@
 \makeatother
 
 %% PRESENTATION NAME etc. %%
-\title[Ultracold atom-ion interactions]{Ultracold interaction between a single Barium ion and an atomic gas of
+\title[Ultracold atom-ion interactions]{Ultracold interactions between a single Barium ion and an atomic gas of
 Lithium}
-\subtitle{\small RTG-DynCAM Seminar}
-\author[F.~Thielemann]{\small Fabian~Thielemann, Joachim Welz, Wei Wu, Daniel Hönig, Pascal Weckesser, \\ Thomas Walker and Tobias Schätz}
-\institute{Physikalisches Institut}
+\subtitle{\small GHE Seminar}
+\author[T.~Walker]{\small Thomas Walker, Fabian Thielemann, Joachim Welz, Wei Wu, Daniel Hönig, \\  and Tobias Schätz}
+%\institute{Physikalisches Institut}
 
 \begin{document}
     \include{title}
     \include{overview}
     \include{setup}
+    \include{sequence}
     \include{results}
     \include{final_remarks}
-    \appendix
-    \include{appendix}
+%    %\appendix
+    %\include{appendix}
 
 \end{document}

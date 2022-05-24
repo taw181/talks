@@ -1,0 +1,92 @@
+%%
+%% This is file `ufcd.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ufcd.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Lizenz
+%% ======
+%% 
+%% Alle Rechte liegen bei der
+%%   Universit"at Freiburg
+%%   Stabsstelle Marketing und Wissensmanagement
+%%   Fahnenbergplatz, D-79085 Freiburg
+%%   Homepage: http://www.mw.uni-freiburg.de
+%% Ansprechpartner ist deren Leiter
+%%   Dr. Reiner Fuest
+%%   Tel. 0761/203-5012
+%%   E-Mail: reiner.fuest at mw.uni-freiburg.de
+%% 
+%% Die Dateien dieses Projektes stehen allen Mitgliedern der
+%% Universit"at Freiburg zur Benutzung zur Verf"ugung.
+%% 
+%% Verteilt werden d"urfen diese Dateien nur an Mitglieder der
+%% Universit"at Freiburg in TDS-Archiv-Form. Insbesondere hat
+%% dies vollst"andig und unver"andert zu geschehen. Es d"urfen
+%% aber weitere Dateien hinzugef"ugt werden (Logos,
+%% Konfigurationsdateien, ...). Im TDS-Archiv liegen die Dateien
+%% in Verzeichnissen vor, die dem TDS-Standard entsprechen
+%% 
+%%   TDS = TeX Directory Structure, siehe
+%%   ftp://ftp.ctan.org/tex-archive/tds/tds.pdf
+%% 
+%% Ver"anderungen bed"urfen der Namens"anderung der Pakete oder
+%% Klassen. Es gelten insbesondere die Bedingungen zur Verteilung
+%% und Ver"anderung der LPPL 1.3 "`Conditions on Distribution
+%% and Modification"', Punkte 1, 2 und 6. Aktueller Betreuer
+%% schlie"sst den Rechteinhaber ein.
+%% 
+%%   LPPL = LaTeX Project Public License
+%%   http://www.latex-project.org/lppl.txt
+%% 
+%% Es besteht keinerlei Gew"ahrleistung, soweit dies gesetzlich
+%% zul"assig ist. Es gilt der Abschnitt "`No Warranty" aus
+%% der LPPL.
+%% 
+%% Betreut wird das Projekt im Wintersemester 2009/10 vom Autor,
+%%   Heiko Oberdiek
+%%   E-Mail: heiko.oberdiek at googlemail.com
+%% Danach liegt die Betreuung beim Rechteinhaber "Stabsstelle
+%% Marketing und Wissensmanagement".
+%% 
+%% Das Projekt UFCD besteht aus folgenden Dateien:
+%%   ufcd.sty, ufcd.pdf, ufcd.ins, ufcd.drv, ufcd.bib, ufcd-info.cls,
+%%    ufcd-letter.cls, ufcd-memo.cls, ufcd-babel.sty,
+%%    ufcd-base.sty, ufcd-color.sty, ufcd-foldmarks.sty,
+%%    ufcd-font.sty, ufcd-kvopt.sty, ufcd-lang-load.sty,
+%%    ufcd-lang-opt.sty, ufcd-lang-setup.sty, ufcd-logo.sty,
+%%    ufcd-inputenx.sty, ufcd-inputenx-setup.sty, ufcd-adr.sty,
+%%    ufcd-config.sty, ufcd-config-mw.cfg, ufcd-config-fuest.cfg,
+%%    ufcd-config-iif.cfg, ufcd-config-imtek.cfg,
+%%    ufcd-config-tf.cfg, ufcd-config-tf-dekanat.cfg,
+%%    ufcd-config-tf-dekpamt.cfg,
+%%    ufcd-config-tf-praktikumsamt.cfg,
+%%    ufcd-config-tf-bibliothek.cfg, ufcd-config-template-e1.cfg,
+%%    ufcd-config-template-e2.cfg, beamerthemeufcd.sty,
+%%    beamercolorthemeufcd.sty, beamerfontthemeufcd.sty,
+%%    beamerinnerthemeufcd.sty, beamerouterthemeufcd.sty,
+%%    ufcd-example-letter1.tex, ufcd-example-letter2.tex,
+%%    ufcd-example-letter3.tex, ufcd-example-letter4.tex,
+%%    ufcd-example-memo.tex, ufcd-example-info.tex,
+%%    ufcd-example-beamer.tex,
+%%    ufcd-signature-mustermann.tex
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ufcd}%
+  [2012/04/17 v1.0 Uni Freiburg Coporate Design (HO,SD)]%
+
+\RequirePackage{ufcd-inputenx}[2012/03/16]
+
+\@ifclassloaded{beamer}{%
+  \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{beamerthemeufcd}}%
+  \ProcessOptions\relax
+  \usetheme{ufcd}%
+  \endinput
+}{}
+\endinput
+%%
+%% End of file `ufcd.sty'.
