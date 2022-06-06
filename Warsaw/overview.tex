@@ -1,0 +1,63 @@
+% \begin{frame}[t]{Freiburg Ion Trapping Group}
+%     \picpos{\linewidth}{0cm}{0cm}{group_slide.pdf}
+% \end{frame}
+
+\begin{frame}[t]{BaLi: An Introduction}
+  \visible<1->{
+  Why \BaLi?
+  \begin{itemize}
+    \item Looking for interactions in the ultracold regime
+    \item<1-> Large mass ratio means lower collision energy
+    \item<1-> Chemically stable in their ground states
+    \item<1-> Li can be either bosonic or fermionic
+    \item<1-> Candidates for all-optical trapping
+    \end{itemize}
+  }
+
+\end{frame}
+
+\begin{frame}[t]{Atom-Ion interaction}
+    \only<1>{The ion induces a dipole moment in the atom ($p \propto E(r) \propto \frac{1}{r^2}$) that leads to a long-range charge-dipole interaction:}
+
+    \only<2>{The total wavefunction is composed of partial waves of angular momentum $l$.
+
+    The contribution of partial waves depends on the collision energy.}
+    \[
+        \setlength{\abovedisplayskip}{2pt}
+         \setlength{\belowdisplayskip}{2pt}
+        V_\text{atom-ion}(r) \approx- \frac{C_4}{r^4} \visible<2>{\textcolor{red}{+ \frac{\hbar \,l\,(l+1)}{\mu r^2}}}
+        \]
+        \only<1>{\picpos{0.4\linewidth}{.5\linewidth}{0cm}{BaLi_PECs_B.pdf}
+        \picpos{0.35\linewidth}{1cm}{0cm}{atom_ion_potential.png}}
+        \only<2>{\picpos{.75\linewidth}{0.1\linewidth}{0cm}{partial_waves.png}}
+\end{frame}
+
+
+\begin{frame}[t]{The Feshbach Resonances}
+    \only<1-2>{An incoming state (open channel) can couple to a bound state (closed channel).
+
+    As the bound state approaches the incoming state the mixing between states increases.
+
+    \picpos{.55\linewidth}{0cm}{0.6cm}{feshbach_resonance2.png}}
+  %   \only<1>{\begin{textblock*}{0.4\linewidth}(0.5\linewidth,0cm)
+  %   Quantum number $M=m_1 + m_2 + m_l$ is strictly conserved.
+  % \end{textblock*}}
+    \only<2>{
+        \picpos{.46\linewidth}{.53\linewidth}{2.4cm}{feshbach_resonance_isolated.pdf}
+        \begin{textblock*}{.5\linewidth}(.51\linewidth, 0.2cm)
+           \small
+           Magnetic fields can be used to shift potentials relative to each other (magnetic FR)
+                   \[ a = a_\text{bg} \left( 1 - \frac{\Delta}{B-B_0} \right) \]
+        \end{textblock*}
+   }
+\end{frame}
+
+\begin{frame}[t]{Feshbach Resonances}
+    Why are we interested in Feshbach resonances?
+    \begin{itemize}
+      \item Molecular spectroscopy
+      \item Tuning of interaction rates
+      \item Interaction can be made attractive ($a>0$), repulsive ($a<0$) or switched off ($a=0$)
+      \item Formation of cold molecules in chosen states
+      \end{itemize}
+\end{frame}
