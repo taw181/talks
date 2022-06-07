@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.8.12)  6 JUN 2022 21:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.8.12)  7 JUN 2022 21:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1554,94 +1554,117 @@ Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 17.
 Package textpos Warning: environment textblock* not in vertical mode. 
 (textpos)                Environment textblock* should not have any text
 (textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 33.
+(textpos)                Alignment may work out wrongly. on input line 38.
 
-<figures/BaLi_PECs_B.pdf, id=32, 633.8889pt x 437.73459pt>
-File: figures/BaLi_PECs_B.pdf Graphic file (type pdf)
-<use figures/BaLi_PECs_B.pdf>
-Package pdftex.def Info: figures/BaLi_PECs_B.pdf  used on input line 33.
-(pdftex.def)             Requested size: 162.74731pt x 112.38562pt.
-<figures/atom_ion_potential.png, id=33, 391.4625pt x 328.22626pt>
+<figures/atom_ion_potential.png, id=32, 391.4625pt x 328.22626pt>
 File: figures/atom_ion_potential.png Graphic file (type png)
 <use figures/atom_ion_potential.png>
-Package pdftex.def Info: figures/atom_ion_potential.png  used on input line 33.
+Package pdftex.def Info: figures/atom_ion_potential.png  used on input line 38.
 
-(pdftex.def)             Requested size: 142.40855pt x 119.40341pt.
+(pdftex.def)             Requested size: 122.06358pt x 102.34508pt.
+<figures/BaLi_PECs_B.pdf, id=34, 633.8889pt x 437.73459pt>
+File: figures/BaLi_PECs_B.pdf Graphic file (type pdf)
+<use figures/BaLi_PECs_B.pdf>
+Package pdftex.def Info: figures/BaLi_PECs_B.pdf  used on input line 38.
+(pdftex.def)             Requested size: 162.74731pt x 112.38562pt.
+LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <10> not available
+(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 38.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 33.
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 38.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
 [3
 
- <./figures/BaLi_PECs_B.pdf> <./figures/atom_ion_potential.png>]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 33.
-
-<figures/partial_waves.png, id=91, 800.9925pt x 336.25626pt>
+ <./figures/atom_ion_potential.png> <./figures/BaLi_PECs_B.pdf>]
+<figures/partial_waves.png, id=90, 800.9925pt x 336.25626pt>
 File: figures/partial_waves.png Graphic file (type png)
 <use figures/partial_waves.png>
-Package pdftex.def Info: figures/partial_waves.png  used on input line 33.
-(pdftex.def)             Requested size: 305.15588pt x 128.10707pt.
+Package pdftex.def Info: figures/partial_waves.png  used on input line 38.
+(pdftex.def)             Requested size: 284.81091pt x 119.56421pt.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 33.
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 38.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
-[4
+ [4
 
  <./figures/partial_waves.png>]
-<figures/feshbach_resonance2.png, id=99, 1128.215pt x 643.40375pt>
+<figures/feshbach_resonance2.png, id=98, 1128.215pt x 643.40375pt>
 File: figures/feshbach_resonance2.png Graphic file (type png)
 <use figures/feshbach_resonance2.png>
-Package pdftex.def Info: figures/feshbach_resonance2.png  used on input line 53
+Package pdftex.def Info: figures/feshbach_resonance2.png  used on input line 64
 .
 (pdftex.def)             Requested size: 223.78221pt x 127.61816pt.
+<figures/feshbach_resonance_isolated.pdf, id=99, 204.17294pt x 106.47556pt>
+File: figures/feshbach_resonance_isolated.pdf Graphic file (type pdf)
+<use figures/feshbach_resonance_isolated.pdf>
+Package pdftex.def Info: figures/feshbach_resonance_isolated.pdf  used on input
+ line 64.
+(pdftex.def)             Requested size: 183.09229pt x 95.48103pt.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 53.
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 64.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
  [5
 
- <./figures/feshbach_resonance2.png>]
+ <./figures/feshbach_resonance2.png> <./figures/feshbach_resonance_isolated.pdf
+>]
 File: figures/feshbach_resonance2.png Graphic file (type png)
 <use figures/feshbach_resonance2.png>
-Package pdftex.def Info: figures/feshbach_resonance2.png  used on input line 53
+Package pdftex.def Info: figures/feshbach_resonance2.png  used on input line 64
 .
 (pdftex.def)             Requested size: 223.78221pt x 127.61816pt.
-<figures/feshbach_resonance_isolated.pdf, id=107, 204.17294pt x 106.47556pt>
 File: figures/feshbach_resonance_isolated.pdf Graphic file (type pdf)
 <use figures/feshbach_resonance_isolated.pdf>
 Package pdftex.def Info: figures/feshbach_resonance_isolated.pdf  used on input
- line 53.
-(pdftex.def)             Requested size: 187.165pt x 97.60612pt.
-LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 53.
-LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 53.
-LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <10> not available
-(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 53.
-LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <7.4> not available
-(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 53.
+ line 64.
+(pdftex.def)             Requested size: 183.09229pt x 95.48103pt.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 53.
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 64.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [6
 
-[6
-
- <./figures/feshbach_resonance_isolated.pdf>]
+]
+LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 80.
+LaTeX Font Info:    Font shape `OT1/qtm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/qtm/b/n' tried instead on input line 80.
+LaTeX Font Info:    Font shape `T1/cmbr/m/it' in size <7.4> not available
+(Font)              Font shape `T1/cmbr/m/sl' tried instead on input line 80.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 63.
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 80.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
  [7
+
+]
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 80.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [8
+
+]
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 80.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [9
+
+]
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 80.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [10
 
 ])
 \openout2 = `setup.aux'.
@@ -1659,7 +1682,7 @@ Package textpos Warning: environment textblock* not in vertical mode.
 (textpos)                or printable material appearing before it.
 (textpos)                Alignment may work out wrongly. on input line 5.
 
-<figures/experiment_overlay_3_antialiased.png, id=153, 8081.1pt x 3955.14pt>
+<figures/experiment_overlay_3_antialiased.png, id=171, 8081.1pt x 3955.14pt>
 File: figures/experiment_overlay_3_antialiased.png Graphic file (type png)
 <use figures/experiment_overlay_3_antialiased.png>
 Package pdftex.def Info: figures/experiment_overlay_3_antialiased.png  used on 
@@ -1669,7 +1692,7 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 5.
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
-[8
+[11
 
 
 
@@ -1678,144 +1701,122 @@ Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 5.
 Package textpos Warning: environment textblock* not in vertical mode. 
 (textpos)                Environment textblock* should not have any text
 (textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 13.
+(textpos)                Alignment may work out wrongly. on input line 38.
 
-<figures/xodt_schematic.png, id=163, 833.1125pt x 308.15125pt>
-File: figures/xodt_schematic.png Graphic file (type png)
-<use figures/xodt_schematic.png>
-Package pdftex.def Info: figures/xodt_schematic.png  used on input line 13.
-(pdftex.def)             Requested size: 244.12718pt x 90.29726pt.
-<figures/xodt_sim.png, id=164, 639.38875pt x 463.7325pt>
-File: figures/xodt_sim.png Graphic file (type png)
-<use figures/xodt_sim.png>
-Package pdftex.def Info: figures/xodt_sim.png  used on input line 13.
-(pdftex.def)             Requested size: 162.74731pt x 118.0344pt.
-File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 13.
-
-(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
-[9
-
- <./figures/xodt_schematic.png> <./figures/xodt_sim.png>]
-
-Package textpos Warning: environment textblock* not in vertical mode. 
-(textpos)                Environment textblock* should not have any text
-(textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 40.
-
-<figures/mot_lasers.png, id=173, 721.69624pt x 523.9575pt>
+<figures/mot_lasers.png, id=181, 721.69624pt x 523.9575pt>
 File: figures/mot_lasers.png Graphic file (type png)
 <use figures/mot_lasers.png>
-Package pdftex.def Info: figures/mot_lasers.png  used on input line 40.
+Package pdftex.def Info: figures/mot_lasers.png  used on input line 38.
 (pdftex.def)             Requested size: 223.78221pt x 162.46512pt.
-<figures/mot.png, id=174, 444.66125pt x 371.3875pt>
+<figures/mot.png, id=182, 444.66125pt x 371.3875pt>
 File: figures/mot.png Graphic file (type png)
 <use figures/mot.png>
-Package pdftex.def Info: figures/mot.png  used on input line 40.
+Package pdftex.def Info: figures/mot.png  used on input line 38.
 (pdftex.def)             Requested size: 142.40855pt x 118.93709pt.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 40.
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 38.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
-[10
+[12
 
  <./figures/mot_lasers.png> <./figures/mot.png>]
+<figures/xodt_schematic.png, id=191, 833.1125pt x 308.15125pt>
 File: figures/xodt_schematic.png Graphic file (type png)
 <use figures/xodt_schematic.png>
-Package pdftex.def Info: figures/xodt_schematic.png  used on input line 40.
+Package pdftex.def Info: figures/xodt_schematic.png  used on input line 38.
 (pdftex.def)             Requested size: 244.12718pt x 90.29726pt.
+<figures/xodt_sim.png, id=192, 639.38875pt x 463.7325pt>
 File: figures/xodt_sim.png Graphic file (type png)
 <use figures/xodt_sim.png>
-Package pdftex.def Info: figures/xodt_sim.png  used on input line 40.
+Package pdftex.def Info: figures/xodt_sim.png  used on input line 38.
 (pdftex.def)             Requested size: 162.74731pt x 118.0344pt.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 40.
-
-(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [11
-
-]
-<figures/IonTrap_3_free.png, id=191, 377.9721pt x 249.45195pt>
-File: figures/IonTrap_3_free.png Graphic file (type png)
-<use figures/IonTrap_3_free.png>
-Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 89.
-(pdftex.def)             Requested size: 203.43726pt x 134.26051pt.
-File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 89.
-
-(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [12
-
- <./figures/IonTrap_3_free.png>]
-File: figures/IonTrap_3_free.png Graphic file (type png)
-<use figures/IonTrap_3_free.png>
-Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 89.
-(pdftex.def)             Requested size: 203.43726pt x 134.26051pt.
-File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 89.
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 38.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
  [13
 
-]
-<figures/trap_side.png, id=207, 680.5425pt x 391.4625pt>
-File: figures/trap_side.png Graphic file (type png)
-<use figures/trap_side.png>
-Package pdftex.def Info: figures/trap_side.png  used on input line 89.
-(pdftex.def)             Requested size: 203.43726pt x 117.02151pt.
-<figures/trap_axis.png, id=208, 663.47874pt x 410.53375pt>
-File: figures/trap_axis.png Graphic file (type png)
-<use figures/trap_axis.png>
-Package pdftex.def Info: figures/trap_axis.png  used on input line 89.
-(pdftex.def)             Requested size: 203.43726pt x 125.87975pt.
+ <./figures/xodt_schematic.png> <./figures/xodt_sim.png>]
+<figures/IonTrap_3_free.png, id=203, 377.9721pt x 249.45195pt>
+File: figures/IonTrap_3_free.png Graphic file (type png)
+<use figures/IonTrap_3_free.png>
+Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 87.
+(pdftex.def)             Requested size: 203.43726pt x 134.26051pt.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 89.
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 87.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
  [14
 
- <./figures/trap_side.png> <./figures/trap_axis.png>]
+ <./figures/IonTrap_3_free.png>]
 File: figures/IonTrap_3_free.png Graphic file (type png)
 <use figures/IonTrap_3_free.png>
-Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 89.
+Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 87.
 (pdftex.def)             Requested size: 203.43726pt x 134.26051pt.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 89.
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 87.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [15
+
+]
+<figures/trap_side.png, id=218, 680.5425pt x 391.4625pt>
+File: figures/trap_side.png Graphic file (type png)
+<use figures/trap_side.png>
+Package pdftex.def Info: figures/trap_side.png  used on input line 87.
+(pdftex.def)             Requested size: 203.43726pt x 117.02151pt.
+<figures/trap_axis.png, id=219, 663.47874pt x 410.53375pt>
+File: figures/trap_axis.png Graphic file (type png)
+<use figures/trap_axis.png>
+Package pdftex.def Info: figures/trap_axis.png  used on input line 87.
+(pdftex.def)             Requested size: 203.43726pt x 125.87975pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 87.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
 
-[15
+[16
+
+ <./figures/trap_side.png> <./figures/trap_axis.png>]
+File: figures/IonTrap_3_free.png Graphic file (type png)
+<use figures/IonTrap_3_free.png>
+Package pdftex.def Info: figures/IonTrap_3_free.png  used on input line 87.
+(pdftex.def)             Requested size: 203.43726pt x 134.26051pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 87.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [17
 
 ]
-<figures/feshbach_setup_vis.pdf, id=223, 1481.535pt x 1108.14pt>
+<figures/feshbach_setup_vis.pdf, id=234, 1481.535pt x 1108.14pt>
 File: figures/feshbach_setup_vis.pdf Graphic file (type pdf)
 <use figures/feshbach_setup_vis.pdf>
-Package pdftex.def Info: figures/feshbach_setup_vis.pdf  used on input line 108
+Package pdftex.def Info: figures/feshbach_setup_vis.pdf  used on input line 106
 .
 (pdftex.def)             Requested size: 162.74731pt x 121.72668pt.
-<figures/opt_trap_seq.png, id=224, 583.17876pt x 284.06125pt>
+<figures/opt_trap_seq.png, id=235, 583.17876pt x 284.06125pt>
 File: figures/opt_trap_seq.png Graphic file (type png)
 <use figures/opt_trap_seq.png>
-Package pdftex.def Info: figures/opt_trap_seq.png  used on input line 108.
+Package pdftex.def Info: figures/opt_trap_seq.png  used on input line 106.
 (pdftex.def)             Requested size: 223.78221pt x 109.00198pt.
-<figures/opttrapshape3.pdf, id=225, 701.59717pt x 433.62pt>
+<figures/opttrapshape3.pdf, id=236, 701.59717pt x 433.62pt>
 File: figures/opttrapshape3.pdf Graphic file (type pdf)
 <use figures/opttrapshape3.pdf>
-Package pdftex.def Info: figures/opttrapshape3.pdf  used on input line 108.
+Package pdftex.def Info: figures/opttrapshape3.pdf  used on input line 106.
 (pdftex.def)             Requested size: 183.09229pt x 113.15538pt.
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 108
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 106
 .
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [16
+ [18
 
  <./figures/feshbach_setup_vis.pdf> <./figures/opt_trap_seq.png> <./figures/opt
 trapshape3.pdf
@@ -1827,116 +1828,57 @@ sion: multiple pdfs with page group included in a single page
 Package textpos Warning: environment textblock* not in vertical mode. 
 (textpos)                Environment textblock* should not have any text
 (textpos)                or printable material appearing before it.
-(textpos)                Alignment may work out wrongly. on input line 108.
+(textpos)                Alignment may work out wrongly. on input line 106.
 
 File: figures/feshbach_setup_vis.pdf Graphic file (type pdf)
 <use figures/feshbach_setup_vis.pdf>
-Package pdftex.def Info: figures/feshbach_setup_vis.pdf  used on input line 108
+Package pdftex.def Info: figures/feshbach_setup_vis.pdf  used on input line 106
 .
 (pdftex.def)             Requested size: 162.74731pt x 121.72668pt.
 File: figures/opt_trap_seq.png Graphic file (type png)
 <use figures/opt_trap_seq.png>
-Package pdftex.def Info: figures/opt_trap_seq.png  used on input line 108.
+Package pdftex.def Info: figures/opt_trap_seq.png  used on input line 106.
 (pdftex.def)             Requested size: 223.78221pt x 109.00198pt.
 File: figures/opttrapshape3.pdf Graphic file (type pdf)
 <use figures/opttrapshape3.pdf>
-Package pdftex.def Info: figures/opttrapshape3.pdf  used on input line 108.
+Package pdftex.def Info: figures/opttrapshape3.pdf  used on input line 106.
 (pdftex.def)             Requested size: 183.09229pt x 113.15538pt.
 
-Overfull \vbox (5.60399pt too high) detected at line 108
+Overfull \vbox (5.60399pt too high) detected at line 106
  []
 
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 108
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 106
 .
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
-[17
+[19
 
 ])
 \openout2 = `sequence.aux'.
 
  (./sequence.tex
-<figures/expseq/step1.png, id=244, 488.82625pt x 317.185pt>
+<figures/expseq/step1.png, id=256, 488.82625pt x 317.185pt>
 File: figures/expseq/step1.png Graphic file (type png)
 <use figures/expseq/step1.png>
 Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
 (pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
-<figures/expseq/step2.png, id=245, 494.84875pt x 324.21124pt>
+<figures/expseq/step2.png, id=257, 494.84875pt x 324.21124pt>
 File: figures/expseq/step2.png Graphic file (type png)
 <use figures/expseq/step2.png>
 Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
 (pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
-<figures/expseq/step3.png, id=246, 491.8375pt x 305.14pt>
+<figures/expseq/step3.png, id=258, 491.8375pt x 305.14pt>
 File: figures/expseq/step3.png Graphic file (type png)
 <use figures/expseq/step3.png>
 Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
 (pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
-<figures/expseq/step4.png, id=247, 491.8375pt x 312.16624pt>
+<figures/expseq/step4.png, id=259, 491.8375pt x 312.16624pt>
 File: figures/expseq/step4.png Graphic file (type png)
 <use figures/expseq/step4.png>
 Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
 (pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
-<figures/expseq/step5.png, id=248, 499.8675pt x 348.30125pt>
-File: figures/expseq/step5.png Graphic file (type png)
-<use figures/expseq/step5.png>
-Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 85.05022pt.
-File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
-
-(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [18
-
-
-
- <./figures/expseq/step1.png> <./figures/expseq/step2.png> <./figures/expseq/st
-ep3.png> <./figures/expseq/step4.png> <./figures/expseq/step5.png>]
-File: figures/expseq/step1.png Graphic file (type png)
-<use figures/expseq/step1.png>
-Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
-File: figures/expseq/step2.png Graphic file (type png)
-<use figures/expseq/step2.png>
-Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
-File: figures/expseq/step3.png Graphic file (type png)
-<use figures/expseq/step3.png>
-Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
-File: figures/expseq/step4.png Graphic file (type png)
-<use figures/expseq/step4.png>
-Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
-File: figures/expseq/step5.png Graphic file (type png)
-<use figures/expseq/step5.png>
-Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 85.05022pt.
-File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
-<use ufcd-logo-e1-left-a4-color.pdf>
-Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
-
-(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [19
-
-]
-File: figures/expseq/step1.png Graphic file (type png)
-<use figures/expseq/step1.png>
-Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
-File: figures/expseq/step2.png Graphic file (type png)
-<use figures/expseq/step2.png>
-Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
-File: figures/expseq/step3.png Graphic file (type png)
-<use figures/expseq/step3.png>
-Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
-File: figures/expseq/step4.png Graphic file (type png)
-<use figures/expseq/step4.png>
-Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
-(pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
+<figures/expseq/step5.png, id=260, 499.8675pt x 348.30125pt>
 File: figures/expseq/step5.png Graphic file (type png)
 <use figures/expseq/step5.png>
 Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
@@ -1948,7 +1890,10 @@ Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
  [20
 
-]
+
+
+ <./figures/expseq/step1.png> <./figures/expseq/step2.png> <./figures/expseq/st
+ep3.png> <./figures/expseq/step4.png> <./figures/expseq/step5.png>]
 File: figures/expseq/step1.png Graphic file (type png)
 <use figures/expseq/step1.png>
 Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
@@ -2004,11 +1949,67 @@ Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
  [22
 
+]
+File: figures/expseq/step1.png Graphic file (type png)
+<use figures/expseq/step1.png>
+Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
+File: figures/expseq/step2.png Graphic file (type png)
+<use figures/expseq/step2.png>
+Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
+File: figures/expseq/step3.png Graphic file (type png)
+<use figures/expseq/step3.png>
+Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
+File: figures/expseq/step4.png Graphic file (type png)
+<use figures/expseq/step4.png>
+Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
+File: figures/expseq/step5.png Graphic file (type png)
+<use figures/expseq/step5.png>
+Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 85.05022pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [23
+
+]
+File: figures/expseq/step1.png Graphic file (type png)
+<use figures/expseq/step1.png>
+Package pdftex.def Info: figures/expseq/step1.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.20409pt.
+File: figures/expseq/step2.png Graphic file (type png)
+<use figures/expseq/step2.png>
+Package pdftex.def Info: figures/expseq/step2.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 79.9692pt.
+File: figures/expseq/step3.png Graphic file (type png)
+<use figures/expseq/step3.png>
+Package pdftex.def Info: figures/expseq/step3.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 75.72607pt.
+File: figures/expseq/step4.png Graphic file (type png)
+<use figures/expseq/step4.png>
+Package pdftex.def Info: figures/expseq/step4.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 77.46977pt.
+File: figures/expseq/step5.png Graphic file (type png)
+<use figures/expseq/step5.png>
+Package pdftex.def Info: figures/expseq/step5.png  used on input line 39.
+(pdftex.def)             Requested size: 122.06358pt x 85.05022pt.
+File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
+<use ufcd-logo-e1-left-a4-color.pdf>
+Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 39.
+
+(pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
+ [24
+
 ])
 \openout2 = `results.aux'.
 
  (./results.tex
-<figures/fig_2.pdf, id=285, 520.138pt x 198.75859pt>
+<figures/fig_2.pdf, id=296, 520.138pt x 198.75859pt>
 File: figures/fig_2.pdf Graphic file (type pdf)
 <use figures/fig_2.pdf>
 Package pdftex.def Info: figures/fig_2.pdf  used on input line 9.
@@ -2021,7 +2022,7 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 <use ufcd-logo-e1-left-a4-color.pdf>
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 9.
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [23
+ [25
 
 
 
@@ -2035,15 +2036,15 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 9.
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
 
-[24
+[26
 
 ]
-<figures/suppl_fig_2.pdf, id=1871, 237.66728pt x 295.72385pt>
+<figures/suppl_fig_2.pdf, id=1883, 237.66728pt x 295.72385pt>
 File: figures/suppl_fig_2.pdf Graphic file (type pdf)
 <use figures/suppl_fig_2.pdf>
 Package pdftex.def Info: figures/suppl_fig_2.pdf  used on input line 21.
 (pdftex.def)             Requested size: 142.40855pt x 177.20102pt.
-<figures/fig_3_alt.pdf, id=1872, 235.41145pt x 169.3138pt>
+<figures/fig_3_alt.pdf, id=1884, 235.41145pt x 169.3138pt>
 File: figures/fig_3_alt.pdf Graphic file (type pdf)
 <use figures/fig_3_alt.pdf>
 Package pdftex.def Info: figures/fig_3_alt.pdf  used on input line 21.
@@ -2053,7 +2054,7 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 21.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [25
+ [27
 
  <./figures/suppl_fig_2.pdf> <./figures/fig_3_alt.pdf
 
@@ -2073,10 +2074,10 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 21.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [26
+ [28
 
 ]
-<figures/sympathetic_cooling.png, id=3178, 635.37375pt x 398.48875pt>
+<figures/sympathetic_cooling.png, id=3189, 635.37375pt x 398.48875pt>
 File: figures/sympathetic_cooling.png Graphic file (type png)
 <use figures/sympathetic_cooling.png>
 Package pdftex.def Info: figures/sympathetic_cooling.png  used on input line 33
@@ -2087,7 +2088,7 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 33.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [27
+ [29
 
  <./figures/sympathetic_cooling.png>]
 File: figures/sympathetic_cooling.png Graphic file (type png)
@@ -2095,7 +2096,7 @@ File: figures/sympathetic_cooling.png Graphic file (type png)
 Package pdftex.def Info: figures/sympathetic_cooling.png  used on input line 46
 .
 (pdftex.def)             Requested size: 162.74731pt x 102.07236pt.
-<figures/fig_4_both.pdf, id=3186, 225.64142pt x 286.69374pt>
+<figures/fig_4_both.pdf, id=3197, 225.64142pt x 286.69374pt>
 File: figures/fig_4_both.pdf Graphic file (type pdf)
 <use figures/fig_4_both.pdf>
 Package pdftex.def Info: figures/fig_4_both.pdf  used on input line 46.
@@ -2105,10 +2106,10 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 46.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [28
+ [30
 
  <./figures/fig_4_both.pdf>]
-<figures/spin1_overview_full.pdf, id=5025, 1445.4pt x 361.35pt>
+<figures/spin1_overview_full.pdf, id=5036, 1445.4pt x 361.35pt>
 File: figures/spin1_overview_full.pdf Graphic file (type pdf)
 <use figures/spin1_overview_full.pdf>
 Package pdftex.def Info: figures/spin1_overview_full.pdf  used on input line 51
@@ -2119,7 +2120,7 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 51.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [29
+ [31
 
  <./figures/spin1_overview_full.pdf>])
 \openout2 = `final_remarks.aux'.
@@ -2130,7 +2131,7 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 26.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [30
+ [32
 
 
 
@@ -2140,7 +2141,7 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 26.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [31
+ [33
 
 ]
 File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
@@ -2149,10 +2150,10 @@ Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 26.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
 
-[32
+[34
 
 ]
-<figures/thankyouslide.pdf, id=5068, 796.67719pt x 448.1309pt>
+<figures/thankyouslide.pdf, id=5079, 796.67719pt x 448.1309pt>
 File: figures/thankyouslide.pdf Graphic file (type pdf)
 <use figures/thankyouslide.pdf>
 Package pdftex.def Info: figures/thankyouslide.pdf  used on input line 31.
@@ -2162,7 +2163,7 @@ File: ufcd-logo-e1-left-a4-color.pdf Graphic file (type pdf)
 Package pdftex.def Info: ufcd-logo-e1-left-a4-color.pdf  used on input line 31.
 
 (pdftex.def)             Requested size: 53.22458pt x 62.69928pt.
- [33
+ [35
 
  <./figures/thankyouslide.pdf>])
 \tf@nav=\write6
@@ -2185,11 +2186,11 @@ Package rerunfilecheck Info: File `talk.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27909 strings out of 481239
- 558149 string characters out of 5920377
+ 27940 strings out of 481239
+ 559033 string characters out of 5920377
  941077 words of memory out of 5000000
- 42303 multiletter control sequences out of 15000+600000
- 614849 words of font info for 118 fonts, out of 8000000 for 9000
+ 42329 multiletter control sequences out of 15000+600000
+ 615073 words of font info for 119 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  64i,23n,84p,771b,1255s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{/usr/share/texmf
@@ -2205,10 +2206,10 @@ gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbmo10.pfb></usr/s
 hare/texmf/fonts/type1/public/cm-super/sfbmo8.pfb></usr/share/texmf/fonts/type1
 /public/cm-super/sfbmr10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbm
 r8.pfb>
-Output written on talk.pdf (33 pages, 27423173 bytes).
+Output written on talk.pdf (35 pages, 27428659 bytes).
 PDF statistics:
- 5161 PDF objects out of 6186 (max. 8388607)
- 3802 compressed objects within 39 object streams
- 67 named destinations out of 1000 (max. 500000)
+ 5172 PDF objects out of 6186 (max. 8388607)
+ 3812 compressed objects within 39 object streams
+ 71 named destinations out of 1000 (max. 500000)
  192 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -4,9 +4,16 @@
 
 \begin{frame}[t]{BaLi: An Introduction}
   \visible<1->{
+  Waht we do at BaLi
+  \begin{itemize}
+    \item Co-trapping \Ba{} and \Li{}.
+    \item Optical trapping of ions
+    \item Looking for interactions in the ultracold regime
+    \end{itemize}
+  }
+  \visible<1->{
   Why \BaLi?
   \begin{itemize}
-    \item Looking for interactions in the ultracold regime
     \item<1-> Large mass ratio means lower collision energy
     \item<1-> Chemically stable in their ground states
     \item<1-> Li can be either bosonic or fermionic
@@ -23,41 +30,58 @@
 
     The contribution of partial waves depends on the collision energy.}
     \[
-        \setlength{\abovedisplayskip}{2pt}
-         \setlength{\belowdisplayskip}{2pt}
         V_\text{atom-ion}(r) \approx- \frac{C_4}{r^4} \visible<2>{\textcolor{red}{+ \frac{\hbar \,l\,(l+1)}{\mu r^2}}}
         \]
-        \only<1>{\picpos{0.4\linewidth}{.5\linewidth}{0cm}{BaLi_PECs_B.pdf}
-        \picpos{0.35\linewidth}{1cm}{0cm}{atom_ion_potential.png}}
-        \only<2>{\picpos{.75\linewidth}{0.1\linewidth}{0cm}{partial_waves.png}}
+        \only<1>{
+        \picpos{0.3\linewidth}{1cm}{0cm}{atom_ion_potential.png}
+        \picpos{0.4\linewidth}{.5\linewidth}{0cm}{BaLi_PECs_B.pdf}
+        }
+        \only<1>{\begin{textblock*}{.5\linewidth}(.25\linewidth, 3cm)
+          \small Chin \textit{et al} (2010)
+\end{textblock*}}
+
+        \only<2>{\picpos{.7\linewidth}{0.1\linewidth}{0cm}{partial_waves.png}}
+
 \end{frame}
 
 
 \begin{frame}[t]{The Feshbach Resonances}
     \only<1-2>{An incoming state (open channel) can couple to a bound state (closed channel).
 
-    As the bound state approaches the incoming state the mixing between states increases.
+    Closer energies mean more mixing between the states.
+
+    \visible<2>{Magnetic fields can shift potentials relative to each other (magnetic FR)}
 
     \picpos{.55\linewidth}{0cm}{0.6cm}{feshbach_resonance2.png}}
   %   \only<1>{\begin{textblock*}{0.4\linewidth}(0.5\linewidth,0cm)
   %   Quantum number $M=m_1 + m_2 + m_l$ is strictly conserved.
   % \end{textblock*}}
-    \only<2>{
-        \picpos{.46\linewidth}{.53\linewidth}{2.4cm}{feshbach_resonance_isolated.pdf}
-        \begin{textblock*}{.5\linewidth}(.51\linewidth, 0.2cm)
-           \small
-           Magnetic fields can be used to shift potentials relative to each other (magnetic FR)
+    \visible<2>{
+
+        \begin{textblock*}{.5\linewidth}(.52\linewidth, 0.2cm)
+
                    \[ a = a_\text{bg} \left( 1 - \frac{\Delta}{B-B_0} \right) \]
+
+                     \includegraphics[width=0.9\textwidth]{feshbach_resonance_isolated.pdf}
         \end{textblock*}
+        \begin{textblock*}{.5\linewidth}(.62\linewidth, 4.5cm)
+          Chin \textit{et al} (2010)
+\end{textblock*}
    }
 \end{frame}
 
 \begin{frame}[t]{Feshbach Resonances}
     Why are we interested in Feshbach resonances?
     \begin{itemize}
-      \item Molecular spectroscopy
-      \item Tuning of interaction rates
-      \item Interaction can be made attractive ($a>0$), repulsive ($a<0$) or switched off ($a=0$)
-      \item Formation of cold molecules in chosen states
+      \item<1-> Demonstration of ultracold temperatures
+      \item<2-> Tuning of interaction. Can be made:
+      \begin{itemize}
+        \item very strong ($a\rightarrow \pm\infty$)
+        \item attractive ($a>0$)
+        \item repulsive ($a<0$)
+        \item switched off ($a=0$)
+      \end{itemize}
+      \item<3-> Molecular spectroscopy
+      \item<4-> Formation of cold molecules in chosen states
       \end{itemize}
 \end{frame}
