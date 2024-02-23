@@ -1,0 +1,30 @@
+\begin{frame}[t]{The BaLi Experiment}
+    An apparatus to combine single (to tens) of Doppler cooled Ba$^+$-ions\\ 
+    \textbf{and} $\approx \num{2e4}$ $^6$Li-atoms at $T\approx\SI{1}{\micro\kelvin}$
+    \picpos{.7\linewidth}{1.5cm}{0.5cm}{experiment_overlay_3_antialiased.png}
+\end{frame}
+
+\begin{frame}[t]{The Atom Trap(s)}
+    An apparatus to combine single (to tens) of Doppler cooled Ba$^+$-ions\\ 
+    \textbf{and} $\approx \num{2e4}$ $^6$Li-atoms at $T\approx\SI{1}{\micro\kelvin}$
+    \picpos{.7\linewidth}{1.5cm}{0.5cm}{IonTrap_3_free.png}
+\end{frame}
+
+\begin{frame}[t]{The Ion Trap(s)}
+    Earnshaw's theorem forbids 3D confinement with electric fields: \\
+\quad $\Rightarrow$ Use oscillating fields to form time-averaged trap
+\visible<1-2>{\picpos{.55\linewidth}{0cm}{.8cm}{paulfalle_xy.pdf}}
+\visible<1>{\picpos{.28\linewidth}{.65\linewidth}{.6cm}{IonTrap_3_free.png}}
+
+\visible<2>{\picpos{.4\linewidth}{.55\linewidth}{.5cm}{ion_dynamics_xt1.pdf}}
+
+\vspace{4.2cm}
+
+    \visible<1>{Dynamics of trapped ion are governed by Mathieu equation}
+    \visible<1-2>{
+        \begin{align*}
+            \ddot{r_i} + \left[a_i + 2q_i\cos\left(\Omega_\text{rf} t\right)\right]  \frac{\Omega_\text{rf}^2}{4} r_i &= 0
+        \end{align*}
+    }
+
+\end{frame}

@@ -1,0 +1,60 @@
+
+\begin{frame}[t]{The Atom Trap}
+  %\begin{textblock*}{0.4\linewidth}(0.1cm,0.1cm)
+ \only<1>{
+    Atoms trapped in a crossed optical dipole trap (xODT).
+
+     Evaporatively cooled to $T_{\li} \approx \SIrange{0.7}{20}{\micro\kelvin}$ and spin polarised.
+
+     Atom number $N \sim \SI{e4}{}$, density $n \sim \SI{e13}{\per\cm\cubed}$.
+    \picpos{.6\linewidth}{0.0\linewidth}{1cm}{xodt_schematic.png}
+    \picpos{.4\linewidth}{0.55\linewidth}{0.5cm}{xodt_sim.png}
+    }
+\end{frame}
+
+\begin{frame}[t]{The Ion Trap}
+    Ion confined in linear rf trap $\Omega_{\mathrm{rf}} = \SI{1.4}{\mega\hertz}$, Doopler cooled to $T_{\ba}\approx \SI{300}{\micro\kelvin}$
+\visible<1-2>{\picpos{.55\linewidth}{0cm}{.8cm}{paulfalle_xy.pdf}}
+\only<1>{\picpos{.35\linewidth}{.65\linewidth}{.45cm}{IonTrap_3_free.png}}
+
+\only<2>{\picpos{.35\linewidth}{.55\linewidth}{.45cm}{ion_dynamics_xt1.pdf}}
+
+\vspace{4.3cm}
+\only<1>{Effective potential depth $\sim\SI{e3}{\kelvin}$ traps ion for hours}
+    \only<2>{Ion's motion includes slower secular part ($\omega_r \approx \SI{100}{\kilo\hertz}$) and fast microtion part ($\Omega_{\mathrm{rf}}$)}
+    \only<2>{dc fields increase micromotion:
+        \begin{align*}
+            r_i(t) = \left[1 - q_i\cos\left(\Omega_\text{rf} t\right)\right]\cdot  \left[x_{\mathrm{dc}}+x_0\cos(\omega_r t)\right]
+        \end{align*}
+    }
+  \end{frame}
+
+\begin{frame}[t]{Collisions}
+    Sympathetic cooling - but \ldots
+
+\includegraphics[width=\linewidth]{collision_heating}
+$T_{\mathrm{ion}}$ limited by rf trap
+  \end{frame}
+
+\begin{frame}[t]{\BaLi}
+    \begin{textblock*}{.55\linewidth}(0cm, 0cm)
+    \begin{itemize}
+        \item \Ba{} is hydrogen-like
+        \item \Li{} is fermionic
+        \item Large mass ratio
+        \item[\textrightarrow] Collision energy dominated by (colder) Li
+        \begin{equation*}
+            E_{\mathrm{coll}}  = \frac{\mu}{m_{\mathrm{Li}}} E_{\mathrm{Li}} + \frac{\mu}{m_{\mathrm{\ba}}} \left(E_{\ba} + E_{\mathrm{mm}} \right)\label{eq:E}
+        \end{equation*}
+
+        \item[\textrightarrow] Also reduces the effect collisional heating
+        \item Individual ground states also molecular ground state - low background losses
+    \end{itemize}
+
+
+    \end{textblock*}
+
+    \begin{textblock*}{.45\linewidth}(0.55\linewidth, 0cm)
+        \includegraphics[width=\linewidth]{bali_potential_full}
+    \end{textblock*}
+\end{frame}

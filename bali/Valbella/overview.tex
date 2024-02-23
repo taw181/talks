@@ -1,0 +1,64 @@
+% \begin{frame}[t]{Freiburg Ion Trapping Group}
+%     \picpos{\linewidth}{0cm}{0cm}{group_slide.pdf}
+% \end{frame}
+
+\begin{frame}[t]{BaLi: What and Why?}
+  \visible<1->{
+  What do we do?
+  \begin{itemize}
+    \item Hybrid traps
+    \item \Ba{} ions and neutral \Li{} atoms
+    \item Investigate interactions in the ultracold regime
+    \end{itemize}
+  }
+    \visible<2->{
+    Why hybrid traps?
+    \begin{itemize}
+        \item Longer range interactions than neutrals ($r^{-4}$ vs $r^{-6}$)
+
+        \item Cold quantum chemistry
+
+        \item Quantum simulation
+
+     \end{itemize}
+    }
+\end{frame}
+
+\begin{frame}[t]{Atom-Ion interaction}
+    \only<1>{The ion induces a dipole moment in the atom ($p \propto E(r) \propto \frac{1}{r^2}$)}
+
+    \only<2>{The total wavefunction is composed of partial waves of angular momentum $l$.
+
+    The contribution of partial waves depends on the collision energy.}
+    \[
+        \setlength{\abovedisplayskip}{2pt}
+         \setlength{\belowdisplayskip}{2pt}
+        V_\text{atom-ion}(r) \approx- \frac{C_4}{r^4} \visible<2>{\textcolor{red}{+ \frac{\hbar \,l\,(l+1)}{\mu r^2}}}
+        \]
+        \only<1>{\picpos{0.35\linewidth}{.6\linewidth}{-1.4cm}{bali_potential_full.png}
+        \picpos{0.35\linewidth}{1cm}{0cm}{atom_ion_potential.png}}
+        \only<2>{\picpos{.75\linewidth}{0.1\linewidth}{0cm}{partial_waves.png}}
+\end{frame}
+
+\begin{frame}[t]{Feshbach Resonances}
+    \only<1-2>{An incoming state (open channel) can couple to a bound state (closed channel).
+
+    As the bound state approaches the incoming state the mixing between states increases.
+
+    \picpos{.55\linewidth}{0cm}{0.6cm}{feshbach_resonance2.png}}
+  %   \only<1>{\begin{textblock*}{0.4\linewidth}(0.5\linewidth,0cm)
+  %   Quantum number $M=m_1 + m_2 + m_l$ is strictly conserved.
+  % \end{textblock*}}
+    \only<2>{
+%        \picpos{.46\linewidth}{.53\linewidth}{2.4cm}{feshbach_resonance_isolated.pdf}
+        \begin{textblock*}{.5\linewidth}(.53\linewidth, 0.2cm)
+           \small
+%           Magnetic fields can be used to shift potentials relative to each other (magnetic FR)
+                   \[ a = a_\text{bg} \left( 1 - \frac{\Delta}{B-B_0} \right) \]
+            \includegraphics[width=0.8\linewidth]{feshbach_resonance_isolated}
+
+            \centering\cite{Chin2010}
+        \end{textblock*}
+
+   }
+\end{frame}

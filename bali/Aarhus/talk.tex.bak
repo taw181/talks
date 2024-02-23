@@ -1,0 +1,89 @@
+\documentclass[aspectratio=169]{beamer}
+
+%% PACKAGES %%
+
+\usepackage[utf8]{inputenc}
+\usepackage[width=1cm, height=1.2cm]{ufcd}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{textpos}
+\usepackage{svg}
+ \usepackage{cmbright}
+\usepackage[export]{adjustbox}
+\usepackage{pdfpages}
+\usepackage{appendixnumberbeamer}
+ \usepackage{amsmath}
+\usepackage{multimedia}
+\usepackage{pdfpc-movie}
+\usepackage{nicefrac}
+\usepackage{braket}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{siunitx}\sisetup{
+    detect-all,
+%    alsoload        = synchem,
+    range-units     = single,
+    range-phrase    = {\text{\,--\,}},
+%    list-pair-separator= {, },
+    list-separator  = {,},
+    list-final-separator = {,},
+    %per-mode        = fraction,
+    exponent-product = \cdot
+    }
+
+%% CUSTOM SETTINGS %%
+\beamertemplatenavigationsymbolsempty
+\graphicspath{{figures/}{../../Figures/}}
+
+%% CUSTOM COMMANDS %%
+\newcommand{\picpos}[5][]{
+  \begin{textblock*}{#2}(#3, #4)
+    \textblockcolor{#1}
+    \includegraphics[width=\textwidth]{#5}
+  \end{textblock*}
+}
+
+\newcommand{\svgpos}[5]{
+  \begin{textblock*}{#1}(#2, #3)
+      \includesvg[width=\textwidth, #4]{#5}
+  \end{textblock*}
+}
+
+\newcommand{\Ba}{\ensuremath{^{\text{138}}\text{Ba}^{\text +}}}
+\newcommand{\Li}{\ensuremath{^{\text 6}\text{Li}}}
+\newcommand{\ba}{\ensuremath{\text{Ba}^{\text +}}}
+\newcommand{\li}{\ensuremath{\text{Li}}}
+%\newcommand{\ba}{\Ba}
+%\newcommand{\li}{\Li}
+\newcommand{\BaLi}{\Ba -\Li}
+\newcommand{\bali}{\ba -\li}
+
+
+
+\makeatletter\let\expandableinput\@@input\makeatother 
+
+% some footnote formatting: no lines and no numnbers
+\let\footnoterule\relax
+\makeatletter
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+\makeatother
+
+%% PRESENTATION NAME etc. %%
+\title[Atom-ion Feshbach resonances]{Observation of Feshbach resonances between a single barium ion and an ultracold lithium gas}
+\subtitle{\small Impurity Physics with Cold Atoms and Ions Conference \newline
+Aarhus 2023}
+\author[T.~Walker]{\small Thomas Walker, Fabian Thielemann, Joachim Welz, Wei Wu, \\  and Tobias Schätz}
+%\institute{Physikalisches Institut}
+
+\begin{document}
+    \include{title}
+    \include{overview}
+    \include{setup}
+    \include{sequence}
+    \include{results}
+    \include{energy}
+    \include{final_remarks}
+%    \appendix
+%     \include{appendix}
+
+\end{document}

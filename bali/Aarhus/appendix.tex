@@ -1,0 +1,120 @@
+\begin{frame}[t]{Product state classification}
+    We interrogate the ion product state and classify it as a surivival or one of three loss categories.
+    A loss indicates the formation of a bound state.
+    \picpos{\linewidth}{0cm}{1cm}{Detection_classification.pdf}
+\end{frame}
+
+\begin{frame}[t]{Ion Trapping in RF Fields}
+Poisson's equation forbids 3D DC confinement: $\Delta\phi_\text{el} = 0$ \\
+\quad $\Rightarrow$ Apply time-varying potential in x--y-plane
+\visible<1-3>{\picpos{.6\linewidth}{0cm}{.5cm}{paulfalle_xy.pdf}}
+\visible<2-3, 5>{\picpos{.28\linewidth}{.65\linewidth}{.6cm}{IonTrap_3_free.png}}
+\only<4>{
+  \begin{textblock*}{.4\linewidth}(0cm, 0.5cm)
+    %\textblockcolor{#1}
+    \movie[width=\linewidth, height=.7145\linewidth, poster,loop,autostart]{}{figures/ion_motion_anim_plasma.mp4}
+  \end{textblock*}
+}
+\visible<4>{\picpos{.4\linewidth}{.5\linewidth}{.5cm}{ion_dynamics_xt1.pdf}}
+\visible<5>{\picpos{.55\linewidth}{.77cm}{.7cm}{first_ion_crystals.pdf}}
+
+\vspace{4.2cm}
+\only<3-4>{
+    \visible<3>{Dynamics of trapped ion are governed by Mathieu equation}
+    \visible<3-4>{
+        \begin{align*}
+            \ddot{r_i} + \left[a_i + 2q_i\cos\left(\Omega_\text{rf} t\right)\right]  \frac{\Omega_\text{rf}^2}{4} r_i &= 0
+        \end{align*}
+    }
+}
+\visible<5>{Deep potential ($\mathcal{O}(10^3\,\text{K})$) allows storing ion coulomb crystals for hours.\\
+{\tiny (But we only want single ions and throw them away every few minutes.)}}
+\end{frame}
+
+\begin{frame}[t]{Optical Ion Trapping}
+    No micromotion: HOORAY! (But also it's much more difficult.)
+\visible<1->{\picpos{.4\linewidth}{.6\linewidth}{0cm}{feshbach_setup_vis.pdf}}
+\visible<1->{\picpos{.45\linewidth}{0cm}{0.5cm}{opttrapshape3.pdf}}
+\vspace{4.4cm}
+\visible<1>{
+Ion is sensitive to stray electric fields $E_\text{stray}$ and DC defocussing
+\begin{align*}
+    U_\text{tot}(r) \approx U_\text{opt}(r) - e E_\text{stray}  \,r - \frac{1}{2} \omega_\text{dc-defoc}^2
+    m_\text{ion}  \,r^2
+\end{align*}
+}
+\visible<2>{
+\begin{textblock*}{\linewidth}(5em, -1cm)
+    Shallow, finite potential allows to probe radial ion kinetic energy!
+\end{textblock*}
+}
+\end{frame}
+\begin{frame}[t]{Product state classification}
+    We interrogate the ion product state and classify it in four different events.
+    \picpos{\linewidth}{0cm}{1cm}{Detection_classification.pdf}
+\end{frame}
+\begin{frame}[t]{Density Dependence of Ba$^+$ Loss on Resonance}
+   \visible<1-2>{\picpos{.35\linewidth}{1cm}{0cm}{suppl_fig_2.pdf}}
+   \visible<2>{\picpos{.5\linewidth}{.45\linewidth}{0cm}{fig_3_alt.pdf}}
+   \begin{textblock*}{.5\linewidth}(7.2cm, 5.5cm)
+       \visible<1-2>{
+        \small
+        Vary atom number and probe ion decay rate.
+    }
+        \only<2->{\\ $\Rightarrow$ TBR is dominant loss process on resonance!}
+   \end{textblock*}
+   \only<3>{
+       \picpos{.5\linewidth}{-.1cm}{0.5cm}{bootstrap_mpv_median.png}
+       \picpos{.5\linewidth}{0.5\linewidth}{0.5cm}{bootstrap_fit_result.png}
+   }
+\end{frame}
+
+\begin{frame}[t]{The Forest of Resonances for Li in $ \ket{1}$}
+   \picpos{1.3\linewidth}{-2cm}{0.2cm}{spin1_overview_full.pdf}
+   \visible<1->{We scanned a range of \SI{160}{G} and didn't find a region with flat background $>\SI{5}{G}$ wide.}
+   \visible<2>{\picpos{4cm}{0.5cm}{4cm}{theory.pdf}}
+   \visible<2>{
+        \begin{textblock*}{.7\linewidth}(4.7cm, 4.7cm)
+           \small Some resonances are much narrower than what we observed in the
+           other channel, theory explores higher order spin-orbit coupling.
+        \end{textblock*}
+   }
+\end{frame}
+
+\begin{frame}[t]{Effect of Collisional Spin Polarization of Ba$^+$ (?)}
+    $B = \SI{321.75}{G}$ which is on a narrow resonance for Li in $\ket{1}$ but background in $\ket{2}$.
+    \only<1>{
+          \begin{textblock*}{.55\linewidth}(1em, 1em)
+              \small
+              Collisional spin polarization is expected to only work with Li in $\ket{2}$!
+              \begin{align*}
+                  &\ket{m_s=-\frac{1}{2}, \,m_I=0}_\text{Li} + \ket{m_s=+\frac{1}{2}} \quad\longrightarrow \\
+                  &\ket{m_s=-\frac{1}{2}, \,m_I=1}_\text{Li} + \ket{m_s=-\frac{1}{2}}
+                  \end{align*}
+          \end{textblock*}
+        }
+    \visible<2>{\picpos{.6\linewidth}{0cm}{0.3cm}{spin1_decay_1.pdf}}
+    \visible<1->{\picpos{.25\linewidth}{.67\linewidth}{0.56cm}{atom_ion_int_spinflip.pdf}}
+    \visible<3>{\picpos{.6\linewidth}{0cm}{0.3cm}{spin1_decay_2.pdf}}
+\end{frame}
+
+\begin{frame}[t]{Atom-Ion interaction}
+    \only<1>{The ion induces a dipole moment in the atom ($p \propto E(r) \propto \frac{1}{r^2}$) that leads to a long-range charge-dipole interaction:}
+
+    \only<2>{The total wavefunction is composed of partial waves of angular momentum $l$.
+
+    The contribution of partial waves depends on the collision energy.}
+    \[
+        V_\text{atom-ion}(r) \approx- \frac{C_4}{r^4} \visible<2>{\textcolor{red}{+ \frac{\hbar \,l\,(l+1)}{\mu r^2}}}
+        \]
+        \only<1>{
+        \picpos{0.3\linewidth}{1cm}{0cm}{atom_ion_potential.png}
+        \picpos{0.4\linewidth}{.5\linewidth}{0cm}{BaLi_PECs_B.pdf}
+        }
+        \only<1>{\begin{textblock*}{.5\linewidth}(.25\linewidth, 3cm)
+          \small Chin \textit{et al} (2010)
+\end{textblock*}}
+
+        \only<2>{\picpos{.7\linewidth}{0.1\linewidth}{0cm}{partial_waves.png}}
+
+\end{frame}

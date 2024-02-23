@@ -1,0 +1,7 @@
+\begin{frame}[t]{Thank you!}
+    \picpos{0.9\linewidth}{1cm}{0cm}{thankyouslide.pdf}
+\end{frame}
+
+\begin{frame}[t]{Bibliography}
+    \printbibliography
+\end{frame}

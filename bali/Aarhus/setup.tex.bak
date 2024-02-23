@@ -1,0 +1,106 @@
+\begin{frame}[t]{The BaLi Experiment}
+    An apparatus to combine single (to tens) of Doppler cooled Ba$^+$-ions\\
+    with $\approx \num{2e4}$ $^6$Li-atoms at $T\approx\SI{1}{\micro\kelvin}$
+    \picpos{.7\linewidth}{1.5cm}{0.5cm}{experiment_overlay_3_antialiased.png}
+\end{frame}
+
+% \begin{frame}[t]{The Atom Traps}
+%   %\begin{textblock*}{0.4\linewidth}(0.1cm,0.1cm)
+%   Initially load a MOT of $~10^6$ Li atoms.
+%   %\end{textblock*}
+%     \picpos{.6\linewidth}{0.0\linewidth}{1.5cm}{xodt_schematic.png}
+%     \picpos{.4\linewidth}{0.6\linewidth}{1cm}{xodt_sim.png}
+% \end{frame}
+
+\begin{frame}[t]{The Atom Trap}
+  %\begin{textblock*}{0.4\linewidth}(0.1cm,0.1cm)
+  \only<1>{  Atomic beam cooled with Zeeman slower.
+
+  Initially loaded into a MOT of $\sim 10^6$ atoms.
+    %\end{textblock*}
+    \picpos{.55\linewidth}{0.0\linewidth}{.5cm}{mot_lasers.png}
+    \picpos{.35\linewidth}{0.6\linewidth}{1cm}{mot.png}
+      }
+ \only<2>{
+ \begin{itemize}
+  \item Atoms transferred from MOT to crossed optical dipole trap (xODT)
+
+  \item Evaporatively cooled to $T\approx\SI{1}{\micro\kelvin}$
+
+  \item Spin polarised
+
+  \item $\sim \SI{e4}{}$ $^6$Li atoms. Peak density $\sim \SI{e13}{\per\cm\cubed}$.
+ \end{itemize}
+  %\end{textblock*}
+    \picpos{.6\linewidth}{0.0\linewidth}{0.9cm}{xodt_schematic.png}
+    \picpos{.4\linewidth}{0.6\linewidth}{0.4cm}{xodt_sim.png}
+    }
+\end{frame}
+
+\begin{frame}[t]{The Ion Trap}
+    \begin{textblock*}{0.4\linewidth}(0.0\linewidth,0.0\linewidth)
+      % \only<1-2>{
+      % Design considerations:
+      % \begin{itemize}
+      %   \item Single ion or strings
+      %   \item Optical access
+      %   \item Stray field (micromotion) compensation
+      % \end{itemize}
+      % }
+      \only<1-2>{
+      Trap parameters:
+      \begin{itemize}
+        \item $\omega_{\textrm{rad}} \approx 2\pi\times\SI{100}{\kilo\hertz}$
+        \item $\omega_{\textrm{ax}} \approx 2\pi\times\SI{10}{\kilo\hertz}$
+        \item $\Omega_{\textrm{rf}} \approx \SI{1.4}{\mega\hertz}$
+      \end{itemize}
+      }
+    \end{textblock*}
+% \visible<1-2>{\picpos{.55\linewidth}{0cm}{.8cm}{paulfalle_xy.pdf}}
+\only<1-2>{\picpos{.5\linewidth}{.5\linewidth}{.45cm}{IonTrap_3_free.png}}
+\only<3>{\picpos{.5\linewidth}{.5\linewidth}{1cm}{trap_side.png}}
+\only<3>{\picpos{.5\linewidth}{0\linewidth}{0.45cm}{trap_axis.png}}
+\only<4>{
+\begin{textblock*}{0.4\linewidth}(0.0\linewidth,0.0\linewidth)
+\begin{itemize}
+  \item Loaded through ablation loading and photoionisation
+  \item Doppler cooled to near Doppler limit ($T_{\textrm{D}}=\SI{365}{\micro\kelvin}$)
+  \item Prepared in ground state spin-mixture
+  \item Detected via fluorescence on CCD
+  \item $\approx\SI{1}{\micro\meter}$ position resolution
+  \item Stray fields compensated to \SI{3}{\milli\volt\per\meter}
+\end{itemize}
+\end{textblock*}
+\picpos{.5\linewidth}{.5\linewidth}{.45cm}{IonTrap_3_free.png}
+}
+%
+% % \visible<2>{\picpos{.35\linewidth}{.55\linewidth}{.45cm}{ion_dynamics_xt1.pdf}}
+% %
+% % \vspace{4.3cm}
+% % \only<1>{Effective potential depth $\mathcal{O}(\SI{e3}{\kelvin})$ traps ion for hours}
+% %     \only<2>{Ion's motion includes slower secular part ($\omega_r$) and fast microtion part: ($\Omega_{\mathrm{rf}}$)}
+% %     \only<2>{
+% %         \begin{align*}
+% %             r_i(t) = \left[1 - q_i\cos\left(\Omega_\text{rf} t\right)\right]\cdot  \left[x_{\mathrm{dc}}+x_0\cos(\omega_r t)\right]
+% %         \end{align*}
+% %     }
+  \end{frame}
+%%
+%    \begin{frame}[t]{The Ion Traps}
+%      \only<1>{The ions can be transferred to an optical trap.}
+%
+%        % \quad$\Rightarrow$ No more micromotion.}
+%        \only<2>{Tuneable shallow potential allows probing of radial kinetic energy
+%        -- acts as a thermometer}
+%    \visible<1->{\picpos{.4\linewidth}{.6\linewidth}{0cm}{feshbach_setup_vis.pdf}}
+%    \visible<1>{\picpos{.55\linewidth}{0cm}{0.5cm}{opt_trap_seq.png}}
+%    \visible<2>{\picpos{.45\linewidth}{0cm}{0.5cm}{opttrapshape3.pdf}}
+%    \vspace{4.4cm}
+%    \only<2>{
+%    Ion is sensitive to stray electric fields $E_\text{stray}$ and DC defocussing
+%    \begin{align*}
+%        U_\text{tot}(r) \approx U_\text{opt}(r) - e E_\text{stray}  \,r - \frac{1}{2} \omega_\text{dc-defoc}^2
+%        m_\text{ion}  \,r^2
+%    \end{align*}
+%    }
+%    \end{frame}

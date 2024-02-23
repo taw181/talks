@@ -1,0 +1,4 @@
+PWD /home/tom/Documents/Talks/Valbella
+INPUT /var/lib/texmf/web2c/luahbtex/lualatex.fmt
+INPUT ./sequence.tex
+OUTPUT sequence.log

@@ -1,0 +1,49 @@
+\begin{frame}[t]{Changing collision energy}
+    \begin{textblock*}{\linewidth}(0cm, 0cm) %(0.52\linewidth, 1.5cm)
+        \includegraphics[width=\linewidth]{partial_waves.png}
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Two ways to tune collision energy}
+    \begin{textblock*}{\linewidth}(0cm, 0cm) %(0.52\linewidth, 1.5cm)
+        \includegraphics[width=\linewidth]{energy_methods.png}
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Scanning the offset field}
+    \begin{textblock*}{\linewidth}(0cm, 0cm) 
+    \centering \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{radial_scan.png}
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{A hotter spectrum}
+    \begin{textblock*}{\linewidth}(0cm, 0cm) 
+    \centering \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{offset_field_318_324G_0_10mV.png}
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{Even hotter spectra}
+    \begin{textblock*}{\linewidth}(0cm, 0cm) 
+    \centering \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{offset_field_318_324G.png}
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[t]{A shifting resonance}
+    \begin{textblock*}{0.5\linewidth}(0cm, 0cm)  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{322_res_scan_stacked.png}
+    \end{textblock*}
+    
+     \begin{textblock*}{0.55\linewidth}(0.45\linewidth, 0cm)  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{322_field_scaling.png}
+    \end{textblock*}
+\end{frame}
+
+%\begin{frame}[t]{Differing neighbours}
+%\centering
+%    \begin{textblock*}{\linewidth}(0cm, 0cm)  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{338_two_res.png}
+%    \end{textblock*}
+%\end{frame}
+
+\begin{frame}[t]{Turning up the bath temperature}
+    \begin{textblock*}{\linewidth}(0cm, 0cm) 
+    \centering \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{bath_temp_318_324_07_8uK.png}
+    \end{textblock*}
+\end{frame}
