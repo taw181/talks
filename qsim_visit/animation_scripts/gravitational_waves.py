@@ -113,7 +113,7 @@ def hole_positions(t):
 
 
 # --- the field ------------------------------------------------------------
-def smoothstep(x):
+def smooth_step(x):
     x = np.clip(x, 0.0, 1.0)
     return x * x * (3.0 - 2.0 * x)
 
@@ -122,7 +122,7 @@ def strain(t_emit):
     """Wave amplitude emitted at time t_emit: switches on, chirps, rings down."""
     growing = H_START * (omega(t_emit) / OMEGA_START) ** H_GROWTH
     decay = np.exp(-np.maximum(t_emit - T_INSPIRAL, 0.0) / TAU_RINGDOWN)
-    return growing * decay * smoothstep(t_emit / WAVE_ONSET)
+    return growing * decay * smooth_step(t_emit / WAVE_ONSET)
 
 
 def wells(x, y, t, gain=1.0):
@@ -132,10 +132,12 @@ def wells(x, y, t, gain=1.0):
         np.exp(-((x - p[0]) ** 2 + (y - p[1]) ** 2) / (2 * WELL_WIDTH**2))
         for p in (p1, p2)
     )
-    single = REMNANT_WELL_DEPTH / WELL_DEPTH * np.exp(
-        -(x**2 + y**2) / (2 * REMNANT_WELL_WIDTH**2)
+    single = (
+        REMNANT_WELL_DEPTH
+        / WELL_DEPTH
+        * np.exp(-(x**2 + y**2) / (2 * REMNANT_WELL_WIDTH**2))
     )
-    w = smoothstep((t - T_INSPIRAL) / MERGE_BLEND)
+    w = smooth_step((t - T_INSPIRAL) / MERGE_BLEND)
     return -gain * WELL_DEPTH * ((1.0 - w) * pair + w * single)
 
 
@@ -145,8 +147,8 @@ def sheet_height(x, y, t, gain=1.0):
     # Outside the near zone the sheet reports what the source was doing a
     # light-crossing time ago; that delay is what curls the pattern into arms.
     t_emit = t - np.maximum(rho - NEAR_ZONE, 0.0) / WAVE_SPEED
-    radial = smoothstep(rho / RHO_SOFT) / (1.0 + rho / RHO_FALL)
-    edge = smoothstep((GRID_HALF - rho) / EDGE_FADE)
+    radial = smooth_step(rho / RHO_SOFT) / (1.0 + rho / RHO_FALL)
+    edge = smooth_step((GRID_HALF - rho) / EDGE_FADE)
     quadrupole = np.cos(2.0 * np.arctan2(y, x) - 2.0 * orbital_phase(t_emit))
     return wells(x, y, t, gain) + gain * strain(t_emit) * radial * edge * quadrupole
 
@@ -167,9 +169,10 @@ def height_colors(z):
 
 
 # --- mobjects -------------------------------------------------------------
-# A stand-in reference point far below the sheet, used to pin every grid line
-# to the back of the depth sort (see SheetLine). Its depth is -1000 * cos(phi),
-# which beats anything in the scene for any camera above the horizon.
+# A stand-in reference point far below the sheet. Anything whose z_index_group
+# is set to it sorts to the back: its depth is -1000 * cos(phi), which beats
+# anything in the scene for any camera above the horizon. Used by the grid
+# lines (see SheetLine).
 BEHIND_EVERYTHING = VectorizedPoint([0.0, 0.0, -1000.0])
 
 
@@ -232,24 +235,23 @@ def refresh_sheet(grid, t, gain=1.0):
 
 
 def make_black_hole(radius=BH_RADIUS):
-    """A dark sphere with a warm rim mesh, inside a soft halo.
+    """A black sphere with a warm rim mesh.
 
-    Sphere keeps manim's default shade_in_3d, which is what earns it a place in
-    the camera's depth sort: ThreeDCamera.get_mobjects_to_display scores every
+    It keeps manim's default shade_in_3d, which is what earns it a place in the
+    camera's depth sort: ThreeDCamera.get_mobjects_to_display scores every
     mobject without that flag as np.inf, so unshaded mobjects are painted in
     scene order and two unshaded holes would never swap over as they orbit.
-    The cost is that manim's lighting only ever brightens, so an unlit-black
-    sphere comes out mid-grey; the fill is darkened here to claw some of that
-    back, but these are grey-ish spheres, not truly black ones.
+    The lighting pass itself is switched off at the camera (see construct), so
+    the fill stays properly black instead of being brightened to grey.
+
+    Nothing else is needed to make it read against the background: the hole
+    sits in a well ringed by bright grid lines, so its silhouette is a gap
+    punched in the wireframe, and the mesh supplies the curvature.
     """
     horizon = Sphere(radius=radius, resolution=(16, 16), checkerboard_colors=False)
     horizon.set_fill(HORIZON_COLOR, 1.0)
     horizon.set_stroke(HORIZON_GLOW, HORIZON_MESH_WIDTH, HORIZON_MESH_OPACITY)
-
-    halo = Sphere(radius=radius * 1.45, resolution=(12, 12), checkerboard_colors=False)
-    halo.set_fill(HORIZON_GLOW, HALO_OPACITY)
-    halo.set_stroke(width=0)
-    return VGroup(halo, horizon)
+    return horizon
 
 
 def follow_orbit(hole, clock, which, gain, radius=BH_RADIUS):

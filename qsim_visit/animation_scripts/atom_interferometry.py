@@ -32,7 +32,11 @@ MZ_C = MZ_B_UP + RIGHT * MZ_L  # second pi/2, where the arms overlap again
 
 
 def make_atom(color=ATOM_COLOR, radius=ATOM_RADIUS, opacity=1.0):
-    """An atom drawn as a shaded sphere: a filled disc plus a specular highlight."""
+    """An atom drawn as a flat filled disc.
+
+    A VGroup of one rather than a bare Circle, because every scene reaches for
+    atom[0] to recolour the body when the internal state changes.
+    """
     body = Circle(
         radius=radius,
         fill_color=color,
@@ -40,16 +44,7 @@ def make_atom(color=ATOM_COLOR, radius=ATOM_RADIUS, opacity=1.0):
         stroke_color=lighten(color),
         stroke_width=ATOM_STROKE_WIDTH,
     )
-    highlight = Circle(
-        radius=radius * HIGHLIGHT_RADIUS_RATIO,
-        fill_color=HIGHLIGHT_COLOR,
-        fill_opacity=HIGHLIGHT_OPACITY * opacity,
-        stroke_width=0,
-    ).move_to(
-        body.get_center()
-        + radius * HIGHLIGHT_OFFSET_RATIO * (UP + LEFT) / np.sqrt(2)
-    )
-    return VGroup(body, highlight)
+    return VGroup(body)
 
 
 def make_laser_pulse(x, y, length=PULSE_LENGTH, n_cycles=PULSE_CYCLES):
@@ -156,13 +151,16 @@ def emit(scene, x, atom, extras=()):
     scene.remove(pair)
 
 
-def draw_legs(scene, legs, fade=()):
+def draw_legs(scene, legs, fade=(), extra=()):
     """Move atoms along straight legs, drawing each trajectory in step.
 
     Every leg shares the same horizontal extent, so they all take the same
     run_time at speed V -- that is what keeps the kicked arms at 45 degrees.
     A Line created in step is used rather than a TracedPath because a
     TracedPath collapses once the point it follows stops moving.
+
+    `extra` is for anything that has to advance over exactly the same stretch
+    of flight, such as the phase an excited arm is accumulating as it goes.
     """
     anims = []
     for atom, start, end, color in legs:
@@ -171,6 +169,7 @@ def draw_legs(scene, legs, fade=()):
     dx = abs(legs[0][2][0] - legs[0][1][0])
     scene.play(
         *anims,
+        *extra,
         *[FadeOut(m) for m in fade],
         rate_func=linear,
         run_time=dx / V,
