@@ -1,0 +1,119 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is the template for the EGAS 55 conference abstracts.
+% Please, insert your name and affiliations, text of the abstract and references
+% at the locations in the file where they are mentioned.
+% Do not change the part defining the format of the file.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%   Format, do not change  %%%%%%%%%%%%%%%%%
+%
+
+% LaTeX file to be processed by pdflatex
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{times}
+\usepackage{graphicx}
+
+%\usepackage{draftwatermark}
+
+
+\setlength{\hoffset}{0.0cm}
+\setlength{\voffset}{0.0cm}
+
+\setlength{\oddsidemargin}{-0.8cm}
+\setlength{\marginparwidth}{-0.5cm}
+
+\setlength{\headsep}{0.0cm}
+\setlength{\headheight}{0.0cm}
+\setlength{\topskip}{0.4cm}
+\setlength{\topmargin}{-0.5cm}
+\setlength{\footskip}{1.0cm}
+
+\setlength{\textwidth}{16.9cm}
+\setlength{\textheight}{24.7cm}
+
+\setlength{\parindent}{0em}
+
+
+\newcommand{\abstracttitle}[1]{\parbox{\textwidth}
+                              {\setlength{\baselineskip}{19pt}%
+                               \begin{center}{\large\bfseries #1}\end{center}}}
+\newcommand{\authors}[1]{\begin{center}#1\end{center}}
+\newcommand{\addresses}[1]{\begin{center}#1\end{center}}
+
+\renewcommand{\labelenumi}{[\arabic{enumi}]}
+
+\pagestyle{empty}
+% \pagestyle{headings}
+\markright{EGAS 55}
+
+\usepackage{siunitx}
+\usepackage{biblatex}
+\bibliography{USOC.bib}
+% \bibliographystyle{plainnat}
+
+%%%%%%%%%%%%%%   End format   %%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             Editable part
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+\begin{document}
+%
+% Title of the abstract
+\abstracttitle{USOC: Ultra-precise, shock-resistant optical clocks}
+%
+% Authors and affiliation
+\authors{\textit{\underline{Thomas Walker*}, Ludovico Iannizzotto Venezze, Leonie Hawkins, Charles Baynham, Richard Hobson, Oliver Buchmueller}}
+
+\addresses{{\small Imperial College London, United Kingdom\\ \vspace{0.2cm}
+			(*) t.walker@imperial.ac.uk}}
+
+\setlength{\parskip}{\bigskipamount}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Text of your abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Optical atomic clocks require atoms to be cooled down to ultracold temperatures. 
+In optical lattice clocks, this imposes long dead times between clock interrogations, 
+leading to the Dick effect - aliasing of high-frequency local oscillator noise into low-frequency clock noise. 
+This can be circumvented by using a continuous scheme, 
+in which atoms are cooled and loaded into a moving optical lattice which conveys them between spatially separated interrogation regions \cite{katori_longitudinal_2021}. 
+Dick noise is the the most significant source of noise in current neutral atom optical clocks, 
+and eliminating it would potentially allow these clocks to reach the quantum projection noise limit \cite{schioppo_ultrastable_2017}. 
+
+This talk will introduce a new strontium-based continuous optical lattice clock, 
+loaded from a MOT operating on the mid-infrared \SI{2.92}{\micro\meter} $5s5p^3P_2$ to $5s4d^3D_3$ transition. 
+Operating the MOT on these metastable states has several advantages over the typical 689 nm MOT used for Sr; most significantly, 
+it can operate close to the interrogation region without significantly perturbing the 698nm 5s2 1S0 to 5s5p 3P0 clock transition. 
+Additionally, the 689 nm MOT  requires additional lasers for population recycling,
+ and has a higher recoil limit (\SI{250}{\nano\kelvin} vs \SI{12}{\nano\kelvin}) \cite{hobson_midinfrared_2020, akatsuka_three-stage_2021}. 
+ Simultaneous with the high-precision clock interrogation, the clock laser will be stabilised via high-bandwidth interrogation of the atoms, 
+ granting less stringent requirements for laser pre-stability. This removes the need for a large stabilisation cavity, 
+ opening the door to portability and reducing the susceptibility of the system to mechanical shock. 
+Important remarks:
+
+\vspace{0.3cm}
+
+% Uncomment the following if you wish to include a figure in the abstract
+%
+\begin{figure}[h]
+\begin{center}
+\includegraphics*[height=2.0cm]{schematic.png}
+\end{center}
+\caption{The caption for the figure should go here.}
+\end{figure}
+
+\setlength{\parskip}{\smallskipamount}
+\noindent 
+
+% Your references 
+
+\printbibliography
+% End your references
+
+\end{document}

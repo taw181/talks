@@ -1,0 +1,197 @@
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+(./talk.tex
+LaTeX2e <2026-06-01>
+L3 programming layer <2026-06-18>
+(/home/twalker/texmf/tex/latex/beamer/beamer.cls
+Document Class: beamer 2026/01/22 v3.77 A class for typesetting presentations
+(/home/twalker/texmf/tex/latex/beamer/beamerbasemodes.sty
+(/home/twalker/texmf/tex/latex/etoolbox/etoolbox.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbasedecode.sty))
+(/home/twalker/texmf/tex/generic/iftex/iftex.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbaseoptions.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/keyval.sty))
+(/home/twalker/texmf/tex/latex/geometry/geometry.sty
+(/home/twalker/texmf/tex/generic/iftex/ifvtex.sty))
+(/home/twalker/texmf/tex/latex/pgf/math/pgfmath.sty
+(/home/twalker/texmf/tex/latex/pgf/utilities/pgfrcs.sty
+(/home/twalker/texmf/tex/generic/pgf/utilities/pgfutil-common.tex)
+(/home/twalker/texmf/tex/generic/pgf/utilities/pgfutil-latex.def)
+(/home/twalker/texmf/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/home/twalker/texmf/tex/generic/pgf/pgf.revision.tex)))
+(/home/twalker/texmf/tex/latex/pgf/utilities/pgfkeys.sty
+(/home/twalker/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/home/twalker/texmf/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex)
+)) (/home/twalker/texmf/tex/generic/pgf/math/pgfmath.code.tex
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathparser.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathfunctions.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.t
+ex) (/home/twalker/texmf/tex/generic/pgf/math/pgfmathfunctions.random.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathfunctions.base.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathfunctions.round.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.c
+ode.tex) (/home/twalker/texmf/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/math/pgfmathfloat.code.tex)))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/base/size10.clo)
+(/home/twalker/texmf/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-def/xetex.def)))
+(/home/twalker/texmf/tex/latex/pgf/systemlayer/pgfsys.sty
+(/home/twalker/texmf/tex/generic/pgf/systemlayer/pgfsys.code.tex
+(/home/twalker/texmf/tex/generic/pgf/systemlayer/pgf.cfg)
+(/home/twalker/texmf/tex/generic/pgf/systemlayer/pgfsys-xetex.def
+(/home/twalker/texmf/tex/generic/pgf/systemlayer/pgfsys-dvipdfmx.def
+(/home/twalker/texmf/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def))))
+(/home/twalker/texmf/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex))
+(/home/twalker/texmf/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcore.code.tex
+(/home/twalker/texmf/tex/generic/pgf/math/pgfint.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
+) (/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorequick.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex)
+ (/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex)
+(/home/twalker/texmf/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex)))
+(/home/twalker/texmf/tex/latex/pgf/utilities/xxcolor.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/base/atbegshi-ltx.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/home/twalker/texmf/tex/generic/pdfescape/pdfescape.sty
+(/usr/local/texlive/2026/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2026/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+(/home/twalker/texmf/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty (/usr/local/texlive/2026/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(/home/twalker/texmf/tex/generic/stringenc/stringenc.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/home/twalker/texmf/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/puenc.def)
+(/home/twalker/texmf/tex/latex/url/url.sty)
+(/home/twalker/texmf/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2026/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+
+Package hyperref Message: Stopped early.
+
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hxetex.def
+(/usr/local/texlive/2026/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/home/twalker/texmf/tex/latex/beamer/beamerbaserequires.sty
+(/home/twalker/texmf/tex/latex/beamer/beamerbasecompatibility.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbasefont.sty
+(/home/twalker/texmf/tex/latex/amsfonts/amssymb.sty
+(/home/twalker/texmf/tex/latex/amsfonts/amsfonts.sty)))
+(/home/twalker/texmf/tex/latex/beamer/beamerbasetranslator.sty
+(/home/twalker/texmf/tex/latex/translator/translator.sty))
+(/home/twalker/texmf/tex/latex/beamer/beamerbasemisc.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbasetwoscreens.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbaseoverlay.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbasetitle.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbasesection.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbaseframe.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbaseverbatim.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbaseframesize.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbaseframecomponents.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbasecolor.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbasenotes.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbasetoc.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerbasetemplates.sty
+(/home/twalker/texmf/tex/latex/beamer/beamerbaseauxtemplates.sty
+(/home/twalker/texmf/tex/latex/beamer/beamerbaseboxes.sty)))
+(/home/twalker/texmf/tex/latex/beamer/beamerbaselocalstructure.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tools/enumerate.sty))
+(/home/twalker/texmf/tex/latex/beamer/beamerbasenavigation.sty
+(/home/twalker/texmf/tex/latex/beamer/beamerbasenavigationsymbols.tex))
+(/home/twalker/texmf/tex/latex/beamer/beamerbasetheorems.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/home/twalker/texmf/tex/latex/amscls/amsthm.sty))
+(/home/twalker/texmf/tex/latex/beamer/beamerbasethemes.sty))
+(/home/twalker/texmf/tex/latex/beamer/beamerthemedefault.sty
+(/home/twalker/texmf/tex/latex/beamer/beamerfontthemedefault.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamercolorthemedefault.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerinnerthemedefault.sty)
+(/home/twalker/texmf/tex/latex/beamer/beamerouterthemedefault.sty)))
+(./beamerthemeImperial.sty (/home/twalker/texmf/tex/latex/tabto-ltx/tabto.sty)
+(/home/twalker/texmf/tex/latex/changepage/changepage.sty)
+(./beamercolorthemeImperial.sty)
+(/home/twalker/texmf/tex/latex/moresize/moresize.sty)
+(/home/twalker/texmf/tex/latex/psnfss/pifont.sty
+(/home/twalker/texmf/tex/latex/psnfss/upzd.fd)
+(/home/twalker/texmf/tex/latex/psnfss/upsy.fd))
+(/home/twalker/texmf/tex/latex/fontspec/fontspec.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-xetex.def)))
+(/home/twalker/texmf/tex/latex/fontspec/fontspec-xetex.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/base/fontenc.sty)
+(/home/twalker/texmf/tex/latex/fontspec/fontspec.cfg)))
+(/home/twalker/texmf/tex/latex/booktabs/booktabs.sty)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty)
+(./beamerinnerthemeImperial.sty (/home/twalker/texmf/tex/latex/amsfonts/umsa.fd
+) (/home/twalker/texmf/tex/latex/amsfonts/umsb.fd))
+(./beamerouterthemeImperial.sty)) (./talk.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+(./talk.out) (./talk.out)
+(/home/twalker/texmf/tex/latex/translator/translator-basic-dictionary-English.d
+ict)
+(/home/twalker/texmf/tex/latex/translator/translator-bibliography-dictionary-En
+glish.dict)
+(/home/twalker/texmf/tex/latex/translator/translator-environment-dictionary-Eng
+lish.dict)
+(/home/twalker/texmf/tex/latex/translator/translator-months-dictionary-English.
+dict)
+(/home/twalker/texmf/tex/latex/translator/translator-numbers-dictionary-English
+.dict)
+(/home/twalker/texmf/tex/latex/translator/translator-theorem-dictionary-English
+.dict) (./talk.nav) [1] [2] [3] [4] [5]
+Overfull \vbox (19.1496pt too high) detected at line 140
+[6]
+Overfull \vbox (19.1496pt too high) detected at line 162
+[7]
+Overfull \vbox (14.58914pt too high) detected at line 172
+[8]
+Overfull \vbox (59.94725pt too high) detected at line 210
+[9]
+Overfull \vbox (49.0735pt too high) detected at line 234
+[10]
+Overfull \vbox (69.1958pt too high) detected at line 258
+[11] [12] [13]
+Overfull \vbox (14.55002pt too high) detected at line 326
+[14]
+Overfull \vbox (14.55002pt too high) detected at line 354
+[15] [16] (./talk.aux) )
+(see the transcript file for additional information)
+Output written on talk.pdf (16 pages).
+Transcript written on talk.log.

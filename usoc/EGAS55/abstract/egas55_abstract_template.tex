@@ -1,0 +1,127 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is the template for the EGAS 55 conference abstracts.
+% Please, insert your name and affiliations, text of the abstract and references
+% at the locations in the file where they are mentioned.
+% Do not change the part defining the format of the file.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%   Format, do not change  %%%%%%%%%%%%%%%%%
+%
+
+% LaTeX file to be processed by pdflatex
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{times}
+\usepackage{graphicx}
+
+%\usepackage{draftwatermark}
+
+
+\setlength{\hoffset}{0.0cm}
+\setlength{\voffset}{0.0cm}
+
+\setlength{\oddsidemargin}{-0.8cm}
+\setlength{\marginparwidth}{-0.5cm}
+
+\setlength{\headsep}{0.0cm}
+\setlength{\headheight}{0.0cm}
+\setlength{\topskip}{0.4cm}
+\setlength{\topmargin}{-0.5cm}
+\setlength{\footskip}{1.0cm}
+
+\setlength{\textwidth}{16.9cm}
+\setlength{\textheight}{24.7cm}
+
+\setlength{\parindent}{0em}
+
+
+\newcommand{\abstracttitle}[1]{\parbox{\textwidth}
+                              {\setlength{\baselineskip}{19pt}%
+                               \begin{center}{\large\bfseries #1}\end{center}}}
+\newcommand{\authors}[1]{\begin{center}#1\end{center}}
+\newcommand{\addresses}[1]{\begin{center}#1\end{center}}
+
+\renewcommand{\labelenumi}{[\arabic{enumi}]}
+
+\pagestyle{empty}
+% \pagestyle{headings}
+\markright{EGAS 55}
+
+%%%%%%%%%%%%%%   End format   %%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             Editable part
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+\begin{document}
+%
+% Title of the abstract
+\abstracttitle{USOC: Ultra-precise, shock-resistant optical clocks}
+%
+% Authors and affiliation
+\authors{\textit{\underline{Thomas Walker*}, Ludovico Iannizzotto Venezze, Leonie Hawkins, Charles Baynham, Richard Hobson, Oliver Buchmueller}}
+
+\addresses{{\small London, England\\ \vspace{0.2cm}
+(*) t.walker@imperial.ac.uk}}
+
+\setlength{\parskip}{\bigskipamount}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Text of your abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Optical clocks provide unparalelled precision for the measurement of time, and are set to replace the definition of the second. 
+However, many potenial applications of these devices, such as for global positioning or in commication networks, require deployment outside the lab in noisy environments. 
+In particular, mechanical shock can greatly impact short-term stability. This can be mitigated by using a continuous measurement scheme, rather than the conventional pulsed schemes.
+By continuously loading cold atoms into a measurement region, measurement dead-time can be eliminated and so the associated loss of precision can be reduced. 
+
+
+Important remarks:
+\begin{itemize}
+\item Abstracts should be written in English.
+
+\item The abstract should fit on one A4 page (210 mm $\times$ 297 mm) and should come without a page number.
+
+\item  It should be submitted in PDF format  through the conference website, using this template. 
+
+\item Figures could be also included.
+
+\item   Files larger than 5 MB will be rejected.
+
+\end{itemize}
+
+
+
+ \vspace{0.3cm}
+
+% Uncomment the following if you wish to include a figure in the abstract
+%
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics*[height=2.0cm]{Figure.png}
+%\end{center}
+%\caption{The caption for the figure should go here.}
+%\end{figure}
+
+\setlength{\parskip}{\smallskipamount}
+\noindent 
+
+% Your references 
+\begin{thebibliography}{10}
+\bibitem{Quixote_1605} 
+\textit{El ingenioso hidalgo don Quijote de la Mancha}, M. de Cervantes Saavedra, (First Edition, 1605).
+
+\bibitem{grossman} 
+\textit{Don Quixote}, M. de Cervantes (Author), E. Grossman (Translator), (HarperCollins Publishers Inc., New York, 2003) .
+
+\bibitem{Sancho} 
+S. Panza, and M. Cervantes, Phys. Rev. X {\bf 0000}, 1 (1605).
+
+
+\end{thebibliography}
+% End your references
+
+\end{document}

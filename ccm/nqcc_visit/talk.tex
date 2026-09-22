@@ -23,9 +23,9 @@
 %	PRESENTATION INFORMATION
 %----------------------------------------------------------------------------------------
 
-\title{Presentation Title}
-\subtitle{NQCC Visit}
-\author{Your Name}
+\title{Atoms and Molecules in Tweezers}
+\subtitle{State of the Experiment}
+\author{Thomas Walker}
 \date{\today}
 
 %----------------------------------------------------------------------------------------
@@ -45,6 +45,83 @@
 	\setbeamertemplate{title page}[logo]{ICL_Logo_White.pdf}
 	\frame[plain, s]{\titlepage}
 \endgroup
+
+
+\begingroup
+	\setbeamercolor{background canvas}{bg=ICLBlue}
+	\setbeamercolor{normal text}{fg=white}\usebeamercolor[fg]{normal text}
+	\setbeamercolor{page number in head/foot}{fg=white}
+
+	\begin{frame}
+		{\Huge\textcolor{white}{{\ImperialSansSemiBold The Chamber(s)}}}
+	\end{frame}
+\endgroup
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Trapping CaF Molecules}
+
+	\begin{columns}[T]
+		\begin{column}{0.42\linewidth}
+			\small
+			\begin{itemize}
+				\item CaF blue MOT \textasciitilde 2.5 - 3.0 $\times$ 10\textsuperscript{4} molecules at \textasciitilde 60 uK.
+				\item Optical pumping, magnetic trapping of CaF and transport to the tweezer chamber.
+				\item Transfer into a blue MOT in the tweezer chamber.
+				\item Load CaF into 852 nm tweezer array from blue MOT.
+			\end{itemize}
+
+			\vspace{6pt}
+			\textbf{Rydberg Excitation}
+			\begin{itemize}
+				\item \textbf{780 nm + 480 nm} - two-photon Rydberg excitation to 60s.
+				\item \textbf{297 nm} - direct single-photon Rydberg excitation to 59p.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.56\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{qsmol_figs/crop-31.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+% \begin{frame}
+% 	\frametitle{Trapping CaF Molecules}
+
+% \includegraphics[width=\linewidth]{Images/blue_mot_slide.png}
+% \end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Second Wavelength Tweezer Array}
+
+	\begin{columns}[T]
+		\begin{column}{0.42\linewidth}
+			\small
+			\begin{itemize}
+				\item Set up a second high-speed SLM for generating an array which is selectively attractive to CaF.
+				\item Small site spacing of \textasciitilde 1.0 um between CaF and Rb without interference.
+				\item Species selective trapping.
+			\end{itemize}
+
+			\vspace{6pt}
+			\textbf{Electric Field Control}
+			\begin{itemize}
+				\item Replace internal mount - install Faraday shielding and electrodes.
+				\item Tuning the Rb Rydberg energy separation to match the CaF rotational energy separation for a resonant dipole interaction.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.56\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{qsmol_figs/crop-31.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
 
 %----------------------------------------------------------------------------------------
 %	HIGH-SPEED PARALLEL REARRANGEMENT
@@ -76,14 +153,14 @@
 				\item Intermediate phase masks calculated by \textbf{linearly interpolating} trap weights, phases, positions.
 				\item Map occupied trap sites to final trap sites using an \textbf{efficient sorting algorithm} (e.g. Hungarian, Jonker-Volgenant algorithms).
 			\end{itemize}
-
-			\vfill
-			{\tiny Knottnerus, Ivo, et al. "Parallel assembly of neutral atom arrays with an SLM using linear phase interpolation." SciPost Physics 19.4 (2025): 118.}
 		\end{column}
 		\begin{column}{0.56\linewidth}
-			\includegraphics[width=\linewidth]{qsmol_figs/crop-22.png}
+			\includegraphics[width=0.9\linewidth]{qsmol_figs/crop-22.png} 
+
+			\tiny Knottnerus, Ivo, et al. "Parallel assembly of neutral atom arrays with an SLM using linear phase interpolation." SciPost Physics 19.4 (2025): 118.
 		\end{column}
 	\end{columns}
+
 \end{frame}
 
 %------------------------------------------------
@@ -125,7 +202,7 @@
 			Initial array - 16x16 5.0um spacing\\
 			\textbf{Mean filling fraction \textasciitilde 55\%}
 
-			\vspace{12pt}
+			\vspace{50pt}
 			Final array - 10x10 5.0um spacing\\
 			\textbf{Mean filling fraction \textasciitilde 94\%}
 		\end{column}
@@ -180,6 +257,8 @@
 	\end{columns}
 \end{frame}
 
+
+
 %------------------------------------------------
 
 \begin{frame}
@@ -188,7 +267,7 @@
 	\centering
 	\includegraphics[height=0.65\textheight]{qsmol_figs/crop-27-lower.png}
 	\hspace{1cm}
-	\includegraphics[height=0.65\textheight]{qsmol_figs/crop-28.png}
+	\includegraphics[height=0.75\textheight]{qsmol_figs/crop-28.png}
 \end{frame}
 
 %------------------------------------------------
@@ -219,73 +298,6 @@
 %	CURRENT EFFORTS
 %	(reused from the QSMol talk)
 %----------------------------------------------------------------------------------------
-
-\begingroup
-	\setbeamercolor{background canvas}{bg=ICLBlue}
-	\setbeamercolor{normal text}{fg=white}\usebeamercolor[fg]{normal text}
-	\setbeamercolor{page number in head/foot}{fg=white}
-
-	\begin{frame}
-		{\Huge\textcolor{white}{{\ImperialSansSemiBold Current Efforts}}}
-	\end{frame}
-\endgroup
-
-%------------------------------------------------
-
-\begin{frame}
-	\frametitle{Trapping CaF Molecules}
-
-	\begin{columns}[T]
-		\begin{column}{0.42\linewidth}
-			\small
-			\begin{itemize}
-				\item CaF blue MOT \textasciitilde 2.5 - 3.0 $\times$ 10\textsuperscript{4} molecules at \textasciitilde 60 uK.
-				\item Optical pumping, magnetic trapping of CaF and transport to the tweezer chamber.
-				\item Transfer into a blue MOT in the tweezer chamber.
-				\item Load CaF into 852 nm tweezer array from blue MOT.
-			\end{itemize}
-
-			\vspace{6pt}
-			\textbf{Rydberg Excitation}
-			\begin{itemize}
-				\item \textbf{780 nm + 480 nm} - two-photon Rydberg excitation to 60s.
-				\item \textbf{297 nm} - direct single-photon Rydberg excitation to 59p.
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.56\linewidth}
-			\centering
-			\includegraphics[width=\linewidth]{qsmol_figs/crop-31.png}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-	\frametitle{Second Wavelength Tweezer Array}
-
-	\begin{columns}[T]
-		\begin{column}{0.42\linewidth}
-			\small
-			\begin{itemize}
-				\item Set up a second high-speed SLM for generating an array which is selectively attractive to CaF.
-				\item Small site spacing of \textasciitilde 1.0 um between CaF and Rb without interference.
-				\item Species selective trapping.
-			\end{itemize}
-
-			\vspace{6pt}
-			\textbf{Electric Field Control}
-			\begin{itemize}
-				\item Replace internal mount - install Faraday shielding and electrodes.
-				\item Tuning the Rb Rydberg energy separation to match the CaF rotational energy separation for a resonant dipole interaction.
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.56\linewidth}
-			\centering
-			\includegraphics[width=\linewidth]{qsmol_figs/crop-31.png}
-		\end{column}
-	\end{columns}
-\end{frame}
 
 %----------------------------------------------------------------------------------------
 %	CLOSING SLIDE
