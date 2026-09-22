@@ -10,7 +10,16 @@ The ``*_STYLE`` bundles are dicts meant to be splatted into a mobject's
 constructor, e.g. ``DashedLine(a, b, **GUIDE_STYLE)``.
 """
 
-from manim import BLUE_B, BLUE_D, GREY_B, PURPLE_B, RED_C, WHITE, interpolate_color
+from manim import (
+    BLUE_B,
+    BLUE_D,
+    GREY_B,
+    PURPLE_B,
+    RED_C,
+    WHITE,
+    ManimColor,
+    interpolate_color,
+)
 
 # --- colour scheme --------------------------------------------------------
 ATOM_COLOR = BLUE_D  # |g, p>
@@ -76,3 +85,21 @@ LOOP_AREA_STYLE = dict(stroke_width=0, fill_color=AREA_COLOR, fill_opacity=0.09)
 # magnitude to the forward motion.
 V = 2.0
 PULSE_SPEED = V * 1.6
+
+# --- spacetime and gravitational waves ------------------------------------
+# The sheet is coloured by height, so it needs three shades that stay apart at
+# a 1.5px stroke: a calm slate at rest, a bright crest and a deep trough. The
+# holes themselves are warm, which is the one hue nothing else in the talk
+# uses -- against the blue sheet they read instantly as the source.
+SHEET_COLOR = ManimColor("#33607f")  # undisturbed spacetime
+CREST_COLOR = ManimColor("#a8e4ff")  # a wave crest
+TROUGH_COLOR = ManimColor("#54367f")  # a trough, and the floor of a gravitational well
+HORIZON_COLOR = ManimColor("#000000")  # the event horizon: darker than the background
+HORIZON_GLOW = ManimColor("#ffb26b")  # the rim light and the merger burst
+
+SHEET_STROKE_WIDTH = 1.5
+HORIZON_MESH_WIDTH = 0.6
+HORIZON_MESH_OPACITY = 0.14
+HALO_OPACITY = 0.07
+BURST_STROKE_WIDTH = 5
+

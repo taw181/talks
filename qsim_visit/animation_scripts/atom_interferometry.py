@@ -314,15 +314,17 @@ class MachZehnder(Scene):
         # The pi pulse exchanges the two arms' internal states, and with them
         # their momenta: the upper arm loses hbar k and flattens out, the lower
         # arm gains it and climbs. The arms converge instead of diverging.
-        # Offset clear of x = MZ_B[0], which the pulses travel up.
-        gain = momentum_arrow(MZ_B + LEFT * 0.4, UP, r"+\hbar k")
+        gain = momentum_arrow(MZ_B, UP, r"+\hbar k")
         lose = momentum_arrow(MZ_B_UP, DOWN, r"-\hbar k", label_dir=RIGHT)
 
-        # The ground-state arm takes a photon out of the beam and climbs.
+        # Bottom to top, following the beam. Both arms share a column, so the
+        # pulse rising to the upper arm passes over the lower arm's +hbar k
+        # arrow -- that overlap is worth accepting, because each arrow has to
+        # stand on the atom it acts on, where the kick actually happens.
         absorb(self, MZ_B[0], lower, extras=[self.pulse_caption(r"\pi", MZ_B[0])])
         self.play(state_colors(lower, KICKED_COLOR), *grow(gain), run_time=0.6)
-        # The excited arm is driven the other way: one photon arrives, two leave,
-        # and it recoils by -hbar k, which flattens it out.
+        # The excited arm is driven the other way: one photon arrives, two
+        # leave, and it recoils by -hbar k, which flattens it out.
         emit(self, MZ_B_UP[0], upper)
         self.play(state_colors(upper, ATOM_COLOR), *grow(lose), run_time=0.6)
         draw_legs(
