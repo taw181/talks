@@ -177,11 +177,6 @@ def emit(scene, x, atom, extras=()):
     scene.remove(pair)
 
 
-def process_note(text, point, direction=LEFT, buff=0.3):
-    """A small label naming the process a pulse drives on one arm."""
-    return Tex(text, font_size=26, color=LASER_COLOR).next_to(point, direction, buff=buff)
-
-
 def draw_legs(scene, legs, fade=()):
     """Move atoms along straight legs, drawing each trajectory in step.
 
@@ -367,16 +362,10 @@ class MachZehnder(Scene):
         # Offset clear of x = MZ_B[0], which the pulses travel up.
         gain = momentum_arrow(MZ_B + LEFT * 0.4, UP, r"+\hbar k")
         lose = momentum_arrow(MZ_B_UP, DOWN, r"-\hbar k", label_dir=RIGHT)
-        absorbed = process_note("absorption", MZ_B, direction=DOWN, buff=0.35)
 
         # The ground-state arm takes a photon out of the beam and climbs.
         absorb(self, MZ_B[0], lower, extras=[self.pulse_caption(r"\pi", MZ_B[0])])
-        self.play(
-            state_colors(lower, KICKED_COLOR),
-            *grow(gain),
-            FadeIn(absorbed),
-            run_time=0.6,
-        )
+        self.play(state_colors(lower, KICKED_COLOR), *grow(gain), run_time=0.6)
         # The excited arm is driven the other way: it adds a photon to the beam
         # and recoils by -hbar k, which flattens it out.
         emit(self, MZ_B_UP[0], upper)
@@ -384,7 +373,7 @@ class MachZehnder(Scene):
         draw_legs(
             self,
             [(lower, MZ_B, MZ_C, KICKED_COLOR), (upper, MZ_B_UP, MZ_C, ATOM_COLOR)],
-            fade=[gain, lose, absorbed],
+            fade=[gain, lose],
         )
 
         # --- 5. second pi/2: recombine -----------------------------------
