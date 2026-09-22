@@ -115,37 +115,80 @@ def make_k_arrow(x, y):
     return VGroup(arrow, label.next_to(arrow, RIGHT, buff=0.12)).move_to([x, y, 0])
 
 
-def fire_pulse(scene, x, atoms, caption=None, k_arrow=None):
-    """Send a wavepacket up the line x = const, flashing each atom as it passes.
+def absorb(scene, x, atom, extras=(), fade=()):
+    """A wavepacket rises from below and is absorbed: |g, p> -> |e, p + hbar k>.
 
-    `atoms` must be ordered bottom to top: the beam sweeps upward through all of
-    them, which is how a single laser catches both interferometer arms. Any
-    `caption` / `k_arrow` mobjects are positioned by the caller, faded in with
-    the rise and (for the arrow) out again with the last flash.
+    The packet collapses into the atom rather than simply fading, so absorption
+    is visibly a different event from the stimulated emission at the mirror.
     """
-    y = -config.frame_y_radius - 0.6
-    pulse = make_laser_pulse(x, y)
+    y0 = -config.frame_y_radius - 0.6
+    pulse = make_laser_pulse(x, y0)
     scene.add(pulse)
 
-    intro = [FadeIn(m) for m in (caption, k_arrow) if m is not None]
+    rise = atom.get_center()[1] - y0
+    scene.play(
+        pulse.animate.shift(UP * rise),
+        *[FadeIn(m) for m in extras],
+        rate_func=linear,
+        run_time=rise / PULSE_SPEED,
+    )
+    scene.play(
+        Flash(atom, color=LASER_COLOR, flash_radius=0.55, line_length=0.3),
+        pulse.animate.scale(0.02).move_to(atom.get_center()).set_stroke(opacity=0),
+        *[FadeOut(m) for m in fade],
+        run_time=0.4,
+    )
+    scene.remove(pulse)
 
-    for i, atom in enumerate(atoms):
-        target_y = atom.get_center()[1]
-        rise = target_y - y
-        scene.play(
-            pulse.animate.shift(UP * rise),
-            *(intro if i == 0 else []),
-            rate_func=linear,
-            run_time=max(rise / PULSE_SPEED, 0.2),
-        )
-        y = target_y
 
-        flash = [Flash(atom, color=LASER_COLOR, flash_radius=0.55, line_length=0.3)]
-        if i == len(atoms) - 1:
-            flash.append(FadeOut(pulse, scale=0.6))
-            if k_arrow is not None:
-                flash.append(FadeOut(k_arrow))
-        scene.play(*flash, run_time=0.4)
+def emit(scene, atom, extras=()):
+    """Stimulated emission: |e, p + hbar k> -> |g, p>, recoiling by -hbar k.
+
+    The photon goes into the mode of the driving field, so it leaves upward
+    alongside the beam and the atom is pushed the other way.
+    """
+    x, y, _ = atom.get_center()
+    pulse = make_laser_pulse(x, y + 1.15)
+
+    scene.play(
+        Flash(atom, color=LASER_COLOR, flash_radius=0.55, line_length=0.3),
+        FadeIn(pulse, scale=0.4),
+        *[FadeIn(m) for m in extras],
+        run_time=0.4,
+    )
+    rise = config.frame_y_radius + 1.4 - pulse.get_center()[1]
+    scene.play(
+        pulse.animate.shift(UP * rise),
+        rate_func=linear,
+        run_time=rise / PULSE_SPEED,
+    )
+    scene.remove(pulse)
+
+
+def process_note(text, point, direction=LEFT, buff=0.3):
+    """A small label naming the process a pulse drives on one arm."""
+    return Tex(text, font_size=26, color=LASER_COLOR).next_to(point, direction, buff=buff)
+
+
+def draw_legs(scene, legs, fade=()):
+    """Move atoms along straight legs, drawing each trajectory in step.
+
+    Every leg shares the same horizontal extent, so they all take the same
+    run_time at speed V -- that is what keeps the kicked arms at 45 degrees.
+    A Line created in step is used rather than a TracedPath because a
+    TracedPath collapses once the point it follows stops moving.
+    """
+    anims = []
+    for atom, start, end, color in legs:
+        anims.append(atom.animate.move_to(end))
+        anims.append(Create(Line(start, end, stroke_width=4, color=color)))
+    dx = abs(legs[0][2][0] - legs[0][1][0])
+    scene.play(
+        *anims,
+        *[FadeOut(m) for m in fade],
+        rate_func=linear,
+        run_time=dx / V,
+    )
 
 
 def state_colors(atom, color):
@@ -189,13 +232,8 @@ class SingleLaserKick(Scene):
         pulse_caption = MathTex(
             r"\pi/2\ \text{pulse}", font_size=32, color=LASER_COLOR
         ).next_to(SPLIT_POINT, DOWN, buff=0.9)
-        fire_pulse(
-            self,
-            SPLIT_X,
-            [atom],
-            caption=pulse_caption,
-            k_arrow=make_k_arrow(SPLIT_X - 0.9, -config.frame_y_radius + 0.45),
-        )
+        k_arrow = make_k_arrow(SPLIT_X - 0.9, -config.frame_y_radius + 0.45)
+        absorb(self, SPLIT_X, atom, extras=[pulse_caption, k_arrow], fade=[k_arrow])
 
         # --- 4. the split -------------------------------------------------
         straight = make_atom(opacity=SUPERPOSITION_OPACITY).move_to(SPLIT_POINT)
@@ -224,17 +262,23 @@ class SingleLaserKick(Scene):
         )
 
         # --- 5. diverging arms -------------------------------------------
-        self.add(
-            TracedPath(straight.get_center, stroke_color=ATOM_COLOR, stroke_width=3),
-            TracedPath(kicked.get_center, stroke_color=KICKED_COLOR, stroke_width=3),
-        )
-
         # Equal horizontal component on both arms -> a true 45 degree kick.
-        self.play(
-            straight.animate.shift(RIGHT * ARM_LENGTH),
-            kicked.animate.shift(ARM_LENGTH * (RIGHT + UP)),
-            rate_func=linear,
-            run_time=ARM_LENGTH / V,
+        draw_legs(
+            self,
+            [
+                (
+                    straight,
+                    SPLIT_POINT,
+                    SPLIT_POINT + RIGHT * ARM_LENGTH,
+                    ATOM_COLOR,
+                ),
+                (
+                    kicked,
+                    SPLIT_POINT,
+                    SPLIT_POINT + ARM_LENGTH * (RIGHT + UP),
+                    KICKED_COLOR,
+                ),
+            ],
         )
 
         # --- 6. final state labels ---------------------------------------
@@ -254,10 +298,12 @@ class MachZehnder(Scene):
 
     def construct(self):
         # --- 1. setup ----------------------------------------------------
+        # Title right, legend left: the mirror's emitted photon flies straight up
+        # the line x = MZ_B[0], and this keeps that column clear of both.
         title = Tex(
             r"Mach--Zehnder atom interferometer: $\pi/2 - \pi - \pi/2$", font_size=32
-        ).to_corner(UL)
-        legend = self.make_legend().to_corner(UR)
+        ).to_corner(UR)
+        legend = self.make_legend().to_corner(UL)
         guide = DashedLine(
             [-config.frame_x_radius, MZ_A[1], 0],
             MZ_A,
@@ -278,12 +324,13 @@ class MachZehnder(Scene):
         )
 
         # --- 3. first pi/2: split ----------------------------------------
-        fire_pulse(
+        k_arrow = make_k_arrow(MZ_A[0] - 0.9, -config.frame_y_radius + 0.45)
+        absorb(
             self,
             MZ_A[0],
-            [atom],
-            caption=self.pulse_caption(r"\pi/2", MZ_A[0]),
-            k_arrow=make_k_arrow(MZ_A[0] - 0.9, -config.frame_y_radius + 0.45),
+            atom,
+            extras=[self.pulse_caption(r"\pi/2", MZ_A[0]), k_arrow],
+            fade=[k_arrow],
         )
 
         lower = make_atom(opacity=SUPERPOSITION_OPACITY).move_to(MZ_A)
@@ -294,9 +341,9 @@ class MachZehnder(Scene):
         self.add(lower, upper)
         self.play(*grow(recoil), run_time=0.6)
 
-        # Each leg is drawn by a Line created in step with the atom, so the
-        # trajectory can be coloured by the state the arm is in on that leg.
-        self.play_leg(
+        # Each leg is coloured by the state that arm is in while traversing it.
+        draw_legs(
+            self,
             [(lower, MZ_A, MZ_B, ATOM_COLOR), (upper, MZ_A, MZ_B_UP, KICKED_COLOR)],
             fade=[recoil],
         )
@@ -305,39 +352,39 @@ class MachZehnder(Scene):
         # The pi pulse exchanges the two arms' internal states, and with them
         # their momenta: the upper arm loses hbar k and flattens out, the lower
         # arm gains it and climbs. The arms converge instead of diverging.
-        fire_pulse(
-            self,
-            MZ_B[0],
-            [lower, upper],
-            caption=self.pulse_caption(r"\pi", MZ_B[0]),
-        )
         gain = momentum_arrow(MZ_B, UP, r"+\hbar k")
         lose = momentum_arrow(MZ_B_UP, DOWN, r"-\hbar k", label_dir=RIGHT)
+        absorbed = process_note("absorption", MZ_B, direction=DOWN, buff=0.35)
+        emitted = process_note("stim.\\ emission", MZ_B_UP)
+
+        # The ground-state arm takes a photon out of the beam and climbs.
+        absorb(self, MZ_B[0], lower, extras=[self.pulse_caption(r"\pi", MZ_B[0])])
         self.play(
             state_colors(lower, KICKED_COLOR),
-            state_colors(upper, ATOM_COLOR),
             *grow(gain),
-            *grow(lose),
-            run_time=0.8,
+            FadeIn(absorbed),
+            run_time=0.6,
         )
-        self.play_leg(
+        # The excited arm is driven the other way: it adds a photon to the beam
+        # and recoils by -hbar k, which flattens it out.
+        emit(self, upper, extras=[emitted])
+        self.play(state_colors(upper, ATOM_COLOR), *grow(lose), run_time=0.6)
+        draw_legs(
+            self,
             [(lower, MZ_B, MZ_C, KICKED_COLOR), (upper, MZ_B_UP, MZ_C, ATOM_COLOR)],
-            fade=[gain, lose],
+            fade=[gain, lose, absorbed, emitted],
         )
 
         # --- 5. second pi/2: recombine -----------------------------------
-        fire_pulse(
-            self,
-            MZ_C[0],
-            [lower],  # both arms are at MZ_C now, so one flash covers them
-            caption=self.pulse_caption(r"\pi/2", MZ_C[0]),
-        )
+        # Both arms sit at MZ_C now, so one pulse covers them.
+        absorb(self, MZ_C[0], lower, extras=[self.pulse_caption(r"\pi/2", MZ_C[0])])
 
         port_g = make_atom(opacity=SUPERPOSITION_OPACITY).move_to(MZ_C)
         port_e = make_atom(KICKED_COLOR, opacity=SUPERPOSITION_OPACITY).move_to(MZ_C)
         self.remove(lower, upper)
         self.add(port_g, port_e)
-        self.play_leg(
+        draw_legs(
+            self,
             [
                 (port_g, MZ_C, MZ_C + RIGHT * MZ_OUT, ATOM_COLOR),
                 (port_e, MZ_C, MZ_C + (RIGHT + UP) * MZ_OUT, KICKED_COLOR),
@@ -388,20 +435,3 @@ class MachZehnder(Scene):
             [x + 0.5, -config.frame_y_radius + 0.35, 0]
         )
 
-    def play_leg(self, legs, fade=()):
-        """Move atoms along straight legs, drawing each trajectory in step.
-
-        Every leg shares the same horizontal extent, so they all take the same
-        run_time at speed V -- that is what keeps the kicked arms at 45 degrees.
-        """
-        anims = []
-        for atom, start, end, color in legs:
-            anims.append(atom.animate.move_to(end))
-            anims.append(Create(Line(start, end, stroke_width=4, color=color)))
-        dx = abs(legs[0][2][0] - legs[0][1][0])
-        self.play(
-            *anims,
-            *[FadeOut(m) for m in fade],
-            rate_func=linear,
-            run_time=dx / V,
-        )
