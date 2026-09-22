@@ -141,28 +141,40 @@ def absorb(scene, x, atom, extras=(), fade=()):
     scene.remove(pulse)
 
 
-def emit(scene, atom, extras=()):
-    """Stimulated emission: |e, p + hbar k> -> |g, p>, recoiling by -hbar k.
+def emit(scene, x, atom, extras=()):
+    """Stimulated emission: one photon arrives and two leave.
 
-    The photon goes into the mode of the driving field, so it leaves upward
-    alongside the beam and the atom is pushed the other way.
+    Both leave in the mode of the driving field, so the pair climbs together
+    and the atom recoils the other way, by -hbar k.
     """
-    x, y, _ = atom.get_center()
-    pulse = make_laser_pulse(x, y + 1.15)
+    y0 = -config.frame_y_radius - 0.6
+    incoming = make_laser_pulse(x, y0)
+    scene.add(incoming)
 
+    rise = atom.get_center()[1] - y0
     scene.play(
-        Flash(atom, color=LASER_COLOR, flash_radius=0.55, line_length=0.3),
-        FadeIn(pulse, scale=0.4),
+        incoming.animate.shift(UP * rise),
         *[FadeIn(m) for m in extras],
-        run_time=0.4,
-    )
-    rise = config.frame_y_radius + 1.4 - pulse.get_center()[1]
-    scene.play(
-        pulse.animate.shift(UP * rise),
         rate_func=linear,
         run_time=rise / PULSE_SPEED,
     )
-    scene.remove(pulse)
+
+    y = atom.get_center()[1] + 1.15
+    pair = VGroup(*[make_laser_pulse(x + dx, y) for dx in (-0.22, 0.22)])
+    scene.play(
+        Flash(atom, color=LASER_COLOR, flash_radius=0.55, line_length=0.3),
+        FadeOut(incoming, scale=0.3),
+        FadeIn(pair, shift=UP * 0.25),
+        run_time=0.5,
+    )
+
+    climb = config.frame_y_radius + 1.4 - y
+    scene.play(
+        pair.animate.shift(UP * climb),
+        rate_func=linear,
+        run_time=climb / PULSE_SPEED,
+    )
+    scene.remove(pair)
 
 
 def process_note(text, point, direction=LEFT, buff=0.3):
@@ -352,10 +364,10 @@ class MachZehnder(Scene):
         # The pi pulse exchanges the two arms' internal states, and with them
         # their momenta: the upper arm loses hbar k and flattens out, the lower
         # arm gains it and climbs. The arms converge instead of diverging.
-        gain = momentum_arrow(MZ_B, UP, r"+\hbar k")
+        # Offset clear of x = MZ_B[0], which the pulses travel up.
+        gain = momentum_arrow(MZ_B + LEFT * 0.4, UP, r"+\hbar k")
         lose = momentum_arrow(MZ_B_UP, DOWN, r"-\hbar k", label_dir=RIGHT)
         absorbed = process_note("absorption", MZ_B, direction=DOWN, buff=0.35)
-        emitted = process_note("stim.\\ emission", MZ_B_UP)
 
         # The ground-state arm takes a photon out of the beam and climbs.
         absorb(self, MZ_B[0], lower, extras=[self.pulse_caption(r"\pi", MZ_B[0])])
@@ -367,12 +379,12 @@ class MachZehnder(Scene):
         )
         # The excited arm is driven the other way: it adds a photon to the beam
         # and recoils by -hbar k, which flattens it out.
-        emit(self, upper, extras=[emitted])
+        emit(self, MZ_B_UP[0], upper)
         self.play(state_colors(upper, ATOM_COLOR), *grow(lose), run_time=0.6)
         draw_legs(
             self,
             [(lower, MZ_B, MZ_C, KICKED_COLOR), (upper, MZ_B_UP, MZ_C, ATOM_COLOR)],
-            fade=[gain, lose, absorbed, emitted],
+            fade=[gain, lose, absorbed],
         )
 
         # --- 5. second pi/2: recombine -----------------------------------
