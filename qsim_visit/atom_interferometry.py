@@ -1,24 +1,13 @@
 """Atom interferometry animations.
 
-Shared style constants and mobject helpers live at module level; each scene
-keeps its own geometry block.
+Mobject helpers and pulse primitives live at module level; each scene keeps its
+own geometry block. Everything visual comes from style.py.
 """
 
 import numpy as np
 from manim import *
 
-# --- style ----------------------------------------------------------------
-ATOM_COLOR = BLUE_D  # |g, p>
-KICKED_COLOR = PURPLE_B  # |e, p + hbar k>
-LASER_COLOR = RED_C
-SUPERPOSITION_OPACITY = 0.65
-
-# One speed for every scene: each leg's run_time is distance / V, so the atom's
-# velocity never visibly changes when it splits. That is the point of drawing
-# the kick at 45 degrees -- the recoil is purely vertical and equal in
-# magnitude to the forward motion.
-V = 2.0
-PULSE_SPEED = V * 1.6
+from style import *
 
 # --- single-kick geometry -------------------------------------------------
 # The frame is ~14.2 x 8 units. The incoming trajectory sits below centre so
@@ -42,55 +31,47 @@ MZ_B_UP = MZ_A + (RIGHT + UP) * MZ_L  # pi pulse, upper arm
 MZ_C = MZ_B_UP + RIGHT * MZ_L  # second pi/2, where the arms overlap again
 
 
-def lighten(color, amount=0.35):
-    return interpolate_color(color, WHITE, amount)
-
-
-def make_atom(color=ATOM_COLOR, radius=0.18, opacity=1.0):
+def make_atom(color=ATOM_COLOR, radius=ATOM_RADIUS, opacity=1.0):
     """An atom drawn as a shaded sphere: a filled disc plus a specular highlight."""
     body = Circle(
         radius=radius,
         fill_color=color,
         fill_opacity=opacity,
         stroke_color=lighten(color),
-        stroke_width=2,
+        stroke_width=ATOM_STROKE_WIDTH,
     )
     highlight = Circle(
-        radius=radius * 0.32,
-        fill_color=WHITE,
-        fill_opacity=0.55 * opacity,
+        radius=radius * HIGHLIGHT_RADIUS_RATIO,
+        fill_color=HIGHLIGHT_COLOR,
+        fill_opacity=HIGHLIGHT_OPACITY * opacity,
         stroke_width=0,
-    ).move_to(body.get_center() + radius * 0.4 * (UP + LEFT) / np.sqrt(2))
+    ).move_to(
+        body.get_center()
+        + radius * HIGHLIGHT_OFFSET_RATIO * (UP + LEFT) / np.sqrt(2)
+    )
     return VGroup(body, highlight)
 
 
-def make_laser_pulse(x, y, length=2.2, n_cycles=4.5):
+def make_laser_pulse(x, y, length=PULSE_LENGTH, n_cycles=PULSE_CYCLES):
     """A Gaussian-enveloped sine wavepacket propagating along +y, centred on (x, y)."""
     sigma = length / 5.0
     k = 2 * PI * n_cycles / length
 
     packet = FunctionGraph(
-        lambda t: 0.28 * np.sin(k * t) * np.exp(-((t / sigma) ** 2)),
+        lambda t: PULSE_AMPLITUDE * np.sin(k * t) * np.exp(-((t / sigma) ** 2)),
         x_range=[-length / 2, length / 2, 0.01],
         color=LASER_COLOR,
-        stroke_width=4,
+        stroke_width=PULSE_STROKE_WIDTH,
     )
     packet.rotate(90 * DEGREES).move_to([x, y, 0])
-    packet.set_stroke(opacity=[0.15, 1.0, 0.15])
+    packet.set_stroke(opacity=PULSE_TAPER)
     return packet
 
 
 def momentum_arrow(origin, direction, tex, label_dir=LEFT, length=1.1):
     """A recoil arrow with its label, e.g. the hbar k an atom gains from a pulse."""
-    arrow = Arrow(
-        origin,
-        origin + direction * length,
-        buff=0,
-        stroke_width=4,
-        color=LASER_COLOR,
-        max_tip_length_to_length_ratio=0.22,
-    )
-    label = MathTex(tex, font_size=32, color=LASER_COLOR).next_to(
+    arrow = Arrow(origin, origin + direction * length, **RECOIL_ARROW_STYLE)
+    label = MathTex(tex, font_size=FONT_ANNOTATION, color=LASER_COLOR).next_to(
         arrow, label_dir, buff=0.15
     )
     return VGroup(arrow, label)
@@ -103,16 +84,14 @@ def grow(annotation):
 
 def make_k_arrow(x, y):
     """The little vertical k-vector marker that sits beside a beam."""
-    arrow = Arrow(
-        ORIGIN,
-        UP * 0.7,
-        buff=0,
-        stroke_width=3,
-        color=LASER_COLOR,
-        max_tip_length_to_length_ratio=0.3,
-    )
-    label = MathTex(r"\vec{k}", font_size=32, color=LASER_COLOR)
+    arrow = Arrow(ORIGIN, UP * 0.7, **K_ARROW_STYLE)
+    label = MathTex(r"\vec{k}", font_size=FONT_K, color=LASER_COLOR)
     return VGroup(arrow, label.next_to(arrow, RIGHT, buff=0.12)).move_to([x, y, 0])
+
+
+def make_guide(start, end):
+    """A dashed construction line, e.g. the trajectory an atom arrives along."""
+    return DashedLine(start, end, **GUIDE_STYLE)
 
 
 def absorb(scene, x, atom, extras=(), fade=()):
@@ -133,7 +112,7 @@ def absorb(scene, x, atom, extras=(), fade=()):
         run_time=rise / PULSE_SPEED,
     )
     scene.play(
-        Flash(atom, color=LASER_COLOR, flash_radius=0.55, line_length=0.3),
+        Flash(atom, **FLASH_STYLE),
         pulse.animate.scale(0.02).move_to(atom.get_center()).set_stroke(opacity=0),
         *[FadeOut(m) for m in fade],
         run_time=0.4,
@@ -162,7 +141,7 @@ def emit(scene, x, atom, extras=()):
     y = atom.get_center()[1] + 1.15
     pair = VGroup(*[make_laser_pulse(x + dx, y) for dx in (-0.22, 0.22)])
     scene.play(
-        Flash(atom, color=LASER_COLOR, flash_radius=0.55, line_length=0.3),
+        Flash(atom, **FLASH_STYLE),
         FadeOut(incoming, scale=0.3),
         FadeIn(pair, shift=UP * 0.25),
         run_time=0.5,
@@ -188,7 +167,7 @@ def draw_legs(scene, legs, fade=()):
     anims = []
     for atom, start, end, color in legs:
         anims.append(atom.animate.move_to(end))
-        anims.append(Create(Line(start, end, stroke_width=4, color=color)))
+        anims.append(Create(Line(start, end, color=color, **TRAJECTORY_STYLE)))
     dx = abs(legs[0][2][0] - legs[0][1][0])
     scene.play(
         *anims,
@@ -203,28 +182,27 @@ def state_colors(atom, color):
     return atom[0].animate.set_fill(color).set_stroke(lighten(color))
 
 
+def state_label(tex, color, font_size=FONT_STATE):
+    return MathTex(tex, font_size=font_size, color=lighten(color))
+
+
 class SingleLaserKick(Scene):
     """One beamsplitter pulse: an atom splits into two momentum states."""
 
     def construct(self):
         # --- 1. setup ----------------------------------------------------
-        guide = DashedLine(
-            [START_X, BEAM_Y, 0],
-            [config.frame_x_radius, BEAM_Y, 0],
-            dash_length=0.12,
-            stroke_width=2,
-            stroke_opacity=0.3,
-            color=GREY_B,
+        guide = make_guide(
+            [START_X, BEAM_Y, 0], [config.frame_x_radius, BEAM_Y, 0]
         )
         caption = Tex(
-            r"Atom interferometry: one beamsplitter pulse", font_size=32
+            r"Atom interferometry: one beamsplitter pulse", font_size=FONT_TITLE
         ).to_corner(UL)
 
         self.play(FadeIn(guide), FadeIn(caption), run_time=1.0)
 
         # --- 2. incoming atom --------------------------------------------
         atom = make_atom().move_to([START_X, BEAM_Y, 0])
-        in_label = MathTex(r"|g,\,p\rangle", font_size=34, color=lighten(ATOM_COLOR))
+        in_label = state_label(r"|g,\,p\rangle", ATOM_COLOR, FONT_ANNOTATION)
         in_label.add_updater(lambda m: m.next_to(atom, UP, buff=0.25))
 
         self.play(FadeIn(atom, scale=0.5), FadeIn(in_label), run_time=0.6)
@@ -237,7 +215,7 @@ class SingleLaserKick(Scene):
 
         # --- 3. laser pulse from below -----------------------------------
         pulse_caption = MathTex(
-            r"\pi/2\ \text{pulse}", font_size=32, color=LASER_COLOR
+            r"\pi/2\ \text{pulse}", font_size=FONT_ANNOTATION, color=LASER_COLOR
         ).next_to(SPLIT_POINT, DOWN, buff=0.9)
         k_arrow = make_k_arrow(SPLIT_X - 0.9, -config.frame_y_radius + 0.45)
         absorb(self, SPLIT_X, atom, extras=[pulse_caption, k_arrow], fade=[k_arrow])
@@ -250,35 +228,18 @@ class SingleLaserKick(Scene):
 
         # The momentum kick is purely vertical -- the 45 degree path is the
         # resultant of the forward momentum p and the recoil hbar k.
-        recoil = Arrow(
-            SPLIT_POINT,
-            SPLIT_POINT + UP * 1.2,
-            buff=0,
-            stroke_width=4,
-            color=LASER_COLOR,
-            max_tip_length_to_length_ratio=0.22,
-        )
-        recoil_label = MathTex(r"\hbar k", font_size=34, color=LASER_COLOR).next_to(
-            recoil, LEFT, buff=0.15
-        )
+        recoil = momentum_arrow(SPLIT_POINT, UP, r"\hbar k", length=1.2)
 
         self.remove(atom)
         self.add(straight, kicked)
-        self.play(
-            GrowArrow(recoil), FadeIn(recoil_label), FadeOut(in_label), run_time=0.7
-        )
+        self.play(*grow(recoil), FadeOut(in_label), run_time=0.7)
 
         # --- 5. diverging arms -------------------------------------------
         # Equal horizontal component on both arms -> a true 45 degree kick.
         draw_legs(
             self,
             [
-                (
-                    straight,
-                    SPLIT_POINT,
-                    SPLIT_POINT + RIGHT * ARM_LENGTH,
-                    ATOM_COLOR,
-                ),
+                (straight, SPLIT_POINT, SPLIT_POINT + RIGHT * ARM_LENGTH, ATOM_COLOR),
                 (
                     kicked,
                     SPLIT_POINT,
@@ -289,11 +250,11 @@ class SingleLaserKick(Scene):
         )
 
         # --- 6. final state labels ---------------------------------------
-        straight_label = MathTex(
-            r"|g,\,p\rangle", font_size=36, color=lighten(ATOM_COLOR)
-        ).next_to(straight, DOWN, buff=0.3)
-        kicked_label = MathTex(
-            r"|e,\,p + \hbar k\rangle", font_size=36, color=lighten(KICKED_COLOR)
+        straight_label = state_label(r"|g,\,p\rangle", ATOM_COLOR).next_to(
+            straight, DOWN, buff=0.3
+        )
+        kicked_label = state_label(
+            r"|e,\,p + \hbar k\rangle", KICKED_COLOR
         ).next_to(kicked, RIGHT, buff=0.3)
 
         self.play(Write(straight_label), Write(kicked_label), run_time=1.2)
@@ -305,20 +266,14 @@ class MachZehnder(Scene):
 
     def construct(self):
         # --- 1. setup ----------------------------------------------------
-        # Title right, legend left: the mirror's emitted photon flies straight up
+        # Title right, legend left: the mirror's emitted photons fly straight up
         # the line x = MZ_B[0], and this keeps that column clear of both.
         title = Tex(
-            r"Mach--Zehnder atom interferometer: $\pi/2 - \pi - \pi/2$", font_size=32
+            r"Mach--Zehnder atom interferometer: $\pi/2 - \pi - \pi/2$",
+            font_size=FONT_TITLE,
         ).to_corner(UR)
         legend = self.make_legend().to_corner(UL)
-        guide = DashedLine(
-            [-config.frame_x_radius, MZ_A[1], 0],
-            MZ_A,
-            dash_length=0.12,
-            stroke_width=2,
-            stroke_opacity=0.3,
-            color=GREY_B,
-        )
+        guide = make_guide([-config.frame_x_radius, MZ_A[1], 0], MZ_A)
         self.play(FadeIn(title), FadeIn(legend), FadeIn(guide), run_time=1.0)
 
         # --- 2. incoming atom --------------------------------------------
@@ -366,8 +321,8 @@ class MachZehnder(Scene):
         # The ground-state arm takes a photon out of the beam and climbs.
         absorb(self, MZ_B[0], lower, extras=[self.pulse_caption(r"\pi", MZ_B[0])])
         self.play(state_colors(lower, KICKED_COLOR), *grow(gain), run_time=0.6)
-        # The excited arm is driven the other way: it adds a photon to the beam
-        # and recoils by -hbar k, which flattens it out.
+        # The excited arm is driven the other way: one photon arrives, two leave,
+        # and it recoils by -hbar k, which flattens it out.
         emit(self, MZ_B_UP[0], upper)
         self.play(state_colors(upper, ATOM_COLOR), *grow(lose), run_time=0.6)
         draw_legs(
@@ -389,24 +344,19 @@ class MachZehnder(Scene):
             [
                 (port_g, MZ_C, MZ_C + RIGHT * MZ_OUT, ATOM_COLOR),
                 (port_e, MZ_C, MZ_C + (RIGHT + UP) * MZ_OUT, KICKED_COLOR),
-            ]
+            ],
         )
 
         # --- 6. the enclosed area and the output ports -------------------
-        loop = Polygon(
-            MZ_A, MZ_B, MZ_C, MZ_B_UP, stroke_width=0, fill_color=BLUE_B, fill_opacity=0.09
-        )
-        phase = MathTex(r"\Phi", font_size=40, color=lighten(BLUE_B)).move_to(
-            (MZ_A + MZ_B + MZ_C + MZ_B_UP) / 4
-        )
-        p1 = MathTex(r"P_1", font_size=36, color=lighten(ATOM_COLOR)).next_to(
-            port_g, RIGHT, buff=0.3
-        )
-        p2 = MathTex(r"P_2", font_size=36, color=lighten(KICKED_COLOR)).next_to(
-            port_e, RIGHT, buff=0.3
-        )
+        loop = Polygon(MZ_A, MZ_B, MZ_C, MZ_B_UP, **LOOP_AREA_STYLE)
+        phase = MathTex(
+            r"\Phi", font_size=FONT_PHASE, color=lighten(AREA_COLOR)
+        ).move_to((MZ_A + MZ_B + MZ_C + MZ_B_UP) / 4)
+        p1 = state_label(r"P_1", ATOM_COLOR).next_to(port_g, RIGHT, buff=0.3)
+        p2 = state_label(r"P_2", KICKED_COLOR).next_to(port_e, RIGHT, buff=0.3)
         readout = MathTex(
-            r"P_{1,2} = \tfrac{1}{2}\left(1 \pm \cos\Phi\right)", font_size=34
+            r"P_{1,2} = \tfrac{1}{2}\left(1 \pm \cos\Phi\right)",
+            font_size=FONT_ANNOTATION,
         ).to_corner(DR)
 
         self.play(FadeIn(loop), FadeIn(phase), run_time=0.8)
@@ -423,8 +373,8 @@ class MachZehnder(Scene):
         ):
             rows.add(
                 VGroup(
-                    make_atom(color, radius=0.13),
-                    MathTex(tex, font_size=30, color=lighten(color)),
+                    make_atom(color, radius=LEGEND_ATOM_RADIUS),
+                    state_label(tex, color, FONT_LEGEND),
                 ).arrange(RIGHT, buff=0.22)
             )
         return rows.arrange(DOWN, buff=0.28, aligned_edge=LEFT)
@@ -432,7 +382,6 @@ class MachZehnder(Scene):
     @staticmethod
     def pulse_caption(tex, x):
         """A pulse label on the caption row, offset clear of the beam it names."""
-        return MathTex(tex, font_size=34, color=LASER_COLOR).move_to(
+        return MathTex(tex, font_size=FONT_ANNOTATION, color=LASER_COLOR).move_to(
             [x + 0.5, -config.frame_y_radius + 0.35, 0]
         )
-
