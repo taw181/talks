@@ -15,10 +15,8 @@ sheet. The track is real (a 60 Msun binary at z = 0.1, from aionanim.physics.gw_
 the dot's timing is not -- ten years of inspiral are squeezed into the
 sheet's fourteen seconds, with a readout saying how long is really left.
 
-Everything visual comes from style.py.
+Everything visual comes from aionanim.style.
 """
-
-from pathlib import Path
 
 import numpy as np
 from manim import *
@@ -34,6 +32,7 @@ from aionanim.physics.gw_signals import (
     phenom_a_frequencies,
     time_before_merger,
 )
+from aionanim.resources import data_path
 from aionanim.style import *
 
 # --- sheet geometry -------------------------------------------------------
@@ -459,7 +458,7 @@ SIDE_TRACE_WIDTH = 6.4
 # from GW150914 -- a 36 + 29 Msun merger at z = 0.09, so a near twin of the
 # track on the right. Its pure black is lifted to the talk's background so
 # the image has no visible edge.
-LIGO_DATA_IMAGE = Path(__file__).resolve().parent.parent / "figures" / "ligo20160211a.jpg"
+LIGO_DATA_IMAGE = data_path("images", "ligo20160211a.jpg")
 LIGO_DATA_HEIGHT = 6.3
 LIGO_DATA_CENTER = np.array([SIDE_SHEET_X, -0.75, 0.0])
 
