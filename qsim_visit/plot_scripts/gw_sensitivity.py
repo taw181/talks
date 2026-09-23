@@ -1,6 +1,6 @@
 """Characteristic-strain sensitivity curves of LISA, LIGO, ET, AION-km and AEDGE.
 
-All six curves digitised from ``GW_exclusion_plot.svg`` into
+All five curves digitised from ``GW_exclusion_plot.svg`` into
 ``data/gw_sensitivity/`` (see each CSV's header for the shapes it came from),
 drawn together on the source figure's axes, each region shaded down to its
 curve and labelled beside it.
@@ -38,10 +38,8 @@ TICK_SIZE = 13
 F_RANGE = (1e-6, 1e4)
 H_RANGE = (1e-24, 3e-15)
 
-# name: (CSV stem, label position (f / Hz, h_c)). AEDGE+ is drawn under AEDGE
-# so AEDGE's own curve stays on top where the two coincide above 0.05 Hz.
+# name: (CSV stem, label position (f / Hz, h_c)).
 DETECTORS = {
-    "AEDGE+": ("aedge_plus", (2e-6, 1.5e-19)),
     "AEDGE": ("aedge", (1.5e-2, 1.5e-23)),
     "LISA": ("lisa", (2e-4, 1.2e-21)),
     "AION-km": ("aion_km", (2e2, 3e-19)),

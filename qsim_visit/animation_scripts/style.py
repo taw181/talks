@@ -265,7 +265,6 @@ GW_DETECTOR_COLORS = {
     "ET": "#ffbf00",
     "AION-km": "#a5609d",
     "AEDGE": "#6685d9",
-    "AEDGE+": "#5d9ec7",
 }
 # The region a detector can see is shaded down to its curve: faint, because
 # the regions overlap and every curve has to show through the others.
