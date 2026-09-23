@@ -33,8 +33,8 @@ from aionanim.scenes.aion import (
     Gradiometer,
     GradiometerGWStretch,
     LargeMomentumTransfer,
-    SinglePhotonMachZehnder,
 )
+from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.uldm import DarkMatterPhase
 
 
