@@ -28,7 +28,7 @@ Or build a standalone HTML deck:
 
 from manim_slides import Slide
 
-from aion import (
+from aionanim.scenes.aion import (
     ClockPhase,
     DarkMatterPhase,
     Gradiometer,
