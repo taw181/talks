@@ -1,6 +1,6 @@
 """The AION DAI data built up shot by shot.
 
-The same shots as plot_scripts/interferometer_data.py (Baynham et al.,
+The same shots as aionanim.plots.dai_fringes (Baynham et al.,
 arXiv:2504.09158, Fig. 4a,b), drawn in manim so they can arrive one at a time.
 The fringe plot on the left sweeps left to right through the clock laser phase
 step; each shot lands on it twice -- once per interferometer -- and once on the
@@ -22,7 +22,7 @@ quiet run lights up across a full-size fringe plot, then shrinks to the top
 panel to make room for the noisy one, whose shots land on the same Lissajous
 plot -- on top of the quiet ellipse, and on the same curve.
 
-    uv run manim -qh animation_scripts/dai_data.py FringesToEllipse
+    uv run manim -qh src/aionanim/scenes/dai_data.py FringesToEllipse
 
 Drawing: a few thousand Dots would be a few thousand mobjects for cairo to
 walk every frame. Instead each series is one VMobject whose points are every
@@ -33,14 +33,14 @@ first shots the static figure plots.
 """
 
 import csv
-from pathlib import Path
 
 import numpy as np
 from manim import *
 
+from aionanim.resources import data_path
 from aionanim.style import *
 
-DATA_DIR = Path(__file__).resolve().parent.parent / "data" / "dai_fringes"
+DATA_DIR = data_path("dai_fringes")
 
 # The first shots of the run, as many as the static Lissajous figure plots
 # (~20 per phase step), sorted by phase step so the fringe plot fills left to

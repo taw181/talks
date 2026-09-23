@@ -28,6 +28,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "animation_scripts"))
+from aionanim.resources import data_path  # noqa: E402
 from aionanim.style import (  # noqa: E402
     HLN_COLOR,
     LLN_COLOR,
@@ -37,7 +38,7 @@ from aionanim.style import (  # noqa: E402
     UPPER_CLOUD_COLOR,
 )
 
-DATA_DIR = ROOT / "data" / "dai_fringes"
+DATA_DIR = data_path("dai_fringes")
 OUT_DIR = ROOT / "figures"
 
 # As many shots as the paper plots: more just fills the fringe panels in.
