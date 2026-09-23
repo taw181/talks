@@ -1,0 +1,125 @@
+
+❯ make sure my continuous animations all have the continuous ouput port
+  visualation applied
+
+● Skill(manim-atom-interferometry)
+  ⎿  Successfully loaded skill
+
+  Searched for 1 pattern, ran 4 shell commands (ctrl+o to expand)
+
+● I've identified the four continuous scenes and am now verifying that each
+  one's port-closing logic properly routes through the continuous
+  close/port_extra path.
+
+  Searched for 1 pattern, ran 2 shell commands (ctrl+o to expand)
+
+● I found two gaps in the "lab time never stops" rule: the gradiometer scene
+  flies its ports in two separate plays instead of one, and draw_ports fades in
+  an empty port's guide as its own paused play. I'll fix both by flying every
+  port within a single play.
+
+  Read 1 file (ctrl+o to expand)
+
+● Bash(.venv/bin/python - <<'EOF'
+      p='animation_scripts/aion.py'…)
+  ⎿      def port_extra(self):
+             # By the same amount the ports run, not to the same place: the
+      last
+     … +22 lines (ctrl+o to expand)
+  ⎿  Updated animation_scripts/aion.py (+47 -17)
+      902      and what its figure is about is the two splits being unequ
+           al -- eight
+      903      labels would bury the one thing the frame has to show.
+      904  
+      905 -    `extra` is draw_legs' hook, passed straight through: the p
+          -orts run on in                                                
+      906 -    the diagram's own time, so a continuous scene hands it the
+          - lab clock and                                                
+      907 -    the trace above keeps up with them.                       
+      905 +    `extra` is draw_legs' hook, passed straight through. The c
+          +ontinuous scenes                                              
+      906 +    go through fly_ports instead, which is this with the clock
+          + kept running.                                                
+      907 +    """                                                       
+      908 +    empty, legs, tags = port_parts(scene, origin, length, p_gr
+          +ound)                                                         
+      909 +    if len(empty):                                            
+      910 +        scene.play(FadeIn(empty), run_time=0.5)               
+      911 +    if legs:                                                  
+      912 +        draw_legs(scene, legs, extra=extra)                   
+      913 +    if labels:                                                
+      914 +        scene.play(FadeIn(tags), run_time=0.6)                
+      915 +                                                              
+      916 +                                                              
+      917 +def port_parts(scene, origin, length, p_ground):              
+      918 +    """The pieces draw_ports is made of: empty guides, legs to
+          + fly, labels.                                                 
+      919 +                                                              
+      920 +    The atoms that will fly are put on the scene at `origin`; 
+          +nothing else is.                                              
+      921      """
+      922      empty, legs, tags = VGroup(), [], VGroup()
+      923      for direction, color, p, tex, label_dir in (
+     ...
+      938              scene.add(atom.move_to(origin))
+      939              legs.append((atom, origin, end, color))
+      940          tags.add(label)
+      941 +    return empty, legs, tags                                  
+      942  
+      929 -    if len(empty):                                            
+      930 -        scene.play(FadeIn(empty), run_time=0.5)               
+      931 -    if legs:                                                  
+      932 -        draw_legs(scene, legs, extra=extra)                   
+      943 +                                                              
+      944 +def fly_ports(scene, ports, length, labels=True, extra=()):   
+      945 +    """draw_ports for a continuous scene: every port in one be
+          +at, clock running.                                            
+      946 +                                                              
+      947 +    `ports` is a list of (origin, p_ground), one per interfero
+          +meter. The                                                    
+      948 +    stop-start version gives an empty port's guide a beat of i
+          +ts own before                                                 
+     … 49 more lines (ctrl+o to expand)
+
+● Code's changed. Now I'm rendering the four continuous scenes at low quality so
+  I can check the port frames.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+● A shared Tex-cache race from rendering in parallel, not a code error.
+  Re-running that one alone.
+
+  Read 3 files, ran 4 shell commands (ctrl+o to expand)
+
+● Both clouds now fly together, and the LightShift null guide fades in during
+  the flight. Checking the stretch variant and the final frame.
+
+  Read 2 files (ctrl+o to expand)
+
+● All four continuous scenes now use the continuous output-port visualisation.
+  Their ports fly out in a single beat with the lab clock running, and the dial
+  sectors fade in during that flight. I re-rendered all four at -ql and checked
+  frames from the port flight and the end of each.
+
+  What I changed (all in aion.py (animation_scripts/aion.py)):
+
+  - Gradiometer continuous scenes were only half-continuous.
+    RunsContinuously.close flew the lower cloud's ports, then the upper cloud's,
+    as two separate beats. So the upper cloud sat frozen at its vertex while
+    the lower one flew, and the clock ran on twice. This affected
+    GradiometerGWContinuous, GradiometerGWStretchContinuous and
+    LightShiftSignalContinuous. Now all four ports leave together, and the clock
+    advance and the sectors happen once.
+  - Empty ports froze the clock. draw_ports fades an empty port's dashed guide
+    in as its own 0.5 s play before the flight. That's fine in the stop-start
+    scenes, but it stops lab time in the continuous ones. It showed up in
+    LightShiftSignalContinuous, whose lower cloud sends every atom into one
+    port. The guide now fades in during the flight.
+  - How: I split draw_ports into port_parts (builds the pieces) and a new
+    fly_ports(scene, [(origin, p_ground), ...], length, ...). The new function
+    flies every port in one draw_legs call and folds the empty guides into that
+    call. DarkMatterPhaseContinuous and RunsContinuously now use fly_ports.
+
+  The stop-start scenes still use draw_ports and behave as before. I didn't
+  re-render those. I haven't committed anything, because your working tree has
+  other uncommitted changes in aion.py.
