@@ -16,7 +16,7 @@ import numpy as np
 from manim import *
 
 from atom_interferometry import make_guide
-from style import *
+from aionanim.style import *
 
 # --- the apparatus --------------------------------------------------------
 # The beam splitter sits left of centre so the right third of the frame is

@@ -32,7 +32,7 @@ from manim_slides import Slide
 
 from gw_plot import curve_points, detector_region, plot_point, sensitivity_axes
 from gw_signals import mass_tex, merger_track, phenom_a_frequencies
-from style import *
+from aionanim.style import *
 
 # --- layout ---------------------------------------------------------------
 # The source figure's frame: 1e-6 to 1e4 Hz, 1e-24 to ~3e-15.

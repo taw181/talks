@@ -51,7 +51,7 @@ timing from the same place, and so their dials read the same phase.
 import numpy as np
 from manim import *
 
-from style import *
+from aionanim.style import *
 from atom_interferometry import (
     MZ_A,
     MZ_B,

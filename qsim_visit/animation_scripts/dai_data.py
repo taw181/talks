@@ -38,7 +38,7 @@ from pathlib import Path
 import numpy as np
 from manim import *
 
-from style import *
+from aionanim.style import *
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data" / "dai_fringes"
 

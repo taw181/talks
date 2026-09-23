@@ -7,7 +7,7 @@ own geometry block. Everything visual comes from style.py.
 import numpy as np
 from manim import *
 
-from style import *
+from aionanim.style import *
 
 # --- single-kick geometry -------------------------------------------------
 # The frame is ~14.2 x 8 units. The incoming trajectory sits below centre so

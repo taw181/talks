@@ -34,7 +34,7 @@ from gw_signals import (
     phenom_a_frequencies,
     time_before_merger,
 )
-from style import *
+from aionanim.style import *
 
 # --- sheet geometry -------------------------------------------------------
 # The sheet is a wireframe rather than a Surface: a Surface rebuilds thousands

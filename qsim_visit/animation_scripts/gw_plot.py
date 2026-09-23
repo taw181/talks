@@ -10,7 +10,7 @@ import numpy as np
 from manim import *
 
 from gw_signals import load_sensitivity
-from style import *
+from aionanim.style import *
 
 
 def sensitivity_axes(log_f_range, log_h_range, origin, width, height):

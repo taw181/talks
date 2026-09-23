@@ -28,7 +28,7 @@ from matplotlib.lines import Line2D
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "animation_scripts"))
-from style import (  # noqa: E402
+from aionanim.style import (  # noqa: E402
     GW_DETECTOR_COLORS,
     GW_MERGER_TIME_COLORS,
     GW_REGION_OPACITY,
