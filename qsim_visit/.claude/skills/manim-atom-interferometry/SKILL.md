@@ -11,19 +11,28 @@ The project is `~/talks/qsim_visit` (uv, manim 0.21, Python 3.13). Run manim
 **from the project root** so the root `manim.cfg` applies — it sets
 `media_dir=./media`, medium quality, and a `#101010` background.
 
-- `animation_scripts/style.py` — the whole visual vocabulary: colour scheme,
+The general code is the installable package `src/aionanim/`; `talk/` holds
+only this talk's slide wrappers. Put new scenes and helpers in the package
+unless they only make sense in this deck (CLAUDE.md has the rule).
+
+- `src/aionanim/style.py` — the whole visual vocabulary: colour scheme,
   type sizes, `*_STYLE` dicts to splat into constructors, and pacing (`V`).
-- `animation_scripts/atom_interferometry.py` — mobject helpers
-  (`make_atom`, `make_laser_pulse`, `momentum_arrow`, `make_guide`), pulse
-  primitives (`absorb`, `emit`), motion (`draw_legs`, `state_colors`), and two
-  scenes: `SingleLaserKick` and `MachZehnder`.
+- `src/aionanim/tools/primitives.py` — mobject helpers (`make_atom`,
+  `make_laser_pulse`, `momentum_arrow`, `make_guide`), pulse primitives
+  (`absorb`, `emit`), motion (`draw_legs`, `state_colors`).
+- `src/aionanim/scenes/mach_zehnder.py` — `SingleLaserKick` and `MachZehnder`,
+  the simplest scenes built from them.
+- The rest of `tools/` is one module per topic (`spacetime`, `gradiometer`,
+  `clock`, `gradiometer_gw`, `uldm`, `single_photon`, `lmt`, `gw_plot`), each
+  paired with the `scenes/` module of the same name.
 
-Read both before writing anything — they are commented and explain what each
-piece is for. Everything below is what they *don't* say.
+Read style, primitives and mach_zehnder before writing anything — they are
+commented and explain what each piece is for. Everything below is what they
+*don't* say.
 
-New scripts belong in `animation_scripts/` beside `style.py`: manim puts the
-script's own directory on `sys.path`, which is the only reason
-`from style import *` resolves. A script elsewhere will fail to import it.
+Scene files start `from manim import *` then `from aionanim.style import *`,
+and import everything else by absolute name — relative imports break because
+manim loads a scene file by path.
 
 ## You can't watch the video, so build a look-at-it loop
 
@@ -33,9 +42,9 @@ rendered without error.
 
 ```bash
 cd ~/talks/qsim_visit
-uv run manim -ql animation_scripts/atom_interferometry.py MachZehnder
+uv run manim -ql src/aionanim/scenes/mach_zehnder.py MachZehnder
 .venv/bin/python <skill>/scripts/frames.py \
-    media/videos/atom_interferometry/480p15/MachZehnder.mp4 \
+    media/videos/mach_zehnder/480p15/MachZehnder.mp4 \
     -t 3.6 7.8 9.3 --final -o /tmp/frames
 ```
 
@@ -86,10 +95,12 @@ in the code.
 ## Adding a scene
 
 Give it its own geometry block of named constants at module level (see the
-`# --- Mach-Zehnder geometry ---` block), derive every position from them so
-the shape can be retuned in one place, and reuse the existing helpers rather
+`# --- Mach-Zehnder geometry ---` block in `scenes/mach_zehnder.py`), derive
+every position from them so the shape can be retuned in one place, and reuse the existing helpers rather
 than building atoms or pulses by hand — that is what keeps the talk's
 animations looking like one set of figures. Pull anything visual from
-`style.py`; if you need a new colour or width, add it there rather than inline.
+`aionanim/style.py`; if you need a new colour or width, add it there rather
+than inline. Helpers go in `tools/<topic>.py`, the scene and layout only it
+uses in `scenes/<topic>.py`.
 
 Manim 0.21 has `DEGREES` but not the `DEG` alias.
