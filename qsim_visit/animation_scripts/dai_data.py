@@ -17,6 +17,11 @@ dimmed, and light its shots up left to right as each arrives on the Lissajous
 plot -- for when the fringes have already been shown and the point is where
 each one goes on the ellipse.
 
+LaserNoiseLissajous is the two runs as one figure, after Fig. 4 itself: the
+quiet run lights up across a full-size fringe plot, then shrinks to the top
+panel to make room for the noisy one, whose shots land on the same Lissajous
+plot -- on top of the quiet ellipse, and on the same curve.
+
     uv run manim -qh animation_scripts/dai_data.py FringesToEllipse
 
 Drawing: a few thousand Dots would be a few thousand mobjects for cairo to
@@ -53,6 +58,15 @@ LISSAJOUS_SIZE = 4.2
 # Ease in, so the first shots arrive slowly enough to be followed one at a
 # time and the rest fill in quickly.
 BUILD_TIME = 14.0
+SHRINK_TIME = 1.5
+
+# --- LaserNoiseLissajous: the fringe panels stacked -----------------------
+# The quiet run's panel shrinks to the top slot; the noisy run's comes in
+# below. The top panel keeps its tick labels but not the x-axis label, which
+# the bottom panel carries for both.
+STACK_HEIGHT = 2.0
+STACK_UPPER_ORIGIN = np.array([-6.0, 0.45, 0.0])
+STACK_LOWER_ORIGIN = FRINGE_ORIGIN
 
 
 def load(run):
@@ -79,17 +93,46 @@ def plot_axes(x_range, x_length, y_length, x_ticks, x_label, y_label):
                            font_size=FONT_TICK, numbers_to_exclude=[]),
         x_axis_config=dict(include_numbers=False),
     )
+    """Axes, tick labels and axis labels, as (axes, frame).
+
+    The frame is (axes, x tick labels, y label, x label), x label last so a
+    panel that loses it can transform the rest. x_label=None leaves it empty.
+    """
     ticks = VGroup(*(
         MathTex(tex, font_size=FONT_TICK, color=PLOT_FOREGROUND)
         .next_to(axes.c2p(x, 0), DOWN, buff=0.18)
         for x, tex in x_ticks
     ))
     axes.y_axis.numbers.set_color(PLOT_FOREGROUND)
-    xl = Tex(x_label, font_size=FONT_AXIS, color=PLOT_FOREGROUND)
-    xl.next_to(ticks, DOWN, buff=0.18).set_x(axes.x_axis.get_center()[0])
     yl = Tex(y_label, font_size=FONT_AXIS, color=PLOT_FOREGROUND).rotate(PI / 2)
     yl.next_to(axes.y_axis.numbers, LEFT, buff=0.2)
-    return axes, VGroup(axes, ticks, xl, yl)
+    xl = VGroup()
+    if x_label is not None:
+        xl = Tex(x_label, font_size=FONT_AXIS, color=PLOT_FOREGROUND)
+        xl.next_to(ticks, DOWN, buff=0.18).set_x(axes.x_axis.get_center()[0])
+    return axes, VGroup(axes, ticks, yl, xl)
+
+
+def fringe_plot(y_length, origin, x_label=True):
+    axes, frame = plot_axes(
+        [0, TAU, PI], FRINGE_WIDTH, y_length,
+        [(0, "0"), (PI, r"\pi"), (TAU, r"2\pi")],
+        "Clock laser phase step / rad" if x_label else None,
+        r"Excitation / \%",
+    )
+    frame.shift(origin - axes.c2p(0, 0))
+    return axes, frame
+
+
+def lissajous_plot():
+    axes, frame = plot_axes(
+        [0, 100, 50], LISSAJOUS_SIZE, LISSAJOUS_SIZE,
+        [(0, "0"), (50, "50"), (100, "100")],
+        r"Lower interferometer excitation / \%",
+        r"Upper interferometer excitation / \%",
+    )
+    frame.shift(LISSAJOUS_ORIGIN - axes.c2p(0, 0))
+    return axes, frame
 
 
 def dot_points(axes, xs, ys):
@@ -112,6 +155,56 @@ def dot_cloud(points, per_dot, color, count, opacity):
     return cloud
 
 
+def static_cloud(points, color, opacity):
+    return VMobject(fill_color=color, fill_opacity=opacity,
+                    stroke_width=0).set_points(points)
+
+
+def fringe_series(axes, data):
+    """(points, per_dot, colour) for each interferometer's fringe."""
+    return [
+        (*dot_points(axes, data["phi_rad"], 100 * data[key]), color)
+        for key, color in (("excitation_bottom", LOWER_CLOUD_COLOR),
+                           ("excitation_top", UPPER_CLOUD_COLOR))
+    ]
+
+
+def arriving_shots(data, fringe_axes, liss_axes, ellipse_color, count,
+                   dim=False):
+    """Every layer one run's shots are drawn in, all driven by ``count``.
+
+    Returns (clouds, rings, dimmed): the growing lower-fringe, upper-fringe and
+    ellipse clouds, a ring on the newest shot in each, and -- with ``dim`` --
+    the whole fringe plot drawn faintly underneath for the clouds to light up.
+    """
+    liss = dot_points(liss_axes, 100 * data["excitation_bottom"],
+                      100 * data["excitation_top"])
+    series = [(*s, FRINGE_DOT_OPACITY) for s in fringe_series(fringe_axes, data)]
+    series.append((*liss, ellipse_color, 1.0))
+    clouds, rings, dimmed = VGroup(), VGroup(), VGroup()
+    for points, per_dot, color, opacity in series:
+        clouds.add(dot_cloud(points, per_dot, color, count, opacity))
+        centres = points[::per_dot] - [DATA_DOT_RADIUS, 0, 0]
+        rings.add(newest_ring(centres, lighten(color), count))
+    if dim:
+        dimmed.add(*(static_cloud(points, color, FRINGE_DIM_OPACITY)
+                     for points, _, color in fringe_series(fringe_axes, data)))
+    return clouds, rings, dimmed
+
+
+def build(scene, count, clouds, rings):
+    """Play one run's shots in, left to right, then freeze them."""
+    scene.add(clouds)
+    scene.wait(0.3)
+    count.set_value(1)
+    scene.add(rings)
+    scene.play(count.animate.set_value(N_SHOTS), run_time=BUILD_TIME,
+               rate_func=rate_functions.ease_in_quad)
+    scene.play(FadeOut(rings), run_time=0.6)
+    for cloud in clouds:
+        cloud.clear_updaters()
+
+
 def newest_ring(centres, color, count):
     ring = Circle(radius=NEWEST_RING_RADIUS, stroke_color=color,
                   stroke_width=NEWEST_RING_WIDTH)
@@ -132,6 +225,18 @@ def legend_row(entries):
     return rows.arrange(RIGHT, buff=0.4)
 
 
+def fringe_key():
+    return legend_row([("Lower", LOWER_CLOUD_COLOR),
+                       ("Upper", UPPER_CLOUD_COLOR)])
+
+
+def over_panel(title, key, axes):
+    """A panel's title over its left end and the fringe key over its right."""
+    title.next_to(axes, UP, buff=0.3).align_to(axes, LEFT)
+    if key is not None:
+        key.match_y(title).align_to(axes, RIGHT)
+
+
 class FringesToEllipse(Scene):
     RUN = "lln"
     TITLE = "Low laser noise"
@@ -140,57 +245,21 @@ class FringesToEllipse(Scene):
     FRINGES_FIRST = False
 
     def construct(self):
-        data = load(self.RUN)
-        phi = data["phi_rad"]
-        lower = 100 * data["excitation_bottom"]
-        upper = 100 * data["excitation_top"]
-
-        fringe_axes, fringe_frame = plot_axes(
-            [0, TAU, PI], FRINGE_WIDTH, FRINGE_HEIGHT,
-            [(0, "0"), (PI, r"\pi"), (TAU, r"2\pi")],
-            "Clock laser phase step / rad", r"Excitation / \%",
-        )
-        fringe_frame.shift(FRINGE_ORIGIN - fringe_axes.c2p(0, 0))
-        liss_axes, liss_frame = plot_axes(
-            [0, 100, 50], LISSAJOUS_SIZE, LISSAJOUS_SIZE,
-            [(0, "0"), (50, "50"), (100, "100")],
-            r"Lower interferometer excitation / \%",
-            r"Upper interferometer excitation / \%",
-        )
-        liss_frame.shift(LISSAJOUS_ORIGIN - liss_axes.c2p(0, 0))
-
+        fringe_axes, fringe_frame = fringe_plot(FRINGE_HEIGHT, FRINGE_ORIGIN)
+        liss_axes, liss_frame = lissajous_plot()
         title = Tex(self.TITLE, font_size=FONT_TITLE, color=self.ELLIPSE_COLOR)
         title.to_corner(UL)
-        key = legend_row([("Lower", LOWER_CLOUD_COLOR),
-                          ("Upper", UPPER_CLOUD_COLOR)])
+        key = fringe_key()
         key.next_to(fringe_axes, UP, buff=0.25).align_to(fringe_axes, RIGHT)
 
         count = ValueTracker(0)
-        series = [
-            (fringe_axes, phi, lower, LOWER_CLOUD_COLOR, FRINGE_DOT_OPACITY),
-            (fringe_axes, phi, upper, UPPER_CLOUD_COLOR, FRINGE_DOT_OPACITY),
-            (liss_axes, lower, upper, self.ELLIPSE_COLOR, 1.0),
-        ]
-        clouds, rings, dimmed = VGroup(), VGroup(), VGroup()
-        for axes, xs, ys, color, opacity in series:
-            points, per_dot = dot_points(axes, xs, ys)
-            clouds.add(dot_cloud(points, per_dot, color, count, opacity))
-            centres = points[::per_dot] - [DATA_DOT_RADIUS, 0, 0]
-            rings.add(newest_ring(centres, lighten(color), count))
-            if self.FRINGES_FIRST and axes is fringe_axes:
-                dimmed.add(VMobject(fill_color=color, stroke_width=0,
-                                    fill_opacity=FRINGE_DIM_OPACITY)
-                           .set_points(points))
-
+        clouds, rings, dimmed = arriving_shots(
+            load(self.RUN), fringe_axes, liss_axes, self.ELLIPSE_COLOR, count,
+            dim=self.FRINGES_FIRST,
+        )
         self.play(FadeIn(title), FadeIn(fringe_frame), FadeIn(liss_frame),
                   FadeIn(key), FadeIn(dimmed), run_time=1.0)
-        self.add(clouds)
-        self.wait(0.3)
-        count.set_value(1)
-        self.add(rings)
-        self.play(count.animate.set_value(len(phi)),
-                  run_time=BUILD_TIME, rate_func=rate_functions.ease_in_quad)
-        self.play(FadeOut(rings), run_time=0.6)
+        build(self, count, clouds, rings)
         self.wait(2.0)
 
 
@@ -210,3 +279,68 @@ class FringesFirst(FringesToEllipse):
 
 class FringesFirstNoisy(Noisy, FringesFirst):
     pass
+
+
+class LaserNoiseLissajous(Scene):
+    def construct(self):
+        quiet, noisy = load("lln"), load("hln")
+        liss_axes, liss_frame = lissajous_plot()
+
+        # --- the quiet run, full size
+        big_axes, big_frame = fringe_plot(FRINGE_HEIGHT, FRINGE_ORIGIN)
+        quiet_title = Tex("Low laser noise", font_size=FONT_AXIS, color=LLN_COLOR)
+        key = fringe_key()
+        over_panel(quiet_title, key, big_axes)
+        # The panel titles are in the run colours, so they already key the
+        # ellipse; this repeats it where the ellipse is, in its empty corner.
+        runs_key = VGroup(*(
+            VGroup(Dot(radius=0.07, color=color),
+                   Tex(label, font_size=FONT_TICK, color=PLOT_FOREGROUND))
+            .arrange(RIGHT, buff=0.12)
+            for label, color in (("Low laser noise", LLN_COLOR),
+                                 ("High laser noise", HLN_COLOR))
+        )).arrange(DOWN, buff=0.15, aligned_edge=LEFT)
+        runs_key.next_to(liss_axes.c2p(0, 100), DR, buff=0.25)
+
+        count = ValueTracker(0)
+        clouds, rings, dimmed = arriving_shots(
+            quiet, big_axes, liss_axes, LLN_COLOR, count, dim=True
+        )
+        self.play(FadeIn(quiet_title), FadeIn(key), FadeIn(big_frame),
+                  FadeIn(dimmed), FadeIn(liss_frame), FadeIn(runs_key[0]),
+                  run_time=1.0)
+        build(self, count, clouds, rings)
+        self.wait(1.0)
+
+        # --- shrink it to the top panel
+        top_axes, top_frame = fringe_plot(
+            STACK_HEIGHT, STACK_UPPER_ORIGIN, x_label=False
+        )
+        lit = fringe_series(top_axes, quiet)
+        moves = [Transform(big_frame[:3], top_frame[:3]),
+                 FadeOut(big_frame[3])]
+        for layer, opacity in ((clouds, FRINGE_DOT_OPACITY),
+                               (dimmed, FRINGE_DIM_OPACITY)):
+            moves += [
+                Transform(mob, static_cloud(points, color, opacity))
+                for mob, (points, _, color) in zip(layer[:2], lit)
+            ]
+        for mob in (quiet_title, key):
+            mob.generate_target()
+        over_panel(quiet_title.target, key.target, top_axes)
+        moves += [MoveToTarget(quiet_title), MoveToTarget(key)]
+        self.play(*moves, run_time=SHRINK_TIME)
+
+        # --- the noisy run below it, onto the same ellipse
+        low_axes, low_frame = fringe_plot(STACK_HEIGHT, STACK_LOWER_ORIGIN)
+        noisy_title = Tex("High laser noise", font_size=FONT_AXIS,
+                          color=HLN_COLOR)
+        over_panel(noisy_title, None, low_axes)
+        count = ValueTracker(0)
+        clouds, rings, dimmed = arriving_shots(
+            noisy, low_axes, liss_axes, HLN_COLOR, count, dim=True
+        )
+        self.play(FadeIn(noisy_title), FadeIn(low_frame), FadeIn(dimmed),
+                  FadeIn(runs_key[1]), run_time=1.0)
+        build(self, count, clouds, rings)
+        self.wait(2.0)
