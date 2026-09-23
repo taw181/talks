@@ -24,11 +24,11 @@ import numpy as np
 from manim import *
 from PIL import Image
 
+from gw_plot import curve_points, detector_region, plot_point, sensitivity_axes
 from gw_signals import (
     TRACK_START,
     YEAR,
     frequency_before_merger,
-    load_sensitivity,
     merger_strain,
     merger_track,
     phenom_a_frequencies,
@@ -517,61 +517,6 @@ def source_frequency(t):
     return f_merge * (f_cut / f_merge) ** s, 0.0
 
 
-def sensitivity_axes():
-    """Log-log axes in decades, with 10^n tick labels, as (axes, frame).
-
-    The axes run from 0, not from the log ranges themselves: Axes draws each
-    axis through the coordinate origin, which would put the frequency axis at
-    h = 1. plot_point does the conversion.
-    """
-    axes = Axes(
-        x_range=[0, LOG_F_RANGE[1] - LOG_F_RANGE[0], 1],
-        y_range=[0, LOG_H_RANGE[1] - LOG_H_RANGE[0], 1],
-        x_length=SENS_WIDTH,
-        y_length=SENS_HEIGHT,
-        tips=False,
-        axis_config=dict(
-            color=PLOT_FOREGROUND, stroke_width=2, tick_size=0.06, include_ticks=True
-        ),
-    )
-    axes.shift(SENS_ORIGIN - axes.c2p(0, 0))
-    decade = lambda n: MathTex(rf"10^{{{n}}}", font_size=FONT_TICK, color=PLOT_FOREGROUND)
-    x_ticks = VGroup(*(
-        decade(n).next_to(plot_point(axes, n, LOG_H_RANGE[0]), DOWN, buff=0.15)
-        for n in range(LOG_F_RANGE[0], LOG_F_RANGE[1] + 1)
-    ))
-    y_ticks = VGroup(*(
-        decade(n).next_to(plot_point(axes, LOG_F_RANGE[0], n), LEFT, buff=0.15)
-        for n in range(LOG_H_RANGE[0], LOG_H_RANGE[1] + 1)
-    ))
-    x_label = Tex("Frequency / Hz", font_size=FONT_AXIS, color=PLOT_FOREGROUND)
-    x_label.next_to(x_ticks, DOWN, buff=0.15).set_x(axes.x_axis.get_center()[0])
-    y_label = Tex("Characteristic strain", font_size=FONT_AXIS, color=PLOT_FOREGROUND)
-    y_label.rotate(PI / 2).next_to(y_ticks, LEFT, buff=0.15)
-    return axes, VGroup(axes, x_ticks, y_ticks, x_label, y_label)
-
-
-def plot_point(axes, log_f, log_h):
-    return axes.c2p(log_f - LOG_F_RANGE[0], log_h - LOG_H_RANGE[0])
-
-
-def curve_points(axes, f, h):
-    return np.array([plot_point(axes, x, y) for x, y in zip(np.log10(f), np.log10(h))])
-
-
-def detector_region(axes, stem, color):
-    """A detector's curve, and its region shaded up to the top of the axes."""
-    points = curve_points(axes, *load_sensitivity(stem))
-    curve = VMobject(stroke_color=color, stroke_width=GW_TRACK_WIDTH)
-    curve.set_points_as_corners(points)
-    top = plot_point(axes, 0, LOG_H_RANGE[1])[1]
-    region = Polygon(
-        *points, [points[-1][0], top, 0], [points[0][0], top, 0],
-        stroke_width=0, fill_color=color, fill_opacity=GW_REGION_OPACITY,
-    )
-    return region, curve
-
-
 class SideCamera(ThreeDCamera):
     """A ThreeDCamera whose frame-fixed mobjects ignore frame_center.
 
@@ -604,7 +549,9 @@ class MergerOnSensitivityPlot(BlackHoleMerger):
         super().__init__(camera_class=SideCamera, **kwargs)
 
     def show_signal(self, clock):
-        axes, frame = sensitivity_axes()
+        axes, frame = sensitivity_axes(
+            LOG_F_RANGE, LOG_H_RANGE, SENS_ORIGIN, SENS_WIDTH, SENS_HEIGHT
+        )
         ligo_color = GW_DETECTOR_COLORS["LIGO"]
         region, ligo = detector_region(axes, "ligo", ligo_color)
         ligo_label = Tex("LIGO", font_size=FONT_AXIS, color=ligo_color)

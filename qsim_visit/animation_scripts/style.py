@@ -10,6 +10,7 @@ The ``*_STYLE`` bundles are dicts meant to be splatted into a mobject's
 constructor, e.g. ``DashedLine(a, b, **GUIDE_STYLE)``.
 """
 
+import numpy as np
 from manim import (
     BLUE_B,
     BLUE_D,
@@ -222,6 +223,25 @@ LEVEL_RESONANCE_STYLE = dict(
 )
 
 
+# --- an optical Michelson interferometer ----------------------------------
+# LIGO's light is all one laser, so every beam in the apparatus stays laser
+# red. Only in the readout, where the light returning from each arm is drawn
+# separately, do the two arms need telling apart. They take the two state
+# colours, which already mean "the two arms of an interferometer" everywhere
+# else in the talk and sample well apart. What reaches the detector is their
+# sum, and that is the signal, so it takes the signal white.
+X_ARM_COLOR = ATOM_COLOR
+Y_ARM_COLOR = KICKED_COLOR
+OUTPUT_COLOR = SIGNAL_COLOR
+OPTIC_COLOR = lighten(GUIDE_COLOR)  # test masses, beam splitter, detector
+BEAM_STROKE_WIDTH = 3
+BEAM_GLOW_WIDTH = 10  # the faint band a beam's wave rides on
+BEAM_GLOW_OPACITY = 0.18
+# The ring of free test masses beside the apparatus: small, because it is a
+# key to how the wave deforms space rather than a thing the light touches.
+TEST_MASS_DOT_RADIUS = 0.06
+
+
 # --- data plots (matplotlib) ----------------------------------------------
 # Measured data shown alongside the animations, so it sits on the same
 # background in the same palette. The two interferometers are the two clouds
@@ -278,6 +298,16 @@ GW_MERGER_FAR_COLOR = "#6e6e6e"
 GW_MERGER_Z_RANGE = (0.1, 10)  # redshifts the two shades are pinned to
 GW_MERGER_TIME_COLORS = ["#5e8fd9", "#4fc1c1", "#8fd46a", "#f0c24a", "#f06a4a"]
 
+
+def merger_color(z):
+    """A merger track's shade: GW_MERGER_NEAR_COLOR at the low end of
+    GW_MERGER_Z_RANGE fading to GW_MERGER_FAR_COLOR at the high end, in log z."""
+    lo, hi = np.log10(GW_MERGER_Z_RANGE)
+    s = np.clip((np.log10(z) - lo) / (hi - lo), 0, 1)
+    return interpolate_color(
+        ManimColor(GW_MERGER_NEAR_COLOR), ManimColor(GW_MERGER_FAR_COLOR), s
+    )
+
 # The same track animated beside the merger: drawn faint ahead of the source
 # and lit up behind it, with the source itself a dot in the holes' own rim
 # colour, which is what ties the dot on the plot to the pair on the sheet.
@@ -287,3 +317,11 @@ GW_SOURCE_COLOR = HORIZON_GLOW
 GW_SOURCE_RADIUS = 0.08
 GW_SOURCE_GLOW_RADIUS = 0.2
 GW_SOURCE_GLOW_OPACITY = 0.3
+# Merger tracks in a crowd are drawn a notch thinner than a lone one, so
+# nine of them don't outweigh the detector curves they're read against.
+GW_TRACK_CROWD_WIDTH = 2
+# A band edge on a sensitivity plot: a reference, not data, so dashed and
+# in the axes' own colour.
+GW_BAND_EDGE_STYLE = dict(
+    dash_length=0.1, stroke_width=2, stroke_opacity=0.6, color=PLOT_FOREGROUND
+)

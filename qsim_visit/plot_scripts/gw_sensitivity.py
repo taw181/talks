@@ -24,26 +24,24 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.colors import to_hex, to_rgb
 from matplotlib.lines import Line2D
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "animation_scripts"))
 from style import (  # noqa: E402
     GW_DETECTOR_COLORS,
-    GW_MERGER_FAR_COLOR,
-    GW_MERGER_NEAR_COLOR,
     GW_MERGER_TIME_COLORS,
-    GW_MERGER_Z_RANGE,
     GW_REGION_OPACITY,
     PLOT_BACKGROUND,
     PLOT_FOREGROUND,
+    merger_color,
 )
 from gw_signals import (  # noqa: E402
     TIME_MARKERS,
     TRACK_START,
     frequency_before_merger,
     load_sensitivity,
+    mass_tex,
     merger_strain,
     merger_track,
     phenom_a_frequencies,
@@ -72,26 +70,9 @@ DETECTORS = {
 MERGERS = [(M, z, 1) for M in (60, 1e4, 1e7) for z in (0.1, 1, 10)]
 
 
-def merger_color(z):
-    """White for a near source fading to grey with log redshift."""
-    lo, hi = np.log10(GW_MERGER_Z_RANGE)
-    s = np.clip((np.log10(z) - lo) / (hi - lo), 0, 1)
-    near, far = np.array(to_rgb(GW_MERGER_NEAR_COLOR)), np.array(to_rgb(GW_MERGER_FAR_COLOR))
-    return to_hex((1 - s) * near + s * far)
-
-
-def mass_label(M):
-    exponent = np.floor(np.log10(M))
-    if M < 1e3:
-        return rf"${M:g}\,M_\odot$"
-    mantissa = M / 10**exponent
-    lead = "" if np.isclose(mantissa, 1) else rf"{mantissa:g}\times"
-    return rf"${lead}10^{{{exponent:.0f}}}\,M_\odot$"
-
-
 def draw_merger(ax, M, z, q=1, label_mass=False):
     """Draw one merger track, dotted at the TIME_MARKERS it spans."""
-    color = merger_color(z)
+    color = merger_color(z).to_hex()
     f, h = merger_track(M, z, q)
     ax.plot(f, h, color=color, lw=1.4, zorder=3)
     for t, dot in zip(TIME_MARKERS.values(), GW_MERGER_TIME_COLORS):
@@ -104,14 +85,14 @@ def draw_merger(ax, M, z, q=1, label_mass=False):
         merging = f >= phenom_a_frequencies(M, z, q)["merger"]
         peak = np.flatnonzero(merging)[np.nanargmax(h[merging])]
         ax.text(
-            f[peak], h[peak] * 1.5, mass_label(M), color=PLOT_FOREGROUND,
+            f[peak], h[peak] * 1.5, f"${mass_tex(M)}$", color=PLOT_FOREGROUND,
             fontsize=TICK_SIZE, ha="center", va="bottom", zorder=5,
         )
 
 
 def merger_legends(ax, redshifts):
     tracks = [
-        Line2D([], [], color=merger_color(z), lw=1.4, label=f"$z = {z:g}$")
+        Line2D([], [], color=merger_color(z).to_hex(), lw=1.4, label=f"$z = {z:g}$")
         for z in sorted(redshifts)
     ]
     dots = [

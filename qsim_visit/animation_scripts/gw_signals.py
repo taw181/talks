@@ -40,6 +40,16 @@ H0 = 67.66  # Planck 2018, km/s/Mpc
 OMEGA_M = 0.30966
 
 
+def mass_tex(M):
+    """A total mass as TeX math (no $), e.g. 60\\,M_\\odot or 10^{4}\\,M_\\odot."""
+    if M < 1e3:
+        return rf"{M:g}\,M_\odot"
+    exponent = np.floor(np.log10(M))
+    mantissa = M / 10**exponent
+    lead = "" if np.isclose(mantissa, 1) else rf"{mantissa:g}\times"
+    return rf"{lead}10^{{{exponent:.0f}}}\,M_\odot"
+
+
 def load_sensitivity(stem):
     """(f, h_c) arrays from data/gw_sensitivity/<stem>.csv."""
     with open(DATA_DIR / f"{stem}.csv") as f:
