@@ -220,3 +220,19 @@ LEVEL_GLOW_ARROW_STYLE = dict(
 LEVEL_RESONANCE_STYLE = dict(
     dash_length=0.09, stroke_width=2, stroke_opacity=0.55, color=LASER_COLOR
 )
+
+
+# --- data plots (matplotlib) ----------------------------------------------
+# Measured data shown alongside the animations, so it sits on the same
+# background in the same palette. The two interferometers are the two clouds
+# of the gradiometer, not two states, so they take neither state colour: the
+# lower one gets the cool crest shade and the upper one the warm rim light,
+# which sample as far apart as anything in the talk. Across the noise runs
+# the split is the phase budget's: white for the quiet laser, whose ellipse
+# is the signal, and laser red for the one with phase noise put on it.
+PLOT_BACKGROUND = "#101010"  # manim.cfg's background_color
+PLOT_FOREGROUND = "#dddddd"  # axes, ticks and labels
+LOWER_CLOUD_COLOR = CREST_COLOR
+UPPER_CLOUD_COLOR = HORIZON_GLOW
+LLN_COLOR = SIGNAL_COLOR
+HLN_COLOR = NOISE_COLOR
