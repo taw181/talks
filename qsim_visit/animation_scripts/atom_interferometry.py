@@ -353,10 +353,10 @@ class MachZehnder(Scene):
         phase = MathTex(
             r"\Phi", font_size=FONT_PHASE, color=lighten(AREA_COLOR)
         ).move_to((MZ_A + MZ_B + MZ_C + MZ_B_UP) / 4)
-        p1 = state_label(r"P_1", ATOM_COLOR).next_to(port_g, RIGHT, buff=0.3)
-        p2 = state_label(r"P_2", KICKED_COLOR).next_to(port_e, RIGHT, buff=0.3)
+        p1 = state_label(r"P_g", ATOM_COLOR).next_to(port_g, RIGHT, buff=0.3)
+        p2 = state_label(r"P_e", KICKED_COLOR).next_to(port_e, RIGHT, buff=0.3)
         readout = MathTex(
-            r"P_{1,2} = \tfrac{1}{2}\left(1 \pm \cos\Phi\right)",
+            r"P_{g,e} = \tfrac{1}{2}\left(1 \pm \cos\Phi\right)",
             font_size=FONT_ANNOTATION,
         ).to_corner(DR)
 

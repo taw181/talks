@@ -1,5 +1,7 @@
 # qsim_visit
 
+commit and push frequently as you go.
+
 Manim animations for a talk on single-photon atom clock interferometry
 (AION: Sr clock transition, gradiometer baseline, large momentum transfer).
 

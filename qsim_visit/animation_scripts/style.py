@@ -13,6 +13,7 @@ constructor, e.g. ``DashedLine(a, b, **GUIDE_STYLE)``.
 from manim import (
     BLUE_B,
     BLUE_D,
+    GREEN_C,
     GREY_B,
     PURPLE_B,
     RED_C,
@@ -82,6 +83,27 @@ LOOP_AREA_STYLE = dict(stroke_width=0, fill_color=AREA_COLOR, fill_opacity=0.09)
 V = 2.0
 PULSE_SPEED = V * 1.6
 
+# The scenes with something passing through them -- a wave, a dark-matter field
+# -- are space-time diagrams, so the x axis *is* lab time and a pulse that
+# freezes the atoms freezes the field along with them. Their continuous
+# variants run one clock at V from the first pulse to the last and never stop
+# it, which costs them the dilated pulses: a photon crosses the baseline in
+# GR_LAG / V, a fifth of a second, so a pulse there is a strobe rather than an
+# event. That is the right trade for those scenes only. The explainers have
+# already said what a pulse does, and these ones are about what is passing
+# through.
+PULSE_HOLD = 0.4  # lab time a strobed column is held before it fades
+# A burst marks the event, so it is struck at the vertex and stays there
+# while the atom flies on -- which is what a space-time diagram says happened.
+# It has to be brief for that to read as one moment rather than as the atom
+# walking out of its own flash.
+STROBE_FLASH = 0.18  # wall seconds
+# ...and how long a pulse's worldline, its dashed reference and whatever it
+# was captioned with stay up once it has passed. Long enough to be read is
+# longer than the pulse itself lasts, so they linger into the next leg and
+# go out only as the next pulse comes up behind them.
+PULSE_LINGER = 1.2  # lab time
+
 # --- spacetime and gravitational waves ------------------------------------
 # The sheet is coloured by height, so it needs three shades that stay apart at
 # a 1.5px stroke: a calm slate at rest, a bright crest and a deep trough. The
@@ -114,6 +136,27 @@ STRAIN_STROKE_WIDTH = 3
 FIELD_COLOR = STRAIN_COLOR
 FIELD_STROKE_WIDTH = STRAIN_STROKE_WIDTH
 FIELD_WINDOW_STYLE = dict(stroke_width=0, fill_color=AREA_COLOR, fill_opacity=0.16)
+
+# --- an injected light shift ----------------------------------------------
+# A second laser, far enough off resonance to drive nothing, turned on across
+# one cloud to shift its clock levels. It gets a colour of its own rather than
+# the usual laser red, because the one thing the figure has to say about it is
+# that it is not the beam the pulses come from: different wavelength,
+# different job, one interferometer instead of both. Green is the only hue the
+# talk has left, and it samples furthest from everything already in use -- its
+# nearest neighbour is the construction grey, which is only ever a thin dashed
+# line and cannot be confused with a filled band.
+LIGHT_SHIFT_COLOR = GREEN_C
+# Bounded rather than a bare wash, unlike the field and strain windows: those
+# mark a stretch of an oscillation that was always there, where this one marks
+# a beam being switched on and off, and the two edges are those two moments.
+LIGHT_SHIFT_STYLE = dict(
+    stroke_width=2,
+    stroke_color=LIGHT_SHIFT_COLOR,
+    stroke_opacity=0.55,
+    fill_color=LIGHT_SHIFT_COLOR,
+    fill_opacity=0.16,
+)
 
 # --- phase, drawn as a clock hand -----------------------------------------
 # A hand is only legible on an atom about twice the usual size, which crowds a
@@ -169,4 +212,11 @@ LEVEL_GLOW_ARROW_STYLE = dict(
     stroke_width=5,
     color=LASER_COLOR,
     max_tip_length_to_length_ratio=0.12,
+)
+# Where a laser was tuned to, drawn across a two-level diagram whose upper
+# level is moving. Laser red, because it belongs to the light, and dashed
+# rather than solid because it is a reference the atom has walked away from
+# rather than a state anything is in.
+LEVEL_RESONANCE_STYLE = dict(
+    dash_length=0.09, stroke_width=2, stroke_opacity=0.55, color=LASER_COLOR
 )
