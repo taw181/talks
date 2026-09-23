@@ -12,6 +12,11 @@ round in order as the phase sweeps. FringesToEllipseNoisy is the run with
 common laser phase noise put on: the fringes wash out to a band, but each shot
 still lands on the ellipse, just at a random place round it.
 
+FringesFirst (and FringesFirstNoisy) start from the finished fringe plot,
+dimmed, and light its shots up left to right as each arrives on the Lissajous
+plot -- for when the fringes have already been shown and the point is where
+each one goes on the ellipse.
+
     uv run manim -qh animation_scripts/dai_data.py FringesToEllipse
 
 Drawing: a few thousand Dots would be a few thousand mobjects for cairo to
@@ -131,6 +136,8 @@ class FringesToEllipse(Scene):
     RUN = "lln"
     TITLE = "Low laser noise"
     ELLIPSE_COLOR = LLN_COLOR
+    # Whether the whole fringe plot is up, dimmed, before any shot arrives.
+    FRINGES_FIRST = False
 
     def construct(self):
         data = load(self.RUN)
@@ -164,15 +171,19 @@ class FringesToEllipse(Scene):
             (fringe_axes, phi, upper, UPPER_CLOUD_COLOR, FRINGE_DOT_OPACITY),
             (liss_axes, lower, upper, self.ELLIPSE_COLOR, 1.0),
         ]
-        clouds, rings = VGroup(), VGroup()
+        clouds, rings, dimmed = VGroup(), VGroup(), VGroup()
         for axes, xs, ys, color, opacity in series:
             points, per_dot = dot_points(axes, xs, ys)
             clouds.add(dot_cloud(points, per_dot, color, count, opacity))
             centres = points[::per_dot] - [DATA_DOT_RADIUS, 0, 0]
             rings.add(newest_ring(centres, lighten(color), count))
+            if self.FRINGES_FIRST and axes is fringe_axes:
+                dimmed.add(VMobject(fill_color=color, stroke_width=0,
+                                    fill_opacity=FRINGE_DIM_OPACITY)
+                           .set_points(points))
 
         self.play(FadeIn(title), FadeIn(fringe_frame), FadeIn(liss_frame),
-                  FadeIn(key), run_time=1.0)
+                  FadeIn(key), FadeIn(dimmed), run_time=1.0)
         self.add(clouds)
         self.wait(0.3)
         count.set_value(1)
@@ -183,7 +194,19 @@ class FringesToEllipse(Scene):
         self.wait(2.0)
 
 
-class FringesToEllipseNoisy(FringesToEllipse):
+class Noisy:
     RUN = "hln"
     TITLE = "High laser noise"
     ELLIPSE_COLOR = HLN_COLOR
+
+
+class FringesToEllipseNoisy(Noisy, FringesToEllipse):
+    pass
+
+
+class FringesFirst(FringesToEllipse):
+    FRINGES_FIRST = True
+
+
+class FringesFirstNoisy(Noisy, FringesFirst):
+    pass

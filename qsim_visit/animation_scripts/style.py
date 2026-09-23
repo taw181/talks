@@ -248,6 +248,9 @@ DATA_DOT_RADIUS = 0.028
 # the series, mind: each series is one path, so a series never darkens where
 # its own points pile up.
 FRINGE_DOT_OPACITY = 0.7
+# A fringe plot shown in full before its shots are lit up one by one: dim
+# enough that a lit shot stands out, bright enough that the fringes still read.
+FRINGE_DIM_OPACITY = 0.2
 # The newest shot is ringed on both plots at once, which is what ties a fringe
 # point to its place on the ellipse.
 NEWEST_RING_RADIUS = 0.11
