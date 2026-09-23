@@ -12,5 +12,5 @@ Manim animations for a talk on single-photon atom clock interferometry
 - One-off scripts: `.venv/bin/python`.
 - Git root is `~/talks`, so git paths are prefixed `qsim_visit/`. Stage explicit paths — the working tree usually holds in-progress scripts of the user's, and `git add -A` will sweep them into your commit.
 - Annotations belong where the physics happens: don't offset a recoil arrow off its atom to dodge an overlap — the overlap is fine.
-- Measured data: `data_scripts/` pulls it into `data/` (committed), `plot_scripts/` plots it with matplotlib into `figures/` (gitignored repo-wide) using the plot colours in `style.py`. `plot_scripts/interferometer_data.py` → AION DAI fringes and Lissajous ellipse (Zenodo 19592552).
+- Measured data: `data_scripts/` pulls it into `data/` (committed), `plot_scripts/` plots it with matplotlib into `figures/` using the plot colours in `style.py`. `plot_scripts/interferometer_data.py` → AION DAI fringes and Lissajous ellipse (Zenodo 19592552).
 - Render-and-check loop, colour sampling, manim traps: the `manim-atom-interferometry` skill.
