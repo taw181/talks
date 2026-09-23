@@ -6,8 +6,8 @@ rides) first; then the other eight source tracks, 60 to 1e7 Msun at z = 0.1,
 then two dashed lines at 2e-2 and 2 Hz marking the gap between them; then
 AION-km and AEDGE, which fill it.
 
-The curves are the digitised ones in data/gw_sensitivity/ and the tracks come
-from gw_signals.py, so this is the same figure as
+The curves are the digitised ones in aionanim/data/gw_sensitivity/ and the tracks come
+from aionanim.physics.gw_signals, so this is the same figure as
 plot_scripts/gw_sensitivity.py, on the source figure's axes.
 
     uv run manim -qh animation_scripts/gw_landscape.py SensitivityBuildUp
@@ -30,8 +30,8 @@ import numpy as np
 from manim import *
 from manim_slides import Slide
 
-from gw_plot import curve_points, detector_region, plot_point, sensitivity_axes
-from gw_signals import mass_tex, merger_track, phenom_a_frequencies
+from aionanim.tools.gw_plot import curve_points, detector_region, plot_point, sensitivity_axes
+from aionanim.physics.gw_signals import mass_tex, merger_track, phenom_a_frequencies
 from aionanim.style import *
 
 # --- layout ---------------------------------------------------------------

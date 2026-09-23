@@ -11,7 +11,7 @@ shows the fast, strong ones -- that contrast across the sheet *is* the chirp.
 
 MergerOnSensitivityPlot puts the same merger beside LIGO's sensitivity curve,
 with a dot riding the source's characteristic-strain track in step with the
-sheet. The track is real (a 60 Msun binary at z = 0.1, from gw_signals.py);
+sheet. The track is real (a 60 Msun binary at z = 0.1, from aionanim.physics.gw_signals);
 the dot's timing is not -- ten years of inspiral are squeezed into the
 sheet's fourteen seconds, with a readout saying how long is really left.
 
@@ -24,8 +24,8 @@ import numpy as np
 from manim import *
 from PIL import Image
 
-from gw_plot import curve_points, detector_region, plot_point, sensitivity_axes
-from gw_signals import (
+from aionanim.tools.gw_plot import curve_points, detector_region, plot_point, sensitivity_axes
+from aionanim.physics.gw_signals import (
     TRACK_START,
     YEAR,
     frequency_before_merger,

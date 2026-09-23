@@ -2,12 +2,12 @@
 with black-hole merger tracks laid over them.
 
 All five curves digitised from ``GW_exclusion_plot.svg`` into
-``data/gw_sensitivity/`` (see each CSV's header for the shapes it came from),
+``aionanim/data/gw_sensitivity/`` (see each CSV's header for the shapes it came from),
 drawn together on the source figure's axes, each region shaded down to its
 curve and labelled beside it.
 
 The merger tracks are computed, not digitised, for any total mass and
-redshift in ``MERGERS``, by animation_scripts/gw_signals.py (PhenomA at the
+redshift in ``MERGERS``, by aionanim.physics.gw_signals (PhenomA at the
 Planck 2018 luminosity distance; it reproduces the source figure's nine
 tracks to within 0.003 dex). Dots mark the time left to merger.
 
@@ -36,7 +36,7 @@ from aionanim.style import (  # noqa: E402
     PLOT_FOREGROUND,
     merger_color,
 )
-from gw_signals import (  # noqa: E402
+from aionanim.physics.gw_signals import (  # noqa: E402
     TIME_MARKERS,
     TRACK_START,
     frequency_before_merger,
