@@ -18,8 +18,11 @@ sheet's fourteen seconds, with a readout saying how long is really left.
 Everything visual comes from style.py.
 """
 
+from pathlib import Path
+
 import numpy as np
 from manim import *
+from PIL import Image
 
 from gw_signals import (
     TRACK_START,
@@ -298,7 +301,7 @@ def observed_strain(t):
     return strain(t) * np.cos(2.0 * orbital_phase(t))
 
 
-def make_trace(clock):
+def make_trace(clock, center=TRACE_CENTER, width=TRACE_WIDTH):
     """A polyline of h(t) up to the current clock, pinned to the bottom edge."""
     curve = VMobject(stroke_width=3)
     scale = TRACE_HEIGHT / (H_START * CHIRP_RATIO**H_GROWTH)
@@ -306,8 +309,8 @@ def make_trace(clock):
     def update(m):
         t = max(clock.get_value(), 1e-3)
         ts = np.linspace(0.0, t, TRACE_SAMPLES)
-        xs = TRACE_CENTER[0] - TRACE_WIDTH / 2 + TRACE_WIDTH * ts / T_END
-        ys = TRACE_CENTER[1] + scale * observed_strain(ts)
+        xs = center[0] - width / 2 + width * ts / T_END
+        ys = center[1] + scale * observed_strain(ts)
         m.set_points_as_corners(np.stack([xs, ys, np.zeros_like(xs)], axis=1))
         m.set_stroke(color=height_colors(observed_strain(ts[::40]) * 3.0))
 
@@ -334,6 +337,10 @@ class BlackHoleMerger(ThreeDScene):
         trace = make_trace(clock)
         self.add_fixed_in_frame_mobjects(trace)
         self.play(FadeIn(trace), run_time=0.8)
+
+    def after_ringdown(self, spacetime):
+        """Anything to do once the sheet has settled; spacetime is the sheet
+        and the remnant, updaters already stopped on the sheet."""
 
     def construct(self):
         clock = ValueTracker(0.0)
@@ -429,6 +436,7 @@ class BlackHoleMerger(ThreeDScene):
         sheet.clear_updaters()
         if self.AMBIENT_ROTATION:
             self.stop_ambient_camera_rotation()
+        self.after_ringdown(VGroup(sheet, remnant))
         self.wait(1.0)
 
 
@@ -444,6 +452,16 @@ LOG_F_RANGE = (-2, 4)  # the track starts ten years out, at ~0.01 Hz
 LOG_H_RANGE = (-23, -18)
 SIDE_SHEET_X = -3.6  # screen x of the sheet's centre
 SIDE_ZOOM = 0.5
+SIDE_TRACE_CENTER = np.array([SIDE_SHEET_X, -3.05, 0.0])  # the h(t) strip
+SIDE_TRACE_WIDTH = 6.4
+
+# Once the sheet settles, the left panel becomes what LIGO actually recorded
+# from GW150914 -- a 36 + 29 Msun merger at z = 0.09, so a near twin of the
+# track on the right. Its pure black is lifted to the talk's background so
+# the image has no visible edge.
+LIGO_DATA_IMAGE = Path(__file__).resolve().parent.parent / "figures" / "ligo20160211a.jpg"
+LIGO_DATA_HEIGHT = 6.3
+LIGO_DATA_CENTER = np.array([SIDE_SHEET_X, -0.75, 0.0])
 
 # Ten years into T_INSPIRAL: the time left to merger is squeezed as
 # (fraction of the inspiral left) ** CHIRP_WARP, so the dot crawls through
@@ -554,6 +572,22 @@ def detector_region(axes, stem, color):
     return region, curve
 
 
+class SideCamera(ThreeDCamera):
+    """A ThreeDCamera whose frame-fixed mobjects ignore frame_center.
+
+    The pixel mapping subtracts frame_center from everything, fixed or not, so
+    an off-centre frame_center drags the overlay along with the sheet. This
+    puts it back at the last step, which keeps working for mobjects whose
+    updaters rebuild their points from absolute positions every frame.
+    """
+
+    def transform_points_pre_display(self, mobject, points):
+        points = super().transform_points_pre_display(mobject, points)
+        if mobject in self.fixed_in_frame_mobjects:
+            return points + self.frame_center * [1, 1, 0]
+        return points
+
+
 class MergerOnSensitivityPlot(BlackHoleMerger):
     """The merger on the left; on the right, its signal crossing LIGO's band."""
 
@@ -566,12 +600,8 @@ class MergerOnSensitivityPlot(BlackHoleMerger):
     # so any rotation would swing the sheet across the frame.
     AMBIENT_ROTATION = 0
 
-    def add_fixed_in_frame_mobjects(self, *mobjects):
-        # The pixel mapping subtracts frame_center from everything, fixed or
-        # not, so a frame-fixed mobject has to be put back by the same amount.
-        for mob in mobjects:
-            mob.shift(self.camera.frame_center * [1, 1, 0])
-        super().add_fixed_in_frame_mobjects(*mobjects)
+    def __init__(self, **kwargs):
+        super().__init__(camera_class=SideCamera, **kwargs)
 
     def show_signal(self, clock):
         axes, frame = sensitivity_axes()
@@ -635,7 +665,24 @@ class MergerOnSensitivityPlot(BlackHoleMerger):
         readout.add_updater(tick)
         tick(readout)
 
+        self.trace = make_trace(clock, SIDE_TRACE_CENTER, SIDE_TRACE_WIDTH)
         plot = VGroup(region, frame, ligo, ligo_label, ahead, source_label)
-        live = VGroup(lit, source, heading, readout)
+        live = VGroup(lit, source, heading, readout, self.trace)
         self.add_fixed_in_frame_mobjects(plot, live)
         self.play(FadeIn(plot), FadeIn(live), run_time=1.0)
+
+    def after_ringdown(self, spacetime):
+        pixels = np.asarray(Image.open(LIGO_DATA_IMAGE).convert("RGB"))
+        floor = np.array(color_to_int_rgb(PLOT_BACKGROUND), dtype=np.uint8)
+        data = ImageMobject(np.maximum(pixels, floor))
+        data.height = LIGO_DATA_HEIGHT
+        data.move_to(LIGO_DATA_CENTER)
+        self.trace.clear_updaters()
+        self.add_fixed_in_frame_mobjects(data)
+        self.play(
+            FadeOut(spacetime),
+            FadeOut(self.trace),
+            FadeIn(data, target_position=self.trace, scale=0.4),
+            run_time=1.5,
+        )
+        self.wait(3.0)
