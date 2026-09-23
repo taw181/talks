@@ -15,8 +15,8 @@ every beat of the scene. Everything visual comes from style.py.
 import numpy as np
 from manim import *
 
-from atom_interferometry import make_guide
 from aionanim.style import *
+from aionanim.tools.primitives import make_guide
 
 # --- the apparatus --------------------------------------------------------
 # The beam splitter sits left of centre so the right third of the frame is

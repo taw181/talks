@@ -52,13 +52,15 @@ import numpy as np
 from manim import *
 
 from aionanim.style import *
-from atom_interferometry import (
+from aionanim.scenes.mach_zehnder import (
     MZ_A,
     MZ_B,
     MZ_B_UP,
     MZ_C,
     MZ_OUT,
     MachZehnder,
+)
+from aionanim.tools.primitives import (
     absorb,
     draw_legs,
     emit,
