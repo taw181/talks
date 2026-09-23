@@ -28,11 +28,9 @@ Or build a standalone HTML deck:
 
 from manim_slides import Slide
 
-from aionanim.scenes.aion import (
-    Gradiometer,
-    GradiometerGWStretch,
-)
+from aionanim.scenes.aion import GradiometerGWStretch
 from aionanim.scenes.clock import ClockPhase
+from aionanim.scenes.gradiometer import Gradiometer
 from aionanim.scenes.lmt import LargeMomentumTransfer
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.uldm import DarkMatterPhase
