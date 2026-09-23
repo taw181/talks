@@ -16,6 +16,14 @@ SensitivityBuildUpSlide is the same scene as a manim-slides slide, one slide
 per step, advancing on the presenter's click instead of a timed hold:
 
     uv run manim-slides render -q h animation_scripts/gw_landscape.py SensitivityBuildUpSlide
+
+Present it (click, space or right arrow for the next step):
+
+    uv run manim-slides present SensitivityBuildUpSlide
+
+or build a standalone HTML deck to open in any browser:
+
+    uv run manim-slides convert SensitivityBuildUpSlide gw_landscape.html --to html --one-file
 """
 
 import numpy as np
