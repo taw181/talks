@@ -236,3 +236,19 @@ LOWER_CLOUD_COLOR = CREST_COLOR
 UPPER_CLOUD_COLOR = HORIZON_GLOW
 LLN_COLOR = SIGNAL_COLOR
 HLN_COLOR = NOISE_COLOR
+
+# The same data drawn by manim, point by point. Axis text is a notch below the
+# legend size because axis labels run long ("Lower interferometer excitation
+# / %") and two plots have to share the frame side by side.
+FONT_AXIS = 26
+FONT_TICK = 24
+DATA_DOT_RADIUS = 0.028
+# The two interferometers' fringes lie on top of each other, so they are
+# drawn see-through to let the lower one show under the upper. Only across
+# the series, mind: each series is one path, so a series never darkens where
+# its own points pile up.
+FRINGE_DOT_OPACITY = 0.7
+# The newest shot is ringed on both plots at once, which is what ties a fringe
+# point to its place on the ellipse.
+NEWEST_RING_RADIUS = 0.11
+NEWEST_RING_WIDTH = 3
