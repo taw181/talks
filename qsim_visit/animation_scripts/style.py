@@ -269,3 +269,11 @@ GW_DETECTOR_COLORS = {
 # The region a detector can see is shaded down to its curve: faint, because
 # the regions overlap and every curve has to show through the others.
 GW_REGION_OPACITY = 0.15
+# Black-hole merger tracks cross every detector's region, so they take no hue
+# of their own: white for a nearby source, fading to grey with redshift, which
+# is also the way the signal fades. The dots along a track mark the time left
+# to merger, on a cool-to-hot ramp that ends hottest at the merger itself.
+GW_MERGER_NEAR_COLOR = "#ffffff"
+GW_MERGER_FAR_COLOR = "#6e6e6e"
+GW_MERGER_Z_RANGE = (0.1, 10)  # redshifts the two shades are pinned to
+GW_MERGER_TIME_COLORS = ["#5e8fd9", "#4fc1c1", "#8fd46a", "#f0c24a", "#f06a4a"]
