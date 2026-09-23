@@ -1393,7 +1393,7 @@ wheels = [
 [[package]]
 name = "qsim-visit"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "manim" },
     { name = "manim-slides", extra = ["pyside6"] },
