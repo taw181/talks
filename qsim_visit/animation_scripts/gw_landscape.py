@@ -3,7 +3,7 @@
 LIGO and one merger (60 Msun at z = 0.1, the track MergerOnSensitivityPlot
 rides) first; then the other eight source tracks, 60 to 1e7 Msun at z = 0.1,
 1 and 10; then LISA and ET, the space and next-generation ground detectors;
-then two dashed lines at 2e-2 and 10 Hz marking the gap between them; then
+then two dashed lines at 2e-2 and 2 Hz marking the gap between them; then
 AION-km and AEDGE, which fill it.
 
 The curves are the digitised ones in data/gw_sensitivity/ and the tracks come
@@ -61,7 +61,7 @@ MERGERS = [(M, z) for M in (60, 1e4, 1e7) for z in (0.1, 1, 10)]
 MASS_LABEL_SHIFT = {1e4: np.array([-0.9, 0.1, 0.0])}
 
 # The dashed lines bounding the mid band, Hz.
-BAND_EDGES = (2e-2, 10)
+BAND_EDGES = (2e-2, 2)
 
 # --- pacing ---------------------------------------------------------------
 STEP_TIME = 1.5
