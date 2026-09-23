@@ -15,7 +15,7 @@ plot_scripts/gw_sensitivity.py, on the source figure's axes.
 SensitivityBuildUpSlide is the same scene as a manim-slides slide, one slide
 per step, advancing on the presenter's click instead of a timed hold:
 
-    uv run manim-slides render -qh animation_scripts/gw_landscape.py SensitivityBuildUpSlide
+    uv run manim-slides render -q h animation_scripts/gw_landscape.py SensitivityBuildUpSlide
 """
 
 import numpy as np

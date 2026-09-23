@@ -13,7 +13,7 @@ pointed at (dark matter, then a gravitational wave), and the momentum-
 transfer trick that buys more sensitivity.
 
 Render:
-    uv run manim-slides render -qh animation_scripts/aion_slides.py
+    uv run manim-slides render -q h animation_scripts/aion_slides.py
 
 Present (all six, in order):
     uv run manim-slides present SinglePhotonMachZehnderSlide ClockPhaseSlide \
