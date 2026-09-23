@@ -30,12 +30,12 @@ from manim_slides import Slide
 
 from aionanim.scenes.aion import (
     ClockPhase,
-    DarkMatterPhase,
     Gradiometer,
     GradiometerGWStretch,
     LargeMomentumTransfer,
     SinglePhotonMachZehnder,
 )
+from aionanim.scenes.uldm import DarkMatterPhase
 
 
 class SinglePhotonMachZehnderSlide(Slide, SinglePhotonMachZehnder):
