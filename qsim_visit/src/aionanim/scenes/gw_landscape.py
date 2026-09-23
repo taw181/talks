@@ -8,27 +8,17 @@ AION-km and AEDGE, which fill it.
 
 The curves are the digitised ones in aionanim/data/gw_sensitivity/ and the tracks come
 from aionanim.physics.gw_signals, so this is the same figure as
-plot_scripts/gw_sensitivity.py, on the source figure's axes.
+aionanim.plots.gw_sensitivity, on the source figure's axes.
 
-    uv run manim -qh animation_scripts/gw_landscape.py SensitivityBuildUp
+    uv run manim -qh src/aionanim/scenes/gw_landscape.py SensitivityBuildUp
 
-SensitivityBuildUpSlide is the same scene as a manim-slides slide, one slide
-per step, advancing on the presenter's click instead of a timed hold:
-
-    uv run manim-slides render -q h animation_scripts/gw_landscape.py SensitivityBuildUpSlide
-
-Present it (click, space or right arrow for the next step):
-
-    uv run manim-slides present SensitivityBuildUpSlide
-
-or build a standalone HTML deck to open in any browser:
-
-    uv run manim-slides convert SensitivityBuildUpSlide gw_landscape.html --to html --one-file
+Every pause between steps goes through beat(), so a manim-slides subclass
+that makes beat() a next_slide() turns it into one slide per step, advancing
+on the presenter's click instead of a timed hold.
 """
 
 import numpy as np
 from manim import *
-from manim_slides import Slide
 
 from aionanim.tools.gw_plot import curve_points, detector_region, plot_point, sensitivity_axes
 from aionanim.physics.gw_signals import mass_tex, merger_track, phenom_a_frequencies
@@ -186,8 +176,3 @@ class SensitivityBuildUp(Scene):
         self.beat()
         self.bring_in(axes, "AEDGE")
         self.wait(2.0)
-
-
-class SensitivityBuildUpSlide(Slide, SensitivityBuildUp):
-    def beat(self):
-        self.next_slide()

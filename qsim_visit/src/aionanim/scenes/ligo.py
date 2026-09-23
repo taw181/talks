@@ -9,7 +9,7 @@ it squeezes the other; the returning beams slide out of step, stop
 cancelling, and light reaches the detector.
 
 Everything runs off one lab clock, `now`, so the light keeps flowing through
-every beat of the scene. Everything visual comes from style.py.
+every beat of the scene. Everything visual comes from aionanim.style.
 """
 
 import numpy as np
