@@ -255,3 +255,18 @@ FRINGE_DIM_OPACITY = 0.2
 # point to its place on the ellipse.
 NEWEST_RING_RADIUS = 0.11
 NEWEST_RING_WIDTH = 3
+
+# GW detector sensitivity curves, in the colours of the exclusion plot they
+# were digitised from (GW_exclusion_plot.svg), so the figure still reads as
+# the familiar one. All mid-tones, so they hold up on the dark background.
+GW_DETECTOR_COLORS = {
+    "LISA": "#8fb032",
+    "LIGO": "#c56e1a",
+    "ET": "#ffbf00",
+    "AION-km": "#a5609d",
+    "AEDGE": "#6685d9",
+    "AEDGE+": "#5d9ec7",
+}
+# The region a detector can see is shaded down to its curve: faint, because
+# the regions overlap and every curve has to show through the others.
+GW_REGION_OPACITY = 0.15
