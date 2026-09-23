@@ -277,3 +277,13 @@ GW_MERGER_NEAR_COLOR = "#ffffff"
 GW_MERGER_FAR_COLOR = "#6e6e6e"
 GW_MERGER_Z_RANGE = (0.1, 10)  # redshifts the two shades are pinned to
 GW_MERGER_TIME_COLORS = ["#5e8fd9", "#4fc1c1", "#8fd46a", "#f0c24a", "#f06a4a"]
+
+# The same track animated beside the merger: drawn faint ahead of the source
+# and lit up behind it, with the source itself a dot in the holes' own rim
+# colour, which is what ties the dot on the plot to the pair on the sheet.
+GW_TRACK_WIDTH = 3
+GW_TRACK_AHEAD_OPACITY = 0.3
+GW_SOURCE_COLOR = HORIZON_GLOW
+GW_SOURCE_RADIUS = 0.08
+GW_SOURCE_GLOW_RADIUS = 0.2
+GW_SOURCE_GLOW_OPACITY = 0.3

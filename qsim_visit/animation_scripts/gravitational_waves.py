@@ -9,12 +9,28 @@ The field is evaluated at retarded time, so at any instant the rim of the sheet
 is still showing the slow, weak waves emitted seconds earlier while the centre
 shows the fast, strong ones -- that contrast across the sheet *is* the chirp.
 
+MergerOnSensitivityPlot puts the same merger beside LIGO's sensitivity curve,
+with a dot riding the source's characteristic-strain track in step with the
+sheet. The track is real (a 60 Msun binary at z = 0.1, from gw_signals.py);
+the dot's timing is not -- ten years of inspiral are squeezed into the
+sheet's fourteen seconds, with a readout saying how long is really left.
+
 Everything visual comes from style.py.
 """
 
 import numpy as np
 from manim import *
 
+from gw_signals import (
+    TRACK_START,
+    YEAR,
+    frequency_before_merger,
+    load_sensitivity,
+    merger_strain,
+    merger_track,
+    phenom_a_frequencies,
+    time_before_merger,
+)
 from style import *
 
 # --- sheet geometry -------------------------------------------------------
@@ -303,6 +319,22 @@ def make_trace(clock):
 class BlackHoleMerger(ThreeDScene):
     """Two black holes spiral in, radiating, and merge into one ringing remnant."""
 
+    # frame_center lifts the sheet off the bottom of the frame so the chirp
+    # trace has a clear strip to live in.
+    CAMERA = dict(
+        phi=67 * DEGREES,
+        theta=-60 * DEGREES,
+        zoom=0.84,
+        frame_center=[0.0, 0.0, -0.45],
+    )
+    AMBIENT_ROTATION = 0.02  # rad/s
+
+    def show_signal(self, clock):
+        """Bring in whatever reads the waves off the sheet, driven by clock."""
+        trace = make_trace(clock)
+        self.add_fixed_in_frame_mobjects(trace)
+        self.play(FadeIn(trace), run_time=0.8)
+
     def construct(self):
         clock = ValueTracker(0.0)
         gain = ValueTracker(0.0)  # how strongly the sheet feels the holes
@@ -315,14 +347,7 @@ class BlackHoleMerger(ThreeDScene):
         # leaves the sort untouched -- z_key never consults this flag.
         self.camera.should_apply_shading = False
 
-        # frame_center lifts the sheet off the bottom of the frame so the chirp
-        # trace has a clear strip to live in.
-        self.set_camera_orientation(
-            phi=67 * DEGREES,
-            theta=-60 * DEGREES,
-            zoom=0.84,
-            frame_center=[0.0, 0.0, -0.45],
-        )
+        self.set_camera_orientation(**self.CAMERA)
 
         # --- 1. flat spacetime -------------------------------------------
         sheet = make_sheet()
@@ -338,7 +363,8 @@ class BlackHoleMerger(ThreeDScene):
         sheet.add_updater(
             lambda m: refresh_sheet(m, clock.get_value(), gain.get_value())
         )
-        self.begin_ambient_camera_rotation(rate=0.02)
+        if self.AMBIENT_ROTATION:
+            self.begin_ambient_camera_rotation(rate=self.AMBIENT_ROTATION)
 
         # --- 2. two holes dent it ----------------------------------------
         pair = VGroup(
@@ -346,9 +372,7 @@ class BlackHoleMerger(ThreeDScene):
         )
         self.play(FadeIn(pair, scale=0.4), gain.animate.set_value(1.0), run_time=1.6)
 
-        trace = make_trace(clock)
-        self.add_fixed_in_frame_mobjects(trace)
-        self.play(FadeIn(trace), run_time=0.8)
+        self.show_signal(clock)
 
         # --- 3. the inspiral ---------------------------------------------
         # One linear sweep of the clock: the separation, the orbital frequency
@@ -403,5 +427,215 @@ class BlackHoleMerger(ThreeDScene):
         # --- 6. one hole, one well, a sheet nearly flat again -------------
         self.wait(2.0)
         sheet.clear_updaters()
-        self.stop_ambient_camera_rotation()
+        if self.AMBIENT_ROTATION:
+            self.stop_ambient_camera_rotation()
         self.wait(1.0)
+
+
+# --- the merger on a sensitivity plot -------------------------------------
+SOURCE_MASS = 60  # Msun, total
+SOURCE_Z = 0.1
+
+# The plot sits on the right; the sheet is shrunk and pushed left to make room.
+SENS_ORIGIN = np.array([1.35, -2.3, 0.0])  # lower-left corner of the axes
+SENS_WIDTH = 5.2
+SENS_HEIGHT = 4.0
+LOG_F_RANGE = (-2, 4)  # the track starts ten years out, at ~0.01 Hz
+LOG_H_RANGE = (-23, -18)
+SIDE_SHEET_X = -3.6  # screen x of the sheet's centre
+SIDE_ZOOM = 0.5
+
+# Ten years into T_INSPIRAL: the time left to merger is squeezed as
+# (fraction of the inspiral left) ** CHIRP_WARP, so the dot crawls through
+# the years and races through the last seconds, as the real chirp does. 8
+# leaves it ~1.5 s inside LIGO's band (above 10 Hz), long enough to follow.
+CHIRP_WARP = 8.0
+
+# The readout steps down through these as the dot passes them.
+TIME_LEFT = [
+    (TRACK_START, r"10 years"),
+    (YEAR, r"$<$ 1 year"),
+    (YEAR / 12, r"$<$ 1 month"),
+    (86400, r"$<$ 1 day"),
+    (3600, r"$<$ 1 hour"),
+    (60, r"$<$ 1 minute"),
+    (1, r"$<$ 1 second"),
+]
+
+
+def side_frame_center(camera, zoom, screen_x):
+    """The frame_center that puts the sheet's centre at screen_x.
+
+    ThreeDCamera takes frame_center off twice: once before rotating and
+    zooming the scene, and again, unrotated, when it maps the result to
+    pixels. So the origin lands at -(zoom R + P) fc on screen, where R is the
+    camera's rotation and P drops z; that is linear in fc's x and y (the
+    perspective factor is ~1 at the sheet's centre), so solve it for them,
+    keeping fc's z and the sheet's original screen height.
+    """
+    R = rotation_matrix(-camera["phi"], RIGHT) @ rotation_matrix(
+        -camera["theta"] - 90 * DEGREES, OUT
+    )
+    fc = np.array(camera["frame_center"], dtype=float)
+    M = zoom * R[:2] + np.eye(3)[:2]
+    target = -(camera["zoom"] * R[:2] @ fc + fc[:2]) * zoom / camera["zoom"]
+    target[0] = screen_x
+    a, b = np.linalg.solve(M[:, :2], -target - M[:, 2] * fc[2])
+    return np.array([a, b, fc[2]])
+
+
+def source_frequency(t):
+    """(f / Hz, real seconds left) of the source at scene time t: the chirp
+    up to the merger frequency over the inspiral, then on through the
+    ringdown to the track's cutoff while the holes merge."""
+    fk = phenom_a_frequencies(SOURCE_MASS, SOURCE_Z)
+    f_merge, f_cut = fk["merger"], fk["cutoff"] * (1 - 1e-6)
+    if t <= T_INSPIRAL:
+        left = np.clip(1 - t / T_INSPIRAL, 0, 1) ** CHIRP_WARP
+        tau_merge = time_before_merger(f_merge, SOURCE_MASS, SOURCE_Z)
+        tau = tau_merge + (TRACK_START - tau_merge) * left
+        return frequency_before_merger(tau, SOURCE_MASS, SOURCE_Z), tau
+    s = smooth_step((t - T_INSPIRAL) / MERGE_BLEND)
+    return f_merge * (f_cut / f_merge) ** s, 0.0
+
+
+def sensitivity_axes():
+    """Log-log axes in decades, with 10^n tick labels, as (axes, frame).
+
+    The axes run from 0, not from the log ranges themselves: Axes draws each
+    axis through the coordinate origin, which would put the frequency axis at
+    h = 1. plot_point does the conversion.
+    """
+    axes = Axes(
+        x_range=[0, LOG_F_RANGE[1] - LOG_F_RANGE[0], 1],
+        y_range=[0, LOG_H_RANGE[1] - LOG_H_RANGE[0], 1],
+        x_length=SENS_WIDTH,
+        y_length=SENS_HEIGHT,
+        tips=False,
+        axis_config=dict(
+            color=PLOT_FOREGROUND, stroke_width=2, tick_size=0.06, include_ticks=True
+        ),
+    )
+    axes.shift(SENS_ORIGIN - axes.c2p(0, 0))
+    decade = lambda n: MathTex(rf"10^{{{n}}}", font_size=FONT_TICK, color=PLOT_FOREGROUND)
+    x_ticks = VGroup(*(
+        decade(n).next_to(plot_point(axes, n, LOG_H_RANGE[0]), DOWN, buff=0.15)
+        for n in range(LOG_F_RANGE[0], LOG_F_RANGE[1] + 1)
+    ))
+    y_ticks = VGroup(*(
+        decade(n).next_to(plot_point(axes, LOG_F_RANGE[0], n), LEFT, buff=0.15)
+        for n in range(LOG_H_RANGE[0], LOG_H_RANGE[1] + 1)
+    ))
+    x_label = Tex("Frequency / Hz", font_size=FONT_AXIS, color=PLOT_FOREGROUND)
+    x_label.next_to(x_ticks, DOWN, buff=0.15).set_x(axes.x_axis.get_center()[0])
+    y_label = Tex("Characteristic strain", font_size=FONT_AXIS, color=PLOT_FOREGROUND)
+    y_label.rotate(PI / 2).next_to(y_ticks, LEFT, buff=0.15)
+    return axes, VGroup(axes, x_ticks, y_ticks, x_label, y_label)
+
+
+def plot_point(axes, log_f, log_h):
+    return axes.c2p(log_f - LOG_F_RANGE[0], log_h - LOG_H_RANGE[0])
+
+
+def curve_points(axes, f, h):
+    return np.array([plot_point(axes, x, y) for x, y in zip(np.log10(f), np.log10(h))])
+
+
+def detector_region(axes, stem, color):
+    """A detector's curve, and its region shaded up to the top of the axes."""
+    points = curve_points(axes, *load_sensitivity(stem))
+    curve = VMobject(stroke_color=color, stroke_width=GW_TRACK_WIDTH)
+    curve.set_points_as_corners(points)
+    top = plot_point(axes, 0, LOG_H_RANGE[1])[1]
+    region = Polygon(
+        *points, [points[-1][0], top, 0], [points[0][0], top, 0],
+        stroke_width=0, fill_color=color, fill_opacity=GW_REGION_OPACITY,
+    )
+    return region, curve
+
+
+class MergerOnSensitivityPlot(BlackHoleMerger):
+    """The merger on the left; on the right, its signal crossing LIGO's band."""
+
+    CAMERA = dict(
+        BlackHoleMerger.CAMERA,
+        zoom=SIDE_ZOOM,
+        frame_center=side_frame_center(BlackHoleMerger.CAMERA, SIDE_ZOOM, SIDE_SHEET_X),
+    )
+    # The camera orbits frame_center, which is no longer the sheet's centre,
+    # so any rotation would swing the sheet across the frame.
+    AMBIENT_ROTATION = 0
+
+    def add_fixed_in_frame_mobjects(self, *mobjects):
+        # The pixel mapping subtracts frame_center from everything, fixed or
+        # not, so a frame-fixed mobject has to be put back by the same amount.
+        for mob in mobjects:
+            mob.shift(self.camera.frame_center * [1, 1, 0])
+        super().add_fixed_in_frame_mobjects(*mobjects)
+
+    def show_signal(self, clock):
+        axes, frame = sensitivity_axes()
+        ligo_color = GW_DETECTOR_COLORS["LIGO"]
+        region, ligo = detector_region(axes, "ligo", ligo_color)
+        ligo_label = Tex("LIGO", font_size=FONT_AXIS, color=ligo_color)
+        ligo_label.move_to(plot_point(axes, 3.3, -19.4))
+
+        f, h = merger_track(SOURCE_MASS, SOURCE_Z)
+        log_f = np.log10(f)
+        ahead = VMobject(stroke_color=GW_MERGER_NEAR_COLOR, stroke_width=GW_TRACK_WIDTH,
+                         stroke_opacity=GW_TRACK_AHEAD_OPACITY)
+        ahead.set_points_as_corners(curve_points(axes, f, h))
+        source_label = MathTex(
+            rf"{SOURCE_MASS}\,M_\odot,\ z = {SOURCE_Z:g}",
+            font_size=FONT_TICK, color=GW_MERGER_NEAR_COLOR,
+        ).next_to(plot_point(axes, log_f[0], np.log10(h[0])), UP, buff=0.2, aligned_edge=LEFT)
+
+        def reached(t):
+            return (np.log10(source_frequency(t)[0]) - log_f[0]) / (log_f[-1] - log_f[0])
+
+        lit = ahead.copy().set_stroke(opacity=1.0)
+        lit.add_updater(
+            lambda m: m.pointwise_become_partial(ahead, 0, reached(clock.get_value()))
+            .set_stroke(opacity=1.0)
+        )
+        source = VGroup(
+            Dot(radius=GW_SOURCE_GLOW_RADIUS, color=GW_SOURCE_COLOR,
+                fill_opacity=GW_SOURCE_GLOW_OPACITY),
+            Dot(radius=GW_SOURCE_RADIUS, color=GW_SOURCE_COLOR),
+        )
+
+        def ride(m):
+            fs = source_frequency(clock.get_value())[0]
+            hs = merger_strain(fs, SOURCE_MASS, SOURCE_Z)
+            m.move_to(plot_point(axes, np.log10(fs), np.log10(hs)))
+
+        source.add_updater(ride)
+        ride(source)
+
+        # The time left, pre-typeset: one Tex per step, only the current one lit.
+        heading = Tex("Time to merger:", font_size=FONT_AXIS, color=PLOT_FOREGROUND)
+        heading.next_to(plot_point(axes, LOG_F_RANGE[0], LOG_H_RANGE[1]), UP, buff=0.35,
+                        aligned_edge=LEFT)
+        steps = [(tau, Tex(text, font_size=FONT_AXIS, color=GW_SOURCE_COLOR))
+                 for tau, text in TIME_LEFT]
+        steps.append((0.0, Tex("merger", font_size=FONT_AXIS, color=GW_SOURCE_COLOR)))
+        for _, tex in steps:
+            tex.next_to(heading, RIGHT, buff=0.2)
+        readout = VGroup(*(tex for _, tex in steps))
+
+        def tick(m):
+            t = clock.get_value()
+            tau = source_frequency(t)[1]
+            current = len(steps) - 1 if t >= T_INSPIRAL else max(
+                i for i, (limit, _) in enumerate(steps[:-1]) if tau <= limit or i == 0
+            )
+            for i, tex in enumerate(m):
+                tex.set_opacity(1.0 if i == current else 0.0)
+
+        readout.add_updater(tick)
+        tick(readout)
+
+        plot = VGroup(region, frame, ligo, ligo_label, ahead, source_label)
+        live = VGroup(lit, source, heading, readout)
+        self.add_fixed_in_frame_mobjects(plot, live)
+        self.play(FadeIn(plot), FadeIn(live), run_time=1.0)
