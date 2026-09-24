@@ -44,6 +44,7 @@ CP_T0 = -6.2  # far enough left that the output ports clear the dial
 CP_T = 3.8  # the same T as the gradiometer, so the hands turn at the same rate
 CP_Z = -2.4
 CP_ARM = 1.7
+CP_SLOPE = CP_ARM / CP_T  # the kicked legs' climb, which the excited port keeps
 CP_OUT = 1.1  # how far the output ports run past the last pulse
 CP_DIAL = np.array([4.6, 0.9, 0.0])
 # where the readout goes: the strip under the interferometer's lower leg,
@@ -245,7 +246,13 @@ def budget_equation(lhs, term_prefix="", font_size=FONT_STATE):
     )
 
 
-def draw_ports(scene, origin, length, p_ground, labels=True, extra=()):
+def leg_slope(start, end):
+    """How steeply a leg climbs: the rise per unit time from `start` to `end`."""
+    return (end[1] - start[1]) / (end[0] - start[0])
+
+
+def draw_ports(scene, origin, length, p_ground, slope=CP_SLOPE, labels=True,
+               extra=()):
     """The two output states the last pulse leaves the atoms in.
 
     Until that pulse fires the two arms are distinguishable -- one in
@@ -259,6 +266,12 @@ def draw_ports(scene, origin, length, p_ground, labels=True, extra=()):
     because a null only reads as "they all came out here" if the side they did
     not come out of is on the page.
 
+    The excited port carries p + hbar k, the momentum of the kicked leg that
+    arrives at `origin`, so it leaves at that leg's `slope` and carries it on
+    in a straight line; only the ground port runs flat. Ports are straight
+    even where the arms bow with a wave: they only stand for the atoms flying
+    out to be imaged, and are not part of the interferometer.
+
     `labels` names the two ports. A gradiometer turns that off: it closes four
     ports rather than two, the colours already say which state each one is,
     and what its figure is about is the two splits being unequal -- eight
@@ -267,7 +280,7 @@ def draw_ports(scene, origin, length, p_ground, labels=True, extra=()):
     `extra` is draw_legs' hook, passed straight through. The continuous scenes
     go through fly_ports instead, which is this with the clock kept running.
     """
-    empty, legs, tags = port_parts(scene, origin, length, p_ground)
+    empty, legs, tags = port_parts(scene, origin, length, p_ground, slope)
     if len(empty):
         scene.play(FadeIn(empty), run_time=0.5)
     if legs:
@@ -276,7 +289,7 @@ def draw_ports(scene, origin, length, p_ground, labels=True, extra=()):
         scene.play(FadeIn(tags), run_time=0.6)
 
 
-def port_parts(scene, origin, length, p_ground):
+def port_parts(scene, origin, length, p_ground, slope=CP_SLOPE):
     """The pieces draw_ports is made of: empty guides, legs to fly, labels.
 
     The atoms that will fly are put on the scene at `origin`; nothing else is.
@@ -284,7 +297,7 @@ def port_parts(scene, origin, length, p_ground):
     empty, legs, tags = VGroup(), [], VGroup()
     for direction, color, p, tex, label_dir in (
         (RIGHT, ATOM_COLOR, p_ground, r"P_g", DOWN),
-        (RIGHT + UP, KICKED_COLOR, 1.0 - p_ground, r"P_e", UP),
+        (RIGHT + UP * slope, KICKED_COLOR, 1.0 - p_ground, r"P_e", UP),
     ):
         end = origin + direction * length
         # `end` is a bare point, so the buff has to clear the atom that will
@@ -306,17 +319,17 @@ def port_parts(scene, origin, length, p_ground):
 def fly_ports(scene, ports, length, labels=True, extra=()):
     """draw_ports for a continuous scene: every port in one beat, clock running.
 
-    `ports` is a list of (origin, p_ground), one per interferometer. The
-    stop-start version gives an empty port's guide a beat of its own before
-    the flight and a gradiometer one beat per cloud; either would be a play
-    with lab time stood still, which is the freeze these scenes exist to
+    `ports` is a list of (origin, p_ground, slope), one per interferometer.
+    The stop-start version gives an empty port's guide a beat of its own
+    before the flight and a gradiometer one beat per cloud; either would be a
+    play with lab time stood still, which is the freeze these scenes exist to
     remove. So the guides fade in while the atoms fly, and all of a
     gradiometer's ports leave together -- the two clouds are one instrument
     read out in one frame, and `extra` (the clock, the sectors) runs once.
     """
     empty, legs, tags = VGroup(), [], VGroup()
-    for origin, p_ground in ports:
-        e, l, t = port_parts(scene, origin, length, p_ground)
+    for origin, p_ground, slope in ports:
+        e, l, t = port_parts(scene, origin, length, p_ground, slope)
         empty.add(*e)
         legs.extend(l)
         tags.add(*t)

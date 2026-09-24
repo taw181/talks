@@ -55,6 +55,7 @@ from aionanim.tools.clock import (
     ground_share,
     draw_ports,
     fly_ports,
+    leg_slope,
 )
 from aionanim.tools.gradiometer_gw import (
     GW_PULSES,
@@ -285,7 +286,8 @@ class GradiometerGW(Scene):
             draw_ports(
                 self, v[3], GR_OUT,
                 ground_share(self.phase[cloud][1], self.phase[cloud][0]),
-                labels=False, extra=self.port_extra(),
+                slope=leg_slope(v[1], v[3]), labels=False,
+                extra=self.port_extra(),
             )
 
     def fly(self):
@@ -398,7 +400,11 @@ class RunsContinuously:
         fly_ports(
             self,
             [
-                (v[3], ground_share(self.phase[cloud][1], self.phase[cloud][0]))
+                (
+                    v[3],
+                    ground_share(self.phase[cloud][1], self.phase[cloud][0]),
+                    leg_slope(v[1], v[3]),
+                )
                 for cloud, v in (("low", self.low), ("up", self.up))
             ],
             GR_OUT, labels=False,

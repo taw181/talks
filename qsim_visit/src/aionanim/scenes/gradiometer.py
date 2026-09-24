@@ -14,6 +14,7 @@ from aionanim.tools.clock import (
     clock_rate,
     dial_hand,
     draw_ports,
+    leg_slope,
     ground_share,
     make_clock_hand,
     make_dial,
@@ -174,7 +175,7 @@ class Gradiometer(Scene):
             draw_ports(
                 self, v[3], GR_OUT,
                 ground_share(phase[cloud][1], phase[cloud][0]),
-                labels=False,
+                slope=leg_slope(v[1], v[3]), labels=False,
             )
 
         # --- the readout ---------------------------------------------------
