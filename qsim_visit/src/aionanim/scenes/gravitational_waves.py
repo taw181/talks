@@ -341,6 +341,10 @@ class BlackHoleMerger(ThreeDScene):
         """Anything to do once the sheet has settled; spacetime is the sheet
         and the remnant, updaters already stopped on the sheet."""
 
+    def beat(self):
+        """The pause once the signal is up and once the ringdown has settled:
+        nothing here, a click on the slide version."""
+
     def construct(self):
         clock = ValueTracker(0.0)
         gain = ValueTracker(0.0)  # how strongly the sheet feels the holes
@@ -379,6 +383,7 @@ class BlackHoleMerger(ThreeDScene):
         self.play(FadeIn(pair, scale=0.4), gain.animate.set_value(1.0), run_time=1.6)
 
         self.show_signal(clock)
+        self.beat()
 
         # --- 3. the inspiral ---------------------------------------------
         # One linear sweep of the clock: the separation, the orbital frequency
@@ -429,6 +434,7 @@ class BlackHoleMerger(ThreeDScene):
             rate_func=linear,
             run_time=T_END - T_INSPIRAL - MERGE_BLEND,
         )
+        self.beat()
 
         # --- 6. one hole, one well, a sheet nearly flat again -------------
         self.wait(2.0)

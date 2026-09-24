@@ -130,6 +130,7 @@ class VelocitySlicing(Scene):
                   run_time=VS_PUSH_TIME)
         self.play(FadeOut(push_beam), FadeOut(push_label), *levels.drive(),
                   run_time=0.6)
+        self.stage_break()
 
         # --- what is left ---
         step, swap = recaption(step, r"Left: a narrow slice of slow atoms in ${}^3P_0$",

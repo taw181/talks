@@ -244,6 +244,9 @@ class FringesToEllipse(Scene):
     # Whether the whole fringe plot is up, dimmed, before any shot arrives.
     FRINGES_FIRST = False
 
+    def beat(self):
+        """The pause after each step: nothing here, a click on the slide version."""
+
     def construct(self):
         fringe_axes, fringe_frame = fringe_plot(FRINGE_HEIGHT, FRINGE_ORIGIN)
         liss_axes, liss_frame = lissajous_plot()
@@ -259,6 +262,7 @@ class FringesToEllipse(Scene):
         )
         self.play(FadeIn(title), FadeIn(fringe_frame), FadeIn(liss_frame),
                   FadeIn(key), FadeIn(dimmed), run_time=1.0)
+        self.beat()
         build(self, count, clouds, rings)
         self.wait(2.0)
 

@@ -4,7 +4,8 @@ LIGO and one merger (60 Msun at z = 0.1, the track MergerOnSensitivityPlot
 rides) first; then the other eight source tracks, 60 to 1e7 Msun at z = 0.1,
 1 and 10; then LISA and ET, the space and next-generation ground detectors;
 then two dashed lines at 2e-2 and 2 Hz marking the gap between them; then
-AION-km and AEDGE, which fill it.
+the detectors that fill it, one step each: AION-km and AEDGE, or whichever
+a subclass lists in GAP_FILLERS.
 
 The curves are the digitised ones in aionanim/data/gw_sensitivity/ and the tracks come
 from aionanim.physics.gw_signals, so this is the same figure as
@@ -107,6 +108,9 @@ def redshift_key(axes, redshifts):
 
 
 class SensitivityBuildUp(Scene):
+    # The mid-band detectors brought in last, in order, one step each.
+    GAP_FILLERS = ("AION-km", "AEDGE")
+
     def beat(self):
         """The pause between steps; a click on the slide version."""
         self.wait(BEAT_HOLD)
@@ -171,8 +175,9 @@ class SensitivityBuildUp(Scene):
                   run_time=STEP_TIME)
         self.beat()
 
-        # --- 6. AION-km, 7. AEDGE -----------------------------------------
-        self.bring_in(axes, "AION-km")
-        self.beat()
-        self.bring_in(axes, "AEDGE")
+        # --- 6. onwards: what fills it -----------------------------------
+        for i, name in enumerate(self.GAP_FILLERS):
+            if i:
+                self.beat()
+            self.bring_in(axes, name)
         self.wait(2.0)

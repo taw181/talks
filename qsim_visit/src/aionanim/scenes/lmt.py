@@ -22,6 +22,9 @@ from aionanim.tools.primitives import (
 class LargeMomentumTransfer(Scene):
     """A ladder of single-photon kicks separates the arms by n hbar k."""
 
+    def beat(self):
+        """The pause after each step: nothing here, a click on the slide version."""
+
     def construct(self):
         title = Tex(
             r"Large momentum transfer: $n$ single-photon kicks",
@@ -45,6 +48,7 @@ class LargeMomentumTransfer(Scene):
             rate_func=linear,
             run_time=(LMT_T0 - atom.get_center()[0]) / V,
         )
+        self.beat()
 
         lower = make_atom(opacity=SUPERPOSITION_OPACITY).move_to(upper_pts[0])
         upper = make_atom(opacity=SUPERPOSITION_OPACITY).move_to(upper_pts[0])
@@ -69,6 +73,9 @@ class LargeMomentumTransfer(Scene):
                 (upper, upper_pts[i], upper_pts[i + 1], states[i % 2]),
                 (lower, lower_pts[i], lower_pts[i + 1], ATOM_COLOR),
             ])
+            if i == 0:  # one kick explained; the rest of the ladder runs on
+                self.beat()
+        self.beat()
 
         # --- what the ladder bought -----------------------------------------
         # A single kick, drawn for the same total time, for comparison.
@@ -102,6 +109,7 @@ class LargeMomentumTransfer(Scene):
 
         self.play(Create(single), FadeIn(single_label), run_time=0.9)
         self.play(GrowFromCenter(gap), FadeIn(gap_label), run_time=0.7)
+        self.beat()
 
         scaling = MathTex(
             r"\Phi \;\propto\; n\,k\,a\,T^{2}", font_size=FONT_STATE
