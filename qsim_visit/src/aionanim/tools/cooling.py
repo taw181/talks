@@ -127,9 +127,11 @@ def make_sawtooth(color, width=0.9, height=0.3, teeth=3):
 # the sweep. On the diagram that is a fan of arrows ending on the line and
 # just below it, with the lit one climbing the fan and dropping back. In
 # SrLevels' own coordinates: add the fan to the diagram before scaling it.
-FAN_COUNT = 5
-FAN_STEP = 0.09  # between neighbouring arrows' ends
-FAN_END_X = LV_3P_X[0] - 0.4  # clear of the 3P stack, so no end reads as 3P0
+FAN_COUNT = 4
+FAN_STEP = 0.08  # between neighbouring arrows' ends
+# Ends just short of the stack, so no end reads as 3P0, and no further left,
+# or the fan swings across the 689 nm label.
+FAN_END_X = LV_3P_X[0] - 0.22
 FAN_TICK = 0.22  # the dashed marks the arrows end on
 FAN_PERIOD = 1.2  # s, one sawtooth
 FAN_IDLE_OPACITY = 0.2
