@@ -344,11 +344,12 @@ SEQUENCE_STAGE_COLORS = {
     "state_readout": ("#aaaaff", "#0000ff"),
 }
 # The transitions take the hues of the usual Sr level diagram -- blue for the
-# 461 nm line, magenta for 689 nm -- except the clock line, which is the
-# interferometer's laser and so keeps the laser red it has everywhere else.
-# Magenta samples well clear of both that red and the purple of |e>.
+# 461 nm line, red for 689 nm, which is what makes the red MOT red. The clock
+# line is the interferometer's laser and so keeps the laser red it has
+# everywhere else; that is a salmon red, so 689 nm takes a pure, deeper one,
+# which keeps the two lines apart when they sit side by side.
 TRANSITION_461_COLOR = ManimColor("#5b7cff")
-TRANSITION_689_COLOR = ManimColor("#ff5fd2")
+TRANSITION_689_COLOR = ManimColor("#f01c24")
 TRANSITION_698_COLOR = LASER_COLOR
 TRANSITION_IDLE_STYLE = dict(stroke_width=3, color=lighten(GUIDE_COLOR))
 TRANSITION_ACTIVE_WIDTH = 7
