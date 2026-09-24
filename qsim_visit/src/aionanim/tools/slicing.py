@@ -22,13 +22,15 @@ from aionanim.style import *
 
 
 # --- the physics, in units of the Rabi frequency --------------------------
-# The thermal width is what sets how much narrower the slice is. A 200 us pi
-# pulse at 698 nm has Omega = 2 pi x 2.5 kHz, and in those units a 1 uK
-# cloud of 87Sr has sigma = 5.6; the pulse's core (FWHM 1.6, sigma ~0.68) is
-# some eight times narrower, a velocity spread that corresponds to ~10 nK.
-SLICE_THERMAL_SIGMA = 5.6
-SLICE_U_RANGE = (-17.0, 17.0)
-SLICE_SAMPLES = 681
+# The thermal width is what sets how much narrower the slice is. Before
+# slicing the clock line is Doppler broadened to 60 kHz FWHM, which at 698 nm
+# is a 3 uK cloud of 87Sr. A 200 us slicing pulse has Omega = 2 pi x 2.5 kHz,
+# and in those units the 3 uK cloud has sigma = 9.7, while the pulse's core
+# (FWHM 1.6, sigma ~0.68) is some fourteen times narrower: a velocity spread
+# that corresponds to ~10 nK.
+SLICE_THERMAL_SIGMA = 9.7
+SLICE_U_RANGE = (-27.0, 27.0)
+SLICE_SAMPLES = 1081
 
 
 def excitation(u):
@@ -43,9 +45,10 @@ def thermal(u, sigma=SLICE_THERMAL_SIGMA):
 
 
 # --- the plot -------------------------------------------------------------
-PLOT_WIDTH = 6.0
+PLOT_WIDTH = 7.0  # wide, so the slice's sidelobes still show against a 3 uK cloud
 PLOT_HEIGHT = 3.3
 PLOT_Y_MAX = 1.12  # a little headroom over the peak
+LINE_LABEL_AT = (5.5, 1.02)  # (u, height): clear of the thermal curve's shoulder
 
 
 class VelocityPlot(VGroup):
@@ -99,9 +102,11 @@ class VelocityPlot(VGroup):
 
         self.line_shape = self._curve(self.p, stroke_color=TRANSITION_698_COLOR,
                                       stroke_width=SLICE_PROFILE_WIDTH)
-        self.line_label = Tex(r"$\pi$-pulse excitation\\probability", font_size=FONT_AXIS,
+        # just "excitation": the scene's own readout of pi-pulse fidelity is about
+        # the interferometer's pulse, not this one
+        self.line_label = Tex(r"excitation\\probability", font_size=FONT_AXIS,
                               color=TRANSITION_698_COLOR)
-        self.line_label.next_to(self.c2p(1.2, 0.95), RIGHT, buff=0.1)
+        self.line_label.next_to(self.c2p(*LINE_LABEL_AT), RIGHT, buff=0.1)
         self.outline = DashedVMobject(
             self._curve(self.g, stroke_color=lighten(ATOM_COLOR), stroke_width=2.5),
             num_dashes=70,
@@ -137,10 +142,10 @@ class VelocityPlot(VGroup):
 # its own velocity, drawn from the thermal distribution, and is excited by the
 # pulse with probability P(u) -- so the purple ones are the slow ones. The
 # push beam comes in from the side and sweeps the rest out of the frame.
-CLOUD_N = 200  # a slice is ~10 % of them, so enough that the slice is a crowd
+CLOUD_N = 260  # a slice is ~7 % of them, so enough that the slice is a crowd
 CLOUD_WIDTH = 2.4  # the spread across the beam
 CLOUD_HEIGHT = 1.2  # the spread along it, at the start
-CLOUD_DRIFT = 0.008  # scene units per second per unit of u
+CLOUD_DRIFT = 0.005  # scene units per second per unit of u
 PUSH_DISTANCE = 3.0  # how far a pushed atom goes, across the beam
 
 
