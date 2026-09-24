@@ -421,3 +421,18 @@ FONT_CAPTION = FONT_LEGEND  # the step within a stage, under its heading
 # The line shape is the clock laser's, so it takes the 698 nm red.
 SLICE_FILL_OPACITY = 0.55
 SLICE_PROFILE_WIDTH = 3.5
+
+
+# --- static slides --------------------------------------------------------
+# The slides between the animations: a title, a contents list, photographs
+# and figures. Their headings take FONT_TITLE in the upper left, where every
+# animation puts its own, so a photo slide and the scene after it read as one
+# deck. The deck's own title is the one heading allowed to be large.
+FONT_DECK_TITLE = 50
+FONT_DECK_BYLINE = FONT_ANNOTATION
+FONT_CONTENTS = 42
+# A slot for a figure still to come: a reference, not content, so dashed and
+# in the construction grey.
+PLACEHOLDER_STYLE = dict(
+    dash_length=0.15, stroke_width=2, stroke_opacity=0.6, color=GUIDE_COLOR
+)
