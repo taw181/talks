@@ -89,12 +89,12 @@ class VelocityPlot(VGroup):
         self.excite = ValueTracker(0.0)
         self.push = ValueTracker(0.0)
 
-        self.excited_band = VMobject(stroke_width=0, fill_color=KICKED_COLOR,
+        self.excited_band = VMobject(stroke_width=0, fill_color=SLICE_COLD_COLOR,
                                      fill_opacity=SLICE_FILL_OPACITY)
-        self.ground_band = VMobject(stroke_width=0, fill_color=ATOM_COLOR,
+        self.ground_band = VMobject(stroke_width=0, fill_color=SLICE_HOT_COLOR,
                                     fill_opacity=SLICE_FILL_OPACITY)
-        self.top_edge = VMobject(stroke_color=lighten(ATOM_COLOR), stroke_width=3)
-        self.slice_edge = VMobject(stroke_color=lighten(KICKED_COLOR), stroke_width=3)
+        self.top_edge = VMobject(stroke_color=lighten(SLICE_HOT_COLOR), stroke_width=3)
+        self.slice_edge = VMobject(stroke_color=lighten(SLICE_COLD_COLOR), stroke_width=3)
         self.bands = VGroup(self.excited_band, self.ground_band, self.top_edge,
                             self.slice_edge)
         self.bands.add_updater(lambda m: self._fill())
@@ -108,7 +108,7 @@ class VelocityPlot(VGroup):
                               color=TRANSITION_698_COLOR)
         self.line_label.next_to(self.c2p(*LINE_LABEL_AT), RIGHT, buff=0.1)
         self.outline = DashedVMobject(
-            self._curve(self.g, stroke_color=lighten(ATOM_COLOR), stroke_width=2.5),
+            self._curve(self.g, stroke_color=lighten(SLICE_HOT_COLOR), stroke_width=2.5),
             num_dashes=70,
         )
         self.add(self.bands, self.frame)
@@ -177,11 +177,11 @@ class SlicingCloud(VGroup):
             np.where(self.is_slow, 0.0, PUSH_DISTANCE * push**2 * self.push_rate),
             CLOUD_DRIFT * self.v * self.t,
         ])
-        excited = interpolate_color(ATOM_COLOR, KICKED_COLOR, self.excite.get_value())
+        excited = interpolate_color(SLICE_HOT_COLOR, SLICE_COLD_COLOR, self.excite.get_value())
         gone = 1 - np.clip(push * 1.4 - 0.2, 0, 1)  # a pushed atom fades as it goes
         for dot, p, slow in zip(self.submobjects, xy, self.is_slow):
             dot.move_to([p[0], p[1], 0])
             if slow:
                 dot.set_fill(excited, opacity=1)
             else:
-                dot.set_fill(ATOM_COLOR, opacity=gone)
+                dot.set_fill(SLICE_HOT_COLOR, opacity=gone)

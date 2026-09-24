@@ -103,7 +103,7 @@ class VelocitySlicing(Scene):
 
         # --- a thermal spread of velocities ---
         step = caption(r"A thermal spread of velocities along the clock beam", heading)
-        before = readout("Before slicing", VS_BEFORE, lighten(ATOM_COLOR), plot)
+        before = readout("Before slicing", VS_BEFORE, lighten(SLICE_HOT_COLOR), plot)
         self.play(FadeIn(levels), FadeIn(timeline), FadeIn(heading), FadeIn(step),
                   FadeIn(plot), FadeIn(cloud), FadeIn(before), *timeline.activate(1),
                   run_time=VS_SWITCH_TIME)
@@ -135,7 +135,7 @@ class VelocitySlicing(Scene):
         # --- what is left ---
         step, swap = recaption(step, r"Left: a narrow slice of slow atoms in ${}^3P_0$",
                                heading)
-        after = readout("After slicing", VS_AFTER, lighten(KICKED_COLOR), plot)
+        after = readout("After slicing", VS_AFTER, lighten(SLICE_COLD_COLOR), plot)
         self.play(swap, FadeOut(plot.line_shape), FadeOut(plot.line_label),
                   Create(plot.outline),
                   Succession(FadeOut(before, shift=UP * 0.15), FadeIn(after, shift=UP * 0.15)),

@@ -430,10 +430,14 @@ FONT_CAPTION = FONT_LEGEND  # the step within a stage, under its heading
 
 
 # --- velocity slicing -----------------------------------------------------
-# The velocity distribution is stacked by internal state, so each band takes
-# its state's colour: |g> below the thermal curve, |e> for the slice the
-# pulse excites. Translucent, so the pulse's line shape shows through them.
-# The line shape is the clock laser's, so it takes the 698 nm red.
+# The velocity distribution is stacked by internal state, but what the scene
+# is about is temperature, so the bands are coloured hot and cold: red for the
+# thermal cloud left in |g>, blue for the cold slice the pulse moves to |e>.
+# Translucent, so the pulse's line shape shows through them. The line shape is
+# the clock laser's, so it takes the 698 nm red; the hot red is a deeper one,
+# so the two stay apart where the line shape crosses the band.
+SLICE_HOT_COLOR = ManimColor("#d8322a")
+SLICE_COLD_COLOR = BLUE_D
 SLICE_FILL_OPACITY = 0.55
 SLICE_PROFILE_WIDTH = 3.5
 
