@@ -80,6 +80,14 @@ class GradiometerGW(Scene):
     writes its phase into the upper interferometer.
     """
 
+    def beat(self):
+        """The pause after each step: nothing here, a click on the slide version.
+
+        Called from construct and from the stop-start fly, never from close:
+        the continuous variants replace close and fly, and a pause in the
+        middle of their one running clock would undo what they are for.
+        """
+
     def construct(self):
         gradiometer_frame(
             self, r"A gravitational wave modulates the light travel time"
@@ -87,6 +95,7 @@ class GradiometerGW(Scene):
 
         trace, dots = make_strain_trace()
         self.play(FadeIn(trace[0]), Create(trace[1]), FadeIn(trace[2]), run_time=1.2)
+        self.beat()
 
         lags = [gw_lag(t) for t in GW_PULSES]  # cloud to cloud, i.e. L/c
         low_lags = gw_arrival_lags(GR_LOWER_Z)
@@ -139,6 +148,7 @@ class GradiometerGW(Scene):
             FadeIn(seeds["low"], scale=0.5), FadeIn(seeds["up"], scale=0.5),
             run_time=0.6,
         )
+        self.beat()
 
         # A tracker only runs its updaters if it is in the scene, and it has to
         # be in it ahead of the hands that read it or they lag a frame behind
@@ -171,6 +181,7 @@ class GradiometerGW(Scene):
         # not common to both survives.
         self.remove(*atoms["low"], *atoms["up"], *self.hands)
         self.close(sweeps)
+        self.beat()
 
         signal = VGroup(
             Tex(
@@ -310,6 +321,7 @@ class GradiometerGW(Scene):
         )
         self.open_arms("low")
         self.open_arms("up")
+        self.beat()
 
         draw_legs(self, [
             (atoms["low"][0], low[0], low[1], ATOM_COLOR),
@@ -337,6 +349,7 @@ class GradiometerGW(Scene):
             *[big[k].animate.set_color(lighten(ATOM_COLOR)) for k in (1, 3)],
             run_time=0.5,
         )
+        self.beat()
         draw_legs(self, [
             (atoms["low"][0], low[1], low[3], KICKED_COLOR),
             (atoms["low"][1], low[2], low[3], ATOM_COLOR),
@@ -559,6 +572,7 @@ class GradiometerGWStretch(GradiometerGW):
             for z in (GR_LOWER_Z, GR_UPPER_Z)
         ])
         self.play(FadeIn(rest), run_time=0.6)
+        self.beat()
 
         def low_disp(t):
             return gw_displacement(t, GR_LOWER_Z)
@@ -617,6 +631,7 @@ class GradiometerGWStretch(GradiometerGW):
             FadeIn(seeds["low"], scale=0.5), FadeIn(seeds["up"], scale=0.5),
             run_time=0.6,
         )
+        self.beat()
         self.add(*[t for pair in phase.values() for t in pair])
 
         self.low, self.up = low, up
@@ -644,6 +659,7 @@ class GradiometerGWStretch(GradiometerGW):
         # not common to both survives.
         self.remove(*atoms["low"], *atoms["up"], *self.hands)
         self.close(sweeps)
+        self.beat()
 
         signal = VGroup(
             Tex(
@@ -687,6 +703,7 @@ class GradiometerGWStretch(GradiometerGW):
         shoot(0, [self.seeds["low"], self.seeds["up"]], note=self.pulse_note(0))
         self.open_arms("low")
         self.open_arms("up")
+        self.beat()
 
         draw_wavy_legs(self, [
             (atoms["low"][0], low[0], low[1], ATOM_COLOR, low_disp),
@@ -708,6 +725,7 @@ class GradiometerGWStretch(GradiometerGW):
             *[big[k].animate.set_color(lighten(ATOM_COLOR)) for k in (1, 3)],
             run_time=0.5,
         )
+        self.beat()
         draw_wavy_legs(self, [
             (atoms["low"][0], low[1], low[3], KICKED_COLOR, low_disp),
             (atoms["low"][1], low[2], low[3], ATOM_COLOR, low_disp),

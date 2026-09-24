@@ -75,6 +75,9 @@ class DarkMatterPhase(Scene):
     has changed, only what is passing through it.
     """
 
+    def beat(self):
+        """The pause after each step: nothing here, a click on the slide version."""
+
     def construct(self):
         title = Tex(
             r"Ultralight dark matter: the phase does not cancel",
@@ -103,6 +106,7 @@ class DarkMatterPhase(Scene):
         ).move_to(DM_LAW)
         self.play(FadeIn(trace[0]), Create(trace[1]), FadeIn(trace[2]), run_time=1.2)
         self.play(Write(law), run_time=1.2)
+        self.beat()
 
         # --- and what it is doing to the atom -------------------------------
         # One tracker for lab time, shared by the marker on the trace and by
@@ -120,6 +124,7 @@ class DarkMatterPhase(Scene):
         self.remove(still)
         self.add(always_redraw(moving), always_redraw(detuning), marker)
         self.wait(0.4)
+        self.beat()
 
         # One tracker per arm, as in ClockPhase, but each advanced by the
         # integral over its own window instead of by rate * T.
@@ -157,6 +162,7 @@ class DarkMatterPhase(Scene):
         sweep, gap = phase_sweep(CP_DIAL, kicked_last, kicked_first)
         self.play(Flash(dial[0], **{**FLASH_STYLE, "color": AREA_COLOR}), run_time=0.5)
         self.play(FadeIn(sweep), run_time=0.7)
+        self.beat()
         draw_ports(self, c, CP_OUT, 0.5 * (1 + np.cos(gap)), extra=self.port_extra())
         self.play(Write(readout_equation()), run_time=1.0)
 
@@ -170,6 +176,7 @@ class DarkMatterPhase(Scene):
             ),
         ).arrange(DOWN, buff=0.2).next_to(dial, DOWN, buff=0.5)
         self.play(FadeIn(result), run_time=1.0)
+        self.beat()
 
         # What the instrument gets out of what the figure has drawn. One
         # interferometer has no L in it -- this one is a single clock, and its
@@ -242,6 +249,7 @@ class DarkMatterPhase(Scene):
             self.kicked_first.animate.set_value(leg_one),
             now.animate.set_value(b[0]),
         ])
+        self.beat()
 
         # --- the mirror: the arms swap, and so does the window ---------------
         # The same pulse that reverses the momenta hands the excitation over,

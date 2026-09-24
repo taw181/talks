@@ -54,6 +54,9 @@ class ClockPhase(Scene):
     Everything the gradiometer measures is a departure from that.
     """
 
+    def beat(self):
+        """The pause after each step: nothing here, a click on the slide version."""
+
     def construct(self):
         title = Tex(
             r"Phase: the interferometer is a clock",
@@ -82,6 +85,7 @@ class ClockPhase(Scene):
 
         dial = make_dial(CP_DIAL, r"accumulated phase")
         self.play(FadeIn(dial), run_time=0.6)
+        self.beat()
 
         seed = make_atom(radius=CLOCK_ATOM_RADIUS).move_to(a)
         self.play(FadeIn(seed, scale=0.5), run_time=0.5)
@@ -111,6 +115,7 @@ class ClockPhase(Scene):
             (arm_lo, a, b, ATOM_COLOR),
             (arm_hi, a, b_up, KICKED_COLOR),
         ], extra=[kicked_first.animate.set_value(rate * CP_T)])
+        self.beat()
 
         # --- the mirror: the arms swap state ----------------------------------
         # Bottom to top, following the beam. The two arms are driven in
@@ -132,6 +137,7 @@ class ClockPhase(Scene):
             (arm_lo, b, c, KICKED_COLOR),
             (arm_hi, b_up, c, ATOM_COLOR),
         ], extra=[kicked_last.animate.set_value(rate * CP_T)])
+        self.beat()
 
         # --- recombine ----------------------------------------------------------
         fire_vertical_pulse(self, c[0], [arm_lo])
@@ -145,6 +151,7 @@ class ClockPhase(Scene):
         gap = (kicked_first.get_value() - kicked_last.get_value()) % TAU
         draw_ports(self, c, CP_OUT, 0.5 * (1 + np.cos(gap)))
         self.play(Write(readout_equation()), run_time=1.0)
+        self.beat()
 
         result = VGroup(
             MathTex(r"\Phi = 0", font_size=FONT_STATE),
@@ -184,6 +191,7 @@ class ClockPhaseTerms(ClockPhase):
     def phase_budget(self, note, result):
         # The note has said its piece, and the band it sits in is the only one
         # wide enough for the equation.
+        self.beat()
         self.play(FadeOut(note), run_time=0.5)
         show_phase_budget(self, CP_TERMS, laser_struck=False, laser_label=r"noisy")
         self.wait(2.5)

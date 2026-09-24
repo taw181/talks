@@ -149,6 +149,7 @@ class LightShiftSignal(GradiometerGW):
             for cloud, v in (("low", low), ("up", up))
         }
         self.play(*[FadeIn(m, scale=0.5) for m in seeds.values()], run_time=0.6)
+        self.beat()
 
         # --- the beam, and the stretch of the first leg it is on for -------
         # Its band covers the whole upper interferometer, both arms, because
@@ -194,6 +195,7 @@ class LightShiftSignal(GradiometerGW):
                 sweeps.append(sweep)
         self.remove(*atoms["low"], *atoms["up"], *self.hands)
         self.close(sweeps)
+        self.beat()
 
         signal = VGroup(
             Tex(
@@ -254,8 +256,10 @@ class LightShiftSignal(GradiometerGW):
         stretch(0.0, LS_ON, extra=wound_to(LS_ON, shifted=False))
         self.play(FadeIn(self.beam), FadeIn(self.beam_label), run_time=0.6)
         self.bring_to_back(self.beam)
+        self.beat()
         stretch(LS_ON, LS_OFF, extra=wound_to(LS_OFF, shifted=True))
         stretch(LS_OFF, 1.0, extra=wound_to(1.0, shifted=True))
+        self.beat()
 
         # --- pulse 2: the mirror ------------------------------------------
         fire_pulse(self, GR_T0 + GR_T, flash=[a for p in atoms.values() for a in p])

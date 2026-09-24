@@ -50,6 +50,9 @@ class Gradiometer(Scene):
     the wave has to break, and it ends on what the difference is made of.
     """
 
+    def beat(self):
+        """The pause after each step: nothing here, a click on the slide version."""
+
     def construct(self):
         gradiometer_frame(self, r"Gradiometer: one laser, two interferometers")
 
@@ -82,6 +85,7 @@ class Gradiometer(Scene):
             font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
         ).to_corner(UL).shift(DOWN * 0.7)
         self.play(FadeIn(dials), FadeIn(hand_key), run_time=0.6)
+        self.beat()
 
         # --- the two clouds ----------------------------------------------
         atoms = {
@@ -130,6 +134,7 @@ class Gradiometer(Scene):
             r"L/c\ \text{later}", font_size=FONT_LEGEND, color=LASER_COLOR
         ).next_to(up[0], UP, buff=0.3)
         self.play(FadeIn(lag_note), run_time=0.5)
+        self.beat()
 
         draw_legs(self, [
             (atoms["low"][0], low[0], low[1], ATOM_COLOR),
@@ -159,6 +164,7 @@ class Gradiometer(Scene):
             phase[c][0].animate.set_value(rate * excited[c][1])
             for c in ("low", "up")
         ])
+        self.beat()
 
         # --- pulse 3: recombine -------------------------------------------
         fire_pulse(self, GR_T0 + 2 * GR_T, flash=[atoms["low"][0], atoms["up"][0]])
@@ -187,6 +193,7 @@ class Gradiometer(Scene):
             *[Flash(d[0], **{**FLASH_STYLE, "color": AREA_COLOR}) for d in dials],
             run_time=0.5,
         )
+        self.beat()
         show_phase_budget(
             self, GR_TERMS, laser_struck=True, laser_label=r"cancelled",
             difference_lhs=r"\Delta\Phi = \Phi_{\text{upper}} - \Phi_{\text{lower}}",

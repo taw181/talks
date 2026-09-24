@@ -122,6 +122,9 @@ class SingleLaserKick(Scene):
 class MachZehnder(Scene):
     """The full pi/2 - pi - pi/2 sequence: split, mirror, recombine."""
 
+    def beat(self):
+        """The pause after each step: nothing here, a click on the slide version."""
+
     def construct(self):
         # --- 1. setup ----------------------------------------------------
         # Title right, legend left: the mirror's emitted photons fly straight up
@@ -133,6 +136,7 @@ class MachZehnder(Scene):
         legend = self.make_legend().to_corner(UL)
         guide = make_guide([-config.frame_x_radius, MZ_A[1], 0], MZ_A)
         self.play(FadeIn(title), FadeIn(legend), FadeIn(guide), run_time=1.0)
+        self.beat()
 
         # --- 2. incoming atom --------------------------------------------
         atom = make_atom().move_to([-config.frame_x_radius + 0.2, MZ_A[1], 0])
@@ -167,6 +171,7 @@ class MachZehnder(Scene):
             [(lower, MZ_A, MZ_B, ATOM_COLOR), (upper, MZ_A, MZ_B_UP, KICKED_COLOR)],
             fade=[recoil],
         )
+        self.beat()
 
         # --- 4. pi pulse: the mirror -------------------------------------
         # The pi pulse exchanges the two arms' internal states, and with them
@@ -190,6 +195,7 @@ class MachZehnder(Scene):
             [(lower, MZ_B, MZ_C, KICKED_COLOR), (upper, MZ_B_UP, MZ_C, ATOM_COLOR)],
             fade=[gain, lose],
         )
+        self.beat()
 
         # --- 5. second pi/2: recombine -----------------------------------
         # Both arms sit at MZ_C now, so one pulse covers them.
@@ -220,6 +226,7 @@ class MachZehnder(Scene):
         ).to_corner(DR)
 
         self.play(FadeIn(loop), FadeIn(phase), run_time=0.8)
+        self.beat()
         self.play(Write(p1), Write(p2), Write(readout), run_time=1.3)
         self.wait(2.0)
 
