@@ -56,7 +56,10 @@ DT_N_ATOMS = 150
 # --- pacing ---------------------------------------------------------------
 DT_SWITCH_TIME = 1.2
 DT_LOAD_TIME = 3.0  # each trap's loading
-DT_FALL_TIME = 1.8
+DT_FALL_TIME = 2.2
+# The field zero sets off only this far into the fall, so the atoms are seen
+# to drop under gravity first, not to be carried down by the field.
+DT_ZERO_DELAY = 0.4
 DT_RECAPTURE_TIME = 1.5
 DT_PUMP_TIME = 3.0
 DT_HOLD = 1.5  # the pause after each stage, where a slide stops instead
@@ -126,11 +129,16 @@ class DipoleTrapLoading(Scene):
         # --- the lower trap ---
         heading, step = self.next_stage(timeline, 1, heading, step,
                                         r"MOT released: the hotter atoms fall")
-        # the light goes out at once and the atoms fall in one unbroken move...
+        # the light goes out at once and the atoms fall, gathering speed as
+        # they go; the field zero follows them down only once they are on
+        # their way, on the same curve started late, so it stays behind them
+        # all the way and arrives with them...
         self.play(FadeOut(mot, rate_func=rush_from),
                   atoms.glow_lower.animate(rate_func=rush_from).set_value(0),
                   *levels.drive("488", "679", "707", "return"),
-                  atoms.fall.animate.set_value(1), zero.animate.set_y(DT_LOWER_Y),
+                  atoms.fall.animate(rate_func=rush_into).set_value(1),
+                  zero.animate(rate_func=squish_rate_func(rush_into, DT_ZERO_DELAY, 1))
+                  .set_y(DT_LOWER_Y),
                   run_time=DT_FALL_TIME)
         # ...and only once they are down does the MOT come back on round them
         new_step = caption(r"MOT back on round the lower trap", heading)
