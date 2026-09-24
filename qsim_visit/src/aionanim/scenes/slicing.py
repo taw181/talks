@@ -107,7 +107,7 @@ class VelocitySlicing(Scene):
         self.play(FadeIn(levels), FadeIn(timeline), FadeIn(heading), FadeIn(step),
                   FadeIn(plot), FadeIn(cloud), FadeIn(before), *timeline.activate(1),
                   run_time=VS_SWITCH_TIME)
-        self.wait(1.0)
+        self.stage_break()
 
         # --- the pi pulse ---
         step, swap = recaption(step, r"A long $\pi$ pulse on the clock line excites "
