@@ -462,6 +462,15 @@ PHOTO_LABEL_COLOR = ManimColor("#ffe135")
 PHOTO_LABEL_OUTLINE = dict(color=PLOT_BACKGROUND, width=8, opacity=0.85)
 PHOTO_LABEL_STROKE_WIDTH = 7
 FONT_PHOTO_LABEL = 40
+# A detail called out of a photograph: a box on the photo, joined by two lines
+# to a panel beside it that draws what is inside, in the photo labels' yellow.
+CALLOUT_COLOR = PHOTO_LABEL_COLOR
+CALLOUT_STROKE_WIDTH = 4
+CALLOUT_CORNER_RADIUS = 0.12
+# An atom cloud drawn as a cartoon, e.g. in such a panel: a still heap of dots.
+CARTOON_CLOUD_N = 70
+CARTOON_CLOUD_RADIUS = 0.5
+CARTOON_CLOUD_DOT_RADIUS = 0.06
 # A slot for a figure still to come: a reference, not content, so dashed and
 # in the construction grey.
 PLACEHOLDER_STYLE = dict(

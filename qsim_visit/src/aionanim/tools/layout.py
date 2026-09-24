@@ -37,6 +37,12 @@ def load_image(path, height=None, width=None, lift=False):
     return image
 
 
+def image_point(image, px, py):
+    """Pixel (px, py) of an ImageMobject, counted from its upper left, on screen."""
+    rows, cols = image.pixel_array.shape[:2]
+    return image.get_corner(UL) + [px / cols * image.width, -py / rows * image.height, 0]
+
+
 def numbered_list(items, font_size=FONT_CONTENTS, buff=0.45):
     """1. first, 2. second, ... with the numbers in a column of their own."""
     rows = VGroup()

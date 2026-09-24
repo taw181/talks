@@ -43,7 +43,8 @@ from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
 from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhase
 from aionanim.scenes.uldm_scale import DarkMatterScale
-from aionanim.tools.layout import load_image, numbered_list, slide_title
+from aionanim.tools.layout import image_point, load_image, numbered_list, slide_title
+from aionanim.tools.primitives import make_cloud
 from aionanim.tools.video import VideoFrame, load_video_frames
 
 MEDIA = Path(__file__).parent / "media"
@@ -227,6 +228,59 @@ class AIONCollabSlide(DeckSlide):
         self.play(FadeIn(title), FadeIn(logo), FadeIn(uk_map), run_time=0.8)
         self.next_slide()
         self.play(FadeIn(baseline, shift=LEFT * 0.3), run_time=0.8)
+
+
+# The dark window between the coils in chamber_cropped.png (2475 x 1548 px),
+# upper left and lower right: where the two clouds sit.
+CHAMBER_WINDOW_PX = ((1090, 705), (1375, 900))
+CHAMBER_GAP = 2.2  # between the cartoon clouds' centres, on screen
+
+
+class ChamberSlide(DeckSlide):
+    """Our chamber, with its centre called out: two atom clouds about 2 mm
+    apart, then how that compares with AION's kilometre."""
+
+    def construct(self):
+        title = slide_title(r"Our prototype")
+        photo = load_image(MEDIA / "chamber_cropped.png", height=5.2)
+        photo.to_edge(LEFT, buff=0.4).set_y(-0.45)
+        ul, dr = [image_point(photo, *p) for p in CHAMBER_WINDOW_PX]
+        box = Rectangle(
+            width=dr[0] - ul[0], height=ul[1] - dr[1],
+            stroke_color=CALLOUT_COLOR, stroke_width=CALLOUT_STROKE_WIDTH,
+        ).move_to((ul + dr) / 2)
+
+        panel = RoundedRectangle(
+            corner_radius=CALLOUT_CORNER_RADIUS,
+            width=config.frame_x_radius - 0.4 - photo.get_right()[0] - 0.6,
+            height=photo.height,
+            stroke_color=CALLOUT_COLOR, stroke_width=CALLOUT_STROKE_WIDTH,
+            fill_color=PLOT_BACKGROUND, fill_opacity=1,
+        )
+        panel.next_to(photo, RIGHT, buff=0.6).match_y(photo)
+        joins = VGroup(
+            Line(box.get_corner(UR), panel.get_corner(UL)),
+            Line(box.get_corner(DR), panel.get_corner(DL)),
+        ).set_stroke(CALLOUT_COLOR, CALLOUT_STROKE_WIDTH)
+
+        lower = make_cloud(DOWN * CHAMBER_GAP / 2, LOWER_CLOUD_COLOR, seed=1)
+        upper = make_cloud(UP * CHAMBER_GAP / 2, UPPER_CLOUD_COLOR, seed=2)
+        gap = DoubleArrow(
+            DOWN * CHAMBER_GAP / 2, UP * CHAMBER_GAP / 2,
+            buff=0, stroke_width=4, color=lighten(GUIDE_COLOR),
+            max_tip_length_to_length_ratio=0.12,
+        ).shift(RIGHT * (CARTOON_CLOUD_RADIUS + 0.25))
+        label = MathTex(r"\sim\!2\,\mathrm{mm}", r"\ll 1\,\mathrm{km}",
+                        font_size=FONT_ANNOTATION)
+        label.next_to(gap, RIGHT, buff=0.15)
+        # centred as it ends up, with the km in, so nothing moves when it arrives
+        VGroup(lower, upper, gap, label).move_to(panel)
+
+        self.play(FadeIn(title), FadeIn(photo), FadeIn(box), FadeIn(joins),
+                  FadeIn(panel), FadeIn(lower), FadeIn(upper), FadeIn(gap),
+                  FadeIn(label[0]), run_time=0.8)
+        self.next_slide()
+        self.play(FadeIn(label[1], shift=LEFT * 0.2), run_time=0.6)
 
 
 

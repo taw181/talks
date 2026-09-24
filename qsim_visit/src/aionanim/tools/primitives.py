@@ -1,7 +1,7 @@
 """Atoms, laser pulses and the recoil they hand over: the atom-interferometry
 building blocks every other scene is drawn with.
 
-Mobject helpers (make_atom, make_laser_pulse, momentum_arrow, make_guide),
+Mobject helpers (make_atom, make_cloud, make_laser_pulse, momentum_arrow, make_guide),
 pulse primitives (absorb, emit) and motion (draw_legs, state_colors).
 """
 
@@ -25,6 +25,20 @@ def make_atom(color=ATOM_COLOR, radius=ATOM_RADIUS, opacity=1.0):
         stroke_width=ATOM_STROKE_WIDTH,
     )
     return VGroup(body)
+
+
+def make_cloud(center, color, n=CARTOON_CLOUD_N, radius=CARTOON_CLOUD_RADIUS, seed=0):
+    """A still cartoon of an atom cloud: dots in a round Gaussian heap,
+    pulled in to ``radius`` so the cloud has an edge."""
+    rng = np.random.default_rng(seed)
+    xy = rng.normal(scale=radius / 2.2, size=(n, 2))
+    norms = np.linalg.norm(xy, axis=1, keepdims=True)
+    xy *= np.minimum(1, radius / np.maximum(norms, 1e-9))
+    center = np.array(center, dtype=float)
+    return VGroup(*[
+        Dot(center + [x, y, 0], radius=CARTOON_CLOUD_DOT_RADIUS, color=color, stroke_width=0)
+        for x, y in xy
+    ])
 
 
 def make_laser_pulse(x, y, length=PULSE_LENGTH, n_cycles=PULSE_CYCLES):
