@@ -412,3 +412,12 @@ TRANSPARENCY_OPACITY = 0.35
 MOT_GLOW_OPACITY = 0.22  # the red MOT's light, at its centre, beside the traps
 MOT_GLOW_LAYERS = 8
 FONT_CAPTION = FONT_LEGEND  # the step within a stage, under its heading
+
+
+# --- velocity slicing -----------------------------------------------------
+# The velocity distribution is stacked by internal state, so each band takes
+# its state's colour: |g> below the thermal curve, |e> for the slice the
+# pulse excites. Translucent, so the pulse's line shape shows through them.
+# The line shape is the clock laser's, so it takes the 698 nm red.
+SLICE_FILL_OPACITY = 0.55
+SLICE_PROFILE_WIDTH = 3.5

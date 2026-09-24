@@ -5,11 +5,11 @@ existing `Scene` from aionanim.scenes, picked up unmodified via multiple
 inheritance. Most of them don't call `self.next_slide()` internally, so
 each plays through in full and then waits for the presenter to advance --
 the scenes are already paced and don't need splitting. The exceptions are
-CoolingSequenceSlide and DipoleTrapLoadingSlide, which stop after each of
-their three stages through the scenes' `stage_break` hook.
+CoolingSequenceSlide, DipoleTrapLoadingSlide and VelocitySlicingSlide, which
+stop after each of their steps through the scenes' `stage_break` hook.
 
-Order follows the story: how the atoms are cooled and loaded into the dipole
-traps, the single-photon scheme, its phase readout, the gradiometer built
+Order follows the story: how the atoms are cooled, loaded into the dipole
+traps and velocity-sliced, the single-photon scheme, its phase readout, the gradiometer built
 from two such clocks, the two signals it's pointed at (dark matter, then a
 gravitational wave), and the momentum-transfer trick that buys more
 sensitivity.
@@ -17,15 +17,15 @@ sensitivity.
 Render:
     uv run manim-slides render -q h talk/aion_slides.py
 
-Present (all eight, in order):
+Present (all nine, in order):
     uv run manim-slides present CoolingSequenceSlide DipoleTrapLoadingSlide \
-        SinglePhotonMachZehnderSlide ClockPhaseSlide \
+        VelocitySlicingSlide SinglePhotonMachZehnderSlide ClockPhaseSlide \
         GradiometerSlide DarkMatterPhaseSlide GradiometerGWStretchSlide \
         LargeMomentumTransferSlide
 
 Or build a standalone HTML deck:
     uv run manim-slides convert CoolingSequenceSlide DipoleTrapLoadingSlide \
-        SinglePhotonMachZehnderSlide ClockPhaseSlide \
+        VelocitySlicingSlide SinglePhotonMachZehnderSlide ClockPhaseSlide \
         GradiometerSlide DarkMatterPhaseSlide GradiometerGWStretchSlide \
         LargeMomentumTransferSlide aion_talk.html --to html --one-file
 """
@@ -39,6 +39,7 @@ from aionanim.scenes.dipole import DipoleTrapLoading
 from aionanim.scenes.gradiometer import Gradiometer
 from aionanim.scenes.lmt import LargeMomentumTransfer
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
+from aionanim.scenes.slicing import VelocitySlicing
 from aionanim.scenes.uldm import DarkMatterPhase
 
 
@@ -54,6 +55,15 @@ class CoolingSequenceSlide(Slide, CoolingSequence):
 
 class DipoleTrapLoadingSlide(Slide, DipoleTrapLoading):
     """Stops after each trap-loading stage, looping as CoolingSequenceSlide does."""
+
+    def stage_break(self):
+        self.next_slide(loop=True)
+        self.wait(2)
+        self.next_slide()
+
+
+class VelocitySlicingSlide(Slide, VelocitySlicing):
+    """Stops after the pi pulse and at the end, looping as CoolingSequenceSlide does."""
 
     def stage_break(self):
         self.next_slide(loop=True)
