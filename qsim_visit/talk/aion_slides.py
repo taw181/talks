@@ -371,13 +371,17 @@ class FuturePlansSlide(SectionSlide):
 
 class Aion10BeecroftSlide(DeckSlide):
     """The stairwell, then the building cut away round it -- laid out as the
-    row they end up in, so nothing moves."""
+    row they end up in, so nothing moves. The building is a tall, narrow
+    cutaway, so it takes nearly the full height of the slide to be legible;
+    it sits right of the title, so it can rise level with it."""
 
     def construct(self):
         title = slide_title(r"AION-10 at Oxford")
         stairwell = load_image(MEDIA / "stairwell.jpg", height=4.9)
-        building = load_image(MEDIA / "beecroft.jpeg", height=4.9)
-        Group(stairwell, building).arrange(RIGHT, buff=0.3).move_to(DOWN * 0.45)
+        building = load_image(MEDIA / "beecroft.jpeg", height=config.frame_height - 0.4)
+        Group(stairwell, building).arrange(RIGHT, buff=0.4).set_x(0)
+        stairwell.set_y(-0.45)
+        building.set_y(0)
         self.play(FadeIn(title), FadeIn(stairwell), run_time=0.8)
         self.next_slide()
         self.play(FadeIn(building, shift=LEFT * 0.3), run_time=0.8)
