@@ -41,11 +41,15 @@ CLOCK_TURNS = 1.5  # turns of a hand per interrogation time T
 # the explainer's own geometry: one interferometer, low and left, leaving the
 # upper right for a dial big enough to read
 CP_T0 = -6.2  # far enough left that the output ports clear the dial
-CP_T = 3.8  # the same T as the gradiometer, so the hands turn at the same rate
+CP_T = 2.8  # the same T as the gradiometer, so the hands turn at the same rate
 CP_Z = -2.4
 CP_ARM = 1.7
 CP_SLOPE = CP_ARM / CP_T  # the kicked legs' climb, which the excited port keeps
-CP_OUT = 1.1  # how far the output ports run past the last pulse
+# How far the output ports run past the last pulse: far enough that the two
+# port atoms, which part only at CP_SLOPE, end up more than an atom apart
+# (CP_OUT * CP_SLOPE against 2 * CLOCK_ATOM_RADIUS) instead of on top of
+# each other.
+CP_OUT = 1.5
 CP_DIAL = np.array([4.6, 0.9, 0.0])
 # where the readout goes: the strip under the interferometer's lower leg,
 # which is the one part of the frame no pulse column ends in and nothing on

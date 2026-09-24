@@ -290,6 +290,11 @@ class GradiometerGW(Scene):
         """What rides along with the output ports. Nothing, unless lab time does."""
         return ()
 
+    def port_slope(self, cloud):
+        """The slope a cloud's excited port leaves at: its kicked leg's."""
+        v = self.low if cloud == "low" else self.up
+        return leg_slope(v[1], v[3])
+
     def close(self, sweeps):
         """Read both dials, then let each pair of ports fly."""
         self.play(*[FadeIn(m) for m in sweeps], run_time=0.7)
@@ -297,7 +302,7 @@ class GradiometerGW(Scene):
             draw_ports(
                 self, v[3], GR_OUT,
                 ground_share(self.phase[cloud][1], self.phase[cloud][0]),
-                slope=leg_slope(v[1], v[3]), labels=False,
+                slope=self.port_slope(cloud), labels=False,
                 extra=self.port_extra(),
             )
 
@@ -416,7 +421,7 @@ class RunsContinuously:
                 (
                     v[3],
                     ground_share(self.phase[cloud][1], self.phase[cloud][0]),
-                    leg_slope(v[1], v[3]),
+                    self.port_slope(cloud),
                 )
                 for cloud, v in (("low", self.low), ("up", self.up))
             ],
@@ -556,6 +561,20 @@ class GradiometerGWStretch(GradiometerGW):
         return Tex(
             r"$L$ stretches and squeezes", font_size=FONT_LEGEND, color=STRAIN_COLOR
         ).next_to(self.up[0], DOWN, buff=0.35).shift(RIGHT * 0.9)
+
+    def port_slope(self, cloud):
+        """The kicked leg's slope with the bow taken back out.
+
+        The ports are straight lines standing for atoms flying out to be
+        imaged, not part of the bowed interferometer, so they carry p + hbar k
+        and nothing of the wave: read off the bowed corners, the lower pair
+        would leave at whatever the wave had last done to that leg -- flattened
+        here, enough to put its two port atoms on top of each other.
+        """
+        v = self.low if cloud == "low" else self.up
+        disp = self.displacement(cloud)
+        bow = (disp(v[3][0]) - disp(v[1][0])) / (v[3][0] - v[1][0])
+        return super().port_slope(cloud) - bow
 
     def construct(self):
         gradiometer_frame(

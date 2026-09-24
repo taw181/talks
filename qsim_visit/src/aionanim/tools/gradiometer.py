@@ -24,7 +24,7 @@ from aionanim.tools.spacetime import run_to
 
 
 # --- gradiometer geometry -------------------------------------------------
-GR_T = 3.8  # time between pulses
+GR_T = 2.8  # time between pulses
 GR_T0 = -5.0  # time of the first pulse, at the lower cloud
 GR_ARM = 1.05  # arm separation, i.e. (hbar k / m) T in real units
 GR_LOWER_Z = -2.9
@@ -35,11 +35,12 @@ GR_LAG = 0.42  # light travel time across L, hugely exaggerated
 GR_SLOPE = GR_LAG / GR_BASELINE  # dt/dz for a photon worldline
 GR_MID_Z = 0.5 * (GR_LOWER_Z + GR_UPPER_Z)  # tells the two clouds apart
 GR_LASER_GAP = GR_LOWER_Z - GR_LASER_Z  # laser to the near cloud
-# How far the output ports run past the last pulse. Shorter than CP_OUT,
-# because two interferometers have to leave their ports in the one frame: the
-# upper pair climbs towards the top edge and the lower pair has the dials to
-# its right, and this is the run that clears both.
-GR_OUT = 0.8
+# How far the output ports run past the last pulse. The two ports part only
+# at the kicked leg's slope, GR_ARM / GR_T, which is shallow here, so they need
+# a long run to end up more than an atom apart (GR_OUT * GR_ARM / GR_T against
+# 2 * CLOCK_ATOM_RADIUS); GR_T is kept short enough that this still stops
+# short of the dials.
+GR_OUT = 2.4
 
 
 def photon_worldline(x_at_lower, z_from, z_to, slope=GR_SLOPE, z_at=GR_LOWER_Z):
