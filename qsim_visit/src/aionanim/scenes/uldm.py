@@ -7,6 +7,11 @@ hands the excitation from one arm to the other halfway through, so the two
 arms integrate omega_A over different stretches of the oscillation, the hands
 come back to different angles and the two output ports split. Same instrument
 as the gravitational-wave scenes, pointed at a different source.
+
+DarkMatterField comes before either: the field on its own as a scrolling
+trace, and the clock transition it walks up and down, with no interferometer
+yet. Its pauses go through hold(), one whole oscillation, so a slide can loop
+them without a jump.
 """
 
 import numpy as np
@@ -42,6 +47,8 @@ from aionanim.tools.spacetime import (
     worldline,
 )
 from aionanim.tools.uldm import (
+    DM_OMEGA,
+    dm_field,
     dm_phase,
     field_marker,
     make_field_trace,
@@ -386,3 +393,146 @@ class DarkMatterPhaseContinuous(DarkMatterPhase):
 
         # --- recombine -------------------------------------------------------
         strobe_pulse(self, now, c[0], top=c[1], flash_at=[c])
+
+
+# --- DarkMatterField geometry ----------------------------------------------
+# The field on its own, before any interferometer: a trace scrolling along the
+# top strip, what it is on the left below it, and on the right the clock
+# transition it drags. The trace is an oscilloscope rather than a space-time
+# diagram -- the newest instant sits at its right-hand end, where a marker
+# rides it -- so it can run for as long as a slide is held without walking
+# off the frame.
+DF_TRACE_Z = 2.1
+DF_TRACE_AMPLITUDE = 0.55
+DF_TRACE_X = (-6.3, 5.9)  # oldest instant on the left, now on the right
+DF_TEXT = np.array([-6.3, 0.55, 0.0])  # upper-left corner of the text column
+DF_LEVELS = np.array([4.4, -1.0, 0.0])  # the modulated transition
+# One period of the field, in the lab time that drives both the trace and the
+# levels. Advanced at V, so a slide held on this scene loops seamlessly over
+# exactly one oscillation.
+DF_PERIOD = TAU / DM_OMEGA
+
+
+class DarkMatterField(Scene):
+    """What an ultralight dark-matter field is, and why a clock can see it.
+
+    Light enough and the field has so many quanta per de Broglie volume that
+    it acts as one classical wave oscillating at its Compton frequency.
+    Coupled to the electron mass or the fine-structure constant, it walks the
+    Sr clock transition up and down with it -- which is the modulation
+    DarkMatterPhase then feeds into the interferometer. Here there is no
+    interferometer yet: only the field, and the level it moves.
+    """
+
+    def hold(self):
+        """Let the field run through one whole oscillation.
+
+        One period exactly, so the frame it ends on is the one it started on:
+        a slide can loop it for as long as it is held without a jump.
+        """
+        self.play(
+            self.now.animate.increment_value(DF_PERIOD),
+            rate_func=linear,
+            run_time=DF_PERIOD / V,
+        )
+
+    def construct(self):
+        title = Tex(
+            r"Ultralight dark matter: a field that oscillates",
+            font_size=FONT_TITLE,
+        ).to_corner(UL)
+
+        # --- the field ------------------------------------------------------
+        self.now = now = ValueTracker(CP_T0)
+        span = DF_TRACE_X[1] - DF_TRACE_X[0]
+
+        def at(t):
+            """Where the field at lab time t sits on the scrolling trace."""
+            x = DF_TRACE_X[1] - (now.get_value() - t)
+            return [x, DF_TRACE_Z + DF_TRACE_AMPLITUDE * dm_field(t), 0]
+
+        zero = DashedLine(
+            [DF_TRACE_X[0], DF_TRACE_Z, 0], [DF_TRACE_X[1], DF_TRACE_Z, 0],
+            **GUIDE_STYLE,
+        )
+        tag = MathTex(r"\phi(t)", font_size=FONT_LEGEND, color=FIELD_COLOR)
+        tag.next_to(zero, RIGHT, buff=0.2)
+
+        def trace():
+            t = now.get_value()
+            return ParametricFunction(
+                at, t_range=[t - span, t, 0.02],
+                color=FIELD_COLOR, stroke_width=FIELD_STROKE_WIDTH,
+            )
+
+        def marker():
+            return Dot(at(now.get_value()), radius=0.08, color=lighten(KICKED_COLOR))
+
+        field = MathTex(
+            r"\phi(t) = \phi_0 \cos\!\left(m_\phi c^2 t/\hbar\right)",
+            font_size=FONT_ANNOTATION, color=FIELD_COLOR,
+        )
+        wave_note = VGroup(*[
+            Tex(line, font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR))
+            for line in (
+                r"light enough to act as one classical wave",
+                r"$\rho_{\text{DM}} = \tfrac{1}{2} m_\phi^2 \phi_0^2"
+                r" \approx 0.4\ \text{GeV/cm}^3$",
+            )
+        ]).arrange(DOWN, buff=0.14, aligned_edge=LEFT)
+        wave_text = VGroup(field, wave_note).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
+        wave_text.move_to(DF_TEXT, aligned_edge=UL)
+
+        # Faded in as a still and swapped for the live trace, as the level
+        # diagram is in DarkMatterPhase: an always_redraw cannot be faded.
+        self.play(
+            FadeIn(title), FadeIn(zero), FadeIn(tag),
+            FadeIn(VGroup(trace(), marker())),
+            run_time=1.0,
+        )
+        self.remove(*self.mobjects)
+        self.add(title, zero, tag, always_redraw(trace), always_redraw(marker))
+        self.play(
+            FadeIn(wave_text, shift=UP * 0.15),
+            now.animate.increment_value(1.0 * V),
+            rate_func=linear, run_time=1.0,
+        )
+        self.hold()
+
+        # --- what it does to a clock ----------------------------------------
+        couplings = MathTex(
+            r"m_e,\ \alpha \;\to\; \text{oscillate with } \phi",
+            font_size=FONT_ANNOTATION,
+        )
+        law = MathTex(
+            r"\omega_A \to \omega_A\left[1 + \varepsilon\cos"
+            r"(\omega_\phi t + \theta)\right]",
+            font_size=FONT_ANNOTATION, color=FIELD_COLOR,
+        )
+        clock_text = VGroup(couplings, law).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
+        clock_text.next_to(wave_text, DOWN, buff=0.45, aligned_edge=LEFT)
+
+        levels, moving, detuning = make_modulated_levels(now, DF_LEVELS)
+        # Swapped for the live version after the fade, for the same reason
+        # as the trace -- which is why the field holds still for the fade: a
+        # still of a moving level would be out of date by the time it landed.
+        still = VGroup(moving(), detuning())
+        self.play(
+            FadeIn(clock_text, shift=UP * 0.15), FadeIn(levels), FadeIn(still),
+            run_time=1.0,
+        )
+        self.remove(still)
+        self.add(always_redraw(moving), always_redraw(detuning))
+        self.hold()
+
+        # --- and so --------------------------------------------------------
+        verdict = Tex(
+            r"a clock transition reads the field directly",
+            font_size=FONT_ANNOTATION,
+        ).next_to(clock_text, DOWN, buff=0.45, aligned_edge=LEFT)
+        self.play(
+            FadeIn(verdict, shift=UP * 0.15),
+            now.animate.increment_value(1.0 * V),
+            rate_func=linear, run_time=1.0,
+        )
+        self.hold()
