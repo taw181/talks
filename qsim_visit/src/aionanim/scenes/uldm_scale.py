@@ -2,12 +2,13 @@
 
 DarkMatterScale comes before DarkMatterField. The mass sets the scale, through
 the Compton wavelength lambda_C = h / (m_phi c): the distance light covers in
-one oscillation of the field. For a mass in the middle of AION's range that
-is the distance to the Moon, which the scene opens on. It then zooms in to
-the heavy end of the range, where lambda_C is about a tenth of the Earth, and
-out to the light end, where it is about the Earth-Sun distance. Either way it
-dwarfs any lab, which is what hands over to DarkMatterField: at one place,
-the wave is just phi(t).
+one oscillation of the field. The scene goes through AION's range from
+heavy to light, so each step zooms out: it opens on the heavy end, where
+lambda_C is about a tenth of the Earth, pulls back to the middle of the
+range, where it is the distance to the Moon, and then to the light end,
+where it is about the Earth-Sun distance. Even the shortest dwarfs any lab,
+which is what hands over to DarkMatterField: at one place, the wave is just
+phi(t).
 
 AION's range is 1e-17 to 1e-12 eV (Badurina et al., JCAP 05 (2020) 011,
 arXiv:1911.11755).
@@ -98,11 +99,11 @@ class DarkMatterScale(Scene):
         formula.next_to(title, DOWN, buff=0.45).align_to(title, LEFT)
 
         # --- the camera, and what it is looking at ---------------------------
-        self.log_scale = ValueTracker(np.log10(VIEW_MOON[0]))
-        self.earth_x = ValueTracker(VIEW_MOON[1])
-        self.earth_y = ValueTracker(VIEW_MOON[2])
+        self.log_scale = ValueTracker(np.log10(VIEW_EARTH[0]))
+        self.earth_x = ValueTracker(VIEW_EARTH[1])
+        self.earth_y = ValueTracker(VIEW_EARTH[2])
         self.theta = ValueTracker(0.0)
-        self.wavelength = compton(MOON_MASS)  # metres
+        self.wavelength = compton(AION_MASSES[1])  # metres
         self.wave_opacity = ValueTracker(0.0)
 
         def body(metres, radius, color):
@@ -137,12 +138,15 @@ class DarkMatterScale(Scene):
         self.add(*bodies)
         self.add(always_redraw(wave))
         self.play(FadeIn(title), run_time=0.8)
-        labels = self.body_labels(("Earth", 0.0, EARTH_RADIUS), ("Moon", EARTH_MOON, MOON_RADIUS))
+        labels = VGroup(Tex(
+            r"Earth", font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
+        ).to_corner(DL, buff=0.5))
         self.play(FadeIn(labels), run_time=0.6)
 
-        # --- the middle of the range: the Moon ---------------------------------
+        # --- the heavy end: the Earth --------------------------------------------
         marks = self.wavelength_marks(
-            MOON_MASS, r"\lambda_C \approx \text{Earth--Moon}", r"0.8\ \text{Hz}",
+            AION_MASSES[1], r"\lambda_C \approx 1200\ \text{km}",
+            r"240\ \text{Hz}", r"heavy end of AION's range",
         )
         self.play(
             FadeIn(formula), FadeIn(marks),
@@ -156,14 +160,11 @@ class DarkMatterScale(Scene):
         )
         self.hold()
 
-        # --- the heavy end: in to the Earth -------------------------------------
-        self.fly_to(VIEW_EARTH, AION_MASSES[1], [labels, marks])
-        labels = VGroup(Tex(
-            r"Earth", font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
-        ).to_corner(DL, buff=0.5))
+        # --- the middle of the range: out to the Moon ---------------------------
+        self.fly_to(VIEW_MOON, MOON_MASS, [labels, marks])
+        labels = self.body_labels(("Earth", 0.0, EARTH_RADIUS), ("Moon", EARTH_MOON, MOON_RADIUS))
         marks = self.wavelength_marks(
-            AION_MASSES[1], r"\lambda_C \approx 1200\ \text{km}",
-            r"240\ \text{Hz}", r"heavy end of AION's range",
+            MOON_MASS, r"\lambda_C \approx \text{Earth--Moon}", r"0.8\ \text{Hz}",
         )
         self.reveal(labels, marks)
         self.hold()
@@ -213,8 +214,8 @@ class DarkMatterScale(Scene):
     def wavelength_marks(self, mass, wavelength, frequency, note=None):
         """One wavelength braced under the wave, and the numbers for this mass.
 
-        The brace starts at the Earth: in the opening view that puts its far
-        end on the Moon, which is the comparison being made.
+        The brace starts at the Earth: in the Moon view that puts its far end
+        on the Moon, which is the comparison being made.
         """
         start = self.screen_x(0.0)
         end = self.screen_x(compton(mass))
