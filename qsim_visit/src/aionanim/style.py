@@ -352,6 +352,10 @@ TRANSITION_689_COLOR = ManimColor("#ff5fd2")
 TRANSITION_698_COLOR = LASER_COLOR
 TRANSITION_IDLE_STYLE = dict(stroke_width=3, color=lighten(GUIDE_COLOR))
 TRANSITION_ACTIVE_WIDTH = 7
+# The blue MOT's two repumps (679 and 707 nm), which are always on together
+# and so share one hue: amber, which samples clear of the 461 blue, the 689
+# magenta and the clock line's laser red.
+REPUMP_COLOR = ManimColor("#f5b400")
 # A stage still to come is faint, one already run half lit, the one running
 # fully lit and ringed.
 TIMELINE_AHEAD_OPACITY = 0.22
@@ -366,3 +370,25 @@ REFERENCE_IDLE_OPACITY = 0.4
 VIDEO_DIM_OPACITY = 0.5  # of the background-coloured veil drawn over it
 VIDEO_BORDER_STYLE = dict(stroke_width=2, color=lighten(GUIDE_COLOR))
 FONT_VIDEO_CLOCK = 24
+
+
+# --- laser cooling --------------------------------------------------------
+# The MOT stages drawn as a cartoon beside the level scheme. The beams take
+# the colour of the transition they drive, so the cartoon and the diagram
+# agree on which light is on; they are wide translucent bands, because a MOT
+# beam is a fat collimated beam rather than a pulse, and the band's opacity
+# stands for its intensity. The coils are furniture, grey like the other
+# optics, and how heavily they are drawn stands for the field gradient.
+MOT_BEAM_WIDTH = 0.42
+MOT_BEAM_OPACITY = 0.2  # fill, at full intensity
+MOT_BEAM_EDGE_OPACITY = 0.8  # the arrowhead chevrons, at full intensity
+MOT_BEAM_EDGE_WIDTH = 3
+COIL_COLOR = OPTIC_COLOR
+COIL_STRONG_WIDTH = 9  # the blue MOT's gradient
+COIL_WEAK_WIDTH = 3  # the red MOTs', some ten times weaker
+# An atom in a MOT glows in the colour of the light it scatters; one that has
+# fallen into a state no beam addresses is dark.
+CLOUD_DOT_RADIUS = 0.045
+DARK_ATOM_COLOR = GUIDE_COLOR
+DARK_ATOM_OPACITY = 0.5
+FONT_TEMPERATURE = FONT_ANNOTATION

@@ -104,6 +104,33 @@ TRANSITIONS = {
 }
 
 
+# The repump loop, drawn only when asked for (the cooling cartoon): a 1P1 atom
+# now and then decays through 1D2 into 3P2, which the blue MOT can't see, and
+# 707 nm and 679 nm light lift it from 3P2 and 3P0 to 3S1, from where it falls
+# back through 3P1 to the ground state. The two repumps are always on
+# together, so they share a colour and one label. 3S1 sits right over the
+# triplet stack so the repump arrows run straight up through it, which moves
+# the 3P_J name to the side of the stack, out of their way.
+LV_1D2 = 2.85
+LV_3S1 = 4.35
+LV_1D2_X = (-0.35, 0.65)
+LV_3S1_X = LV_3P_X
+#
+# Each path is a list of legs, a leg a straight run between two points. A
+# decay is dashed and in white when lit: it is the atom's doing, not a beam's.
+REPUMP_TRANSITIONS = {
+    "679": dict(legs=[[(1.95, LV_3P[0]), (1.95, LV_3S1)]], color=REPUMP_COLOR,
+                decay=False, label=r"679 + 707 nm", label_at=(3.05, 3.55)),
+    "707": dict(legs=[[(2.35, LV_3P[2]), (2.35, LV_3S1)]], color=REPUMP_COLOR,
+                decay=False),
+    "leak": dict(legs=[[(LV_1P1_X[1] + 0.05, LV_1P1 - 0.05), (-0.1, LV_1D2 + 0.05)],
+                       [(0.4, LV_1D2 - 0.05), (LV_3P_X[0] - 0.05, LV_3P[2])]],
+                 color=WHITE, decay=True),
+    "return": dict(legs=[[(2.7, LV_3S1), (2.7, LV_3P[1])]], color=REPUMP_COLOR,
+                   decay=True),
+}
+
+
 def _level(y, xs, color):
     return Line([xs[0], y, 0], [xs[1], y, 0], stroke_width=LEVEL_STROKE_WIDTH,
                 color=color)
@@ -122,15 +149,36 @@ def _transition(key, color, width):
     return VGroup(arrow, label)
 
 
+def _repump_transition(key, color, width):
+    """A repump arrow, or a spontaneous decay drawn dashed along its path."""
+    spec = REPUMP_TRANSITIONS[key]
+    group = VGroup()
+    for a, b in spec["legs"]:
+        a, b = np.array([*a, 0.0]), np.array([*b, 0.0])
+        if spec["decay"]:
+            leg = DashedLine(a, b, dash_length=0.1, color=color, stroke_width=width)
+            leg.add_tip(tip_length=0.2, tip_width=0.18)
+        else:
+            leg = Arrow(a, b, buff=0, color=color, stroke_width=width,
+                        tip_length=0.22, max_tip_length_to_length_ratio=0.12,
+                        max_stroke_width_to_length_ratio=20)
+        group.add(leg)
+    if spec.get("label"):
+        group.add(Tex(spec["label"], font_size=FONT_LEGEND, color=color)
+                  .move_to([*spec["label_at"], 0], aligned_edge=LEFT))
+    return group
+
+
 class SrLevels(VGroup):
     """The Sr levels the sequence uses, with its three transitions.
 
     Each transition is drawn twice: once in the construction grey, always
     there, and once over it in its own colour and heavier, shown only while
-    a stage is driving it.
+    a stage is driving it. ``repump=True`` adds the blue MOT's repump loop
+    (REPUMP_TRANSITIONS), with 1D2 and 3S1.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, repump=False, **kwargs):
         super().__init__(**kwargs)
         ground = _level(LV_GROUND, LV_GROUND_X, ATOM_COLOR)
         singlet = _level(LV_1P1, LV_1P1_X, OPTIC_COLOR)
@@ -144,7 +192,7 @@ class SrLevels(VGroup):
             MathTex(r"{}^1P_1", font_size=FONT_STATE, color=OPTIC_COLOR)
             .next_to(singlet, UP, buff=0.2),
             MathTex(r"{}^3P_J", font_size=FONT_STATE, color=OPTIC_COLOR)
-            .next_to(triplet, UP, buff=0.2),
+            .next_to(triplet, RIGHT if repump else UP, buff=0.55 if repump else 0.2),
         )
         j_labels = VGroup(*[
             MathTex(str(j), font_size=FONT_LEGEND,
@@ -158,12 +206,27 @@ class SrLevels(VGroup):
         self.active = {k: _transition(k, spec["color"], TRANSITION_ACTIVE_WIDTH)
                        .set_opacity(0)
                        for k, spec in TRANSITIONS.items()}
-        self.add(ground, singlet, triplet, names, j_labels,
-                 *self.idle.values(), *self.active.values())
+        self.add(ground, singlet, triplet, names, j_labels)
+        if repump:
+            d_level = _level(LV_1D2, LV_1D2_X, OPTIC_COLOR)
+            s_level = _level(LV_3S1, LV_3S1_X, OPTIC_COLOR)
+            self.add(
+                d_level, s_level,
+                MathTex(r"{}^1D_2", font_size=FONT_STATE, color=OPTIC_COLOR)
+                .next_to(d_level, DOWN, buff=0.2),
+                MathTex(r"{}^3S_1", font_size=FONT_STATE, color=OPTIC_COLOR)
+                .next_to(s_level, UP, buff=0.2),
+            )
+            for k, spec in REPUMP_TRANSITIONS.items():
+                self.idle[k] = _repump_transition(
+                    k, TRANSITION_IDLE_STYLE["color"], TRANSITION_IDLE_STYLE["stroke_width"])
+                self.active[k] = _repump_transition(
+                    k, spec["color"], TRANSITION_ACTIVE_WIDTH).set_opacity(0)
+        self.add(*self.idle.values(), *self.active.values())
 
-    def drive(self, key):
-        """Animations lighting transition ``key`` and putting out the rest."""
-        return [group.animate.set_opacity(1 if k == key else 0)
+    def drive(self, *keys):
+        """Animations lighting the transitions ``keys`` and putting out the rest."""
+        return [group.animate.set_opacity(1 if k in keys else 0)
                 for k, group in self.active.items()]
 
 
