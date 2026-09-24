@@ -10,39 +10,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-DECK=(
-    # intro
-    TitleSlide
-    ContentsSlide
-    # motivation
-    BlackHoleMergerSlide
-    MergerOnSensitivityPlotSlide
-    SensitivityLandscapeSlide
-    DarkMatterFieldSlide
-    # how atom interferometry works
-    SinglePhotonMachZehnderSlide
-    ClockPhaseTermsSlide
-    DarkMatterPhaseSlide
-    GradiometerSlide
-    GradiometerGWStretchSlide
-    AIONCollabSlide
-    # our prototype device
-    CoolingSequenceSlide
-    DipoleTrapLoadingSlide
-    VelocitySlicingSlide
-    SignalInjectionSlide
-    LightShiftSignalSlide
-    LaserNoiseLissajousSlide
-    ExtractedSignalSlide
-    # future plans
-    FuturePlansSlide
-    Aion10BeecroftSlide
-    AICECernSlide
-    LargeMomentumTransferSlide
-    LMTResultsSlide
-    # outro
-    OutroSlide
-)
+# The deck's order lives in talk/deck.txt, shared with deck.py (the no-bash twin).
+mapfile -t DECK < <(sed -e 's/#.*//' -e 's/[[:space:]]//g' -e '/^$/d' talk/deck.txt)
 
 case "${1:-}" in
     render)

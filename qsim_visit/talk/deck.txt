@@ -1,0 +1,34 @@
+# The deck's order: one slide class from aion_slides.py per line.
+# Read by deck.sh and deck.py; blank lines and #-comments are ignored.
+
+# intro
+TitleSlide
+ContentsSlide
+# motivation
+BlackHoleMergerSlide
+MergerOnSensitivityPlotSlide
+SensitivityLandscapeSlide
+DarkMatterFieldSlide
+# how atom interferometry works
+SinglePhotonMachZehnderSlide
+ClockPhaseTermsSlide
+DarkMatterPhaseSlide
+GradiometerSlide
+GradiometerGWStretchSlide
+AIONCollabSlide
+# our prototype device
+CoolingSequenceSlide
+DipoleTrapLoadingSlide
+VelocitySlicingSlide
+SignalInjectionSlide
+LightShiftSignalSlide
+LaserNoiseLissajousSlide
+ExtractedSignalSlide
+# future plans
+FuturePlansSlide
+Aion10BeecroftSlide
+AICECernSlide
+LargeMomentumTransferSlide
+LMTResultsSlide
+# outro
+OutroSlide
