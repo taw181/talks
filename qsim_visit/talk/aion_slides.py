@@ -302,12 +302,31 @@ class Aion10BeecroftSlide(DeckSlide):
         self.play(FadeIn(building, shift=LEFT * 0.3), run_time=0.8)
 
 
+# The PX46 shaft in aice.png (1199 x 672 px): from under the surface building
+# down to its rounded foot, with the arrow just clear of its right-hand side.
+AICE_SHAFT_PX = ((940, 207), (940, 525))
+
+
 class AICECernSlide(DeckSlide):
-    """The AICE figure on its own: it carries its own title."""
+    """The AICE figure, which carries its own title, with the shaft's depth
+    marked on it."""
 
     def construct(self):
         figure = load_image(MEDIA / "aice.png", width=config.frame_width)
+
+        def at(px, py):
+            """A pixel of aice.png, on screen."""
+            return figure.get_corner(UL) + [px / 1199 * figure.width,
+                                           -py / 672 * figure.height, 0]
+
+        depth = DoubleArrow(*[at(*p) for p in AICE_SHAFT_PX], buff=0, stroke_width=4,
+                            color=PHOTO_LABEL_COLOR, max_tip_length_to_length_ratio=0.06)
+        label = Tex(r"150\,m", font_size=FONT_ANNOTATION, color=PHOTO_LABEL_COLOR)
+        label.next_to(depth, RIGHT, buff=0.15)
+        marks = VGroup(depth, label)
+        marks.set_stroke(**PHOTO_LABEL_OUTLINE, background=True)
         self.play(FadeIn(figure), run_time=0.8)
+        self.play(GrowFromCenter(depth), FadeIn(label), run_time=0.8)
 
 
 class LargeMomentumTransferSlide(DeckSlide, LargeMomentumTransfer):

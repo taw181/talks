@@ -455,6 +455,10 @@ SLICE_PROFILE_WIDTH = 3.5
 FONT_DECK_TITLE = 50
 FONT_DECK_BYLINE = FONT_ANNOTATION
 FONT_CONTENTS = 42
+# A label drawn over a photograph: white, with a dark outline behind it so it
+# holds up against fields, roads and sky alike.
+PHOTO_LABEL_COLOR = WHITE
+PHOTO_LABEL_OUTLINE = dict(color=PLOT_BACKGROUND, width=6, opacity=0.85)
 # A slot for a figure still to come: a reference, not content, so dashed and
 # in the construction grey.
 PLACEHOLDER_STYLE = dict(
