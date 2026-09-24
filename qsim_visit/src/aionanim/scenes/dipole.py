@@ -5,8 +5,8 @@ crossed dipole traps are switched on, one above the other, with a
 transparency beam over the upper one. The MOT is held on the upper trap to
 load it; the transparency beam then keeps those atoms dark, out of reach of
 the 689 nm light. The MOT is let go, the hotter atoms drop, the field zero
-is stepped down, and the MOT comes back on round the lower trap to load
-that. With both traps full, the MOT goes off, the atoms are optically pumped
+is stepped down, and once they reach the lower trap the MOT comes back on
+round it to load that. With both traps full, the MOT goes off, the atoms are optically pumped
 into m_F = +9/2 with swept, circularly polarised 689 nm light, and the bias
 field is turned to point along the clock beam, ready for interferometry.
 
@@ -54,7 +54,7 @@ DT_N_ATOMS = 150
 # --- pacing ---------------------------------------------------------------
 DT_SWITCH_TIME = 1.2
 DT_LOAD_TIME = 3.0  # each trap's loading
-DT_FALL_TIME = 0.9
+DT_FALL_TIME = 1.8
 DT_RECAPTURE_TIME = 1.5
 DT_PUMP_TIME = 3.0
 DT_RAMP_TIME = 2.0  # the bias field turning to the clock beam's axis
@@ -126,15 +126,20 @@ class DipoleTrapLoading(Scene):
         # --- the lower trap ---
         heading, step = self.next_stage(timeline, 1, heading, step,
                                         r"MOT released: the hotter atoms fall")
-        self.play(FadeOut(mot), atoms.glow_lower.animate.set_value(0),
-                  *levels.drive("488", "679", "707", "return"), run_time=0.5)
-        self.play(atoms.fall.animate.set_value(1), zero.animate.set_y(DT_LOWER_Y),
-                  rate_func=linear, run_time=DT_FALL_TIME)
-        step = self.recaption(step, r"MOT back on round the lower trap", heading)
+        # the light goes out at once and the atoms fall in one unbroken move...
+        self.play(FadeOut(mot, rate_func=rush_from),
+                  atoms.glow_lower.animate(rate_func=rush_from).set_value(0),
+                  *levels.drive("488", "679", "707", "return"),
+                  atoms.fall.animate.set_value(1), zero.animate.set_y(DT_LOWER_Y),
+                  run_time=DT_FALL_TIME)
+        # ...and only once they are down does the MOT come back on round them
+        new_step = caption(r"MOT back on round the lower trap", heading)
         self.play(FadeIn(mot), atoms.glow_lower.animate.set_value(1),
                   atoms.recapture.animate.set_value(1),
                   *levels.drive("689", "488", "679", "707", "return"),
+                  Succession(FadeOut(step), FadeIn(new_step)),
                   run_time=DT_RECAPTURE_TIME)
+        step = new_step
         self.play(atoms.load_lower.animate.set_value(1), run_time=DT_LOAD_TIME)
         self.stage_break()
 

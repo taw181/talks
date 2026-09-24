@@ -86,12 +86,10 @@ def make_bias_arrow(center, length=BIAS_ARROW_LENGTH, color=lighten(GUIDE_COLOR)
 # Every atom has a place in the MOT cloud and a place in a trap. In a crossed
 # trap most atoms sit where the beams cross and the rest spread out along the
 # horizontal beam, which holds them only vertically. The ones that go to the
-# lower trap drop a little when the MOT lets go -- a cartoon of the fall: a
-# 3 ms fall is far shorter than the traps' separation, and it is the MOT,
-# switched back on round the lower trap, that carries them the rest of the way.
+# lower trap fall all the way down to it when the MOT lets go, spreading as
+# they fall, and the MOT then gathers them up round it again.
 LOAD_UPPER_SHARE = 0.5
 LOAD_MOT_RADIUS = 0.22  # the narrowband MOT's spread
-LOAD_FALL_DROP = 0.45
 LOAD_FALL_SPREAD = 0.8  # how far the released cloud swells as it drops
 TRAP_CORE_SIGMA = 0.12
 TRAP_WING_SIGMA = 0.9
@@ -107,8 +105,8 @@ class LoadingAtoms(VGroup):
     """The red MOT's atoms, shared out between two dipole traps.
 
     Those bound for the upper trap settle into it as ``load_upper`` goes
-    0 to 1. The rest stay in the MOT until it is released: they drop as
-    ``fall`` goes 0 to 1, are gathered up by the MOT round the lower trap as
+    0 to 1. The rest stay in the MOT until it is released: they drop to the
+    lower trap as ``fall`` goes 0 to 1, are gathered up by the MOT round it as
     ``recapture`` does, and settle into that trap with ``load_lower``.
     ``glow_upper`` and ``glow_lower`` (0 to 1) light each group in the 689 nm
     red while it scatters MOT light; dark, an atom takes the ground-state
@@ -151,8 +149,8 @@ class LoadingAtoms(VGroup):
         upper = self.upper + self.mot * (1 - a) + self.trap * a + jitter * (1 - 0.8 * a)
 
         f = self.fall.get_value()
-        fallen = self.upper + self.mot * (1 + LOAD_FALL_SPREAD * f)
-        fallen = fallen + np.array([0, -LOAD_FALL_DROP * f**2])
+        fallen = self.upper + (self.lower - self.upper) * f
+        fallen = fallen + self.mot * (1 + LOAD_FALL_SPREAD * f)
         r = self.recapture.get_value()
         caught = fallen + (self.lower + self.mot - fallen) * r
         b = self.load_lower.get_value()
