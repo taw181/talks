@@ -80,7 +80,9 @@ def make_clock_hand(atom, phase):
     hand = Line(
         ORIGIN, UP * length, color=CLOCK_HAND_COLOR, stroke_width=CLOCK_HAND_WIDTH
     )
-    hand.add_updater(follow)
+    # placed now rather than when the next animation starts: a slide stop
+    # holds on the frame in between, which would show the hand at the origin
+    hand.add_updater(follow, call_updater=True)
     return hand
 
 
@@ -123,7 +125,9 @@ def dial_hand(center, phase, color, radius=CLOCK_DIAL_RADIUS):
     hand = Line(
         ORIGIN, UP * length, color=color, stroke_width=CLOCK_HAND_WIDTH + 1
     )
-    hand.add_updater(follow)
+    # placed now rather than when the next animation starts: a slide stop
+    # holds on the frame in between, which would show the hand at the origin
+    hand.add_updater(follow, call_updater=True)
     return hand
 
 
