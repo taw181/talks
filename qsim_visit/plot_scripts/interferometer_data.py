@@ -2,7 +2,9 @@
 
 ``excitation_fringes.png``, then ``lissajous.png`` with both runs and
 ``lissajous_lln.png`` / ``lissajous_hln.png`` with one each, for building it
-up on a slide. The figures themselves are aionanim.plots.dai_fringes.
+up on a slide; likewise ``adev.png`` and its steps ``adev_sql.png`` (the limit
+alone) and ``adev_lln.png``. The figures themselves are
+aionanim.plots.dai_fringes.
 
     .venv/bin/python plot_scripts/interferometer_data.py
 """
@@ -14,7 +16,13 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from aionanim.plots.dai_fringes import fringes_figure, lissajous_figure, load
+from aionanim.plots.dai_fringes import (
+    adev_figure,
+    fringes_figure,
+    lissajous_figure,
+    load,
+    load_adev,
+)
 from aionanim.style import HLN_COLOR, LLN_COLOR, PLOT_BACKGROUND
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -36,6 +44,12 @@ def main():
     save(lissajous_figure([quiet, noisy]), "lissajous")
     save(lissajous_figure([quiet]), "lissajous_lln")
     save(lissajous_figure([noisy]), "lissajous_hln")
+    adev = load_adev()
+    quiet_adev = ("lln", LLN_COLOR, "Low laser noise")
+    noisy_adev = ("hln", HLN_COLOR, "High laser noise")
+    save(adev_figure(adev, []), "adev_sql")
+    save(adev_figure(adev, [quiet_adev]), "adev_lln")
+    save(adev_figure(adev, [quiet_adev, noisy_adev]), "adev")
 
 
 if __name__ == "__main__":

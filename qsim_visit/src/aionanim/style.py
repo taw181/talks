@@ -256,6 +256,12 @@ LOWER_CLOUD_COLOR = CREST_COLOR
 UPPER_CLOUD_COLOR = HORIZON_GLOW
 LLN_COLOR = SIGNAL_COLOR
 HLN_COLOR = NOISE_COLOR
+# The standard quantum limit the two runs' Allan deviations are held against
+# is a reference, not a measurement, so it takes the guide grey: the paper's
+# grey band of Monte Carlo runs (68% denser inside 95%) and its dotted
+# 1/sqrt(tau) line.
+SQL_COLOR = GUIDE_COLOR
+SQL_BAND_OPACITIES = (0.4, 0.2)  # 68%, 95%
 
 # The same data drawn by manim, point by point. Axis text is a notch below the
 # legend size because axis labels run long ("Lower interferometer excitation
