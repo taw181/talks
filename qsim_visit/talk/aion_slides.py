@@ -38,7 +38,7 @@ from aionanim.scenes.gradiometer_gw import GradiometerGWStretch
 from aionanim.scenes.gravitational_waves import BlackHoleMerger, MergerOnSensitivityPlot
 from aionanim.scenes.gw_landscape import SensitivityBuildUp
 from aionanim.scenes.light_shift import LightShiftSignal
-from aionanim.scenes.lmt import LargeMomentumTransfer
+from aionanim.scenes.lmt import LargeMomentumTransfer, LMTMachZehnder
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
 from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhase
@@ -417,6 +417,10 @@ class AICECernSlide(DeckSlide):
 
 class LargeMomentumTransferSlide(DeckSlide, LargeMomentumTransfer):
     """No stops: the ladder plays straight through."""
+
+
+class LMTMachZehnderSlide(Clicks, DeckSlide, LMTMachZehnder):
+    """A click after each stage, then the area against the n = 1 one."""
 
 
 class LMTResultsSlide(DeckSlide):
