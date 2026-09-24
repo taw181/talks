@@ -47,6 +47,8 @@ from aionanim.tools.layout import load_image, numbered_list, placeholder_frame, 
 from aionanim.tools.video import VideoFrame, load_video_frames
 
 MEDIA = Path(__file__).parent / "media"
+# The measured-data plots plot_scripts/ draw from the package data.
+FIGURES = Path(__file__).parent.parent / "figures"
 
 TITLE = (r"A prototype differential atom interferometer", r"for fundamental physics")
 AUTHOR = r"Thomas Walker"
@@ -258,9 +260,11 @@ class LaserNoiseLissajousSlide(Clicks, DeckSlide, LaserNoiseLissajous):
 
 
 class ExtractedSignalSlide(DeckSlide):
+    """Fig. 5a redrawn: each imprinted frequency found where it was put."""
+
     def construct(self):
         title = slide_title(r"Extracted signals")
-        figure = load_image(MEDIA / "extracted_signal.png", width=12.0)
+        figure = load_image(FIGURES / "signals.png", width=13.4)
         figure.next_to(title, DOWN, buff=0.35).set_x(0)
         self.play(FadeIn(title), FadeIn(figure), run_time=0.8)
 

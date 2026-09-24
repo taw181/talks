@@ -3,7 +3,8 @@
 ``excitation_fringes.png``, then ``lissajous.png`` with both runs and
 ``lissajous_lln.png`` / ``lissajous_hln.png`` with one each, for building it
 up on a slide; likewise ``adev.png`` and its steps ``adev_sql.png`` (the limit
-alone) and ``adev_lln.png``. The figures themselves are
+alone) and ``adev_lln.png``; and ``signals.png``, the imprinted-signal scans.
+The figures themselves are
 aionanim.plots.dai_fringes.
 
     .venv/bin/python plot_scripts/interferometer_data.py
@@ -22,6 +23,8 @@ from aionanim.plots.dai_fringes import (
     lissajous_figure,
     load,
     load_adev,
+    load_signals,
+    signals_figure,
 )
 from aionanim.style import HLN_COLOR, LLN_COLOR, PLOT_BACKGROUND
 
@@ -50,6 +53,7 @@ def main():
     save(adev_figure(adev, []), "adev_sql")
     save(adev_figure(adev, [quiet_adev]), "adev_lln")
     save(adev_figure(adev, [quiet_adev, noisy_adev]), "adev")
+    save(signals_figure(load_signals()), "signals")
 
 
 if __name__ == "__main__":

@@ -271,6 +271,11 @@ HLN_COLOR = NOISE_COLOR
 # 1/sqrt(tau) line.
 SQL_COLOR = GUIDE_COLOR
 SQL_BAND_OPACITIES = (0.4, 0.2)  # 68%, 95%
+# The imprinted-signal scans (Fig. 5a): the phase the light shift put on takes
+# the light shift's green, dashed over the white of what the gradiometer got
+# back out of it.
+IMPRINTED_SIGNAL_COLOR = LIGHT_SHIFT_COLOR
+RECOVERED_SIGNAL_COLOR = SIGNAL_COLOR
 
 # The same data drawn by manim, point by point. Axis text is a notch below the
 # legend size because axis labels run long ("Lower interferometer excitation

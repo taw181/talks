@@ -1,9 +1,10 @@
-"""Excitation-fraction fringes and the Lissajous ellipse from the AION DAI data.
+"""Excitation-fraction fringes, the Lissajous ellipse and the imprinted-signal
+scans from the AION DAI data.
 
-Recreates Fig. 4a-c of Baynham et al., arXiv:2504.09158, in the house
-palette, from the shots ``data_scripts/process_dai_fringes.py`` and the Allan
-deviations ``data_scripts/process_dai_adev.py`` extracted into the package
-data:
+Recreates Fig. 4a-c and 5a of Baynham et al., arXiv:2504.09158, in the house
+palette, from the shots ``data_scripts/process_dai_fringes.py``, the Allan
+deviations ``data_scripts/process_dai_adev.py`` and the likelihood scans
+``data_scripts/process_dai_signals.py`` extracted into the package data:
 
 - ``fringes_figure``: each interferometer's excitation against the clock
   laser phase step, quiet laser above and noisy laser below. Noise on the
@@ -15,6 +16,10 @@ data:
 - ``adev_figure``: the Allan deviation of the differential phase read off
   each run's ellipse, against averaging time. Both runs average down along
   the standard quantum limit, so the laser noise has cancelled.
+- ``signals_figure``: for each of seven sinusoids, 0.1 mHz to 100 mHz,
+  imprinted on the phase by a light shift, the likelihood of a sinusoid
+  fitted to the differential phase against trial frequency, over the
+  periodogram of the drive: the fit finds each one where it was put.
 
 Both return matplotlib Figures; saving them is the caller's business.
 """
@@ -27,9 +32,11 @@ import numpy as np
 
 from aionanim.resources import data_path
 from aionanim.style import (
+    IMPRINTED_SIGNAL_COLOR,
     LOWER_CLOUD_COLOR,
     PLOT_BACKGROUND,
     PLOT_FOREGROUND,
+    RECOVERED_SIGNAL_COLOR,
     SQL_BAND_OPACITIES,
     SQL_COLOR,
     UPPER_CLOUD_COLOR,
@@ -60,6 +67,21 @@ def load(run):
 
 def load_adev():
     return load("adev")
+
+
+def load_signals():
+    """{injected Hz: {"fit" | "true": (f_hz, value)}}, in frequency order."""
+    with open(DATA_DIR / "signals.csv") as f:
+        rows = list(csv.DictReader(line for line in f if not line.startswith("#")))
+    runs = {}
+    for r in rows:
+        curve = runs.setdefault(float(r["injected_hz"]), {}).setdefault(r["curve"], ([], []))
+        curve[0].append(float(r["f_hz"]))
+        curve[1].append(float(r["value"]))
+    return {
+        hz: {k: tuple(np.array(v) for v in c) for k, c in curves.items()}
+        for hz, curves in sorted(runs.items())
+    }
 
 
 def dark_axes(ax):
@@ -174,4 +196,82 @@ def adev_figure(adev, runs):
     ax.set_ylabel(r"Allan deviation of $\delta\phi$ / mrad")
     legend(ax, loc="lower left", markerscale=1)
     fig.tight_layout()
+    return fig
+
+
+# Fig. 5a's tick spacing round each injected frequency, in Hz: the paper's.
+SIGNAL_TICK_STEPS = {
+    1e-4: 25e-6, 3e-4: 30e-6, 1e-3: 0.1e-3, 3e-3: 0.05e-3,
+    1e-2: 0.1e-3, 3e-2: 0.05e-3, 1e-1: 0.05e-3,
+}
+BREAK_MARK = 0.03  # half-length of the slashes where the axis is cut, in axes widths
+# Seven panels across a slide: a wide figure, scaled down, so bigger text.
+SIGNALS_LABEL_SIZE = 22
+SIGNALS_TICK_SIZE = 18
+
+
+def frequency_unit(hz):
+    """(scale, unit) to show frequencies near hz in: uHz below half a mHz."""
+    return (1e6, r"$\mu$Hz") if hz < 5e-4 else (1e3, "mHz")
+
+
+def signals_figure(runs):
+    """One panel per injected frequency, from load_signals()."""
+    fig, axes = plt.subplots(
+        1, len(runs), figsize=(13, 6.4), sharey=True, gridspec_kw=dict(wspace=0.12),
+    )
+    fig.set_facecolor(PLOT_BACKGROUND)
+    for i, (ax, (hz, curves)) in enumerate(zip(axes, runs.items())):
+        # See-through, so a width label can run on over the next panel.
+        ax.patch.set_alpha(0)
+        f_fit, fit = curves["fit"]
+        (recovered,) = ax.plot(
+            f_fit, fit, "-", color=hexed(RECOVERED_SIGNAL_COLOR), lw=1.8,
+            label="Fitted signal",
+        )
+        (imprinted,) = ax.plot(
+            *curves["true"], "--", color=hexed(IMPRINTED_SIGNAL_COLOR), lw=1.8,
+            label="Imprinted signal",
+        )
+        ax.set_xlim(f_fit[0], f_fit[-1])
+
+        # The fit's full width at half maximum, marked across the peak.
+        above = f_fit[fit >= 0.5]
+        fwhm = above[-1] - above[0]
+        ax.plot([above[0], above[-1]], [0.5, 0.5], color=PLOT_FOREGROUND, lw=1.5)
+        ax.text(
+            above[-1] + 0.5 * fwhm, 0.5, f"{1e6 * fwhm:.1f} $\\mu$Hz",
+            color=PLOT_FOREGROUND, fontsize=SIGNALS_TICK_SIZE, ha="left", va="center",
+        )
+
+        dark_axes(ax)
+        ax.tick_params(labelsize=SIGNALS_TICK_SIZE)
+        scale, unit = frequency_unit(hz)
+        step = SIGNAL_TICK_STEPS[hz]
+        ax.set_xticks([hz - step, hz, hz + step])
+        # Only the injected frequency is labelled: the outer ticks' labels
+        # run into the next panel's at slide size, and the widths give scale.
+        ax.set_xticklabels(["", f"{scale * hz:g}", ""])
+        ax.set_xlabel(unit, fontsize=SIGNALS_LABEL_SIZE)
+        ax.set_yticks([])
+        if i:
+            ax.spines["left"].set_visible(False)
+        # The frequency axis is cut between panels: a slash at each cut end.
+        ends = ([1] if i == 0 else [0] if i == len(runs) - 1 else [0, 1])
+        for x in ends:
+            ax.plot(
+                [x - BREAK_MARK, x + BREAK_MARK], [-BREAK_MARK * 3, BREAK_MARK * 3],
+                transform=ax.transAxes, color=PLOT_FOREGROUND, lw=1, clip_on=False,
+            )
+    axes[0].set_ylim(0, 1.5)
+    axes[0].set_ylabel("Signal likelihood / a.u.", fontsize=SIGNALS_LABEL_SIZE)
+    # Fixed margins: tight_layout leaves the figure legend and label out.
+    # The last width label runs past its panel, hence the right margin.
+    fig.subplots_adjust(left=0.05, right=0.94, bottom=0.2, top=0.97)
+    fig.align_xlabels(axes)
+    fig.supxlabel("Frequency", color=PLOT_FOREGROUND, fontsize=SIGNALS_LABEL_SIZE, y=0.02)
+    fig.legend(
+        handles=[recovered, imprinted], loc="upper right", bbox_to_anchor=(0.97, 0.97),
+        frameon=False, labelcolor=PLOT_FOREGROUND, fontsize=SIGNALS_TICK_SIZE,
+    )
     return fig
