@@ -32,8 +32,6 @@ COOL_LEVELS_SCALE = 0.85
 COOL_TIMELINE_CENTER = [3.75, -2.85, 0]
 COOL_HEADING_CORNER = [-6.6, 3.7, 0]  # upper left of the stage heading
 COOL_TEMPERATURE_AT = COOL_MOT_CENTER + [2.9, -1.55, 0]
-COOL_GRAVITY_AT = COOL_MOT_CENTER + [1.35, -0.95, 0]
-COOL_GRAVITY_LENGTH = 0.7
 COOL_N_ATOMS = 140
 COOL_NARROWBAND_INTENSITY = 0.3  # of the beams' starting brightness
 
@@ -84,14 +82,6 @@ class CoolingSequence(Scene):
         up = make_up_beam(TRANSITION_689_COLOR, COOL_MOT_CENTER)
         up_label = Tex("up beam", font_size=FONT_LEGEND, color=TRANSITION_689_COLOR)
         up_label.next_to(up[0].get_bottom(), RIGHT, buff=0.3).shift(UP * 0.05)
-        gravity = VGroup(
-            Arrow(COOL_GRAVITY_AT + UP * COOL_GRAVITY_LENGTH / 2,
-                  COOL_GRAVITY_AT + DOWN * COOL_GRAVITY_LENGTH / 2,
-                  buff=0, stroke_width=4, color=lighten(GUIDE_COLOR),
-                  max_tip_length_to_length_ratio=0.3),
-            MathTex(r"\vec g", font_size=FONT_ANNOTATION, color=lighten(GUIDE_COLOR)),
-        )
-        gravity[1].next_to(gravity[0], RIGHT, buff=0.12)
 
         radius, temperature = COOL_CLOUD["blue_mot"]
         cloud = AtomCloud(COOL_N_ATOMS, COOL_MOT_CENTER,
@@ -131,8 +121,7 @@ class CoolingSequence(Scene):
         heading = self.next_stage(timeline, 2, heading, [
             *levels.drive("689"), fan.shown.animate.set_value(0),
         ])
-        self.play(FadeIn(up), FadeIn(up_label), FadeIn(gravity, shift=DOWN * 0.2),
-                  run_time=COOL_SWITCH_TIME)
+        self.play(FadeIn(up), FadeIn(up_label), run_time=COOL_SWITCH_TIME)
         tag = self.cool(cloud, "narrowband_red_mot", tag,
                         red.animate.set_intensity(COOL_NARROWBAND_INTENSITY),
                         run_time=COOL_RAMP_TIME)
