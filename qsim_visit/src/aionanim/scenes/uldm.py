@@ -199,7 +199,7 @@ class DarkMatterPhase(Scene):
                 font_size=FONT_ANNOTATION,
             ),
             Tex(
-                r"in a gradiometer: the wave's form, with $\varepsilon$ for $h$",
+                r"measured differentially: the wave's form, with $\varepsilon$ for $h$",
                 font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
             ),
         ).arrange(DOWN, buff=0.18).move_to(CP_SCALING)

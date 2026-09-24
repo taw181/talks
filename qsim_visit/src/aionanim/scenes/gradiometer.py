@@ -54,7 +54,7 @@ class Gradiometer(Scene):
         """The pause after each step: nothing here, a click on the slide version."""
 
     def construct(self):
-        gradiometer_frame(self, r"Gradiometer: one laser, two interferometers")
+        gradiometer_frame(self, r"Differential interferometry: one laser, two interferometers")
 
         low = vertices(GR_LOWER_Z, 0.0)
         up = vertices(GR_UPPER_Z, GR_LAG)
