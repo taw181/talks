@@ -41,6 +41,12 @@ VS_PULSE_TIME = 2.5  # the pi pulse transferring the slice
 VS_PUSH_TIME = 2.5
 VS_HOLD = 1.5  # the pause after each step, where a slide stops instead
 
+# The slice's temperature, from the width of its core (see aionanim.tools.slicing).
+# It sits outside the dashed thermal curve, with a leader line in to the slice.
+VS_SLICE_TEMPERATURE = r"T \sim 10\,\mathrm{nK}"
+VS_TEMPERATURE_AT = (9.5, 0.62)  # (u, height) on the plot: the label's left end
+VS_LEADER_TO = (0.9, 0.62)  # the slice's flank, where the leader line ends
+
 
 def caption(text, heading):
     return Tex(text, font_size=FONT_CAPTION, color=lighten(GUIDE_COLOR)).next_to(
@@ -111,6 +117,12 @@ class VelocitySlicing(Scene):
         # --- what is left ---
         step, swap = recaption(step, r"Left: a narrow slice of slow atoms in ${}^3P_0$",
                                heading)
+        temperature = MathTex(VS_SLICE_TEMPERATURE, font_size=FONT_TEMPERATURE,
+                              color=lighten(KICKED_COLOR))
+        temperature.next_to(plot.c2p(*VS_TEMPERATURE_AT), RIGHT, buff=0.1)
+        leader = Line(plot.c2p(*VS_TEMPERATURE_AT), plot.c2p(*VS_LEADER_TO),
+                      stroke_width=2, color=lighten(KICKED_COLOR))
+        temperature = VGroup(temperature, leader)
         self.play(swap, FadeOut(plot.line_shape), FadeOut(plot.line_label),
-                  Create(plot.outline), run_time=VS_SWITCH_TIME)
+                  Create(plot.outline), FadeIn(temperature), run_time=VS_SWITCH_TIME)
         self.stage_break()
