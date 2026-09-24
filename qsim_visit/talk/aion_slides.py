@@ -288,15 +288,15 @@ class Aion10BeecroftSlide(DeckSlide):
 
 
 class AICECernSlide(DeckSlide):
+    """The AICE figure on its own: it carries its own title."""
+
     def construct(self):
-        title = slide_title(r"AICE at CERN")
-        site = load_image(MEDIA / "cern.png", height=6.5)
-        site.next_to(title, DOWN, buff=0.45).set_x(0)
-        self.play(FadeIn(title), FadeIn(site), run_time=0.8)
+        figure = load_image(MEDIA / "aice.png", width=config.frame_width)
+        self.play(FadeIn(figure), run_time=0.8)
 
 
-class LargeMomentumTransferSlide(Clicks, DeckSlide, LargeMomentumTransfer):
-    pass
+class LargeMomentumTransferSlide(DeckSlide, LargeMomentumTransfer):
+    """No stops: the ladder plays straight through."""
 
 
 class LMTResultsSlide(DeckSlide):
@@ -312,14 +312,24 @@ class LMTResultsSlide(DeckSlide):
 
 # --- outro -------------------------------------------------------------------
 class OutroSlide(DeckSlide):
-    """The Sr group and the AION collaboration, Oliver, and the logo."""
+    """Thank you: the Sr lab team down the left; Oliver and the AION logo
+    over the AION collaboration down the right."""
 
     def construct(self):
-        sr_group = load_image(MEDIA / "sr_lab_group.jpg", height=3.5)
-        aion_group = load_image(MEDIA / "aion_group.png", height=3.5)
-        oliver = load_image(MEDIA / "oliver.png", height=3.1)
-        logo = load_image(MEDIA / "aion_logo_on_dark.png", height=1.7)
-        top = Group(sr_group, aion_group).arrange(RIGHT, buff=0.35)
-        bottom = Group(oliver, logo).arrange(RIGHT, buff=1.2)
-        Group(top, bottom).arrange(DOWN, buff=0.35)
-        self.play(FadeIn(top), FadeIn(bottom), run_time=0.8)
+        def labelled(image, text):
+            label = Tex(text, font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR))
+            return Group(image, label.next_to(image, DOWN, buff=0.15))
+
+        title = slide_title(r"Thank you")
+        sr_group = labelled(load_image(MEDIA / "sr_lab_group.jpg", height=5.2),
+                            r"Sr lab team")
+        oliver = labelled(load_image(MEDIA / "oliver.png", height=2.3),
+                          r"Oliver Buchm\"uller, PI")
+        logo = load_image(MEDIA / "aion_logo_on_white.png", height=1.3)
+        aion_group = labelled(load_image(MEDIA / "aion_group.png", width=6.0),
+                              r"AION collaboration")
+        top_right = Group(oliver, logo).arrange(RIGHT, buff=0.6)
+        logo.match_y(oliver[0])
+        right = Group(top_right, aion_group).arrange(DOWN, buff=0.3)
+        Group(sr_group, right).arrange(RIGHT, buff=0.5).next_to(title, DOWN, buff=0.3).set_x(0)
+        self.play(FadeIn(title), FadeIn(sr_group), FadeIn(right), run_time=0.8)
