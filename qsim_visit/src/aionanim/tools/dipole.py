@@ -4,7 +4,7 @@ Side on, each trap is a thin horizontal beam crossed by a shared vertical
 one, the upper trap covered by the transparency beam. The atoms are shared
 out between them by LoadingAtoms, whose knobs are the loading steps; a
 histogram over the ground state's m_F sublevels shows the optical pumping
-that follows, and a pointer and an arrow show the magnetic field.
+that follows, and a pointer marks where the MOT's field zero is.
 """
 
 import numpy as np
@@ -14,7 +14,6 @@ from aionanim.style import *
 from aionanim.tools.cooling import MOT_AXES, chevron
 
 
-BIAS_ARROW_LENGTH = 1.0
 SPIN_HIST_WIDTH = 2.2
 SPIN_HIST_HEIGHT = 1.3  # of a bar holding every atom
 
@@ -69,17 +68,6 @@ def make_field_zero(y, x, color=lighten(GUIDE_COLOR)):
     label = MathTex(r"B = 0", font_size=FONT_LEGEND, color=color)
     label.next_to(pointer, LEFT, buff=0.12)
     return VGroup(pointer, label)
-
-
-def make_bias_arrow(center, length=BIAS_ARROW_LENGTH, color=lighten(GUIDE_COLOR)):
-    """The bias field, horizontal to start with; the label is kept upright
-    and beside it when the arrow is rotated, by an updater."""
-    center = np.array(center, dtype=float)
-    arrow = Arrow(center + LEFT * length / 2, center + RIGHT * length / 2, buff=0,
-                  stroke_width=5, color=color, max_tip_length_to_length_ratio=0.25)
-    label = MathTex(r"\vec B", font_size=FONT_ANNOTATION, color=color)
-    label.add_updater(lambda m: m.next_to(arrow, UR, buff=0.05))
-    return VGroup(arrow, label.update())
 
 
 # --- the atoms ------------------------------------------------------------

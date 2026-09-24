@@ -6,9 +6,9 @@ transparency beam over the upper one. The MOT is held on the upper trap to
 load it; the transparency beam then keeps those atoms dark, out of reach of
 the 689 nm light. The MOT is let go, the hotter atoms drop, the field zero
 is stepped down, and once they reach the lower trap the MOT comes back on
-round it to load that. With both traps full, the MOT goes off, the atoms are optically pumped
-into m_F = +9/2 with swept, circularly polarised 689 nm light, and the bias
-field is turned to point along the clock beam, ready for interferometry.
+round it to load that. With both traps full, the MOT goes off and the atoms
+are optically pumped into m_F = +9/2 with swept, circularly polarised
+689 nm light.
 
 As in CoolingSequence, the level scheme lights the light that is on, the
 timeline's next three blocks track the stage, and nothing is quantified
@@ -24,7 +24,6 @@ from aionanim.tools.dipole import (
     SpinHistogram,
     gaussian_band,
     gaussian_spot,
-    make_bias_arrow,
     make_field_zero,
     make_mot_glow,
 )
@@ -43,7 +42,6 @@ DT_VERTICAL_SPAN = (-4.1, 1.9)  # it runs off the bottom and stops short of the 
 DT_TRANSPARENCY_RADIUS = 0.42
 DT_ZERO_X = DT_X - DT_HORIZONTAL_HALF - 0.15  # the B = 0 pointer's tip
 DT_MOT_RADIUS = 2.6
-DT_BIAS_CENTER = [0.25, -0.45, 0]
 DT_HISTOGRAM_CENTER = [0.8, -2.5, 0]
 DT_LEVELS_CENTER = [3.95, 1.3, 0]
 DT_LEVELS_SCALE = 0.72
@@ -57,7 +55,6 @@ DT_LOAD_TIME = 3.0  # each trap's loading
 DT_FALL_TIME = 1.8
 DT_RECAPTURE_TIME = 1.5
 DT_PUMP_TIME = 3.0
-DT_RAMP_TIME = 2.0  # the bias field turning to the clock beam's axis
 DT_HOLD = 1.5  # the pause after each stage, where a slide stops instead
 
 
@@ -102,7 +99,6 @@ class DipoleTrapLoading(Scene):
         mot = make_mot_glow(mot_center, DT_MOT_RADIUS)
         zero = make_field_zero(DT_UPPER_Y, DT_ZERO_X)
         atoms = LoadingAtoms(DT_N_ATOMS, DT_UPPER, DT_LOWER)
-        bias = make_bias_arrow(DT_BIAS_CENTER)
         histogram = SpinHistogram().move_to(DT_HISTOGRAM_CENTER)
 
         # where CoolingSequence left off: a small red MOT, all the light but the 689 off
@@ -148,18 +144,17 @@ class DipoleTrapLoading(Scene):
                                         r"MOT off; pumped into $m_F = +\tfrac{9}{2}$")
         self.play(FadeOut(mot), FadeOut(zero), FadeOut(transparency),
                   FadeOut(transparency_label), atoms.glow_lower.animate.set_value(0),
-                  FadeIn(bias), FadeIn(histogram),
+                  FadeIn(histogram),
                   *levels.drive("679", "707", "return"), run_time=DT_SWITCH_TIME)
         # the atoms light up faintly while they scatter the pumping light
         self.play(fan.shown.animate.set_value(1),
                   atoms.glow_upper.animate.set_value(0.5),
                   atoms.glow_lower.animate.set_value(0.5), run_time=0.6)
         self.play(histogram.pump.animate.set_value(1), run_time=DT_PUMP_TIME)
-        step = self.recaption(step, r"bias field turned to the clock beam's axis", heading)
+        # the pumping light goes off, leaving only the traps
         self.play(fan.shown.animate.set_value(0), *levels.drive(),
                   atoms.glow_upper.animate.set_value(0),
                   atoms.glow_lower.animate.set_value(0), run_time=0.6)
-        self.play(Rotate(bias[0], PI / 2), run_time=DT_RAMP_TIME)
         self.stage_break()
 
     def recaption(self, step, text, heading):
