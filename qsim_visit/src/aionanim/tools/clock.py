@@ -359,7 +359,7 @@ def readout_equation(center=CP_READOUT):
 
 
 def show_phase_budget(scene, center, laser_struck, laser_label,
-                      difference_lhs=None, max_width=None):
+                      difference_lhs=None, max_width=None, eq=None):
     """Phi split into its two terms, each marked with what it is worth.
 
     The separation phase is the third term of the usual decomposition and is
@@ -376,10 +376,13 @@ def show_phase_budget(scene, center, laser_struck, laser_label,
     striking a term out as cancelled only means anything once that difference
     is what is being written down. The Delta lands on every term on the right
     as well, because that is where subtracting the two budgets puts it.
-    `max_width` is the clear span the result has to fit into.
+    `max_width` is the clear span the result has to fit into. `eq` is a
+    budget already on screen, to be marked where it stands rather than written
+    again.
     """
-    eq = budget_equation(r"\Phi").move_to(center)
-    scene.play(Write(eq), run_time=1.4)
+    if eq is None:
+        eq = budget_equation(r"\Phi").move_to(center)
+        scene.play(Write(eq), run_time=1.4)
 
     if difference_lhs is not None:
         wide = budget_equation(difference_lhs, r"\Delta").move_to(center)

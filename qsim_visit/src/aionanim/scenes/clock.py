@@ -6,8 +6,10 @@ that arm is excited, but what the last pulse reads out is the angle between
 the two hands, and a symmetric interferometer comes back to zero. The
 gradiometer then compares two such clocks at opposite ends of the baseline
 through one laser, and the wave changes the light travel time between them.
-ClockPhaseTerms is the same scene with the phase budget on the end, naming the
-laser term the gradiometer exists to cancel.
+The readout is written as what it is made of, Phi = Phi_interferometer +
+Phi_laser, and it is the first term that the symmetric clock zeroes.
+ClockPhaseTerms is the same scene with that budget marked up, naming the laser
+term the gradiometer exists to cancel.
 """
 
 import numpy as np
@@ -21,6 +23,7 @@ from aionanim.tools.clock import (
     CP_T,
     CP_T0,
     CP_Z,
+    budget_equation,
     clock_rate,
     dial_hand,
     draw_ports,
@@ -37,7 +40,7 @@ from aionanim.tools.primitives import (
 )
 
 
-# where ClockPhaseTerms puts the budget: the open band between the note and
+# where the budget goes: the open band between the note and
 # the interferometer, left of the dial
 CP_TERMS = np.array([-2.3, 2.0, 0.0])
 
@@ -153,8 +156,18 @@ class ClockPhase(Scene):
         self.play(Write(readout_equation()), run_time=1.0)
         self.beat()
 
+        # What the ports have just read out, term by term. The note has said
+        # its piece, and the band it sits in is the only one wide enough for
+        # the equation.
+        self.play(FadeOut(note), run_time=0.5)
+        budget = budget_equation(r"\Phi").move_to(CP_TERMS)
+        self.play(Write(budget), run_time=1.4)
+        self.beat()
+
+        # The symmetric clock zeroes the atoms' term, not the whole phase: the
+        # laser writes its phase in whatever the arms do.
         result = VGroup(
-            MathTex(r"\Phi = 0", font_size=FONT_STATE),
+            MathTex(r"\Phi_{\text{interferometer}} = 0", font_size=FONT_STATE),
             Tex(
                 # Kept short so it stays under the dial and clear of the
                 # ports' own labels off to the left.
@@ -165,17 +178,17 @@ class ClockPhase(Scene):
         self.play(Flash(dial[0], **{**FLASH_STYLE, "color": AREA_COLOR}), run_time=0.5)
         self.play(FadeIn(result), run_time=1.0)
         self.wait(2.0)
-        self.phase_budget(note, result)
+        self.phase_budget(budget)
 
-    def phase_budget(self, note, result):
-        """Hook: ClockPhaseTerms breaks the measured phase into its terms here.
+    def phase_budget(self, budget):
+        """Hook: ClockPhaseTerms marks up what each term of the phase is worth.
 
         A no-op in this scene, so the plain version stays the short one.
         """
 
 
 class ClockPhaseTerms(ClockPhase):
-    """ClockPhase, and then what the phase it just read out is made of.
+    """ClockPhase, and then what each term of the phase it read out is worth.
 
     Phi = Phi_interferometer + Phi_laser, with the separation term of the
     usual decomposition neglected as it is everywhere else in this talk. The
@@ -188,10 +201,9 @@ class ClockPhaseTerms(ClockPhase):
     make, and this is where the term it cancels gets named.
     """
 
-    def phase_budget(self, note, result):
-        # The note has said its piece, and the band it sits in is the only one
-        # wide enough for the equation.
+    def phase_budget(self, budget):
         self.beat()
-        self.play(FadeOut(note), run_time=0.5)
-        show_phase_budget(self, CP_TERMS, laser_struck=False, laser_label=r"noisy")
+        show_phase_budget(
+            self, CP_TERMS, laser_struck=False, laser_label=r"noisy", eq=budget
+        )
         self.wait(2.5)
