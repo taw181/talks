@@ -30,11 +30,12 @@ DECK=(
     CoolingSequenceSlide
     DipoleTrapLoadingSlide
     VelocitySlicingSlide
+    SignalInjectionSlide
     LightShiftSignalSlide
-    FringesFirstSlide
-    FringesFirstNoisySlide
+    LaserNoiseLissajousSlide
     ExtractedSignalSlide
     # future plans
+    FuturePlansSlide
     Aion10BeecroftSlide
     AICECernSlide
     LargeMomentumTransferSlide

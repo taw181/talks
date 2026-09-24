@@ -286,6 +286,9 @@ class FringesFirstNoisy(Noisy, FringesFirst):
 
 
 class LaserNoiseLissajous(Scene):
+    def beat(self):
+        """The pause after each step: nothing here, a click on the slide version."""
+
     def construct(self):
         quiet, noisy = load("lln"), load("hln")
         liss_axes, liss_frame = lissajous_plot()
@@ -313,8 +316,10 @@ class LaserNoiseLissajous(Scene):
         self.play(FadeIn(quiet_title), FadeIn(key), FadeIn(big_frame),
                   FadeIn(dimmed), FadeIn(liss_frame), FadeIn(runs_key[0]),
                   run_time=1.0)
+        self.beat()
         build(self, count, clouds, rings)
         self.wait(1.0)
+        self.beat()
 
         # --- shrink it to the top panel
         top_axes, top_frame = fringe_plot(
@@ -346,5 +351,6 @@ class LaserNoiseLissajous(Scene):
         )
         self.play(FadeIn(noisy_title), FadeIn(low_frame), FadeIn(dimmed),
                   FadeIn(runs_key[1]), run_time=1.0)
+        self.beat()
         build(self, count, clouds, rings)
         self.wait(2.0)

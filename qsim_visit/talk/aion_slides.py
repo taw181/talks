@@ -30,8 +30,8 @@ from manim_slides import Slide
 from aionanim.style import *
 from aionanim.scenes.clock import ClockPhaseTerms
 from aionanim.scenes.cooling import CoolingSequence
-from aionanim.scenes.dai_data import FringesFirst, FringesFirstNoisy
-from aionanim.scenes.dipole import DipoleTrapLoading
+from aionanim.scenes.dai_data import LaserNoiseLissajous
+from aionanim.scenes.dipole import DipoleTrapLoading, SignalInjection
 from aionanim.scenes.gradiometer import Gradiometer
 from aionanim.scenes.gradiometer_gw import GradiometerGWStretch
 from aionanim.scenes.gravitational_waves import BlackHoleMerger, MergerOnSensitivityPlot
@@ -234,12 +234,13 @@ class LightShiftSignalSlide(Clicks, DeckSlide, LightShiftSignal):
     pass
 
 
-class FringesFirstSlide(Clicks, DeckSlide, FringesFirst):
+class SignalInjectionSlide(LoopingStages, DeckSlide, SignalInjection):
     pass
 
 
-class FringesFirstNoisySlide(Clicks, DeckSlide, FringesFirstNoisy):
-    pass
+class LaserNoiseLissajousSlide(Clicks, DeckSlide, LaserNoiseLissajous):
+    """The quiet run full size, then shrunk to the top panel with the noisy
+    run below it, both onto the one Lissajous plot."""
 
 
 class ExtractedSignalSlide(DeckSlide):
@@ -251,15 +252,37 @@ class ExtractedSignalSlide(DeckSlide):
 
 
 # --- future plans ---------------------------------------------------------
+class SectionSlide(DeckSlide):
+    """A section's title, numbered as it is in the outline."""
+
+    SECTION = None  # one of SECTIONS
+
+    def construct(self):
+        number = SECTIONS.index(self.SECTION) + 1
+        title = VGroup(
+            Tex(f"{number}.", font_size=FONT_DECK_TITLE, color=lighten(GUIDE_COLOR)),
+            Tex(self.SECTION, font_size=FONT_DECK_TITLE),
+        ).arrange(RIGHT, buff=0.35)
+        self.play(FadeIn(title), run_time=0.8)
+
+
+class FuturePlansSlide(SectionSlide):
+    SECTION = r"Future plans"
+
+
 class Aion10BeecroftSlide(DeckSlide):
-    """The building, then the layout of the shaft inside it."""
+    """The stairwell, then the building cut away round it, then the layout of
+    the shaft -- laid out as the row they end up in, so nothing moves."""
 
     def construct(self):
         title = slide_title(r"AION-10 in the Beecroft building")
-        building = load_image(MEDIA / "beecroft.png", height=6.2)
-        shaft = load_image(MEDIA / "shaft_diagram.png", height=6.2)
-        Group(building, shaft).arrange(RIGHT, buff=0.7).move_to(DOWN * 0.45)
-        self.play(FadeIn(title), FadeIn(building), run_time=0.8)
+        stairwell = load_image(MEDIA / "stairwell.jpg", height=4.9)
+        building = load_image(MEDIA / "beecroft.png", height=4.9)
+        shaft = load_image(MEDIA / "shaft_diagram.png", height=4.9)
+        Group(stairwell, building, shaft).arrange(RIGHT, buff=0.3).move_to(DOWN * 0.45)
+        self.play(FadeIn(title), FadeIn(stairwell), run_time=0.8)
+        self.next_slide()
+        self.play(FadeIn(building, shift=LEFT * 0.3), run_time=0.8)
         self.next_slide()
         self.play(FadeIn(shaft, shift=LEFT * 0.3), run_time=0.8)
 
