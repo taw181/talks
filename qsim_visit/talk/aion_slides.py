@@ -283,6 +283,17 @@ class ChamberSlide(DeckSlide):
         self.play(FadeIn(label[1], shift=LEFT * 0.2), run_time=0.6)
 
 
+class AIONChambersSlide(DeckSlide):
+    """The same chamber built at each AION site in 2022: the photos carry
+    their own captions."""
+
+    def construct(self):
+        title = slide_title(r"AION chambers across the UK")
+        figure = load_image(MEDIA / "aion_chambers.png", height=6.9)
+        figure.next_to(title, DOWN, buff=0.25).set_x(0)
+        self.play(FadeIn(title), FadeIn(figure), run_time=0.8)
+
+
 
 
 

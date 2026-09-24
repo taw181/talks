@@ -20,6 +20,7 @@ DarkMatterPhaseSlide
 # our prototype device
 AIONCollabSlide
 ChamberSlide
+AIONChambersSlide
 CoolingSequenceSlide
 DipoleTrapLoadingSlide
 VelocitySlicingSlide
