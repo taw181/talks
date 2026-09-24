@@ -384,11 +384,11 @@ MOT_BEAM_OPACITY = 0.2  # fill, at full intensity
 MOT_BEAM_EDGE_OPACITY = 0.8  # the arrowhead chevrons, at full intensity
 MOT_BEAM_EDGE_WIDTH = 3
 COIL_COLOR = OPTIC_COLOR
-COIL_STRONG_WIDTH = 9  # the blue MOT's gradient
+COIL_STRONG_WIDTH = 7  # the blue MOT's gradient
 COIL_WEAK_WIDTH = 3  # the red MOTs', some ten times weaker
 # An atom in a MOT glows in the colour of the light it scatters; one that has
 # fallen into a state no beam addresses is dark.
 CLOUD_DOT_RADIUS = 0.045
 DARK_ATOM_COLOR = GUIDE_COLOR
-DARK_ATOM_OPACITY = 0.5
+DARK_ATOM_OPACITY = 0.8
 FONT_TEMPERATURE = FONT_ANNOTATION
