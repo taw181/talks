@@ -325,3 +325,44 @@ GW_TRACK_CROWD_WIDTH = 2
 GW_BAND_EDGE_STYLE = dict(
     dash_length=0.1, stroke_width=2, stroke_opacity=0.6, color=PLOT_FOREGROUND
 )
+
+
+# --- the experimental sequence --------------------------------------------
+# One shot of the experiment laid out as a timeline, with the Sr level scheme
+# beside it showing which transition each stage drives. The timeline keeps
+# the colours of the group's own sequence figure (fill, edge), so it reads as
+# the same diagram the audience may already have seen.
+SEQUENCE_STAGE_COLORS = {
+    "blue_mot": ("#80b3ff", "#0066ff"),
+    "modulated_red_mot": ("#ff5555", "#d40000"),
+    "narrowband_red_mot": ("#e9afaf", "#c83737"),
+    "upper_dipole_trap": ("#afe9dd", "#37c8ab"),
+    "lower_dipole_trap": ("#ddafe9", "#ac39c8"),
+    "spin_polarization": ("#d7f4d7", "#37c837"),
+    "velocity_slicing": ("#ffe680", "#d4aa00"),
+    "differential_interferometry": ("#ffaacc", "#aa0044"),
+    "state_readout": ("#aaaaff", "#0000ff"),
+}
+# The transitions take the hues of the usual Sr level diagram -- blue for the
+# 461 nm line, magenta for 689 nm -- except the clock line, which is the
+# interferometer's laser and so keeps the laser red it has everywhere else.
+# Magenta samples well clear of both that red and the purple of |e>.
+TRANSITION_461_COLOR = ManimColor("#5b7cff")
+TRANSITION_689_COLOR = ManimColor("#ff5fd2")
+TRANSITION_698_COLOR = LASER_COLOR
+TRANSITION_IDLE_STYLE = dict(stroke_width=3, color=lighten(GUIDE_COLOR))
+TRANSITION_ACTIVE_WIDTH = 7
+# A stage still to come is faint, one already run half lit, the one running
+# fully lit and ringed.
+TIMELINE_AHEAD_OPACITY = 0.22
+TIMELINE_DONE_OPACITY = 0.5
+TIMELINE_ACTIVE_RING = dict(color=WHITE, width=4)
+FONT_TIMELINE = 20
+FONT_REFERENCE = 18
+REFERENCE_IDLE_OPACITY = 0.4
+# The imaging stops once the lower trap is loaded; the stages after it carry
+# on over its last frame, dimmed, so the frame stays as a reminder of where
+# the atoms are.
+VIDEO_DIM_OPACITY = 0.5  # of the background-coloured veil drawn over it
+VIDEO_BORDER_STYLE = dict(stroke_width=2, color=lighten(GUIDE_COLOR))
+FONT_VIDEO_CLOCK = 24
