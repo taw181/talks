@@ -27,6 +27,7 @@ VelocitySlicingSlide
 SignalInjectionSlide
 LightShiftSignalSlide
 LaserNoiseLissajousSlide
+AllanDeviationSlide
 ExtractedSignalSlide
 # future plans
 FuturePlansSlide

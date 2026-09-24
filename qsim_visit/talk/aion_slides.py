@@ -322,6 +322,24 @@ class LaserNoiseLissajousSlide(Clicks, DeckSlide, LaserNoiseLissajous):
     run below it, both onto the one Lissajous plot."""
 
 
+class AllanDeviationSlide(DeckSlide):
+    """The differential phase's Allan deviation, built up as in
+    plot_scripts/interferometer_data.py: the standard quantum limit alone,
+    then the quiet run on it, then the noisy run beside it."""
+
+    def construct(self):
+        title = slide_title(r"Allan deviation")
+        steps = [load_image(FIGURES / f"{name}.png", height=6.6)
+                 for name in ("adev_sql", "adev_lln", "adev")]
+        for step in steps:
+            step.next_to(title, DOWN, buff=0.2).set_x(0)
+        self.play(FadeIn(title), FadeIn(steps[0]), run_time=0.8)
+        for previous, step in zip(steps, steps[1:]):
+            self.next_slide()
+            self.play(FadeIn(step), run_time=0.6)
+            self.remove(previous)
+
+
 class ExtractedSignalSlide(DeckSlide):
     """Fig. 5a redrawn: each imprinted frequency found where it was put."""
 
