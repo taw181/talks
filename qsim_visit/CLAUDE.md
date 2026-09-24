@@ -12,7 +12,7 @@ The project is two layers, because the general part gets spun out as its own pac
   - `tools/<topic>.py` — helpers and the geometry they use (defaults bind at def time); `scenes/<topic>.py` — Scene classes and layout only they use; `physics/` — numbers, no manim; `plots/` — matplotlib figure builders; `data/` — CSVs and images read via `aionanim.resources.data_path` (sources/licences in `data/README.md`).
   - Nothing in the package may import `manim_slides` or refer to talk files.
 - `talk/` — only what is specific to this talk: `aion_slides.py` (every slide: `Slide` wrappers, static photo/figure slides, talk-only tweaks done by subclassing a package scene), `deck.sh` (the deck's order), `media/` (its pictures and video).
-  - Slide stops: a package scene calls a no-op hook (`beat()`; the sequence scenes' `stage_break()`) at each beat, and `aion_slides.py`'s `Clicks` / `LoopingStages` mixins turn it into `next_slide()`. Where a subclass rewrites `construct`/`fly` without `super()`, the calls go in both.
+  - Slide stops: a package scene calls a no-op hook (`beat()`; the sequence scenes' `stage_break()`) at each beat, and `aion_slides.py`'s `Clicks` / `LoopingStages` mixins turn it into `next_slide()`. Where a subclass rewrites `construct`/`fly` without `super()`, the calls go in both. Every slide derives from `DeckSlide`, whose short `wait_time_between_slides` hold makes a slide stop on its finished frame (manim only draws an animation's last frame when the next one starts).
 - Talk-side support: `plot_scripts/` save `aionanim.plots` figures into `figures/`; `data_scripts/` regenerate package data; `notes/` holds exported transcripts.
 
 Working rules:

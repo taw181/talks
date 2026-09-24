@@ -61,9 +61,27 @@ TITLE_VIDEO_FPS = 15
 TITLE_VEIL_OPACITY = 0.55
 # None until the LMT results figure exists; then its path under talk/media/.
 LMT_RESULTS_IMAGE = None
+# How long each slide holds its last frame before it stops. Manim only draws
+# an animation's final frame when the next one starts, so without this a slide
+# freezes a frame short -- atoms a hair before their vertex -- and jumps the
+# rest of the way on the click. Anything over one frame at 15 fps will do.
+SLIDE_SETTLE = 0.1
 
 
 # --- how a scene's hooks become slide breaks -------------------------------
+class DeckSlide(Slide):
+    """Every slide in the deck: a Slide that stops on its finished frame.
+
+    Looping slides are left without the settling hold: their last frame is
+    their first, so the one manim leaves out is the one a loop would repeat.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.wait_time_between_slides = SLIDE_SETTLE
+        self.wait_between_looping_slides = False
+
+
 class Clicks:
     """beat() stops and waits for the presenter."""
 
@@ -81,7 +99,7 @@ class LoopingStages:
 
 
 # --- intro -------------------------------------------------------------------
-class TitleSlide(Slide):
+class TitleSlide(DeckSlide):
     """The title over the blue MOT, with the video running for as long as the
     slide is up: driven forwards and then backwards, so the loop has no seam."""
 
@@ -113,7 +131,8 @@ class TitleSlide(Slide):
             Tex(AUTHOR, font_size=FONT_DECK_BYLINE),
             Tex(VENUE, font_size=FONT_DECK_BYLINE, color=lighten(GUIDE_COLOR)),
         ).arrange(DOWN, buff=0.18)
-        VGroup(title, byline).arrange(DOWN, buff=0.7).shift(DOWN * 0.2)
+        # In the bottom half, clear of the MOT near the middle of the frame.
+        VGroup(title, byline).arrange(DOWN, buff=0.5).to_edge(DOWN, buff=0.6)
 
         self.add(video, veil)
         self.next_slide(auto_next=True)  # straight on into the loop
@@ -131,28 +150,29 @@ class TitleSlide(Slide):
         )
 
 
-class ContentsSlide(Slide):
+class ContentsSlide(DeckSlide):
     def construct(self):
         contents = numbered_list(SECTIONS).move_to(DOWN * 0.2)
         self.play(FadeIn(slide_title(r"Outline")), FadeIn(contents), run_time=0.8)
 
 
 # --- motivation --------------------------------------------------------------
-class BlackHoleMergerSlide(Clicks, Slide, BlackHoleMerger):
+class BlackHoleMergerSlide(DeckSlide, BlackHoleMerger):
+    """No stops: the merger plays straight through from the moment the slide
+    comes up, and holds on the settled sheet as the slide's own end."""
+
+
+class MergerOnSensitivityPlotSlide(Clicks, DeckSlide, MergerOnSensitivityPlot):
     pass
 
 
-class MergerOnSensitivityPlotSlide(Clicks, Slide, MergerOnSensitivityPlot):
-    pass
-
-
-class SensitivityLandscapeSlide(Clicks, Slide, SensitivityBuildUp):
+class SensitivityLandscapeSlide(Clicks, DeckSlide, SensitivityBuildUp):
     """The landscape without AEDGE: AION-km is the one gap filler here."""
 
     GAP_FILLERS = ("AION-km",)
 
 
-class DarkMatterFieldSlide(Slide, DarkMatterField):
+class DarkMatterFieldSlide(DeckSlide, DarkMatterField):
     def hold(self):
         self.next_slide(loop=True)
         super().hold()
@@ -160,27 +180,27 @@ class DarkMatterFieldSlide(Slide, DarkMatterField):
 
 
 # --- how atom interferometry works -----------------------------------------
-class SinglePhotonMachZehnderSlide(Clicks, Slide, SinglePhotonMachZehnder):
+class SinglePhotonMachZehnderSlide(Clicks, DeckSlide, SinglePhotonMachZehnder):
     pass
 
 
-class ClockPhaseTermsSlide(Clicks, Slide, ClockPhaseTerms):
+class ClockPhaseTermsSlide(Clicks, DeckSlide, ClockPhaseTerms):
     pass
 
 
-class DarkMatterPhaseSlide(Clicks, Slide, DarkMatterPhase):
+class DarkMatterPhaseSlide(Clicks, DeckSlide, DarkMatterPhase):
     pass
 
 
-class GradiometerSlide(Clicks, Slide, Gradiometer):
+class GradiometerSlide(Clicks, DeckSlide, Gradiometer):
     pass
 
 
-class GradiometerGWStretchSlide(Clicks, Slide, GradiometerGWStretch):
+class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretch):
     pass
 
 
-class AIONCollabSlide(Slide):
+class AIONCollabSlide(DeckSlide):
     """Who AION are and where, then the baseline they are building."""
 
     def construct(self):
@@ -198,31 +218,31 @@ class AIONCollabSlide(Slide):
 
 
 # --- our prototype device -------------------------------------------------
-class CoolingSequenceSlide(LoopingStages, Slide, CoolingSequence):
+class CoolingSequenceSlide(LoopingStages, DeckSlide, CoolingSequence):
     pass
 
 
-class DipoleTrapLoadingSlide(LoopingStages, Slide, DipoleTrapLoading):
+class DipoleTrapLoadingSlide(LoopingStages, DeckSlide, DipoleTrapLoading):
     pass
 
 
-class VelocitySlicingSlide(LoopingStages, Slide, VelocitySlicing):
+class VelocitySlicingSlide(LoopingStages, DeckSlide, VelocitySlicing):
     pass
 
 
-class LightShiftSignalSlide(Clicks, Slide, LightShiftSignal):
+class LightShiftSignalSlide(Clicks, DeckSlide, LightShiftSignal):
     pass
 
 
-class FringesFirstSlide(Clicks, Slide, FringesFirst):
+class FringesFirstSlide(Clicks, DeckSlide, FringesFirst):
     pass
 
 
-class FringesFirstNoisySlide(Clicks, Slide, FringesFirstNoisy):
+class FringesFirstNoisySlide(Clicks, DeckSlide, FringesFirstNoisy):
     pass
 
 
-class ExtractedSignalSlide(Slide):
+class ExtractedSignalSlide(DeckSlide):
     def construct(self):
         title = slide_title(r"Extracted signals")
         figure = load_image(MEDIA / "extracted_signal.png", width=12.0)
@@ -231,7 +251,7 @@ class ExtractedSignalSlide(Slide):
 
 
 # --- future plans ---------------------------------------------------------
-class Aion10BeecroftSlide(Slide):
+class Aion10BeecroftSlide(DeckSlide):
     """The building, then the layout of the shaft inside it."""
 
     def construct(self):
@@ -244,7 +264,7 @@ class Aion10BeecroftSlide(Slide):
         self.play(FadeIn(shaft, shift=LEFT * 0.3), run_time=0.8)
 
 
-class AICECernSlide(Slide):
+class AICECernSlide(DeckSlide):
     def construct(self):
         title = slide_title(r"AICE at CERN")
         site = load_image(MEDIA / "cern.png", height=6.5)
@@ -252,11 +272,11 @@ class AICECernSlide(Slide):
         self.play(FadeIn(title), FadeIn(site), run_time=0.8)
 
 
-class LargeMomentumTransferSlide(Clicks, Slide, LargeMomentumTransfer):
+class LargeMomentumTransferSlide(Clicks, DeckSlide, LargeMomentumTransfer):
     pass
 
 
-class LMTResultsSlide(Slide):
+class LMTResultsSlide(DeckSlide):
     def construct(self):
         title = slide_title(r"Large momentum transfer: results")
         if LMT_RESULTS_IMAGE is None:
@@ -268,7 +288,7 @@ class LMTResultsSlide(Slide):
 
 
 # --- outro -------------------------------------------------------------------
-class OutroSlide(Slide):
+class OutroSlide(DeckSlide):
     """The Sr group and the AION collaboration, Oliver, and the logo."""
 
     def construct(self):
