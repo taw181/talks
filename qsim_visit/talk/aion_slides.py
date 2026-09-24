@@ -289,9 +289,9 @@ class Aion10BeecroftSlide(DeckSlide):
     the shaft -- laid out as the row they end up in, so nothing moves."""
 
     def construct(self):
-        title = slide_title(r"AION-10 in the Beecroft building")
+        title = slide_title(r"AION-10 at Oxford")
         stairwell = load_image(MEDIA / "stairwell.jpg", height=4.9)
-        building = load_image(MEDIA / "beecroft.png", height=4.9)
+        building = load_image(MEDIA / "beecroft.jpeg", height=4.9)
         shaft = load_image(MEDIA / "shaft_diagram.png", height=4.9)
         Group(stairwell, building, shaft).arrange(RIGHT, buff=0.3).move_to(DOWN * 0.45)
         self.play(FadeIn(title), FadeIn(stairwell), run_time=0.8)
