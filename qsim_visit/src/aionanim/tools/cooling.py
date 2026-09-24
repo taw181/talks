@@ -27,7 +27,7 @@ COIL_ARROW_LENGTH = 0.5
 UP_BEAM_WIDTH = 0.6 * MOT_BEAM_WIDTH  # narrower, so it shows inside the down beam
 
 
-def _chevron(direction, tip, color, size=MOT_BEAM_WIDTH * 0.45):
+def chevron(direction, tip, color, size=MOT_BEAM_WIDTH * 0.45):
     """An open arrowhead: two strokes meeting at ``tip``, pointing along ``direction``."""
     d = normalize(direction)
     n = rotate_vector(d, PI / 2)
@@ -57,7 +57,7 @@ class MotBeams(VGroup):
                 .rotate(angle * DEGREES).move_to(center)
             )
             for sign in (1, -1):
-                self.heads.add(_chevron(-sign * d, center + sign * d * reach * MOT_CHEVRON_AT,
+                self.heads.add(chevron(-sign * d, center + sign * d * reach * MOT_CHEVRON_AT,
                                         color))
         self.add(self.bands, self.heads)
         self.set_intensity(1.0)
@@ -77,7 +77,7 @@ def make_up_beam(color, center, reach=MOT_BEAM_REACH):
                      fill_color=color, fill_opacity=2 * MOT_BEAM_OPACITY)
     band.move_to(center + DOWN * reach / 2)
     heads = VGroup(*[
-        _chevron(UP, center + DOWN * reach * f, color, size=UP_BEAM_WIDTH * 0.45)
+        chevron(UP, center + DOWN * reach * f, color, size=UP_BEAM_WIDTH * 0.45)
         for f in (0.35, 0.5)
     ])
     return VGroup(band, heads)

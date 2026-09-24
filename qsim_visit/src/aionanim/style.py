@@ -351,6 +351,10 @@ SEQUENCE_STAGE_COLORS = {
 TRANSITION_461_COLOR = ManimColor("#5b7cff")
 TRANSITION_689_COLOR = ManimColor("#f01c24")
 TRANSITION_698_COLOR = LASER_COLOR
+# The transparency beam is a laser switched on to light-shift a level, which
+# is what the light-shift green already means in the talk -- and 488 nm is
+# blue-green anyway.
+TRANSITION_488_COLOR = LIGHT_SHIFT_COLOR
 TRANSITION_IDLE_STYLE = dict(stroke_width=3, color=lighten(GUIDE_COLOR))
 TRANSITION_ACTIVE_WIDTH = 7
 # The blue MOT's two repumps (679 and 707 nm), which are always on together
@@ -393,3 +397,18 @@ CLOUD_DOT_RADIUS = 0.045
 DARK_ATOM_COLOR = GUIDE_COLOR
 DARK_ATOM_OPACITY = 0.8
 FONT_TEMPERATURE = FONT_ANNOTATION
+
+
+# --- dipole traps ---------------------------------------------------------
+# The trap beams are far off every resonance, so they drive nothing on the
+# level scheme and take no transition colour: a pale warm white, the colour
+# of light that holds atoms rather than addressing them. Drawn as nested
+# translucent bands so a beam reads as a Gaussian profile, and faint, because
+# the atoms have to show up inside them.
+TRAP_BEAM_COLOR = ManimColor("#f3e3c8")
+TRAP_BEAM_OPACITY = 0.3  # on the beam axis
+TRAP_BEAM_LAYERS = 4
+TRANSPARENCY_OPACITY = 0.35
+MOT_GLOW_OPACITY = 0.22  # the red MOT's light, at its centre, beside the traps
+MOT_GLOW_LAYERS = 8
+FONT_CAPTION = FONT_LEGEND  # the step within a stage, under its heading
