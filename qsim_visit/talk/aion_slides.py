@@ -43,7 +43,7 @@ from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
 from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhase
 from aionanim.scenes.uldm_scale import DarkMatterScale
-from aionanim.tools.layout import load_image, numbered_list, placeholder_frame, slide_title
+from aionanim.tools.layout import load_image, numbered_list, slide_title
 from aionanim.tools.video import VideoFrame, load_video_frames
 
 MEDIA = Path(__file__).parent / "media"
@@ -64,8 +64,6 @@ SECTIONS = (
 # it the veil over it takes back so the title reads.
 TITLE_VIDEO_FPS = 15
 TITLE_VEIL_OPACITY = 0.55
-# None until the LMT results figure exists; then its path under talk/media/.
-LMT_RESULTS_IMAGE = None
 # How long each slide holds its last frame before it stops. Manim only draws
 # an animation's final frame when the next one starts, so without this a slide
 # freezes a frame short -- atoms a hair before their vertex -- and jumps the
@@ -335,13 +333,12 @@ class LargeMomentumTransferSlide(DeckSlide, LargeMomentumTransfer):
 
 
 class LMTResultsSlide(DeckSlide):
+    """The upper/lower Lissajous ellipses from 1 to 71 LMT pulses."""
+
     def construct(self):
         title = slide_title(r"Large momentum transfer: results")
-        if LMT_RESULTS_IMAGE is None:
-            figure = placeholder_frame(10.5, 5.6, r"LMT results")
-        else:
-            figure = load_image(MEDIA / LMT_RESULTS_IMAGE, height=5.6)
-        figure.move_to(DOWN * 0.4)
+        figure = load_image(MEDIA / "lmt_ellipses.png", width=13.0)
+        figure.next_to(title, DOWN, buff=0.35).set_x(0)
         self.play(FadeIn(title), FadeIn(figure), run_time=0.8)
 
 
