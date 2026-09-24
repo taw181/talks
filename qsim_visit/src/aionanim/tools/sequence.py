@@ -93,14 +93,20 @@ LV_1P1_X = (-2.3, -1.1)
 LV_3P_X = (1.75, 2.9)
 
 # name, upper level, wavelength, colour, arrow start and end, which side of
-# the arrow its label goes
+# the arrow its label goes, and the natural linewidth Gamma / 2 pi written
+# under the wavelength: the broad blue line that catches atoms, the narrow red
+# one that cools them to a microkelvin, and the clock line (87Sr's 3P0 lives
+# for minutes), some ten orders of magnitude apart.
 TRANSITIONS = {
     "461": dict(upper=r"{}^1P_1", color=TRANSITION_461_COLOR, double=False,
-                start=(-0.45, LV_GROUND), end=(-1.6, LV_1P1), side=LEFT),
+                start=(-0.45, LV_GROUND), end=(-1.6, LV_1P1), side=LEFT,
+                linewidth=r"30\,\mathrm{MHz}"),
     "689": dict(upper=r"{}^3P_1", color=TRANSITION_689_COLOR, double=False,
-                start=(0.0, LV_GROUND), end=(1.9, LV_3P[1]), side=LEFT),
+                start=(0.0, LV_GROUND), end=(1.9, LV_3P[1]), side=LEFT,
+                linewidth=r"7.4\,\mathrm{kHz}"),
     "698": dict(upper=r"{}^3P_0", color=TRANSITION_698_COLOR, double=True,
-                start=(0.45, LV_GROUND), end=(2.3, LV_3P[0]), side=RIGHT),
+                start=(0.45, LV_GROUND), end=(2.3, LV_3P[0]), side=RIGHT,
+                linewidth=r"{\sim}1\,\mathrm{mHz}"),
 }
 
 
@@ -156,7 +162,10 @@ def _transition(key, color, width):
         stroke_width=width, tip_length=0.22, max_tip_length_to_length_ratio=0.12,
         max_stroke_width_to_length_ratio=20,
     )
-    label = Tex(f"{key} nm", font_size=FONT_LEGEND, color=color)
+    label = VGroup(
+        Tex(f"{key} nm", font_size=FONT_LEGEND, color=color),
+        MathTex(spec["linewidth"], font_size=FONT_LINEWIDTH, color=color),
+    ).arrange(DOWN, buff=0.1, aligned_edge=-spec["side"])
     label.next_to(arrow.get_center(), spec["side"], buff=0.3)
     return VGroup(arrow, label)
 

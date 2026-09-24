@@ -377,6 +377,7 @@ TRANSITION_698_COLOR = LASER_COLOR
 TRANSITION_488_COLOR = LIGHT_SHIFT_COLOR
 TRANSITION_IDLE_STYLE = dict(stroke_width=3, color=lighten(GUIDE_COLOR))
 TRANSITION_ACTIVE_WIDTH = 7
+FONT_LINEWIDTH = FONT_AXIS  # a transition's linewidth, under its wavelength
 # The blue MOT's two repumps (679 and 707 nm), which are always on together
 # and so share one hue: amber, which samples clear of the 461 blue, the 689
 # magenta and the clock line's laser red.
