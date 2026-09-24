@@ -1,7 +1,7 @@
 """The Freiburg talk as one manim-slides deck, in the order of the talk.
 
-Intro, motivation, how atom interferometry works, the prototype, future
-plans, outro. The animated slides are aionanim scenes, picked up unmodified
+Intro, atom interferometry, gravitational waves, dark matter, the prototype,
+future plans, outro. The animated slides are aionanim scenes, picked up unmodified
 through multiple inheritance; the static ones (title, contents, photographs,
 figures) are laid out here, with the pictures in talk/media/.
 
@@ -52,8 +52,9 @@ TITLE = (r"A prototype differential atom interferometer", r"for fundamental phys
 AUTHOR = r"Thomas Walker"
 VENUE = r"University of Freiburg, 2026"
 SECTIONS = (
-    r"Motivation",
-    r"How atom interferometry works",
+    r"Atom interferometry",
+    r"Gravitational waves",
+    r"Dark matter",
     r"Our prototype device",
     r"Future plans",
 )
@@ -158,7 +159,20 @@ class ContentsSlide(DeckSlide):
         self.play(FadeIn(slide_title(r"Outline")), FadeIn(contents), run_time=0.8)
 
 
-# --- motivation --------------------------------------------------------------
+# --- atom interferometry ----------------------------------------------------
+class SinglePhotonMachZehnderSlide(Clicks, DeckSlide, SinglePhotonMachZehnder):
+    pass
+
+
+class ClockPhaseTermsSlide(Clicks, DeckSlide, ClockPhaseTerms):
+    pass
+
+
+class GradiometerSlide(Clicks, DeckSlide, Gradiometer):
+    pass
+
+
+# --- gravitational waves ----------------------------------------------------
 class BlackHoleMergerSlide(DeckSlide, BlackHoleMerger):
     """No stops: the merger plays straight through from the moment the slide
     comes up, and holds on the settled sheet as the slide's own end."""
@@ -174,6 +188,11 @@ class SensitivityLandscapeSlide(Clicks, DeckSlide, SensitivityBuildUp):
     GAP_FILLERS = ("AION-km",)
 
 
+class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretch):
+    pass
+
+
+# --- dark matter ------------------------------------------------------------
 class DarkMatterScaleSlide(DeckSlide, DarkMatterScale):
     def hold(self):
         self.next_slide(loop=True)
@@ -188,27 +207,11 @@ class DarkMatterFieldSlide(DeckSlide, DarkMatterField):
         self.next_slide()
 
 
-# --- how atom interferometry works -----------------------------------------
-class SinglePhotonMachZehnderSlide(Clicks, DeckSlide, SinglePhotonMachZehnder):
-    pass
-
-
-class ClockPhaseTermsSlide(Clicks, DeckSlide, ClockPhaseTerms):
-    pass
-
-
 class DarkMatterPhaseSlide(Clicks, DeckSlide, DarkMatterPhase):
     pass
 
 
-class GradiometerSlide(Clicks, DeckSlide, Gradiometer):
-    pass
-
-
-class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretch):
-    pass
-
-
+# --- our prototype device -------------------------------------------------
 class AIONCollabSlide(DeckSlide):
     """Who AION are and where, then the baseline they are building."""
 
@@ -226,7 +229,9 @@ class AIONCollabSlide(DeckSlide):
         self.play(FadeIn(baseline, shift=LEFT * 0.3), run_time=0.8)
 
 
-# --- our prototype device -------------------------------------------------
+
+
+
 class CoolingSequenceSlide(LoopingStages, DeckSlide, CoolingSequence):
     pass
 

@@ -4,20 +4,21 @@
 # intro
 TitleSlide
 ContentsSlide
-# motivation
+# atom interferometry: one clock, then two sharing a laser to cancel its noise
+SinglePhotonMachZehnderSlide
+ClockPhaseTermsSlide
+GradiometerSlide
+# gravitational waves, and what they do to the differential signal
 BlackHoleMergerSlide
 MergerOnSensitivityPlotSlide
 SensitivityLandscapeSlide
+GradiometerGWStretchSlide
+# dark matter, and what it does to the clock transition in one interferometer
 DarkMatterScaleSlide
 DarkMatterFieldSlide
-# how atom interferometry works
-SinglePhotonMachZehnderSlide
-ClockPhaseTermsSlide
 DarkMatterPhaseSlide
-GradiometerSlide
-GradiometerGWStretchSlide
-AIONCollabSlide
 # our prototype device
+AIONCollabSlide
 CoolingSequenceSlide
 DipoleTrapLoadingSlide
 VelocitySlicingSlide
