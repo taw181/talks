@@ -528,8 +528,8 @@ class GradiometerGWStretch(GradiometerGW):
     """The same wave drawn as a stretching baseline, for comparison.
 
     The picture most people carry: the wave pushes the ends of the baseline
-    apart and together, so the two clouds bow in antiphase about its midpoint
-    and L breathes. It is the proper-distance picture rather than the one the
+    apart and together, so L breathes. It is drawn from the laser's frame,
+    so the near cloud barely moves and the far one swings against it. It is the proper-distance picture rather than the one the
     experiment reads out -- GradiometerGW is what the phase actually comes
     from -- but the two are the same wave, and the same h(t) runs above both.
 
@@ -555,12 +555,16 @@ class GradiometerGWStretch(GradiometerGW):
         Nothing in this picture arrives early or late -- it is drawn in proper
         distance, where what the wave does is move the clouds -- so the
         arrival captions would be naming something the frame is not showing.
+
+        It hangs off the far cloud's rest line rather than the cloud: the wave
+        has the cloud well above that line at the first pulse, and a caption
+        placed off the cloud lands on top of the line.
         """
         if k:
             return None
         return Tex(
             r"$L$ stretches and squeezes", font_size=FONT_LEGEND, color=STRAIN_COLOR
-        ).next_to(self.up[0], DOWN, buff=0.35).shift(RIGHT * 0.9)
+        ).next_to([self.up[0][0], GR_UPPER_Z, 0], DOWN, buff=0.2).shift(RIGHT * 0.9)
 
     def port_slope(self, cloud):
         """The kicked leg's slope with the bow taken back out.

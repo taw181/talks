@@ -15,7 +15,6 @@ from aionanim.tools.gradiometer import (
     GR_LAG,
     GR_LASER_GAP,
     GR_LASER_Z,
-    GR_MID_Z,
     GR_SLOPE,
     GR_T,
     GR_T0,
@@ -89,11 +88,14 @@ def quiet_arrival(k):
 def gw_displacement(t, z0):
     """How far the wave has moved a cloud nominally at z0 on the baseline.
 
-    Symmetric about the middle of the baseline: in the local frame of an
-    observer there, a passing wave pushes the two ends apart and together and
-    leaves the midpoint alone, so the two clouds bow in antiphase.
+    Drawn in the laser's frame. Only the change in separation is physical: in
+    the local frame of any freely falling observer the wave moves each mass in
+    proportion to its distance from that observer, and which point is held
+    still is a choice. The laser is the one to hold, because gw_arrival_lags
+    already times every pulse from it. The near cloud, just above the laser,
+    then barely moves, and the far cloud carries nearly all of the change in L.
     """
-    return (z0 - GR_MID_Z) * GW_STRETCH_GAIN * strain(t)
+    return (z0 - GR_LASER_Z) * GW_STRETCH_GAIN * strain(t)
 
 
 def make_strain_trace(label=r"h(t)"):
