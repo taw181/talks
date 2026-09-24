@@ -47,7 +47,7 @@ from aionanim.tools.gradiometer import (
 GW_PERIOD = 2 * GR_T
 GW_OMEGA = TAU / GW_PERIOD
 GW_LAG_GAIN = 0.8
-GW_STRETCH_GAIN = 0.16
+GW_STRETCH_GAIN = 0.07
 GW_PULSES = [GR_T0, GR_T0 + GR_T, GR_T0 + 2 * GR_T]
 
 # the h(t) trace, drawn on the diagram's own time axis

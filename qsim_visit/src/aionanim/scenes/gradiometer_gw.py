@@ -581,7 +581,7 @@ class GradiometerGWStretch(GradiometerGW):
         return super().port_slope(cloud) - bow
 
     def construct(self):
-        gradiometer_frame(
+        baseline, baseline_label = gradiometer_frame(
             self, r"A gravitational wave stretches and squeezes the baseline"
         )
 
@@ -650,10 +650,32 @@ class GradiometerGWStretch(GradiometerGW):
             "low": make_atom(radius=CLOCK_ATOM_RADIUS).move_to(low[0]),
             "up": make_atom(radius=CLOCK_ATOM_RADIUS).move_to(up[0]),
         }
+
+        # The L arrow is the baseline as it is *now*: the separation of the
+        # two clouds at the time the atoms have reached, so it stretches and
+        # squeezes while they fly and holds while a pulse is in flight. Read
+        # off the far cloud's ground-state atom, which exists from the start
+        # and sits wherever the sequence has got to.
+        def baseline_now():
+            t = atoms["up"][0].get_x()
+            x = baseline.get_x()
+            return DoubleArrow(
+                [x, GR_LOWER_Z + low_disp(t), 0],
+                [x, GR_UPPER_Z + up_disp(t), 0],
+                buff=0,
+                stroke_width=3,
+                color=lighten(GUIDE_COLOR),
+                max_tip_length_to_length_ratio=0.06,
+            )
+
         self.play(
             FadeIn(seeds["low"], scale=0.5), FadeIn(seeds["up"], scale=0.5),
+            Transform(baseline, baseline_now()),
+            baseline_label.animate.next_to(baseline_now(), LEFT, buff=0.12),
             run_time=0.6,
         )
+        baseline.add_updater(lambda m: m.become(baseline_now()))
+        baseline_label.add_updater(lambda m: m.next_to(baseline, LEFT, buff=0.12))
         self.beat()
         self.add(*[t for pair in phase.values() for t in pair])
 
