@@ -9,10 +9,10 @@ CoolingSequenceSlide, DipoleTrapLoadingSlide and VelocitySlicingSlide, which
 stop after each of their steps through the scenes' `stage_break` hook.
 
 Order follows the story: how the atoms are cooled, loaded into the dipole
-traps and velocity-sliced, the single-photon scheme, its phase readout, the gradiometer built
-from two such clocks, the two signals it's pointed at (dark matter, then a
-gravitational wave), and the momentum-transfer trick that buys more
-sensitivity.
+traps and velocity-sliced, the single-photon scheme, its phase readout, the
+gradiometer built from two such clocks, the two signals it's pointed at
+(dark matter, then a gravitational wave), and the momentum-transfer trick
+that buys more sensitivity.
 
 Render:
     uv run manim-slides render -q h talk/aion_slides.py
