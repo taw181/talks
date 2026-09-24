@@ -319,14 +319,15 @@ class AICECernSlide(DeckSlide):
             return figure.get_corner(UL) + [px / 1199 * figure.width,
                                            -py / 672 * figure.height, 0]
 
-        depth = DoubleArrow(*[at(*p) for p in AICE_SHAFT_PX], buff=0, stroke_width=4,
-                            color=PHOTO_LABEL_COLOR, max_tip_length_to_length_ratio=0.06)
-        label = Tex(r"150\,m", font_size=FONT_ANNOTATION, color=PHOTO_LABEL_COLOR)
+        depth = DoubleArrow(*[at(*p) for p in AICE_SHAFT_PX], buff=0,
+                            stroke_width=PHOTO_LABEL_STROKE_WIDTH, color=PHOTO_LABEL_COLOR,
+                            tip_length=0.3, max_tip_length_to_length_ratio=0.1,
+                            max_stroke_width_to_length_ratio=10)
+        label = Tex(r"\textbf{150\,m}", font_size=FONT_PHOTO_LABEL, color=PHOTO_LABEL_COLOR)
         label.next_to(depth, RIGHT, buff=0.15)
-        marks = VGroup(depth, label)
-        marks.set_stroke(**PHOTO_LABEL_OUTLINE, background=True)
-        self.play(FadeIn(figure), run_time=0.8)
-        self.play(GrowFromCenter(depth), FadeIn(label), run_time=0.8)
+        depth.set_stroke(**PHOTO_LABEL_OUTLINE, background=True, family=False)
+        label.set_stroke(**PHOTO_LABEL_OUTLINE, background=True)
+        self.play(FadeIn(figure), FadeIn(depth), FadeIn(label), run_time=0.8)
 
 
 class LargeMomentumTransferSlide(DeckSlide, LargeMomentumTransfer):
