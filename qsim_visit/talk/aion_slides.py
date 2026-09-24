@@ -143,14 +143,19 @@ class TitleSlide(DeckSlide):
         fade_in = 1.5
         self.play(
             veil.animate.set_fill(opacity=TITLE_VEIL_OPACITY),
-            FadeIn(aion), FadeIn(imperial), FadeIn(title), FadeIn(byline),
+            FadeIn(aion),
+            FadeIn(imperial),
+            FadeIn(title),
+            FadeIn(byline),
             clock.animate.increment_value(fade_in * TITLE_VIDEO_FPS),
-            rate_func=linear, run_time=fade_in,
+            rate_func=linear,
+            run_time=fade_in,
         )
         self.next_slide(loop=True)
         self.play(
             clock.animate.increment_value(cycle),
-            rate_func=linear, run_time=cycle / TITLE_VIDEO_FPS,
+            rate_func=linear,
+            run_time=cycle / TITLE_VIDEO_FPS,
         )
 
 
@@ -294,9 +299,6 @@ class AIONChambersSlide(DeckSlide):
         self.play(FadeIn(title), FadeIn(figure), run_time=0.8)
 
 
-
-
-
 class CoolingSequenceSlide(LoopingStages, DeckSlide, CoolingSequence):
     pass
 
@@ -401,14 +403,24 @@ class AICECernSlide(DeckSlide):
 
         def at(px, py):
             """A pixel of aice.png, on screen."""
-            return figure.get_corner(UL) + [px / 1199 * figure.width,
-                                           -py / 672 * figure.height, 0]
+            return figure.get_corner(UL) + [
+                px / 1199 * figure.width,
+                -py / 672 * figure.height,
+                0,
+            ]
 
-        depth = DoubleArrow(*[at(*p) for p in AICE_SHAFT_PX], buff=0,
-                            stroke_width=PHOTO_LABEL_STROKE_WIDTH, color=PHOTO_LABEL_COLOR,
-                            tip_length=0.3, max_tip_length_to_length_ratio=0.1,
-                            max_stroke_width_to_length_ratio=10)
-        label = Tex(r"\textbf{150\,m}", font_size=FONT_PHOTO_LABEL, color=PHOTO_LABEL_COLOR)
+        depth = DoubleArrow(
+            *[at(*p) for p in AICE_SHAFT_PX],
+            buff=0,
+            stroke_width=PHOTO_LABEL_STROKE_WIDTH,
+            color=PHOTO_LABEL_COLOR,
+            tip_length=0.3,
+            max_tip_length_to_length_ratio=0.1,
+            max_stroke_width_to_length_ratio=10,
+        )
+        label = Tex(
+            r"\textbf{150\,m}", font_size=FONT_PHOTO_LABEL, color=PHOTO_LABEL_COLOR
+        )
         label.next_to(depth, RIGHT, buff=0.15)
         depth.set_stroke(**PHOTO_LABEL_OUTLINE, background=True, family=False)
         label.set_stroke(**PHOTO_LABEL_OUTLINE, background=True)
@@ -443,16 +455,21 @@ class OutroSlide(DeckSlide):
             label = Tex(text, font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR))
             return Group(image, label.next_to(image, DOWN, buff=0.15))
 
-        title = slide_title(r"Thank you")
-        sr_group = labelled(load_image(MEDIA / "sr_lab_group.jpg", height=5.2),
-                            r"Sr lab team")
-        oliver = labelled(load_image(MEDIA / "oliver.png", height=2.3),
-                          r"Oliver Buchm\"uller, PI")
+        title = slide_title(r"Thank you for listening!")
+        sr_group = labelled(
+            load_image(MEDIA / "sr_lab_group.jpg", height=5.2), r"Sr lab team"
+        )
+        oliver = labelled(
+            load_image(MEDIA / "oliver.png", height=2.3), r"Oliver Buchm\"uller, PI"
+        )
         logo = load_image(MEDIA / "aion_logo_on_white.png", height=1.3)
-        aion_group = labelled(load_image(MEDIA / "aion_group.png", width=6.0),
-                              r"AION collaboration")
+        aion_group = labelled(
+            load_image(MEDIA / "aion_group.png", width=6.0), r"AION collaboration"
+        )
         top_right = Group(oliver, logo).arrange(RIGHT, buff=0.6)
         logo.match_y(oliver[0])
         right = Group(top_right, aion_group).arrange(DOWN, buff=0.3)
-        Group(sr_group, right).arrange(RIGHT, buff=0.5).next_to(title, DOWN, buff=0.3).set_x(0)
+        Group(sr_group, right).arrange(RIGHT, buff=0.5).next_to(
+            title, DOWN, buff=0.3
+        ).set_x(0)
         self.play(FadeIn(title), FadeIn(sr_group), FadeIn(right), run_time=0.8)
