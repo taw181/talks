@@ -13,7 +13,8 @@ wrappers below turn the hook into a slide break:
 - stage_break() is the sequence scenes' timed hold; LoopingStages loops two
   seconds of it instead, so the cloud keeps moving while a stage is talked
   through.
-- hold() is DarkMatterField's one period of the field; the slide loops it.
+- hold() is DarkMatterScale's and DarkMatterField's one period of the field;
+  the slide loops it.
 
 The deck order lives in talk/deck.sh, which renders, presents and converts:
 
@@ -41,6 +42,7 @@ from aionanim.scenes.lmt import LargeMomentumTransfer
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
 from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhase
+from aionanim.scenes.uldm_scale import DarkMatterScale
 from aionanim.tools.layout import load_image, numbered_list, placeholder_frame, slide_title
 from aionanim.tools.video import VideoFrame, load_video_frames
 
@@ -170,6 +172,13 @@ class SensitivityLandscapeSlide(Clicks, DeckSlide, SensitivityBuildUp):
     """The landscape without AEDGE: AION-km is the one gap filler here."""
 
     GAP_FILLERS = ("AION-km",)
+
+
+class DarkMatterScaleSlide(DeckSlide, DarkMatterScale):
+    def hold(self):
+        self.next_slide(loop=True)
+        super().hold()
+        self.next_slide()
 
 
 class DarkMatterFieldSlide(DeckSlide, DarkMatterField):

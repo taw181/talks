@@ -138,6 +138,15 @@ FIELD_COLOR = STRAIN_COLOR
 FIELD_STROKE_WIDTH = STRAIN_STROKE_WIDTH
 FIELD_WINDOW_STYLE = dict(stroke_width=0, fill_color=AREA_COLOR, fill_opacity=0.16)
 
+# The bodies a dark-matter wavelength is measured against. Muted, so the field
+# drawn across them stays the brightest thing on the page; the Earth takes the
+# atoms' blue because it is where the lab is.
+EARTH_COLOR = ATOM_COLOR
+MOON_COLOR = GREY_B
+SUN_COLOR = ManimColor("#f5c542")
+BODY_OPACITY = 0.85
+BODY_MIN_RADIUS = 0.05  # below this a body drawn to scale is not there at all
+
 # --- an injected light shift ----------------------------------------------
 # A second laser, far enough off resonance to drive nothing, turned on across
 # one cloud to shift its clock levels. It gets a colour of its own rather than

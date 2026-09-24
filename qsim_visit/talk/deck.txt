@@ -8,6 +8,7 @@ ContentsSlide
 BlackHoleMergerSlide
 MergerOnSensitivityPlotSlide
 SensitivityLandscapeSlide
+DarkMatterScaleSlide
 DarkMatterFieldSlide
 # how atom interferometry works
 SinglePhotonMachZehnderSlide
