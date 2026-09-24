@@ -23,6 +23,7 @@ from aionanim.plots.dai_fringes import (
     lissajous_figure,
     load,
     load_adev,
+    load_sigma,
     load_signals,
     signals_figure,
 )
@@ -47,12 +48,12 @@ def main():
     save(lissajous_figure([quiet, noisy]), "lissajous")
     save(lissajous_figure([quiet]), "lissajous_lln")
     save(lissajous_figure([noisy]), "lissajous_hln")
-    adev = load_adev()
+    adev, sigma = load_adev(), load_sigma()
     quiet_adev = ("lln", LLN_COLOR, "Low laser noise")
     noisy_adev = ("hln", HLN_COLOR, "High laser noise")
-    save(adev_figure(adev, []), "adev_sql")
-    save(adev_figure(adev, [quiet_adev]), "adev_lln")
-    save(adev_figure(adev, [quiet_adev, noisy_adev]), "adev")
+    save(adev_figure(adev, [], sigma), "adev_sql")
+    save(adev_figure(adev, [quiet_adev], sigma), "adev_lln")
+    save(adev_figure(adev, [quiet_adev, noisy_adev], sigma), "adev")
     save(signals_figure(load_signals()), "signals")
 
 

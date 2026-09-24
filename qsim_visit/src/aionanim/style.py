@@ -257,13 +257,16 @@ TEST_MASS_DOT_RADIUS = 0.06
 # of the gradiometer, not two states, so they take neither state colour: the
 # lower one gets the cool crest shade and the upper one the warm rim light,
 # which sample as far apart as anything in the talk. Across the noise runs
-# the split is the phase budget's: white for the quiet laser, whose ellipse
-# is the signal, and laser red for the one with phase noise put on it.
+# the split is the phase budget's: green for the quiet laser, whose ellipse
+# is the signal, and laser red for the one with phase noise put on it. Green
+# rather than white, which sank into the grey of the SQL band; a bluish green,
+# kept apart from the light shift's, and further from the red for anyone
+# red-green colour-blind.
 PLOT_BACKGROUND = "#101010"  # manim.cfg's background_color
 PLOT_FOREGROUND = "#dddddd"  # axes, ticks and labels
 LOWER_CLOUD_COLOR = CREST_COLOR
 UPPER_CLOUD_COLOR = HORIZON_GLOW
-LLN_COLOR = SIGNAL_COLOR
+LLN_COLOR = ManimColor("#44dd88")
 HLN_COLOR = NOISE_COLOR
 # The standard quantum limit the two runs' Allan deviations are held against
 # is a reference, not a measurement, so it takes the guide grey: the paper's

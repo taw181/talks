@@ -15,7 +15,9 @@ deviations ``data_scripts/process_dai_adev.py`` and the likelihood scans
   both, it draws the same axes with just that run, for building it up.
 - ``adev_figure``: the Allan deviation of the differential phase read off
   each run's ellipse, against averaging time. Both runs average down along
-  the standard quantum limit, so the laser noise has cancelled.
+  the standard quantum limit, so the laser noise has cancelled. Given the
+  inset's numbers too, it adds the paper's inset: the scatter of the mean
+  phase over each whole run, sigma_<dphi>, beside the SQL.
 - ``signals_figure``: for each of seven sinusoids, 0.1 mHz to 100 mHz,
   imprinted on the phase by a light shift, the likelihood of a sinusoid
   fitted to the differential phase against trial frequency, over the
@@ -67,6 +69,14 @@ def load(run):
 
 def load_adev():
     return load("adev")
+
+
+def load_sigma():
+    """{label: (sigma, error)} in urad for the Allan deviation's inset: "HLN",
+    "LLN" and "SQL"."""
+    with open(DATA_DIR / "sigma.csv") as f:
+        rows = csv.DictReader(line for line in f if not line.startswith("#"))
+        return {r["label"]: (float(r["sigma_urad"]), float(r["err_urad"])) for r in rows}
 
 
 def load_signals():
@@ -158,11 +168,38 @@ def lissajous_figure(runs):
     return fig
 
 
-def adev_figure(adev, runs):
+# The inset, upper right, clear of the data falling from upper left to
+# lower right. Its rows are the paper's, fixed across the build-up steps: a
+# row is only filled and labelled once its run is on the main plot.
+ADEV_INSET = [0.68, 0.76, 0.29, 0.20]  # in the main axes' fractions
+ADEV_INSET_ROWS = {"hln": (1, "High"), "lln": (2, "Low"), "sql": (3, "SQL")}
+ADEV_INSET_XLIM = (235, 300)  # urad
+
+
+def adev_inset(ax, sigma, runs):
+    """sigma_<dphi> of each run in ``runs`` beside the SQL's, as the paper's inset."""
+    inset = ax.inset_axes(ADEV_INSET)
+    shown = [("sql", PLOT_FOREGROUND)] + [(key, color) for key, color, _ in runs]
+    for key, color in shown:
+        value, error = sigma[key.upper()]
+        inset.errorbar(value, ADEV_INSET_ROWS[key][0], xerr=error, fmt="o", ms=6,
+                       elinewidth=1.5, capsize=0, color=hexed(color))
+    rows = sorted(ADEV_INSET_ROWS[key] for key, _ in shown)
+    inset.set_yticks([y for y, _ in rows], [label for _, label in rows])
+    inset.set_ylim(0.5, 3.5)
+    inset.set_xlim(*ADEV_INSET_XLIM)
+    inset.set_xticks([240, 260, 280, 300])
+    dark_axes(inset)
+    inset.set_xlabel(r"$\sigma_{\langle\delta\phi\rangle}$ / $\mu$rad")
+    return inset
+
+
+def adev_figure(adev, runs, sigma=None):
     """Allan deviation against averaging time; runs is a list of (key, color, label).
 
     The key picks a run's columns ("lln" or "hln"). The SQL is always drawn,
-    so an empty list gives the bare limit to build up from.
+    so an empty list gives the bare limit to build up from. With ``sigma``
+    (load_sigma()) the inset is drawn too, with the same runs in it.
     """
     fig, ax = plt.subplots(figsize=(6.4, 5.4))
     fig.set_facecolor(PLOT_BACKGROUND)
@@ -195,6 +232,8 @@ def adev_figure(adev, runs):
     ax.set_xlabel("Measurement time / s")
     ax.set_ylabel(r"Allan deviation of $\delta\phi$ / mrad")
     legend(ax, loc="lower left", markerscale=1)
+    if sigma is not None:
+        adev_inset(ax, sigma, runs)
     fig.tight_layout()
     return fig
 
