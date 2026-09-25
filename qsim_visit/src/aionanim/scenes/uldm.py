@@ -406,7 +406,11 @@ DF_TRACE_Z = 2.1
 DF_TRACE_AMPLITUDE = 0.55
 DF_TRACE_X = (-6.3, 5.9)  # oldest instant on the left, now on the right
 DF_TEXT = np.array([-6.3, 0.55, 0.0])  # upper-left corner of the text column
-DF_LEVELS = np.array([4.4, -1.0, 0.0])  # the modulated transition
+DF_LEVELS = np.array([3.7, -1.25, 0.0])  # the modulated transition
+# DarkMatterPhase's level diagram, blown up: here it has the whole right half
+# below the trace to itself.
+DF_LEVEL_SCALE = 2.0
+DF_LEVEL_TEXT_SCALE = 1.35  # its labels grow less, to sit with the text column
 # One period of the field, in the lab time that drives both the trace and the
 # levels. Advanced at V, so a slide held on this scene loops seamlessly over
 # exactly one oscillation.
@@ -512,7 +516,9 @@ class DarkMatterField(Scene):
         clock_text = VGroup(couplings, law).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
         clock_text.next_to(wave_text, DOWN, buff=0.45, aligned_edge=LEFT)
 
-        levels, moving, detuning = make_modulated_levels(now, DF_LEVELS)
+        levels, moving, detuning = make_modulated_levels(
+            now, DF_LEVELS, scale=DF_LEVEL_SCALE, text_scale=DF_LEVEL_TEXT_SCALE,
+        )
         # Swapped for the live version after the fade, for the same reason
         # as the trace -- which is why the field holds still for the fade: a
         # still of a moving level would be out of date by the time it landed.

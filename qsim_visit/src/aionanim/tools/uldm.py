@@ -161,14 +161,14 @@ def field_marker(now):
     )
 
 
-def dm_upper(now, center=DM_LEVELS):
+def dm_upper(now, center=DM_LEVELS, scale=1.0):
     """Where |e> sits at time `now`, with the field dragging omega_A around."""
-    return center + UP * (
+    return center + UP * scale * (
         DM_LEVEL_GAP / 2 + DM_LEVEL_SWING * dm_field(now.get_value())
     )
 
 
-def make_modulated_levels(now, center=DM_LEVELS):
+def make_modulated_levels(now, center=DM_LEVELS, scale=1.0, text_scale=1.0):
     """The clock transition with omega_A modulated, against a fixed laser.
 
     Everything that moves is an always_redraw off `now`, so the diagram is a
@@ -182,41 +182,45 @@ def make_modulated_levels(now, center=DM_LEVELS):
     and the two sides then read as atom and light. Between them stands the
     gap arrow with omega_A beside it, which is the quantity the two sides
     disagree about.
+
+    `scale` stretches the geometry and `text_scale` the labels, separately, so
+    a diagram given more room grows without its kets outgrowing the page.
     """
-    half = RIGHT * DM_LEVEL_LENGTH / 2
-    lower = center + DOWN * DM_LEVEL_GAP / 2
-    resonant = center + UP * DM_LEVEL_GAP / 2  # where the laser was tuned
+    s, ts = scale, text_scale
+    half = RIGHT * s * DM_LEVEL_LENGTH / 2
+    lower = center + DOWN * s * DM_LEVEL_GAP / 2
+    resonant = center + UP * s * DM_LEVEL_GAP / 2  # where the laser was tuned
 
     level_g = Line(
         lower - half, lower + half, color=ATOM_COLOR, stroke_width=LEVEL_STROKE_WIDTH
     )
-    ket_g = state_label(r"|g\rangle", ATOM_COLOR).next_to(
-        level_g, LEFT, buff=DM_KET_BUFF
+    ket_g = state_label(r"|g\rangle", ATOM_COLOR, FONT_STATE * ts).next_to(
+        level_g, LEFT, buff=DM_KET_BUFF * ts
     )
     def moving():
         """|e>, its ket and the gap arrow, wherever the field has put them."""
-        top = dm_upper(now, center)
+        top = dm_upper(now, center, s)
         return VGroup(
             Line(
                 top - half, top + half,
                 color=KICKED_COLOR, stroke_width=LEVEL_STROKE_WIDTH,
             ),
-            state_label(r"|e\rangle", KICKED_COLOR).next_to(
-                top - half, LEFT, buff=DM_KET_BUFF
+            state_label(r"|e\rangle", KICKED_COLOR, FONT_STATE * ts).next_to(
+                top - half, LEFT, buff=DM_KET_BUFF * ts
             ),
             DoubleArrow(
-                lower + RIGHT * DM_GAP_X + UP * DM_LEVEL_INSET,
-                top + RIGHT * DM_GAP_X + DOWN * DM_LEVEL_INSET,
+                lower + RIGHT * s * DM_GAP_X + UP * DM_LEVEL_INSET,
+                top + RIGHT * s * DM_GAP_X + DOWN * DM_LEVEL_INSET,
                 **LEVEL_GAP_ARROW_STYLE,
             ),
             # Beside the arrow rather than under the diagram: the arrow is
             # what is changing length, so the name belongs on it, and it then
             # rides up and down with the level as well.
             MathTex(
-                r"\omega_A", font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR)
+                r"\omega_A", font_size=FONT_LEGEND * ts, color=lighten(GUIDE_COLOR)
             ).next_to(
-                0.5 * (lower + top) + RIGHT * DM_GAP_X, RIGHT,
-                buff=DM_GAP_LABEL_BUFF,
+                0.5 * (lower + top) + RIGHT * s * DM_GAP_X, RIGHT,
+                buff=DM_GAP_LABEL_BUFF * ts,
             ),
         )
 
@@ -226,27 +230,27 @@ def make_modulated_levels(now, center=DM_LEVELS):
     # frequency being compared against another, not a photon going one way --
     # the single-photon diagram's one-way glow is the arrow for that.
     laser = DoubleArrow(
-        lower + RIGHT * DM_LASER_X + UP * DM_LEVEL_INSET,
-        resonant + RIGHT * DM_LASER_X + DOWN * DM_LEVEL_INSET,
+        lower + RIGHT * s * DM_LASER_X + UP * DM_LEVEL_INSET,
+        resonant + RIGHT * s * DM_LASER_X + DOWN * DM_LEVEL_INSET,
         **LEVEL_GLOW_ARROW_STYLE,
     )
     resonance = DashedLine(resonant - half, resonant + half, **LEVEL_RESONANCE_STYLE)
     laser_label = MathTex(
-        r"\omega_L", font_size=FONT_LEGEND, color=LASER_COLOR
-    ).next_to(lower + RIGHT * DM_MARK_X + UP * 0.45, RIGHT, buff=0.06)
+        r"\omega_L", font_size=FONT_LEGEND * ts, color=LASER_COLOR
+    ).next_to(lower + RIGHT * s * DM_MARK_X + UP * s * 0.45, RIGHT, buff=0.06 * ts)
 
     def detuning():
         """delta = omega_L - omega_A(t), drawn where it actually opens up."""
-        offset = (dm_upper(now, center) - resonant)[1]
-        if abs(offset) < 0.04:
+        offset = (dm_upper(now, center, s) - resonant)[1]
+        if abs(offset) < 0.04 * s:
             return VGroup()
-        foot = resonant + RIGHT * DM_MARK_X
+        foot = resonant + RIGHT * s * DM_MARK_X
         bar = Line(foot, foot + UP * offset, color=LASER_COLOR, stroke_width=2)
         label = MathTex(
-            r"\delta", font_size=FONT_LEGEND, color=LASER_COLOR
-        ).next_to(foot + UP * 0.5 * offset, RIGHT, buff=0.08)
+            r"\delta", font_size=FONT_LEGEND * ts, color=LASER_COLOR
+        ).next_to(foot + UP * 0.5 * offset, RIGHT, buff=0.08 * ts)
         group = VGroup(bar, label)
-        group.set_opacity(min(1.0, abs(offset) / (0.5 * DM_LEVEL_SWING)))
+        group.set_opacity(min(1.0, abs(offset) / (0.5 * s * DM_LEVEL_SWING)))
         return group
 
     # The two halves are handed back as builders rather than as live
