@@ -4,8 +4,7 @@ After Rudolph et al., PRL 124, 083604 (2020). LargeMomentumTransfer is the
 ladder on its own: ten kicks, each after the first driving both arms apart.
 LMTMachZehnder puts it to use (their Fig. 1c), stretching each pulse of the
 pi/2 - pi - pi/2 sequence into many, beside the plain N = 1 interferometer it
-replaces. LMTGradiometer (their Fig. 3) splits two clouds with an LMT beam
-splitter and runs one LMT interferometer on both.
+replaces.
 """
 
 import numpy as np
@@ -13,24 +12,19 @@ from manim import *
 
 from aionanim.style import *
 from aionanim.tools.lmt import (
-    LGR_ORDER,
-    LGR_SPLIT,
-    LGR_T0,
-    LGR_U,
-    LGR_Z,
     LMT_KICKS,
     LMT_T0,
     LMT_U,
     LMT_Z,
     LMZ_END,
     LMZ_ORDER,
+    LMZ_PORT,
     LMZ_STEP,
     LMZ_T,
     LMZ_T0,
     LMZ_U,
     LMZ_Z,
     kick_worldline,
-    lgr_pulses,
     lmt_history,
     lmt_points,
     lmz_pulses,
@@ -157,112 +151,11 @@ class LargeMomentumTransfer(Scene):
 
 
 
-class LMTSequence(Scene):
-    """Plays an lmt_history: one ray per pulse, reaching through to the far
-    arm, a flash on every arm it drives, then the legs to the next event.
-
-    Stops (beat) once the atom is in and after each stage. Returns each arm's
-    corners, from the split that made it to the pulse that closed it.
-    """
-
-    STAGES = ()  # a caption per stage, along the bottom
-    FAST_AFTER = 2  # pulses at full pace, while the idea lands; the rest quicker
-
-    def beat(self):
-        """The pause after each step: nothing here, a click on the slide version."""
-
-    def header(self, text):
-        title = Tex(text, font_size=FONT_TITLE).to_corner(UL)
-        note = Tex(
-            r"colour is the internal state; slope is momentum",
-            font_size=FONT_LEGEND,
-            color=lighten(GUIDE_COLOR),
-        ).next_to(title, DOWN, buff=0.2).align_to(title, LEFT)
-        self.play(FadeIn(title), FadeIn(note), run_time=0.9)
-        # rays run between the caption row and the header
-        self.span = (-config.frame_y_radius + 0.6, note.get_bottom()[1] - 0.15)
-
-    def caption(self, history, stage):
-        """The stage's caption, centred under its pulses; None for none."""
-        if self.STAGES[stage] is None:
-            return None
-        xs = [h["x"] for h in history if h["stage"] == stage]
-        return Tex(
-            self.STAGES[stage], font_size=FONT_LEGEND, color=LASER_COLOR,
-        ).move_to([(xs[0] + xs[-1]) / 2, -config.frame_y_radius + 0.35, 0])
-
-    def play_history(self, history, start):
-        colors = {"g": ATOM_COLOR, "e": KICKED_COLOR}
-        atom = make_atom().move_to([-config.frame_x_radius + 0.3, start[1], 0])
-        self.play(FadeIn(atom, scale=0.5), run_time=0.4)
-        self.play(atom.animate.move_to(start), rate_func=linear,
-                  run_time=(start[0] - atom.get_center()[0]) / V)
-        self.beat()
-
-        atoms = {"": atom}
-        paths = {}
-        shown = set()
-        pulses = 0
-        for k, step in enumerate(history):
-            stage = step["stage"]
-            if stage not in shown:
-                shown.add(stage)
-                caption = self.caption(history, stage)
-                if caption is not None:
-                    self.play(FadeIn(caption), run_time=0.3)
-
-            if step["kind"] == "decay":
-                self.play(*[state_colors(atoms[arm], colors[state])
-                            for arm, _, state in step["hits"]], run_time=0.6)
-            else:
-                pace = 1.0 if pulses < self.FAST_AFTER else 0.6
-                pulses += 1
-                # the ray runs from its side through every arm to the furthest
-                points = [a.get_center() for a in atoms.values()]
-                furthest = max if step["from_below"] else min
-                reach = furthest(points, key=lambda p: p[1])
-                ray = kick_worldline(reach, step["from_below"], steepness=0.0,
-                                     span=self.span)
-                self.play(Create(ray), rate_func=linear, run_time=0.3 * pace)
-
-                if step["kind"] == "merge":
-                    flashes = [Flash(a, **FLASH_STYLE) for a in atoms.values()]
-                recolour = []
-                for parent, stay, kicked in step["splits"]:
-                    split = atoms.pop(parent)
-                    point = split.get_center()
-                    atoms[stay] = make_atom(opacity=SUPERPOSITION_OPACITY).move_to(point)
-                    atoms[kicked] = make_atom(opacity=SUPERPOSITION_OPACITY).move_to(point)
-                    self.remove(split)
-                    self.add(atoms[stay], atoms[kicked])
-                    paths[stay], paths[kicked] = [point], [point]
-                if step["kind"] != "merge":
-                    flashes = [Flash(atoms[arm], **FLASH_STYLE)
-                               for arm, _, _ in step["hits"]]
-                    recolour = [state_colors(atoms[arm], colors[state])
-                                for arm, _, state in step["hits"]]
-                self.play(*flashes, *recolour, FadeOut(ray), run_time=0.35 * pace)
-                if step["kind"] == "merge":
-                    self.remove(*atoms.values())
-                    atoms = {}
-                    for arm, point, _, state in step["legs"]:
-                        atoms[arm] = make_atom(colors[state], opacity=SUPERPOSITION_OPACITY)
-                        self.add(atoms[arm].move_to(point))
-
-            draw_legs(self, [(atoms[arm], a, b, colors[state])
-                             for arm, a, b, state in step["legs"]])
-            if step["kind"] != "merge":
-                for arm, _, b, _ in step["legs"]:
-                    paths[arm].append(b)
-            if k + 1 == len(history) or history[k + 1]["stage"] != stage:
-                self.beat()
-        return paths
-
-
-class LMTMachZehnder(LMTSequence):
+class LMTMachZehnder(Scene):
     """pi/2 - pi - pi/2 with every pulse stretched into many, after Rudolph
     et al., Fig. 1c: an N = LMZ_ORDER interferometer, (N - 1)/2 pulses out,
-    N at the mirror and (N - 1)/2 back. Every pulse drives both arms.
+    N at the mirror and (N - 1)/2 back. Every pulse drives both arms, and
+    each is labelled pi/2 or pi along the bottom as it fires.
 
     Stops (beat) once the atom is in, and after each of the three stages:
     beam splitter, mirror, beam splitter. Then the enclosed area, with the
@@ -270,11 +163,30 @@ class LMTMachZehnder(LMTSequence):
     """
 
     STAGES = (r"beam splitter", r"mirror", r"beam splitter")
+    FAST_AFTER = 2  # pulses at full pace, while the idea lands; the rest quicker
+    CAPTION_Y = -config.frame_y_radius + 0.35  # the stage captions
+    LABEL_Y = -config.frame_y_radius + 0.9  # the pi/2 and pi labels, just above
+
+    def beat(self):
+        """The pause after each step: nothing here, a click on the slide version."""
 
     def construct(self):
-        self.header(rf"Large momentum transfer in the Mach--Zehnder: $N = {LMZ_ORDER}$")
+        title = Tex(
+            rf"Large momentum transfer in the Mach--Zehnder: $N = {LMZ_ORDER}$",
+            font_size=FONT_TITLE,
+        ).to_corner(UL)
+        note = Tex(
+            r"colour is the internal state; slope is momentum",
+            font_size=FONT_LEGEND,
+            color=lighten(GUIDE_COLOR),
+        ).next_to(title, DOWN, buff=0.2).align_to(title, LEFT)
+        self.play(FadeIn(title), FadeIn(note), run_time=0.9)
+        # rays run between the pulse labels and the header
+        self.span = (self.LABEL_Y + 0.35, note.get_bottom()[1] - 0.15)
+
         start = np.array([LMZ_T0, LMZ_Z, 0.0])
-        history = lmt_history(lmz_pulses(LMZ_ORDER, LMZ_STEP, LMZ_T), LMZ_T0, LMZ_Z, LMZ_U)
+        history = lmt_history(lmz_pulses(LMZ_ORDER, LMZ_STEP, LMZ_T),
+                              LMZ_T0, LMZ_Z, LMZ_U, port=LMZ_PORT)
         paths = self.play_history(history, start)
 
         # --- what it bought ---------------------------------------------------
@@ -302,58 +214,77 @@ class LMTMachZehnder(LMTSequence):
         self.play(Write(scaling), run_time=1.0)
         self.wait(2.0)
 
-
-class LMTGradiometer(LMTSequence):
-    """Two interferometers from one laser, after Rudolph et al., Fig. 3.
-
-    An LMT beam splitter of order LGR_SPLIT sends two clouds apart; while they
-    drift the excited one decays, so both start in the ground state; then one
-    LMT Mach-Zehnder sequence of order LGR_ORDER drives all four arms at once.
-    Stops (beat) after each stage, then shades the two loops.
-    """
-
-    # the drift is marked in the diagram, as the paper does, not in the row
-    STAGES = (
-        r"LMT beam splitter", None, r"beam splitter", r"mirror", r"beam splitter",
-    )
-
     def caption(self, history, stage):
-        caption = super().caption(history, stage)
-        if stage == 0:  # wider than its pulses: kept on the frame
-            caption.to_edge(LEFT, buff=0.25)
-        if stage == 1:
-            k = next(i for i, h in enumerate(history) if h["kind"] == "decay")
-            left, right = history[k - 1]["x"], history[k + 1]["x"]
-            y = LGR_Z - 1.6  # under the lower cloud
-            arrow = DoubleArrow([left, y, 0], [right, y, 0], buff=0, stroke_width=3,
-                                color=lighten(GUIDE_COLOR),
-                                max_tip_length_to_length_ratio=0.08)
-            label = Tex(r"$T_\mathrm{drift}$: $^3P_1$ decays", font_size=FONT_LEGEND,
-                        color=lighten(GUIDE_COLOR)).next_to(arrow, DOWN, buff=0.15)
-            caption = VGroup(arrow, label)
-        return caption
+        """The stage's caption, centred under its pulses."""
+        xs = [h["x"] for h in history if h["stage"] == stage]
+        return Tex(
+            self.STAGES[stage], font_size=FONT_LEGEND, color=LASER_COLOR,
+        ).move_to([(xs[0] + xs[-1]) / 2, self.CAPTION_Y, 0])
 
-    def construct(self):
-        self.header(r"An LMT gradiometer: one laser, two interferometers")
-        start = np.array([LGR_T0, LGR_Z, 0.0])
-        history = lmt_history(lgr_pulses(), LGR_T0, LGR_Z, LGR_U)
-        paths = self.play_history(history, start)
+    def pulse_label(self, step):
+        """pi/2 or pi under the pulse's column, as the paper's sequence row."""
+        tex = r"\frac{\pi}{2}" if step["kind"] in ("split", "merge") else r"\pi"
+        return MathTex(tex, font_size=FONT_LEGEND - 4, color=LASER_COLOR).move_to(
+            [step["x"], self.LABEL_Y, 0])
 
-        loops, phases = VGroup(), VGroup()
-        for cloud, name in (("1", r"\Phi_\mathrm{upper}"), ("0", r"\Phi_\mathrm{lower}")):
-            loop = Polygon(*paths[cloud + "1"], *reversed(paths[cloud + "0"]),
-                           **LOOP_AREA_STYLE)
-            phase = MathTex(name, font_size=FONT_STATE, color=lighten(AREA_COLOR))
-            loops.add(loop)
-            phases.add(phase.move_to(loop.get_center_of_mass()))
-        self.play(FadeIn(loops), FadeIn(phases), run_time=0.8)
+    def play_history(self, history, start):
+        """One ray per pulse, reaching through to the far arm, a flash on every
+        arm it drives, then the legs to the next pulse. Returns each arm's
+        corners, from the split to the merge."""
+        colors = {"g": ATOM_COLOR, "e": KICKED_COLOR}
+        atom = make_atom().move_to([-config.frame_x_radius + 0.3, start[1], 0])
+        self.play(FadeIn(atom, scale=0.5), run_time=0.4)
+        self.play(atom.animate.move_to(start), rate_func=linear,
+                  run_time=(start[0] - atom.get_center()[0]) / V)
         self.beat()
 
-        note = Tex(
-            rf"$\Delta v = {LGR_SPLIT}\,\hbar k / m$ between them,\\"
-            r"but every pulse drives all four arms:\\"
-            r"the laser's phase noise is common",
-            font_size=FONT_LEGEND,
-        ).to_edge(RIGHT).set_y(LGR_Z)
-        self.play(FadeIn(note), run_time=0.8)
-        self.wait(2.0)
+        atoms = {"": atom}
+        paths = {}
+        shown = set()
+        for k, step in enumerate(history):
+            stage = step["stage"]
+            if stage not in shown:
+                shown.add(stage)
+                self.play(FadeIn(self.caption(history, stage)), run_time=0.3)
+
+            pace = 1.0 if k < self.FAST_AFTER else 0.6
+            # the ray runs from its side through every arm to the furthest
+            points = [a.get_center() for a in atoms.values()]
+            furthest = max if step["from_below"] else min
+            reach = furthest(points, key=lambda p: p[1])
+            ray = kick_worldline(reach, step["from_below"], steepness=0.0,
+                                 span=self.span)
+            self.play(Create(ray), FadeIn(self.pulse_label(step)),
+                      rate_func=linear, run_time=0.3 * pace)
+
+            if step["kind"] == "merge":
+                flashes = [Flash(a, **FLASH_STYLE) for a in atoms.values()]
+            recolour = []
+            for parent, stay, kicked in step["splits"]:
+                split = atoms.pop(parent)
+                point = split.get_center()
+                atoms[stay] = make_atom(opacity=SUPERPOSITION_OPACITY).move_to(point)
+                atoms[kicked] = make_atom(opacity=SUPERPOSITION_OPACITY).move_to(point)
+                self.remove(split)
+                self.add(atoms[stay], atoms[kicked])
+                paths[stay], paths[kicked] = [point], [point]
+            if step["kind"] != "merge":
+                flashes = [Flash(atoms[arm], **FLASH_STYLE) for arm, _, _ in step["hits"]]
+                recolour = [state_colors(atoms[arm], colors[state])
+                            for arm, _, state in step["hits"]]
+            self.play(*flashes, *recolour, FadeOut(ray), run_time=0.35 * pace)
+            if step["kind"] == "merge":
+                self.remove(*atoms.values())
+                atoms = {}
+                for arm, point, _, state in step["legs"]:
+                    atoms[arm] = make_atom(colors[state], opacity=SUPERPOSITION_OPACITY)
+                    self.add(atoms[arm].move_to(point))
+
+            draw_legs(self, [(atoms[arm], a, b, colors[state])
+                             for arm, a, b, state in step["legs"]])
+            if step["kind"] != "merge":
+                for arm, _, b, _ in step["legs"]:
+                    paths[arm].append(b)
+            if k + 1 == len(history) or history[k + 1]["stage"] != stage:
+                self.beat()
+        return paths

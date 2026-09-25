@@ -1,6 +1,5 @@
 """Large momentum transfer: sequences of single-photon pulses, each driving
-every arm it crosses (after Rudolph et al., PRL 124, 083604 (2020), Figs. 1c
-and 3)."""
+every arm it crosses (after Rudolph et al., PRL 124, 083604 (2020), Fig. 1c)."""
 
 import numpy as np
 from manim import *
@@ -61,7 +60,6 @@ def recoil(state, from_below):
 #   "up"     a pi pulse that drives every arm, from whichever side pushes the
 #   "down"   kicked arm of each pair up (or down); its partner, in the other
 #            state, goes the other way.
-#   "decay"  no pulse: every excited arm falls back to the ground state.
 #   "merge"  the closing pi/2: each pair, met again, leaves by two ports.
 LMT_PORT = 0.7  # how far the output ports are drawn
 
@@ -87,7 +85,7 @@ def lmt_history(pulses, t0, z0, u, port=LMT_PORT):
     does to each arm, and the legs flown until the next one.
 
     Starts from one arm, "", in |g> and at rest at (t0, z0). Returns a list of
-    dicts: ``x``, ``from_below`` (None for a decay), ``stage``, ``kind``,
+    dicts: ``x``, ``from_below``, ``stage``, ``kind``,
     ``splits`` [(parent, left alone, kicked)], ``hits`` [(arm, point, new
     state)], and ``legs`` [(arm, start, end, state)] from this event to the
     next -- after the merge, the output ports, named pair + "g"/"e".
@@ -120,12 +118,6 @@ def lmt_history(pulses, t0, z0, u, port=LMT_PORT):
                 dv, arm["state"] = recoil(arm["state"], from_below)
                 arm["v"] += dv
                 hits.append((name, at(arm), arm["state"]))
-        elif kind == "decay":
-            from_below = None
-            for name, arm in arms.items():
-                if arm["state"] == "e":
-                    arm["state"] = "g"
-                    hits.append((name, at(arm), "g"))
         if kind == "merge":
             for stay, kicked in pairs:
                 a, b = arms[stay], arms[kicked]
@@ -150,31 +142,11 @@ def lmt_history(pulses, t0, z0, u, port=LMT_PORT):
 # --- the LMT Mach-Zehnder (Rudolph et al., Fig. 1c) -------------------------
 LMZ_ORDER = 11
 LMZ_T0 = -5.9  # the first pi/2
-LMZ_Z = -0.75  # where the atom comes in
+LMZ_Z = -0.3  # where the atom comes in
 LMZ_STEP = 0.3  # between the pulses of one stage
-LMZ_T = 3.3  # the first pi/2 to the first mirror pulse
-LMZ_U = 0.155  # baseline covered per unit time, per photon recoil
+LMZ_T = 3.0  # the first pi/2 to the first mirror pulse
+LMZ_U = 0.15  # baseline covered per unit time, per photon recoil
 LMZ_END = 2 * LMZ_T + (LMZ_ORDER - 1) * LMZ_STEP  # the last pi/2, from the first
-
-
-# --- the LMT gradiometer (Rudolph et al., Fig. 3) ---------------------------
-# An LMT beam splitter of order LGR_SPLIT sends two clouds apart; they drift
-# for LGR_DRIFT while the excited one decays; then one LMT Mach-Zehnder
-# sequence of order LGR_ORDER runs both interferometers at once -- every pulse
-# drives all four arms.
-LGR_SPLIT = 9
-LGR_ORDER = 7
-LGR_T0 = -6.0
-LGR_Z = -0.75
-LGR_STEP = 0.25
-LGR_DRIFT = 2.0  # the last splitting pulse to the first interferometer pulse
-LGR_T = 2.6
-LGR_U = 0.055
-
-
-def lgr_pulses():
-    split = [(0.0, "split", 0)]
-    split += [(j * LGR_STEP, "up", 0) for j in range(1, (LGR_SPLIT - 1) // 2 + 1)]
-    start = split[-1][0] + LGR_DRIFT
-    decay = [(split[-1][0] + LGR_DRIFT / 2, "decay", 1)]
-    return split + decay + lmz_pulses(LGR_ORDER, LGR_STEP, LGR_T, t0=start, stage=2)
+# The ports part by one recoil only, so they are drawn long enough for the
+# two atoms to come apart.
+LMZ_PORT = 3.4
