@@ -33,7 +33,7 @@ COOL_TIMELINE_CENTER = [3.75, -2.85, 0]
 COOL_HEADING_CORNER = [-6.6, 3.7, 0]  # upper left of the stage heading
 COOL_TEMPERATURE_AT = COOL_MOT_CENTER + [2.9, -1.55, 0]
 COOL_N_ATOMS = 140
-COOL_NARROWBAND_INTENSITY = 0.6  # of the beams' starting brightness
+COOL_NARROWBAND_INTENSITY = 0.85  # of the beams' starting brightness
 
 # The cloud at the end of each stage: (radius, temperature). Cartoon values,
 # chosen to read as "big and hot", "smaller and cooler", "small and cold".
