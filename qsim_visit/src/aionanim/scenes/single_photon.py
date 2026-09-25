@@ -14,6 +14,7 @@ from manim import *
 from aionanim.style import *
 from aionanim.tools.primitives import (
     absorb,
+    arm_ket,
     draw_legs,
     emit,
     grow,
@@ -36,6 +37,8 @@ from aionanim.scenes.mach_zehnder import (
     MZ_OUT,
     MachZehnder,
 )
+
+KET_BUFF = 0.2  # from a leg's midpoint to the state label beside it
 
 
 class SinglePhotonMachZehnder(MachZehnder):
@@ -90,11 +93,17 @@ class SinglePhotonMachZehnder(MachZehnder):
         self.add(lower, upper)
         self.play(*grow(recoil), run_time=0.6)
 
-        # Each leg is coloured by the state that arm is in while traversing it.
+        # Each leg is coloured by the state that arm is in while traversing
+        # it, and labelled with it: outside the loop, so the Phi has it alone.
+        kets = [
+            arm_ket(False).next_to(midpoint(MZ_A, MZ_B), DOWN, buff=KET_BUFF),
+            arm_ket(True).next_to(midpoint(MZ_A, MZ_B_UP), UL, buff=KET_BUFF),
+        ]
         draw_legs(
             self,
             [(lower, MZ_A, MZ_B, ATOM_COLOR), (upper, MZ_A, MZ_B_UP, KICKED_COLOR)],
             fade=[recoil],
+            extra=[FadeIn(k) for k in kets],
         )
         self.beat()
 
@@ -125,10 +134,15 @@ class SinglePhotonMachZehnder(MachZehnder):
             FadeOut(glow_down),
             run_time=0.6,
         )
+        kets = [
+            arm_ket(True).next_to(midpoint(MZ_B, MZ_C), DR, buff=KET_BUFF),
+            arm_ket(False).next_to(midpoint(MZ_B_UP, MZ_C), UP, buff=KET_BUFF),
+        ]
         draw_legs(
             self,
             [(lower, MZ_B, MZ_C, KICKED_COLOR), (upper, MZ_B_UP, MZ_C, ATOM_COLOR)],
             fade=[gain, lose],
+            extra=[FadeIn(k) for k in kets],
         )
         self.beat()
 
@@ -147,12 +161,15 @@ class SinglePhotonMachZehnder(MachZehnder):
         port_e = make_atom(KICKED_COLOR, opacity=SUPERPOSITION_OPACITY).move_to(MZ_C)
         self.remove(lower, upper)
         self.add(port_g, port_e)
+        out_g, out_e = MZ_C + RIGHT * MZ_OUT, MZ_C + (RIGHT + UP) * MZ_OUT
+        kets = [
+            arm_ket(False).next_to(midpoint(MZ_C, out_g), DOWN, buff=KET_BUFF),
+            arm_ket(True).next_to(midpoint(MZ_C, out_e), DR, buff=KET_BUFF),
+        ]
         draw_legs(
             self,
-            [
-                (port_g, MZ_C, MZ_C + RIGHT * MZ_OUT, ATOM_COLOR),
-                (port_e, MZ_C, MZ_C + (RIGHT + UP) * MZ_OUT, KICKED_COLOR),
-            ],
+            [(port_g, MZ_C, out_g, ATOM_COLOR), (port_e, MZ_C, out_e, KICKED_COLOR)],
+            extra=[FadeIn(k) for k in kets],
         )
 
         # --- 6. the enclosed area and the output ports -------------------

@@ -177,3 +177,10 @@ def state_colors(atom, color):
 
 def state_label(tex, color, font_size=FONT_STATE):
     return MathTex(tex, font_size=font_size, color=lighten(color))
+
+
+def arm_ket(excited, font_size=FONT_LEGEND):
+    """The state an arm is in: |g, p> or |e, p + hbar k>, in that state's colour."""
+    if excited:
+        return state_label(r"|e,\, p + \hbar k\rangle", KICKED_COLOR, font_size)
+    return state_label(r"|g,\, p\rangle", ATOM_COLOR, font_size)
