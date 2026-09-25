@@ -19,7 +19,6 @@ from aionanim.tools.primitives import (
     emit,
     grow,
     make_atom,
-    make_guide,
     make_k_arrow,
     momentum_arrow,
     state_colors,
@@ -59,18 +58,17 @@ class SinglePhotonMachZehnder(MachZehnder):
             font_size=FONT_TITLE,
         ).to_corner(UR)
         levels = make_level_diagram()
-        guide = make_guide([-config.frame_x_radius, MZ_A[1], 0], MZ_A)
-        self.play(FadeIn(title), FadeIn(levels), FadeIn(guide), run_time=1.0)
+        self.play(FadeIn(title), FadeIn(levels), run_time=1.0)
         self.beat()
 
         # --- 2. incoming atom --------------------------------------------
-        atom = make_atom().move_to([-config.frame_x_radius + 0.2, MZ_A[1], 0])
+        entry = np.array([-config.frame_x_radius + 0.2, MZ_A[1], 0])
+        atom = make_atom().move_to(entry)
+        # above the way in: below it is the first pulse's caption
+        ket_in = arm_ket(False).next_to(midpoint(entry, MZ_A), UP, buff=KET_BUFF)
+        ket_in.set_x(max(ket_in.get_x(), -config.frame_x_radius + 0.15 + ket_in.width / 2))
         self.play(FadeIn(atom, scale=0.5), run_time=0.5)
-        self.play(
-            atom.animate.move_to(MZ_A),
-            rate_func=linear,
-            run_time=(MZ_A[0] - atom.get_center()[0]) / V,
-        )
+        draw_legs(self, [(atom, entry, MZ_A, ATOM_COLOR)], extra=[FadeIn(ket_in)])
 
         # --- 3. first pi/2: split ----------------------------------------
         # One photon, one transition: the glow rises with the wavepacket and
@@ -94,7 +92,7 @@ class SinglePhotonMachZehnder(MachZehnder):
         self.play(*grow(recoil), run_time=0.6)
 
         # Each leg is coloured by the state that arm is in while traversing
-        # it, and labelled with it: outside the loop, so the Phi has it alone.
+        # it, and labelled with it.
         kets = [
             arm_ket(False).next_to(midpoint(MZ_A, MZ_B), DOWN, buff=KET_BUFF),
             arm_ket(True).next_to(midpoint(MZ_A, MZ_B_UP), UL, buff=KET_BUFF),
@@ -172,11 +170,7 @@ class SinglePhotonMachZehnder(MachZehnder):
             extra=[FadeIn(k) for k in kets],
         )
 
-        # --- 6. the enclosed area and the output ports -------------------
-        loop = Polygon(MZ_A, MZ_B, MZ_C, MZ_B_UP, **LOOP_AREA_STYLE)
-        phase = MathTex(
-            r"\Phi", font_size=FONT_PHASE, color=lighten(AREA_COLOR)
-        ).move_to((MZ_A + MZ_B + MZ_C + MZ_B_UP) / 4)
+        # --- 6. the output ports ---------------------------------------
         p1 = state_label(r"P_g", ATOM_COLOR).next_to(port_g, RIGHT, buff=0.3)
         p2 = state_label(r"P_e", KICKED_COLOR).next_to(port_e, RIGHT, buff=0.3)
         readout = MathTex(
@@ -184,7 +178,6 @@ class SinglePhotonMachZehnder(MachZehnder):
             font_size=FONT_ANNOTATION,
         ).to_corner(DR)
 
-        self.play(FadeIn(loop), FadeIn(phase), run_time=0.8)
         self.beat()
         self.play(Write(p1), Write(p2), Write(readout), run_time=1.3)
         self.wait(2.0)
