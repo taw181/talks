@@ -35,6 +35,7 @@ Aion10BeecroftSlide
 AICECernSlide
 LargeMomentumTransferSlide
 LMTMachZehnderSlide
+LMTGradiometerSlide
 LMTResultsSlide
 # outro
 OutroSlide
