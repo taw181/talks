@@ -167,7 +167,11 @@ class Gradiometer(Scene):
         self.beat()
 
         # --- pulse 3: recombine -------------------------------------------
-        fire_pulse(self, GR_T0 + 2 * GR_T, flash=[atoms["low"][0], atoms["up"][0]])
+        # Anchored on the two recombination points, which sit an arm above
+        # the clouds' starting heights: a pulse anchored on those heights
+        # crosses one arm's light travel time late and misses the atoms.
+        fire_pulse(self, low[3][0], flash=[atoms["low"][0], atoms["up"][0]],
+                   z_near=low[3][1], z_far=up[3][1])
 
         # --- the ports ------------------------------------------------------
         # The arms are spent: that pulse couples the two states each pair is

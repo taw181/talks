@@ -247,41 +247,52 @@ class LightShiftSignal(GradiometerGW):
     def close(self, sweeps):
         """Read both dials, then fly the ports into the two imaging pulses.
 
-        Each cloud's ports fly to the S pulse in turn; the |g> atoms light up
-        and are gone, and the |e> atoms fly on to the P pulse and do the same.
-        A port that got nothing is a guide running the whole way to P.
+        The ports' atoms take over from the arms on the frame the arms go, so
+        nothing leaves the page. The lower cloud was recombined L/c before the
+        upper one, so its ports fly on alone until the pulse reaches the upper
+        cloud, and then both clouds fly together to the S pulse, which lights
+        the |g> atoms; the |e> atoms fly on to the P pulse. A port that got
+        nothing is a guide running the whole way to P.
         """
-        self.play(*[FadeIn(m) for m in sweeps], run_time=0.7)
-        ground, excited = [], []
+        def along_port(origin, rise, x):
+            return origin + (x - origin[0]) * (RIGHT + UP * rise)
+
+        ports, empty = [], VGroup()  # ports: (atom, origin, rise, colour)
         for cloud, v in (("low", self.low), ("up", self.up)):
-            origin = v[3]
             p_ground = ground_share(self.phase[cloud][1], self.phase[cloud][0])
-            slope = self.port_slope(cloud)
-            legs, empty = [], VGroup()
-            for p, color, rise, arms in (
-                (p_ground, ATOM_COLOR, 0.0, ground),
-                (1.0 - p_ground, KICKED_COLOR, slope, excited),
+            for p, color, rise in (
+                (p_ground, ATOM_COLOR, 0.0),
+                (1.0 - p_ground, KICKED_COLOR, self.port_slope(cloud)),
             ):
-                at_s = origin + (LS_IMAGE_S - origin[0]) * (RIGHT + UP * rise)
-                at_p = origin + (LS_IMAGE_P - origin[0]) * (RIGHT + UP * rise)
                 if p < PORT_EMPTY:
-                    empty.add(make_guide(origin, at_p))
+                    empty.add(make_guide(v[3], along_port(v[3], rise, LS_IMAGE_P)))
                     continue
                 atom = make_atom(color, radius=CLOCK_ATOM_RADIUS, opacity=p)
-                self.add(atom.move_to(origin))
-                legs.append((atom, origin, at_s, color))
-                arms.append((atom, at_s, at_p, color))
-            if len(empty):
-                self.play(FadeIn(empty), run_time=0.5)
-            draw_legs(self, legs, extra=self.port_extra())
+                self.add(atom.move_to(v[3]))
+                ports.append((atom, v[3], rise, color))
+        self.play(*[FadeIn(m) for m in (*sweeps, empty)], run_time=0.7)
 
-        for x, name, color, arms in (
+        def fly_to(x, which):
+            if not which:
+                return
+            draw_legs(self, [
+                (atom, along_port(origin, rise, max(origin[0], atom.get_x())),
+                 along_port(origin, rise, x), color)
+                for atom, origin, rise, color in which
+            ], extra=self.port_extra())
+
+        up_x = self.up[3][0]
+        fly_to(up_x, [port for port in ports if port[1][0] < up_x])
+        fly_to(LS_IMAGE_S, ports)
+        ground = [port for port in ports if port[3] == ATOM_COLOR]
+        excited = [port for port in ports if port[3] == KICKED_COLOR]
+        for x, name, color, imaged in (
             (LS_IMAGE_S, "S", ATOM_COLOR, ground),
             (LS_IMAGE_P, "P", KICKED_COLOR, excited),
         ):
             if name == "P":
-                draw_legs(self, excited)
-            atoms = [atom for atom, *_ in arms]
+                fly_to(LS_IMAGE_P, excited)
+            atoms = [atom for atom, *_ in imaged]
             pulse = self.imaging_pulse(x, name, color, atoms)
             fluoresce(self, atoms, fade=[pulse])
 
@@ -368,7 +379,11 @@ class LightShiftSignal(GradiometerGW):
         ])
 
         # --- pulse 3: recombine -------------------------------------------
-        fire_pulse(self, GR_T0 + 2 * GR_T, flash=[atoms["low"][0], atoms["up"][0]])
+        # Anchored on the two recombination points, which sit an arm above
+        # the clouds' starting heights: a pulse anchored on those heights
+        # crosses one arm's light travel time late and misses the atoms.
+        fire_pulse(self, low[3][0], flash=[atoms["low"][0], atoms["up"][0]],
+                   z_near=low[3][1], z_far=up[3][1])
 
 
 class LightShiftSignalContinuous(RunsContinuously, LightShiftSignal):
