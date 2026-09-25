@@ -23,6 +23,7 @@ ChamberSlide
 AIONChambersSlide
 CoolingSequenceSlide
 DipoleTrapLoadingSlide
+ExperimentSequenceSlide
 VelocitySlicingSlide
 SignalInjectionSlide
 LightShiftSignalSlide
