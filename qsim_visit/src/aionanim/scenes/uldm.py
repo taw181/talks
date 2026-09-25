@@ -247,7 +247,7 @@ class DarkMatterPhase(Scene):
         fire_vertical_pulse(self, a[0], [self.seed])
         arm_lo, arm_hi = self.split(a)
 
-        # --- leg 1: arm 1 is excited, over the positive half-cycle ----------
+        # --- leg 1: arm 1 is excited, over one stretch of the oscillation ---
         self.play(FadeIn(bands[0]), run_time=0.5)
         draw_legs(self, [
             (arm_lo, a, b, ATOM_COLOR),
@@ -272,7 +272,7 @@ class DarkMatterPhase(Scene):
             run_time=0.5,
         )
 
-        # --- leg 2: arm 2 is excited, over the negative half-cycle ----------
+        # --- leg 2: arm 2 is excited, over the next, which differs ---------
         self.play(FadeIn(bands[1]), run_time=0.5)
         draw_legs(self, [
             (arm_lo, b, c, KICKED_COLOR),

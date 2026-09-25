@@ -192,10 +192,11 @@ class GradiometerGW(Scene):
             # off this slide is which knobs it turns, and the prefactor
             # 2 omega_A / c is fixed the moment the atom is chosen. What is
             # left is the baseline, the photon kicks, and the interrogation
-            # time -- the last through a sin^2 rather than a power, because it
-            # is a resonance: the pulses land on crest, trough and crest when
-            # omega_GW T = pi, which is the case drawn, and the response falls
-            # away as T^2 well below it.
+            # time -- the last through a sin^2 rather than a power: the
+            # response peaks at omega_GW T = pi, where the pulses would land on
+            # crest, trough and crest, and falls away as T^2 well below it. The
+            # wave drawn is off that peak on purpose, so the detector does not
+            # read as working only for a tuned wave.
             MathTex(
                 r"\Delta\Phi = \Phi_{\text{upper}} - \Phi_{\text{lower}}"
                 r" \propto n\,L\,h\,\sin^2(\omega_{\text{GW}} T/2)",
@@ -316,7 +317,7 @@ class GradiometerGW(Scene):
         low, up, lags = self.low, self.up, self.lags
         atoms, phase, rate, excited = self.atoms, self.phase, self.rate, self.excited
 
-        # --- pulse 1: the beamsplitter, arriving late on a crest ----------
+        # --- pulse 1: the beamsplitter, arriving late ----------------------
         self.play(FadeIn(self.dots[0], scale=0.4), run_time=0.3)
         fire_pulse(
             self, GW_PULSES[0] + self.low_lags[0],
@@ -338,7 +339,7 @@ class GradiometerGW(Scene):
             for c in ("low", "up")
         ])
 
-        # --- pulse 2: the mirror, arriving early on a trough --------------
+        # --- pulse 2: the mirror, arriving early --------------------------
         self.play(FadeIn(self.dots[1], scale=0.4), run_time=0.3)
         fire_pulse(
             self, GW_PULSES[1] + self.low_lags[1],
@@ -394,9 +395,9 @@ class RunsContinuously:
     for L/c afterwards. The caption becomes a label on something the frame is
     doing.
 
-    The price is that the pulses are quick. Run at V a crest pulse crosses the
-    frame in under a second and the trough pulse, whose light travel time the
-    wave has very nearly closed up, in a tenth of one -- which is not a defect
+    The price is that the pulses are quick. Run at V a late pulse crosses the
+    frame in under a second and the early one, whose light travel time the
+    wave has largely closed up, in a fraction of that -- which is not a defect
     but the measurement: the two are drawn at the ratio the wave put between
     them rather than dilated to the same length and annotated.
     """
@@ -490,7 +491,7 @@ class RunsContinuously:
             on_far=lambda: self.open_arms("up"),
         )
 
-        # --- pulse 2: the mirror, arriving early on a trough --------------
+        # --- pulse 2: the mirror, arriving early --------------------------
         # gw_vertices puts a cloud's two arms at the same time, so one flash
         # does for both even though the upper arm is an arm's height further
         # up the column. The slope that separates them is a fortieth of the
@@ -715,10 +716,11 @@ class GradiometerGWStretch(GradiometerGW):
             # off this slide is which knobs it turns, and the prefactor
             # 2 omega_A / c is fixed the moment the atom is chosen. What is
             # left is the baseline, the photon kicks, and the interrogation
-            # time -- the last through a sin^2 rather than a power, because it
-            # is a resonance: the pulses land on crest, trough and crest when
-            # omega_GW T = pi, which is the case drawn, and the response falls
-            # away as T^2 well below it.
+            # time -- the last through a sin^2 rather than a power: the
+            # response peaks at omega_GW T = pi, where the pulses would land on
+            # crest, trough and crest, and falls away as T^2 well below it. The
+            # wave drawn is off that peak on purpose, so the detector does not
+            # read as working only for a tuned wave.
             MathTex(
                 r"\Delta\Phi = \Phi_{\text{upper}} - \Phi_{\text{lower}}"
                 r" \propto n\,L\,h\,\sin^2(\omega_{\text{GW}} T/2)",

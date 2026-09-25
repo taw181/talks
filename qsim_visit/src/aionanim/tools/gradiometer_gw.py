@@ -22,10 +22,12 @@ from aionanim.tools.gradiometer import (
 
 
 # --- a gravitational wave passing through ---------------------------------
-# A wave of period 2T is the resonant case, and the reason these scenes work:
-# the three pulses land on crest, trough and crest, so the modulation builds up
-# across the sequence instead of dropping out of the difference the way a
-# static gradient -- or the laser's own phase noise -- does.
+# Deliberately off resonance. A wave of period 2T would put the three pulses
+# on crest, trough and crest, which reads as if the detector only worked for a
+# wave tuned to the sequence. Here the sequence is 1.2 periods long and starts
+# at an arbitrary phase: the pulses still sample the wave at different points,
+# so it survives the difference that a static gradient -- or the laser's own
+# phase noise -- drops out of. The response goes as sin^2(omega T / 2).
 #
 # Two exaggerations, because the diagram draws L and L/c at wildly different
 # scales, and a single factor cannot make both readable. GW_LAG_GAIN is the
@@ -38,15 +40,15 @@ from aionanim.tools.gradiometer import (
 # fixes its value. A pulse is held up in proportion to how far it has come, so
 # the near cloud -- sitting close to the laser -- always responds about five
 # times less than the far one, and no single gain can drive both to a half
-# and half split. At 0.8 every port has something in it (the near pair splits
-# about 81/19, the far pair about 28/72) and the two ends still read visibly
-# differently, which is the whole claim of the figure. Smaller gains leave the
-# near cloud's excited port too faint to see; 0.6 drove the far cloud through
-# very nearly a half turn, so its ground port came out empty and the far
-# interferometer read as a complete transfer rather than as a split.
-GW_PERIOD = 2 * GR_T
-GW_OMEGA = TAU / GW_PERIOD
-GW_LAG_GAIN = 0.8
+# and half split. At 0.7 every port has something in it (the near pair splits
+# about 79/21, the far pair about 39/61) and the two ends still read visibly
+# differently, which is the whole claim of the figure. Much below 0.65 the far
+# cloud's ground port empties; above it the far cloud wraps round towards the
+# near one's split and the two ends stop reading differently.
+GW_OMEGA = 1.2 * PI / GR_T
+GW_PERIOD = TAU / GW_OMEGA
+GW_THETA = -0.25 * PI  # the wave's phase at the first pulse
+GW_LAG_GAIN = 0.7
 GW_STRETCH_GAIN = 0.07
 GW_PULSES = [GR_T0, GR_T0 + GR_T, GR_T0 + 2 * GR_T]
 
@@ -57,8 +59,8 @@ GW_TRACE_X = (GR_T0 - 0.6, GR_T0 + 2 * GR_T + 0.8)
 
 
 def strain(t):
-    """h(t) at the detector, normalised to +-1 and phased so pulse 1 is on a crest."""
-    return np.cos(GW_OMEGA * (t - GR_T0))
+    """h(t) at the detector, normalised to +-1, at GW_THETA at the first pulse."""
+    return np.cos(GW_OMEGA * (t - GR_T0) + GW_THETA)
 
 
 def gw_lag(t, gain=GW_LAG_GAIN):
@@ -107,8 +109,8 @@ def make_strain_trace(label=r"h(t)"):
     are the same shape, and a scene should name whichever one it is drawing.
 
     Sharing the x axis is the point: a pulse and the phase of the wave it
-    samples sit in the same column, so crest-trough-crest can be read off
-    against the pulses that produced it. Returns the curve and its three pulse
+    samples sit in the same column, so where each pulse caught the wave can be
+    read off against the pulse that caught it. Returns the curve and its three pulse
     markers separately, so a scene can light each marker as that pulse fires.
     """
     def at(t):

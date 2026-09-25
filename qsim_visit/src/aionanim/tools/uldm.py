@@ -32,18 +32,20 @@ from aionanim.tools.primitives import (
 # ports split. It is ClockPhase's null broken by the source rather than by the
 # geometry.
 #
-# omega_phi = pi / T is the resonant case and the one drawn: the pulses land
-# on zero crossings, so one arm sits on the positive half-cycle and the other
-# on the negative and the two departures add rather than averaging away. Off
-# resonance the same figure is a smaller gap, which is why the search is a
-# scan in omega_phi and not a single measurement.
-DM_OMEGA = PI / CP_T
+# Deliberately off resonance. omega_phi = pi / T would put the three pulses on
+# zero crossings with each leg exactly a half-cycle, which reads as if the
+# measurement only worked when the field was tuned to the sequence. Here the
+# sequence is 1.2 periods long and starts at an arbitrary phase, and the two
+# windows still integrate to different amounts -- the response goes as
+# sin^2(omega_phi T / 2), which is only zero at omega_phi T = 2 pi m.
+DM_OMEGA = 1.2 * PI / CP_T
+DM_THETA = -0.15 * PI  # the field's phase at the first pulse
 # The fractional swing in omega_A, exaggerated in the same spirit as
 # GW_LAG_GAIN: bounds on a scalar coupling in this mass range sit below about
 # 1e-16, so this is some fifteen orders of magnitude too big. What the figure
 # carries is which part of the cycle each arm sampled, not how large the
-# effect is.
-DM_EPS = 0.17
+# effect is. Set so the hands part by as much as they did on resonance.
+DM_EPS = 0.23
 
 # the field's trace, above the diagram and on the diagram's own time axis
 DM_TRACE_Z = 2.3
@@ -77,13 +79,10 @@ DM_MARK_X = 0.60  # the column the laser's labels and the detuning bar sit in
 def dm_field(t):
     """The field's modulation of omega_A at time t, normalised to +-1.
 
-    Phased to cross zero at the first pulse, which is what puts leg 1 on the
-    positive half-cycle and leg 2, after the mirror, on the negative one. The
-    opposite phasing -- a pulse on a crest -- is the worst case rather than a
-    cosmetic choice: each window would then cover a whole crest, integrate to
-    the same thing as its neighbour, and the field would drop out entirely.
+    At DM_THETA at the first pulse: an arbitrary phase, not one picked to
+    line the pulses up with the wave.
     """
-    return np.sin(DM_OMEGA * (t - CP_T0))
+    return np.sin(DM_OMEGA * (t - CP_T0) + DM_THETA)
 
 
 def dm_phase(rate, t_from, t_to):
@@ -95,7 +94,7 @@ def dm_phase(rate, t_from, t_to):
     that difference is the whole signal.
     """
     def wound(t):
-        return t - DM_EPS * np.cos(DM_OMEGA * (t - CP_T0)) / DM_OMEGA
+        return t - DM_EPS * np.cos(DM_OMEGA * (t - CP_T0) + DM_THETA) / DM_OMEGA
 
     return rate * (wound(t_to) - wound(t_from))
 
@@ -225,8 +224,8 @@ def make_modulated_levels(now, center=DM_LEVELS, scale=1.0, text_scale=1.0):
         )
 
     # The laser: one arrow, tuned to the unmodulated transition, and never
-    # redrawn. It is resonant at the first pulse and at no other moment, which
-    # is the whole point of drawing it fixed. Double-ended because it is a
+    # redrawn. It is resonant only as the field crosses zero, which is the
+    # whole point of drawing it fixed. Double-ended because it is a
     # frequency being compared against another, not a photon going one way --
     # the single-photon diagram's one-way glow is the arrow for that.
     laser = DoubleArrow(
