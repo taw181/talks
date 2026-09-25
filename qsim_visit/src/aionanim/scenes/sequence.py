@@ -7,6 +7,9 @@ from the broadband red MOT to loading the lower dipole trap. The stages
 either side of it -- the blue MOT before, state preparation, interferometry
 and readout after -- run over a veiled video: before it, nothing to see yet;
 after it, its last frame, dimmed.
+
+ExperimentSequenceSimple is the slide's cut: no level scheme, the sequence
+stopped once the lower trap has loaded, and the video in the middle.
 """
 
 from manim import *
@@ -18,6 +21,7 @@ from aionanim.tools.sequence import (
     IMAGING_FRAMES_PER_SNAPSHOT,
     IMAGING_T0_MS,
     IMAGING_VIDEO,
+    REFERENCES,
     STAGES,
     References,
     SrLevels,
@@ -35,6 +39,12 @@ SEQ_LEVELS_CENTER = [-4.35, 1.9, 0]
 SEQ_LEVELS_SCALE = 0.85
 SEQ_HEADING_CENTER = [0.35, 2.6, 0]
 SEQ_TIMELINE_Y = -1.0
+# the simple cut: the video centred and larger, the heading to its left
+SEQ_SIMPLE_VIDEO_SIZE = 4.3
+SEQ_SIMPLE_VIDEO_CENTER = [0, 1.45, 0]
+SEQ_SIMPLE_HEADING_CENTER = [-4.65, 1.45, 0]
+SEQ_SIMPLE_STAGES = 5  # up to and including loading the lower dipole trap
+SEQ_SIMPLE_REFERENCES = 2  # the papers those stages cite
 
 # --- pacing ---------------------------------------------------------------
 SEQ_VIDEO_MS_PER_S = 25.0  # the imaging at half a second a snapshot
@@ -43,18 +53,26 @@ SEQ_SWITCH_TIME = 0.6  # how long the timeline takes to move to the next stage
 
 
 class ExperimentSequence(Scene):
+    STAGES = STAGES
+    REFERENCES = REFERENCES
+    LEVELS = True
+    VIDEO_SIZE = SEQ_VIDEO_SIZE
+    VIDEO_CENTER = SEQ_VIDEO_CENTER
+    HEADING_CENTER = SEQ_HEADING_CENTER
+
     def construct(self):
+        stages = self.STAGES
         levels = SrLevels().scale(SEQ_LEVELS_SCALE).move_to(SEQ_LEVELS_CENTER)
-        timeline = Timeline()
+        timeline = Timeline(stages)
         timeline.move_to([0, SEQ_TIMELINE_Y, 0], aligned_edge=UP)
         timeline.set_x(0)
-        refs = References(timeline)
+        refs = References(timeline, stages, self.REFERENCES)
 
         frames = load_video_frames(
             data_path(*IMAGING_VIDEO), every=IMAGING_FRAMES_PER_SNAPSHOT,
             crop=IMAGING_CROP,
         )
-        video = VideoFrame(frames).set(height=SEQ_VIDEO_SIZE).move_to(SEQ_VIDEO_CENTER)
+        video = VideoFrame(frames).set(height=self.VIDEO_SIZE).move_to(self.VIDEO_CENTER)
         t_ms = ValueTracker(IMAGING_T0_MS)
         video.add_updater(lambda m: m.show(snapshot_index(t_ms.get_value())))
         clock = always_redraw(lambda: Tex(
@@ -62,7 +80,7 @@ class ExperimentSequence(Scene):
             font_size=FONT_VIDEO_CLOCK,
         ).next_to(video.get_corner(UL), DR, buff=0.15))
         # drawn over the video and its clock, since the frames can't be faded
-        veil = Rectangle(width=SEQ_VIDEO_SIZE, height=SEQ_VIDEO_SIZE, stroke_width=0,
+        veil = Rectangle(width=self.VIDEO_SIZE, height=self.VIDEO_SIZE, stroke_width=0,
                          fill_color=PLOT_BACKGROUND, fill_opacity=1).move_to(video)
         border = SurroundingRectangle(video, buff=0, **VIDEO_BORDER_STYLE)
         # so the empty box during the blue MOT reads as "not yet", not "broken"
@@ -70,15 +88,15 @@ class ExperimentSequence(Scene):
                       color=lighten(GUIDE_COLOR)).move_to(video)
 
         self.add(video, clock, veil)
-        self.play(FadeIn(levels), FadeIn(timeline), FadeIn(refs), Create(border),
-                  FadeIn(not_yet))
+        self.play(*([FadeIn(levels)] if self.LEVELS else []), FadeIn(timeline),
+                  FadeIn(refs), Create(border), FadeIn(not_yet))
 
         heading = VGroup()
-        for i, stage in enumerate(STAGES):
-            new_heading = stage_heading(stage).move_to(SEQ_HEADING_CENTER)
+        for i, stage in enumerate(stages):
+            new_heading = stage_heading(stage).move_to(self.HEADING_CENTER)
             anims = [
                 *timeline.activate(i),
-                *levels.drive(stage.transition),
+                *(levels.drive(stage.transition) if self.LEVELS else []),
                 *refs.cite(stage.reference),
                 # out, then in: two headings crossing each other can't be read
                 Succession(FadeOut(heading, shift=UP * 0.2),
@@ -86,7 +104,7 @@ class ExperimentSequence(Scene):
             ]
             heading = new_heading
             filmed = stage.video_ms is not None
-            was_filmed = i > 0 and STAGES[i - 1].video_ms is not None
+            was_filmed = i > 0 and stages[i - 1].video_ms is not None
             if filmed and not was_filmed:
                 anims += [veil.animate.set_fill(opacity=0), FadeOut(not_yet)]
             elif was_filmed and not filmed:
@@ -104,3 +122,15 @@ class ExperimentSequence(Scene):
                 self.play(*anims, run_time=SEQ_SWITCH_TIME)
                 self.wait(SEQ_STAGE_TIME - SEQ_SWITCH_TIME)
         self.wait()
+
+
+class ExperimentSequenceSimple(ExperimentSequence):
+    """The sequence up to loading the lower dipole trap, beside the video
+    alone: no level scheme, and only the papers those stages cite."""
+
+    STAGES = STAGES[:SEQ_SIMPLE_STAGES]
+    REFERENCES = REFERENCES[:SEQ_SIMPLE_REFERENCES]
+    LEVELS = False
+    VIDEO_SIZE = SEQ_SIMPLE_VIDEO_SIZE
+    VIDEO_CENTER = SEQ_SIMPLE_VIDEO_CENTER
+    HEADING_CENTER = SEQ_SIMPLE_HEADING_CENTER

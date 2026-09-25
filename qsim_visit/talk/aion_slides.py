@@ -39,6 +39,7 @@ from aionanim.scenes.gravitational_waves import BlackHoleMerger, MergerOnSensiti
 from aionanim.scenes.gw_landscape import SensitivityBuildUp
 from aionanim.scenes.light_shift import LightShiftSignal
 from aionanim.scenes.lmt import LargeMomentumTransfer, LMTMachZehnder
+from aionanim.scenes.sequence import ExperimentSequenceSimple
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
 from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhase
@@ -297,6 +298,11 @@ class AIONChambersSlide(DeckSlide):
         figure = load_image(MEDIA / "aion_chambers.png", height=6.9)
         figure.next_to(title, DOWN, buff=0.25).set_x(0)
         self.play(FadeIn(title), FadeIn(figure), run_time=0.8)
+
+
+class ExperimentSequenceSlide(DeckSlide, ExperimentSequenceSimple):
+    """No stops: the shot plays through to the loaded lower trap and holds
+    there."""
 
 
 class CoolingSequenceSlide(LoopingStages, DeckSlide, CoolingSequence):
