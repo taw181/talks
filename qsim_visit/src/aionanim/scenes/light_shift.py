@@ -6,6 +6,7 @@ from manim import *
 from aionanim.style import *
 from aionanim.tools.clock import (
     clock_rate,
+    ground_share,
     make_dial,
     phase_sweep,
 )
@@ -15,6 +16,7 @@ from aionanim.tools.gradiometer import (
     GR_DIAL_RADIUS,
     GR_LAG,
     GR_LASER_GAP,
+    GR_LASER_Z,
     GR_LOWER_Z,
     GR_SIGNAL,
     GR_SLOPE,
@@ -29,7 +31,9 @@ from aionanim.tools.gradiometer import (
 )
 from aionanim.tools.primitives import (
     draw_legs,
+    fluoresce,
     make_atom,
+    make_guide,
     state_colors,
 )
 from aionanim.tools.spacetime import (
@@ -79,6 +83,19 @@ LS_PAD = 0.38  # how far its band stands off the interferometer it covers
 # of a turn is drawn as two thirds of one. Nothing about the measurement
 # changes with the sign: the ports split by cos(Phi) either way.
 LS_PHASE = -TAU / 3
+
+# --- the readout: two imaging pulses --------------------------------------
+# The ports are read by fluorescence on the 461 nm line, one state at a time:
+# a pulse images the atoms in 1S0 (|g>, "S") and blows them away, then the
+# atoms in 3P0 (|e>, "P") are repumped and imaged with a second one. One
+# camera frame takes both clouds, so each pulse is vertical -- simultaneous
+# at the two clouds -- unlike the interferometer's pulses, which climb the
+# baseline. Times are where they cross the diagram: late enough that the
+# upper cloud's two ports are an atom apart when S is imaged, early enough
+# that the P ports stop short of the right-hand side, which the readout image
+# takes over.
+LS_IMAGE_S = 2.8
+LS_IMAGE_P = 3.6
 
 
 def along(start, end, f):
@@ -197,6 +214,15 @@ class LightShiftSignal(GradiometerGW):
         self.close(sweeps)
         self.beat()
 
+        # The picture the two pulses took, in the dials' place: a talk slide
+        # supplies it, the package scene has none and keeps the dials.
+        image = self.readout_image()
+        if image is not None:
+            self.play(FadeOut(dials), FadeOut(hand_key), *[FadeOut(m) for m in self.big],
+                      *[FadeOut(m) for m in sweeps], run_time=0.6)
+            self.play(FadeIn(image), run_time=0.8)
+            self.beat()
+
         signal = VGroup(
             Tex(
                 r"applied to one interferometer, so it survives the difference",
@@ -212,6 +238,65 @@ class LightShiftSignal(GradiometerGW):
             signal.scale(GR_TERMS_WIDTH / signal.width)
         self.play(FadeIn(signal), run_time=1.0)
         self.wait(2.0)
+
+    def readout_image(self):
+        """Hook: a camera image of the two clouds, shown once they are read
+        out, in place of the dials. None here."""
+        return None
+
+    def close(self, sweeps):
+        """Read both dials, then fly the ports into the two imaging pulses.
+
+        Each cloud's ports fly to the S pulse in turn; the |g> atoms light up
+        and are gone, and the |e> atoms fly on to the P pulse and do the same.
+        A port that got nothing is a guide running the whole way to P.
+        """
+        self.play(*[FadeIn(m) for m in sweeps], run_time=0.7)
+        ground, excited = [], []
+        for cloud, v in (("low", self.low), ("up", self.up)):
+            origin = v[3]
+            p_ground = ground_share(self.phase[cloud][1], self.phase[cloud][0])
+            slope = self.port_slope(cloud)
+            legs, empty = [], VGroup()
+            for p, color, rise, arms in (
+                (p_ground, ATOM_COLOR, 0.0, ground),
+                (1.0 - p_ground, KICKED_COLOR, slope, excited),
+            ):
+                at_s = origin + (LS_IMAGE_S - origin[0]) * (RIGHT + UP * rise)
+                at_p = origin + (LS_IMAGE_P - origin[0]) * (RIGHT + UP * rise)
+                if p < PORT_EMPTY:
+                    empty.add(make_guide(origin, at_p))
+                    continue
+                atom = make_atom(color, radius=CLOCK_ATOM_RADIUS, opacity=p)
+                self.add(atom.move_to(origin))
+                legs.append((atom, origin, at_s, color))
+                arms.append((atom, at_s, at_p, color))
+            if len(empty):
+                self.play(FadeIn(empty), run_time=0.5)
+            draw_legs(self, legs, extra=self.port_extra())
+
+        for x, name, color, arms in (
+            (LS_IMAGE_S, "S", ATOM_COLOR, ground),
+            (LS_IMAGE_P, "P", KICKED_COLOR, excited),
+        ):
+            if name == "P":
+                draw_legs(self, excited)
+            atoms = [atom for atom, *_ in arms]
+            pulse = self.imaging_pulse(x, name, color, atoms)
+            fluoresce(self, atoms, fade=[pulse])
+
+    def imaging_pulse(self, x, name, color, atoms):
+        """A 461 nm pulse up the baseline at time x, named for the state it
+        images. It stops just past the topmost atom it lights, as the clock's
+        pulses do, rather than running on through the key in the corner.
+        Returns it, to go out with the fluorescence."""
+        top = max(a.get_top()[1] for a in atoms) + 0.25
+        pulse = Line([x, GR_LASER_Z, 0], [x, top, 0],
+                     color=IMAGING_COLOR, stroke_width=PULSE_STROKE_WIDTH)
+        caption = Tex(name, font_size=FONT_STATE, color=lighten(color))
+        caption.next_to([x, GR_LASER_Z, 0], UR, buff=0.12)
+        self.play(Create(pulse), FadeIn(caption), rate_func=linear, run_time=0.6)
+        return VGroup(pulse, caption)
 
     def fly(self):
         """Three pulses and two legs, with the beam on across the middle of

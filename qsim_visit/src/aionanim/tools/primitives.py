@@ -195,3 +195,22 @@ def arm_ket(excited, phase=None, font_size=FONT_LEGEND, stacked=False):
         return VGroup(state_label(factor, color, font_size),
                       state_label(ket, color, font_size)).arrange(DOWN, buff=0.1)
     return state_label(rf"{factor}\,{ket}", color, font_size)
+
+
+def fluoresce(scene, atoms, fade=(), run_time=0.8):
+    """Atoms caught by an imaging pulse light up in its blue, then are gone.
+
+    The halo is the scattered light; the atoms fade with it because imaging
+    is the end of them -- a cloud that has been imaged has been heated out of
+    the trap and pushed off by the light. `fade` goes out with them: the
+    pulse that did the imaging, say.
+    """
+    halos = [
+        Circle(radius=atom.width * 0.85, stroke_width=0, fill_color=IMAGING_COLOR,
+               fill_opacity=FLUORESCENCE_HALO_OPACITY).move_to(atom)
+        for atom in atoms
+    ]
+    scene.play(*[FadeIn(h, scale=0.5) for h in halos],
+               *[Flash(a, **FLUORESCENCE_FLASH) for a in atoms],
+               run_time=run_time)
+    scene.play(*[FadeOut(m) for m in (*halos, *atoms, *fade)], run_time=0.5)

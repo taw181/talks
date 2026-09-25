@@ -378,6 +378,12 @@ TRANSITION_698_COLOR = LASER_COLOR
 # is what the light-shift green already means in the talk -- and 488 nm is
 # blue-green anyway.
 TRANSITION_488_COLOR = LIGHT_SHIFT_COLOR
+# Readout is fluorescence on the 461 nm line: the imaging pulses and the
+# light the atoms scatter back take its blue.
+IMAGING_COLOR = TRANSITION_461_COLOR
+FLUORESCENCE_FLASH = dict(color=IMAGING_COLOR, num_lines=14, flash_radius=0.6,
+                          line_length=0.28)
+FLUORESCENCE_HALO_OPACITY = 0.55
 TRANSITION_IDLE_STYLE = dict(stroke_width=3, color=lighten(GUIDE_COLOR))
 TRANSITION_ACTIVE_WIDTH = 7
 FONT_LINEWIDTH = FONT_AXIS  # a transition's linewidth, under its wavelength

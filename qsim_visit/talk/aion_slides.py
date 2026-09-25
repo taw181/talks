@@ -318,7 +318,22 @@ class VelocitySlicingSlide(LoopingStages, DeckSlide, VelocitySlicing):
 
 
 class LightShiftSignalSlide(Clicks, DeckSlide, LightShiftSignal):
-    pass
+    """The readout ends on the camera image of the two clouds, S left and P
+    right, in place of the dials."""
+
+    # the image's two columns, as fractions of its width from the left
+    IMAGE_COLUMNS = {"S": (0.27, ATOM_COLOR), "P": (0.78, KICKED_COLOR)}
+
+    def readout_image(self):
+        image = load_image(MEDIA / "atom_phase_image.png", height=5.4)
+        image.to_edge(RIGHT, buff=0.25).set_y(-0.25)
+        left, width = image.get_left()[0], image.width
+        labels = VGroup(*[
+            Tex(name, font_size=FONT_STATE, color=lighten(color))
+            .move_to([left + f * width, image.get_top()[1] + 0.3, 0])
+            for name, (f, color) in self.IMAGE_COLUMNS.items()
+        ])
+        return Group(image, labels)
 
 
 class SignalInjectionSlide(LoopingStages, DeckSlide, SignalInjection):
