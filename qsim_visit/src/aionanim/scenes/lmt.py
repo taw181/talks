@@ -149,7 +149,7 @@ class LargeMomentumTransfer(Scene):
 
         # bottom left, under the lower arm's start: it ends in the bottom right
         scaling = MathTex(
-            r"\Phi \;\propto\; N\,k\,a\,T^{2}", font_size=FONT_STATE
+            r"\Phi \;\propto\; N\,k\,\sin^{2}(\omega T/2)", font_size=FONT_STATE
         ).to_corner(DL)
         self.play(Write(scaling), run_time=1.0)
         self.wait(2.0)
@@ -297,7 +297,7 @@ class LMTMachZehnder(LMTSequence):
         self.play(Create(plain), FadeIn(plain_label), run_time=1.0)
         self.beat()
         scaling = MathTex(
-            r"\Phi \;\propto\; N\,k\,a\,T^{2}", font_size=FONT_STATE
+            r"\Phi \;\propto\; N\,k\,\sin^{2}(\omega T/2)", font_size=FONT_STATE
         ).to_corner(UR)  # clear of the arms, which peak left of centre
         self.play(Write(scaling), run_time=1.0)
         self.wait(2.0)
