@@ -179,8 +179,19 @@ def state_label(tex, color, font_size=FONT_STATE):
     return MathTex(tex, font_size=font_size, color=lighten(color))
 
 
-def arm_ket(excited, font_size=FONT_LEGEND):
-    """The state an arm is in: |g, p> or |e, p + hbar k>, in that state's colour."""
-    if excited:
-        return state_label(r"|e,\, p + \hbar k\rangle", KICKED_COLOR, font_size)
-    return state_label(r"|g,\, p\rangle", ATOM_COLOR, font_size)
+def arm_ket(excited, phase=None, font_size=FONT_LEGEND, stacked=False):
+    """The state an arm is in: |g, p> or |e, p + hbar k>, in that state's colour.
+
+    `phase` is the Tex of the phase the arm has picked up, written in front
+    as e^{i(phase)} -- or over the ket, if `stacked`, where a leg has no room
+    beside it for the whole line.
+    """
+    color = KICKED_COLOR if excited else ATOM_COLOR
+    ket = r"|e,\, p + \hbar k\rangle" if excited else r"|g,\, p\rangle"
+    if phase is None:
+        return state_label(ket, color, font_size)
+    factor = rf"e^{{i({phase})}}"
+    if stacked:
+        return VGroup(state_label(factor, color, font_size),
+                      state_label(ket, color, font_size)).arrange(DOWN, buff=0.1)
+    return state_label(rf"{factor}\,{ket}", color, font_size)

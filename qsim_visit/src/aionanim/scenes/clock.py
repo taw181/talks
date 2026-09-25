@@ -33,7 +33,9 @@ from aionanim.tools.clock import (
     readout_equation,
     show_phase_budget,
 )
+from aionanim.scenes.mach_zehnder import MachZehnder
 from aionanim.tools.primitives import (
+    arm_ket,
     draw_legs,
     make_atom,
     state_colors,
@@ -43,6 +45,12 @@ from aionanim.tools.primitives import (
 # where the budget goes: the open band between the note and
 # the interferometer, left of the dial
 CP_TERMS = np.array([-2.3, 2.0, 0.0])
+# The arms' states, with the phase each has picked up by the end of the leg:
+# +phi_n on absorbing pulse n's photon, -phi_n on emitting into it, and
+# -omega_A T for a leg spent in |e>. Smaller than the Mach-Zehnder's, since
+# the phases make them long.
+CP_KET_FONT = FONT_AXIS
+CP_KET_BUFF = CLOCK_ATOM_RADIUS + 0.05  # clear of an atom flying past
 
 
 class ClockPhase(Scene):
@@ -91,10 +99,12 @@ class ClockPhase(Scene):
         self.beat()
 
         seed = make_atom(radius=CLOCK_ATOM_RADIUS).move_to(a)
-        self.play(FadeIn(seed, scale=0.5), run_time=0.5)
+        ket_in = arm_ket(False, font_size=CP_KET_FONT)
+        ket_in.next_to(seed, UP, buff=CP_KET_BUFF).to_edge(LEFT, buff=0.15)
+        self.play(FadeIn(seed, scale=0.5), FadeIn(ket_in), run_time=0.5)
 
         # --- the beamsplitter ----------------------------------------------
-        fire_vertical_pulse(self, a[0], [seed])
+        self.pulse(a[0], 1, [seed])
         arm_lo = make_atom(
             radius=CLOCK_ATOM_RADIUS, opacity=SUPERPOSITION_OPACITY
         ).move_to(a)
@@ -114,10 +124,19 @@ class ClockPhase(Scene):
         self.add(hand_lo, hand_hi, big_lo, big_hi)
 
         # --- leg 1: the kicked arm is the excited one ------------------------
+        kets = [
+            # inside the parallelogram: below the leg is the readout's row
+            arm_ket(False, font_size=CP_KET_FONT)
+            .next_to(midpoint(a, b), UP, buff=CP_KET_BUFF).shift(RIGHT * 0.3),
+            # stacked: in one line it runs off the left of the frame
+            arm_ket(True, r"\phi_1 - \omega_A T", CP_KET_FONT, stacked=True)
+            .next_to(midpoint(a, b_up), UL, buff=CP_KET_BUFF),
+        ]
         draw_legs(self, [
             (arm_lo, a, b, ATOM_COLOR),
             (arm_hi, a, b_up, KICKED_COLOR),
-        ], extra=[kicked_first.animate.set_value(rate * CP_T)])
+        ], extra=[kicked_first.animate.set_value(rate * CP_T),
+                  *[FadeIn(k) for k in kets]])
         self.beat()
 
         # --- the mirror: the arms swap state ----------------------------------
@@ -126,7 +145,7 @@ class ClockPhase(Scene):
         # a photon, and the excited one emits, so they swap states.
         # One pulse crosses both arms, so they swap together -- and each
         # arm's hand on the dial takes its new colour with it.
-        fire_vertical_pulse(self, b[0], [arm_lo, arm_hi])
+        self.pulse(b[0], 2, [arm_lo, arm_hi])
         self.play(
             state_colors(arm_lo, KICKED_COLOR),
             state_colors(arm_hi, ATOM_COLOR),
@@ -136,14 +155,21 @@ class ClockPhase(Scene):
         )
 
         # --- leg 2: and so the other hand turns --------------------------------
+        kets = [
+            arm_ket(True, r"\phi_2 - \omega_A T", CP_KET_FONT)
+            .next_to(midpoint(b, c), DR, buff=CP_KET_BUFF),
+            arm_ket(False, r"\phi_1 - \phi_2 - \omega_A T", CP_KET_FONT)
+            .next_to(midpoint(b_up, c), UP, buff=CP_KET_BUFF),
+        ]
         draw_legs(self, [
             (arm_lo, b, c, KICKED_COLOR),
             (arm_hi, b_up, c, ATOM_COLOR),
-        ], extra=[kicked_last.animate.set_value(rate * CP_T)])
+        ], extra=[kicked_last.animate.set_value(rate * CP_T),
+                  *[FadeIn(k) for k in kets]])
         self.beat()
 
         # --- recombine ----------------------------------------------------------
-        fire_vertical_pulse(self, c[0], [arm_lo])
+        self.pulse(c[0], 3, [arm_lo])
 
         # --- and the readout ----------------------------------------------------
         # The arms are spent: the pulse has mixed them into the two output
@@ -153,7 +179,9 @@ class ClockPhase(Scene):
         self.remove(arm_lo, arm_hi, hand_lo, hand_hi)
         gap = (kicked_first.get_value() - kicked_last.get_value()) % TAU
         draw_ports(self, c, CP_OUT, 0.5 * (1 + np.cos(gap)))
-        self.play(Write(readout_equation()), run_time=1.0)
+        # bottom right, as the Mach-Zehnder has it: the bottom left is the
+        # pulses' captions
+        self.play(Write(readout_equation().to_corner(DR)), run_time=1.0)
         self.beat()
 
         # What the ports have just read out, term by term. The note has said
@@ -179,6 +207,12 @@ class ClockPhase(Scene):
         self.play(FadeIn(result), run_time=1.0)
         self.wait(2.0)
         self.phase_budget(budget)
+
+    def pulse(self, x, n, hits):
+        """Pulse n, captioned with the laser phase phi_n it writes in."""
+        caption = MachZehnder.pulse_caption(rf"\phi_{n}", x)
+        self.play(FadeIn(caption), run_time=0.3)
+        fire_vertical_pulse(self, x, hits)
 
     def phase_budget(self, budget):
         """Hook: ClockPhaseTerms marks up what each term of the phase is worth.
