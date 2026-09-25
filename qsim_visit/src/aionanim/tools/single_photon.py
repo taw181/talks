@@ -29,14 +29,14 @@ SP_LEVEL_LENGTH = 1.6
 SP_LEVEL_GAP = 1.6  # vertical separation of the two levels
 SP_LEVEL_INSET = 0.1  # how far the gap arrow stands off each level line
 SP_KET_BUFF = 0.2
-SP_CAPTION_BUFF = 0.3
 
 
 def make_level_diagram(center=SP_LEVELS):
     """The Sr clock transition as a two-level system, with the gap labelled.
 
     |g> and |e> are the atom's internal states only -- the momentum a photon
-    hands over lives in the interferometer beside it, not in here.
+    hands over lives in the interferometer beside it, not in here. The gap is
+    written as the photon's energy, hbar c k, to tie it to the hbar k recoil.
     """
     half = RIGHT * SP_LEVEL_LENGTH / 2
     lower = center + DOWN * SP_LEVEL_GAP / 2
@@ -61,20 +61,10 @@ def make_level_diagram(center=SP_LEVELS):
         **LEVEL_GAP_ARROW_STYLE,
     )
     gap_label = MathTex(
-        r"\hbar\omega_A", font_size=FONT_ANNOTATION, color=lighten(GUIDE_COLOR)
+        r"\hbar c k", font_size=FONT_ANNOTATION, color=lighten(GUIDE_COLOR)
     ).next_to(gap, RIGHT, buff=0.15)
 
-    caption = VGroup(
-        Tex("Sr clock transition", font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR)),
-        MathTex(
-            r"{}^1S_0 \to {}^3P_0,\ 698\,\text{nm}",
-            font_size=FONT_LEGEND,
-            color=lighten(GUIDE_COLOR),
-        ),
-    ).arrange(DOWN, buff=0.12)
-    caption.next_to(level_g, DOWN, buff=SP_CAPTION_BUFF)
-
-    return VGroup(level_g, level_e, ket_g, ket_e, gap, gap_label, caption)
+    return VGroup(level_g, level_e, ket_g, ket_e, gap, gap_label)
 
 
 def transition_glow(upward=True, center=SP_LEVELS):
