@@ -427,6 +427,18 @@ CLOUD_DOT_RADIUS = 0.045
 DARK_ATOM_COLOR = GUIDE_COLOR
 DARK_ATOM_OPACITY = 0.8
 FONT_TEMPERATURE = FONT_ANNOTATION
+# Upstream of the MOT: the oven, the 2D MOT it feeds, and the push beam that
+# sends a stream of atoms from there through the vacuum baffle. The oven and
+# the baffle are hardware, so they take the optics grey; the oven gets a warm
+# wash inside, in the holes' rim-light orange, because what it does is get hot.
+# An atom straight out of the oven has met no light yet and is drawn grey,
+# turning the 461 blue as it is caught.
+OVEN_COLOR = OPTIC_COLOR
+OVEN_HEAT_COLOR = HORIZON_GLOW
+OVEN_HEAT_OPACITY = 0.3
+BAFFLE_COLOR = OPTIC_COLOR
+BAFFLE_WIDTH = 8
+HOT_ATOM_COLOR = GUIDE_COLOR
 
 
 # --- dipole traps ---------------------------------------------------------

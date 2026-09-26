@@ -5,7 +5,8 @@ gradient is and how hot and big the cloud is, so each of those is a knob
 here: a beam set's intensity, the coils' gradient, the cloud's radius and
 temperature. The level-scheme side of the story -- which transition the
 light drives -- is SrLevels in aionanim.tools.sequence; SweepFan adds the
-red MOT's frequency sweep to it.
+red MOT's frequency sweep to it. Upstream of the trap, Oven, AtomBeam,
+make_push_beam and make_baffle draw where its atoms come from.
 """
 
 import numpy as np
@@ -203,10 +204,14 @@ class AtomCloud(VGroup):
     off-screen to the left; 1: all loaded), ``dark`` (how far the leaking
     atoms have gone dark and drifted off) and ``glow`` (0 to 1 across
     ``palette``, the colour of the light the atoms scatter).
+
+    ``source`` is where the atoms load from, if not from off-screen left;
+    ``stretch`` scales the cloud's shape along x and y, e.g. for the cigar
+    of a 2D MOT.
     """
 
     def __init__(self, n, center, palette, n_leak=12, radius=1.0, temperature=0.0,
-                 seed=1, **kwargs):
+                 source=None, stretch=(1.0, 1.0), seed=1, **kwargs):
         super().__init__(**kwargs)
         rng = np.random.default_rng(seed)
         self.center = np.array(center, dtype=float)
@@ -214,11 +219,14 @@ class AtomCloud(VGroup):
 
         home = rng.normal(scale=CLOUD_SPREAD, size=(n, 2))
         norms = np.linalg.norm(home, axis=1, keepdims=True)
-        self.home = home * np.minimum(1, CLOUD_CLIP / norms)
-        self.start = np.column_stack([
-            -config.frame_x_radius - 0.3 - rng.uniform(0, 1.5, n),
-            self.center[1] + rng.normal(scale=0.2, size=n),
-        ])
+        self.home = home * np.minimum(1, CLOUD_CLIP / norms) * np.array(stretch)
+        if source is None:  # off-screen to the left, level with the trap
+            self.start = np.column_stack([
+                -config.frame_x_radius - 0.3 - rng.uniform(0, 1.5, n),
+                self.center[1] + rng.normal(scale=0.2, size=n),
+            ])
+        else:  # all from one point, e.g. an oven's nozzle
+            self.start = np.array(source, dtype=float)[:2] + rng.normal(scale=0.05, size=(n, 2))
         self.delay = rng.uniform(0, CLOUD_ARRIVAL_STAGGER, n)
         self.freq = rng.uniform(*CLOUD_JITTER_FREQ, size=(n, 2, CLOUD_JITTER_TERMS))
         self.phase = rng.uniform(0, TAU, size=(n, 2, CLOUD_JITTER_TERMS))
@@ -260,3 +268,115 @@ class AtomCloud(VGroup):
                 dot.set_fill(dimmed, opacity=dim_opacity)
             else:
                 dot.set_fill(lit, opacity=1)
+
+
+# --- upstream of the MOT: oven, 2D MOT and push beam ----------------------
+# The MOT loads from a 2D MOT in a chamber of its own, which is fed straight
+# from the oven. A push beam along the 2D MOT's long axis sends the atoms it
+# has caught on through a baffle -- the small hole that keeps the oven's gas
+# load out of the science chamber -- as a steady stream into the MOT.
+OVEN_SIZE = (0.9, 0.8)
+OVEN_NOZZLE = (0.18, 0.35)  # the tube on top that the atoms leave by
+BAFFLE_HEIGHT = 1.6
+BAFFLE_GAP = 0.3
+PUSH_BEAM_WIDTH = UP_BEAM_WIDTH
+PUSH_CHEVRONS_AT = (0.25, 0.4)  # of the beam's length
+
+
+class Oven(VGroup):
+    """A crucible with a nozzle on top, open at ``nozzle`` (the point the
+    atoms come out of). Drawn warm inside, because it is hot."""
+
+    def __init__(self, nozzle, **kwargs):
+        super().__init__(**kwargs)
+        nozzle = np.array(nozzle, dtype=float)
+        tube = Rectangle(width=OVEN_NOZZLE[0], height=OVEN_NOZZLE[1])
+        tube.move_to(nozzle, aligned_edge=UP)
+        body = RoundedRectangle(width=OVEN_SIZE[0], height=OVEN_SIZE[1], corner_radius=0.1)
+        body.next_to(tube, DOWN, buff=0)
+        for part in (body, tube):
+            part.set_stroke(OVEN_COLOR, width=3)
+            part.set_fill(OVEN_HEAT_COLOR, opacity=OVEN_HEAT_OPACITY)
+        self.add(tube, body)
+
+
+def make_push_beam(color, start, end):
+    """The push beam: narrow and bright like the up beam, running from
+    ``start`` to ``end`` with its arrowheads pointing the way it pushes."""
+    start, end = np.array(start, dtype=float), np.array(end, dtype=float)
+    d = end - start
+    band = Rectangle(width=np.linalg.norm(d), height=PUSH_BEAM_WIDTH, stroke_width=0,
+                     fill_color=color, fill_opacity=2 * MOT_BEAM_OPACITY)
+    band.rotate(angle_of_vector(d)).move_to((start + end) / 2)
+    heads = VGroup(*[
+        chevron(d, start + d * f, color, size=PUSH_BEAM_WIDTH * 0.45)
+        for f in PUSH_CHEVRONS_AT
+    ])
+    return VGroup(band, heads)
+
+
+def make_baffle(center, height=BAFFLE_HEIGHT, gap=BAFFLE_GAP):
+    """A wall across the beam line with a small hole in it at ``center``."""
+    center = np.array(center, dtype=float)
+    half = (height - gap) / 2
+    return VGroup(*[
+        Line(center + sign * UP * gap / 2, center + sign * UP * (gap / 2 + half),
+             stroke_width=BAFFLE_WIDTH, color=BAFFLE_COLOR)
+        for sign in (1, -1)
+    ])
+
+
+class AtomBeam(VGroup):
+    """A steady stream of atoms from ``start`` to ``end``, where they are
+    caught: each fades out over the last ``fade`` of the way.
+
+    ``flow`` (a ValueTracker, off at 0 and on at 1) turns the source on and
+    off; atoms already launched carry on either way, so switching it off
+    lets the stream run dry. Atoms leave ``spread`` either side of the line,
+    fanning out by ``divergence`` per unit travelled, and change colour from
+    ``colors[0]`` to ``colors[1]`` along the way.
+    """
+
+    def __init__(self, start, end, colors, speed, rate, spread=0.08, divergence=0.0,
+                 fade=0.6, seed=2, **kwargs):
+        super().__init__(**kwargs)
+        self.rng = np.random.default_rng(seed)
+        self.origin = np.array(start, dtype=float)
+        d = np.array(end, dtype=float) - self.origin
+        self.length = np.linalg.norm(d)
+        self.dir = d / self.length
+        self.normal = rotate_vector(self.dir, PI / 2)
+        self.colors = [ManimColor(c) for c in colors]
+        self.speed, self.rate = speed, rate
+        self.spread, self.divergence, self.fade = spread, divergence, fade
+        n = int(np.ceil(2 * rate * self.length / (0.8 * speed))) + 2
+        self.launched = np.full(n, -np.inf)
+        self.offset = np.zeros(n)
+        self.pace = np.ones(n)
+        self.next = 0  # the pool slot the next atom takes
+        self.next_launch = 0.0
+        self.t = 0.0
+        self.flow = ValueTracker(0.0)
+        self.add(*[Dot(radius=CLOUD_DOT_RADIUS, stroke_width=0) for _ in range(n)])
+        self.add_updater(self._move)
+        self._move(self, 0)
+
+    def _move(self, m, dt):
+        self.t += dt
+        while self.next_launch <= self.t:
+            if self.flow.get_value() > 0.5:
+                k = self.next
+                self.launched[k] = self.next_launch
+                self.offset[k] = self.rng.normal()
+                self.pace[k] = self.rng.uniform(0.8, 1.2)
+                self.next = (k + 1) % len(self.launched)
+            self.next_launch += self.rng.uniform(0.5, 1.5) / self.rate
+        s = (self.t - self.launched) * self.speed * self.pace
+        for dot, sk, u in zip(self.submobjects, s, self.offset):
+            if not 0 <= sk <= self.length:
+                dot.set_fill(opacity=0)
+                continue
+            dot.move_to(self.origin + self.dir * sk
+                        + self.normal * u * (self.spread + self.divergence * sk))
+            dot.set_fill(interpolate_color(*self.colors, sk / self.length),
+                         opacity=min(1.0, (self.length - sk) / self.fade))
