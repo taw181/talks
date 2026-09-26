@@ -3,10 +3,9 @@
 A timeline of the sequence runs along the bottom and lights up one stage at
 a time; the Sr level scheme lights the transition that stage drives; and the
 imaging video plays in the upper right corner through the stages it covers,
-from the broadband red MOT to loading the lower dipole trap. The stages
-either side of it -- the blue MOT before, state preparation, interferometry
-and readout after -- run over a veiled video: before it, nothing to see yet;
-after it, its last frame, dimmed.
+from the blue MOT to loading the lower dipole trap. The stages after it --
+state preparation, interferometry and readout -- run over its last frame,
+dimmed.
 
 ExperimentSequenceSimple is the slide's cut: no level scheme, the sequence
 stopped once the lower trap has loaded, and the video in the middle.
@@ -83,13 +82,10 @@ class ExperimentSequence(Scene):
         veil = Rectangle(width=self.VIDEO_SIZE, height=self.VIDEO_SIZE, stroke_width=0,
                          fill_color=PLOT_BACKGROUND, fill_opacity=1).move_to(video)
         border = SurroundingRectangle(video, buff=0, **VIDEO_BORDER_STYLE)
-        # so the empty box during the blue MOT reads as "not yet", not "broken"
-        not_yet = Tex(r"imaging starts\\at the red MOT", font_size=FONT_LEGEND,
-                      color=lighten(GUIDE_COLOR)).move_to(video)
 
         self.add(video, clock, veil)
         self.play(*([FadeIn(levels)] if self.LEVELS else []), FadeIn(timeline),
-                  FadeIn(refs), Create(border), FadeIn(not_yet))
+                  FadeIn(refs), Create(border))
 
         heading = VGroup()
         for i, stage in enumerate(stages):
@@ -106,7 +102,7 @@ class ExperimentSequence(Scene):
             filmed = stage.video_ms is not None
             was_filmed = i > 0 and stages[i - 1].video_ms is not None
             if filmed and not was_filmed:
-                anims += [veil.animate.set_fill(opacity=0), FadeOut(not_yet)]
+                anims.append(veil.animate.set_fill(opacity=0))
             elif was_filmed and not filmed:
                 anims.append(veil.animate.set_fill(opacity=VIDEO_DIM_OPACITY))
 

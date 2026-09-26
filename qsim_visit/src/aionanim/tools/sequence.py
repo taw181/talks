@@ -61,13 +61,15 @@ class Stage:
     reference: int | None = None  # into REFERENCES
 
 
-# The video boundaries are read off the snapshots: the cloud starts to shrink
+# The video boundaries are read off the snapshots: the blue MOT loads until
+# about 48 ms, and by 60 ms the cloud has dropped some 30 px with the same
+# atom number, which is the red MOT taking over; the cloud starts to shrink
 # between 123 and 135 ms, the upper trap's line shows inside it from 173 ms,
 # the MOT is let go between 223 and 236 ms and falls into the lower trap,
 # which has finished loading by 286 ms.
 STAGES = [
-    Stage("blue_mot", r"Blue MOT", "461", reference=0),
-    Stage("modulated_red_mot", r"Modulated\\red MOT", "689", (IMAGING_T0_MS, 129.0), 1),
+    Stage("blue_mot", r"Blue MOT", "461", (IMAGING_T0_MS, 54.0), 0),
+    Stage("modulated_red_mot", r"Modulated\\red MOT", "689", (54.0, 129.0), 1),
     Stage("narrowband_red_mot", r"Narrowband\\red MOT", "689", (129.0, 179.0), 1),
     Stage("upper_dipole_trap", r"Upper\\dipole trap", None, (179.0, 229.0)),
     Stage("lower_dipole_trap", r"Lower\\dipole trap", None, (229.0, 310.0)),
