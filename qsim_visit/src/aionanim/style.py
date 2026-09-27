@@ -493,6 +493,14 @@ CALLOUT_CORNER_RADIUS = 0.12
 CARTOON_CLOUD_N = 70
 CARTOON_CLOUD_RADIUS = 0.5
 CARTOON_CLOUD_DOT_RADIUS = 0.06
+# The deck's footer, on every slide: a thin bar along the bottom edge that
+# fills as the talk goes on, and the slide's number in the corner above its
+# end. Kept small and grey so it reads as furniture, not content.
+PROGRESS_BAR_HEIGHT = 0.05
+PROGRESS_TRACK_COLOR = ManimColor("#303030")  # just off the background
+PROGRESS_FILL_COLOR = GREY_B
+FONT_SLIDE_NUMBER = 18
+SLIDE_NUMBER_COLOR = GREY_B
 # A slot for a figure still to come: a reference, not content, so dashed and
 # in the construction grey.
 PLACEHOLDER_STYLE = dict(

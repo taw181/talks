@@ -327,7 +327,6 @@ class GradiometerGW(Scene):
         )
         self.open_arms("low")
         self.open_arms("up")
-        self.beat()
 
         draw_legs(self, [
             (atoms["low"][0], low[0], low[1], ATOM_COLOR),
@@ -338,6 +337,7 @@ class GradiometerGW(Scene):
             phase[c][1].animate.set_value(rate * excited[c][0])
             for c in ("low", "up")
         ])
+        self.beat()
 
         # --- pulse 2: the mirror, arriving early --------------------------
         self.play(FadeIn(self.dots[1], scale=0.4), run_time=0.3)
@@ -355,7 +355,6 @@ class GradiometerGW(Scene):
             *[big[k].animate.set_color(lighten(ATOM_COLOR)) for k in (1, 3)],
             run_time=0.5,
         )
-        self.beat()
         draw_legs(self, [
             (atoms["low"][0], low[1], low[3], KICKED_COLOR),
             (atoms["low"][1], low[2], low[3], ATOM_COLOR),
@@ -365,6 +364,7 @@ class GradiometerGW(Scene):
             phase[c][0].animate.set_value(rate * excited[c][1])
             for c in ("low", "up")
         ])
+        self.beat()
 
         # --- pulse 3: recombine -------------------------------------------
         self.play(FadeIn(self.dots[2], scale=0.4), run_time=0.3)
@@ -750,7 +750,6 @@ class GradiometerGWStretch(GradiometerGW):
         shoot(0, [self.seeds["low"], self.seeds["up"]], note=self.pulse_note(0))
         self.open_arms("low")
         self.open_arms("up")
-        self.beat()
 
         draw_wavy_legs(self, [
             (atoms["low"][0], low[0], low[1], ATOM_COLOR, low_disp),
@@ -761,6 +760,7 @@ class GradiometerGWStretch(GradiometerGW):
             phase[c][1].animate.set_value(rate * excited[c][0])
             for c in ("low", "up")
         ])
+        self.beat()
 
         # --- pulse 2: the mirror --------------------------------------------
         shoot(1, [a for p in atoms.values() for a in p])
@@ -772,7 +772,6 @@ class GradiometerGWStretch(GradiometerGW):
             *[big[k].animate.set_color(lighten(ATOM_COLOR)) for k in (1, 3)],
             run_time=0.5,
         )
-        self.beat()
         draw_wavy_legs(self, [
             (atoms["low"][0], low[1], low[3], KICKED_COLOR, low_disp),
             (atoms["low"][1], low[2], low[3], ATOM_COLOR, low_disp),
@@ -782,6 +781,7 @@ class GradiometerGWStretch(GradiometerGW):
             phase[c][0].animate.set_value(rate * excited[c][1])
             for c in ("low", "up")
         ])
+        self.beat()
 
         # --- pulse 3: recombine ---------------------------------------------
         shoot(2, [atoms["low"][0], atoms["up"][0]])

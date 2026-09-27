@@ -85,7 +85,6 @@ class Gradiometer(Scene):
             font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
         ).to_corner(UL).shift(DOWN * 0.7)
         self.play(FadeIn(dials), FadeIn(hand_key), run_time=0.6)
-        self.beat()
 
         # --- the two clouds ----------------------------------------------
         atoms = {
@@ -98,6 +97,7 @@ class Gradiometer(Scene):
         seed_low = make_atom(radius=CLOCK_ATOM_RADIUS).move_to(low[0])
         seed_up = make_atom(radius=CLOCK_ATOM_RADIUS).move_to(up[0])
         self.play(FadeIn(seed_low, scale=0.5), FadeIn(seed_up, scale=0.5), run_time=0.6)
+        self.beat()
 
         # --- pulse 1: the beamsplitter -----------------------------------
         fire_pulse(self, GR_T0, flash=[seed_low, seed_up])
@@ -134,19 +134,20 @@ class Gradiometer(Scene):
             r"L/c\ \text{later}", font_size=FONT_LEGEND, color=LASER_COLOR
         ).next_to(up[0], UP, buff=0.3)
         self.play(FadeIn(lag_note), run_time=0.5)
-        self.beat()
 
         draw_legs(self, [
             (atoms["low"][0], low[0], low[1], ATOM_COLOR),
             (atoms["low"][1], low[0], low[2], KICKED_COLOR),
             (atoms["up"][0], up[0], up[1], ATOM_COLOR),
             (atoms["up"][1], up[0], up[2], KICKED_COLOR),
-        ], fade=[lag_note], extra=[
+        ], extra=[
             phase[c][1].animate.set_value(rate * excited[c][0])
             for c in ("low", "up")
         ])
+        self.beat()
 
         # --- pulse 2: the mirror ------------------------------------------
+        self.play(FadeOut(lag_note), run_time=0.3)
         fire_pulse(self, GR_T0 + GR_T, flash=[a for p in atoms.values() for a in p])
         self.play(
             *[state_colors(p[0], KICKED_COLOR) for p in atoms.values()],

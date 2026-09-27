@@ -16,6 +16,9 @@ wrappers below turn the hook into a slide break:
 - hold() is DarkMatterScale's and DarkMatterField's one period of the field;
   the slide loops it.
 
+A looping stop is still one click: RunsOnIntoLoops plays each stretch straight
+on into its loop, and the click moves on from the loop.
+
 The deck order lives in talk/deck.sh, which renders, presents and converts:
 
     talk/deck.sh render h     # -q h; `l` for a quick look
@@ -74,17 +77,69 @@ SLIDE_SETTLE = 0.1
 
 
 # --- how a scene's hooks become slide breaks -------------------------------
+def deck_order():
+    """The slide classes in talk/deck.txt, in order, as deck.sh reads them."""
+    lines = (Path(__file__).parent / "deck.txt").read_text(encoding="utf-8").splitlines()
+    return [slide for line in lines if (slide := line.split("#")[0].strip())]
+
+
+DECK = deck_order()
+
+
+def make_footer(number, total):
+    """The progress bar along the bottom edge, filled to this slide's place in
+    the deck, and the slide's number in the corner above the end of it."""
+    width = config.frame_width
+    bottom = -config.frame_y_radius + PROGRESS_BAR_HEIGHT / 2
+    track = Rectangle(
+        width=width, height=PROGRESS_BAR_HEIGHT, stroke_width=0,
+        fill_color=PROGRESS_TRACK_COLOR, fill_opacity=1,
+    ).move_to([0, bottom, 0])
+    fill = Rectangle(
+        width=width * number / total, height=PROGRESS_BAR_HEIGHT, stroke_width=0,
+        fill_color=PROGRESS_FILL_COLOR, fill_opacity=1,
+    ).align_to(track, LEFT).set_y(bottom)
+    label = Tex(str(number), font_size=FONT_SLIDE_NUMBER, color=SLIDE_NUMBER_COLOR)
+    label.next_to(track, UP, buff=0.1).to_edge(RIGHT, buff=0.15)
+    label.set_stroke(PLOT_BACKGROUND, width=4, background=True)  # legible over photos
+    return VGroup(track, fill, label)
+
+
 class DeckSlide(Slide):
-    """Every slide in the deck: a Slide that stops on its finished frame.
+    """Every slide in the deck: a Slide that stops on its finished frame, with
+    the footer (progress bar and slide number) over everything it draws.
 
     Looping slides are left without the settling hold: their last frame is
     their first, so the one manim leaves out is the one a loop would repeat.
+
+    The footer is a foreground mobject, so it stays on top of whatever the
+    scene adds; it is pinned to the frame in a 3D scene, rides along with a
+    moving camera, and is kept out of any remove(), since a scene may clear
+    the page with remove(*self.mobjects).
     """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.wait_time_between_slides = SLIDE_SETTLE
         self.wait_between_looping_slides = False
+        self.footer = None
+
+    def setup(self):
+        super().setup()
+        name = type(self).__name__
+        if name not in DECK:
+            return
+        self.footer = make_footer(DECK.index(name) + 1, len(DECK))
+        if isinstance(self, ThreeDScene):
+            self.add_fixed_in_frame_mobjects(self.footer)
+        elif isinstance(self, MovingCameraScene):
+            frame = self.camera.frame  # moves, but never zooms
+            offset = self.footer.get_center() - frame.get_center()
+            self.footer.add_updater(lambda m: m.move_to(frame.get_center() + offset))
+        self.add_foreground_mobject(self.footer)
+
+    def remove(self, *mobjects):
+        return super().remove(*[m for m in mobjects if m is not self.footer])
 
 
 class Clicks:
@@ -94,13 +149,32 @@ class Clicks:
         self.next_slide()
 
 
-class LoopingStages:
-    """stage_break() loops two seconds of the running stage, then stops."""
+class RunsOnIntoLoops:
+    """Each stretch plays straight on into the loop after it, so a stage is one
+    click however it is cut: the click starts the stage, and its loop holds
+    the screen until the next. (Without auto_next the stretch would stop on its
+    last frame and need a click of its own to start its loop.)
+
+    auto_next belongs to the segment a next_slide() opens; one with nothing
+    before it sets the options of the slide's first segment instead.
+    """
+
+    def setup(self):
+        super().setup()
+        self.next_slide(auto_next=True)
+
+    def loop(self, hold):
+        """Loop what hold() plays until the click, then run on into the next."""
+        self.next_slide(loop=True)
+        hold()
+        self.next_slide(auto_next=True)
+
+
+class LoopingStages(RunsOnIntoLoops):
+    """stage_break() loops two seconds of the running stage until the click."""
 
     def stage_break(self):
-        self.next_slide(loop=True)
-        self.wait(2)
-        self.next_slide()
+        self.loop(lambda: self.wait(2))
 
 
 # --- intro -------------------------------------------------------------------
@@ -226,18 +300,14 @@ class DarkMatterSlide(SectionSlide):
     SECTION = r"Dark matter"
 
 
-class DarkMatterScaleSlide(DeckSlide, DarkMatterScale):
+class DarkMatterScaleSlide(RunsOnIntoLoops, DeckSlide, DarkMatterScale):
     def hold(self):
-        self.next_slide(loop=True)
-        super().hold()
-        self.next_slide()
+        self.loop(super().hold)
 
 
-class DarkMatterFieldSlide(DeckSlide, DarkMatterField):
+class DarkMatterFieldSlide(RunsOnIntoLoops, DeckSlide, DarkMatterField):
     def hold(self):
-        self.next_slide(loop=True)
-        super().hold()
-        self.next_slide()
+        self.loop(super().hold)
 
 
 class DarkMatterPhaseSlide(Clicks, DeckSlide, DarkMatterPhase):

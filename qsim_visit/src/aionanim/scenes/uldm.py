@@ -131,7 +131,6 @@ class DarkMatterPhase(Scene):
         self.remove(still)
         self.add(always_redraw(moving), always_redraw(detuning), marker)
         self.wait(0.4)
-        self.beat()
 
         # One tracker per arm, as in ClockPhase, but each advanced by the
         # integral over its own window instead of by rate * T.
@@ -151,6 +150,7 @@ class DarkMatterPhase(Scene):
         self.big_lo = dial_hand(CP_DIAL, kicked_last, lighten(ATOM_COLOR))
         self.big_hi = dial_hand(CP_DIAL, kicked_first, lighten(KICKED_COLOR))
         self.add(self.big_lo, self.big_hi)
+        self.beat()
 
         # What the instrument does, which is the one part a continuous
         # variant rewrites. Everything either side of it -- the trace, the
@@ -169,7 +169,6 @@ class DarkMatterPhase(Scene):
         sweep, gap = phase_sweep(CP_DIAL, kicked_last, kicked_first)
         self.play(Flash(dial[0], **{**FLASH_STYLE, "color": AREA_COLOR}), run_time=0.5)
         self.play(FadeIn(sweep), run_time=0.7)
-        self.beat()
         draw_ports(self, c, CP_OUT, 0.5 * (1 + np.cos(gap)), extra=self.port_extra())
         self.play(Write(readout_equation()), run_time=1.0)
 
@@ -281,6 +280,7 @@ class DarkMatterPhase(Scene):
             self.kicked_last.animate.set_value(leg_two),
             now.animate.set_value(c[0]),
         ])
+        self.beat()
 
         # --- recombine -------------------------------------------------------
         self.play(FadeIn(dots[2], scale=0.4), run_time=0.3)

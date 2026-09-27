@@ -177,7 +177,5 @@ class SinglePhotonMachZehnder(MachZehnder):
             r"P_{g,e} = \tfrac{1}{2}\left(1 \pm \cos\Phi\right)",
             font_size=FONT_ANNOTATION,
         ).to_corner(DR)
-
-        self.beat()
         self.play(Write(p1), Write(p2), Write(readout), run_time=1.3)
         self.wait(2.0)

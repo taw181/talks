@@ -96,12 +96,12 @@ class ClockPhase(Scene):
 
         dial = make_dial(CP_DIAL, r"accumulated phase")
         self.play(FadeIn(dial), run_time=0.6)
-        self.beat()
 
         seed = make_atom(radius=CLOCK_ATOM_RADIUS).move_to(a)
         ket_in = arm_ket(False, font_size=CP_KET_FONT)
         ket_in.next_to(seed, UP, buff=CP_KET_BUFF).to_edge(LEFT, buff=0.15)
         self.play(FadeIn(seed, scale=0.5), FadeIn(ket_in), run_time=0.5)
+        self.beat()
 
         # --- the beamsplitter ----------------------------------------------
         self.pulse(a[0], 1, [seed])
