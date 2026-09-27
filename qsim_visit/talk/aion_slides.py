@@ -60,8 +60,7 @@ AUTHOR = r"Thomas Walker"
 VENUE = r"University of Freiburg, 2026"
 SECTIONS = (
     r"Atom interferometry",
-    r"Gravitational waves",
-    r"Dark matter",
+    r"Motivation",
     r"Our prototype device",
     r"Future plans",
 )
@@ -271,9 +270,9 @@ class GradiometerSlide(Clicks, DeckSlide, Gradiometer):
     pass
 
 
-# --- gravitational waves ----------------------------------------------------
-class GravitationalWavesSlide(SectionSlide):
-    SECTION = r"Gravitational waves"
+# --- motivation: gravitational waves, then dark matter ---------------------
+class MotivationSlide(SectionSlide):
+    SECTION = r"Motivation"
 
 
 class BlackHoleMergerSlide(DeckSlide, BlackHoleMerger):
@@ -297,11 +296,6 @@ class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretchContinuou
     whole sequence; the stops are the set-up before it and the readout after."""
 
 
-# --- dark matter ------------------------------------------------------------
-class DarkMatterSlide(SectionSlide):
-    SECTION = r"Dark matter"
-
-
 class DarkMatterScaleSlide(RunsOnIntoLoops, DeckSlide, DarkMatterScale):
     def hold(self):
         self.loop(super().hold)
@@ -323,20 +317,14 @@ class PrototypeDeviceSlide(SectionSlide):
 
 
 class AIONCollabSlide(DeckSlide):
-    """Who AION are and where, then the baseline they are building."""
+    """Who AION are and where."""
 
     def construct(self):
         title = slide_title(r"The AION collaboration")
         logo = load_image(MEDIA / "aion_logo_on_dark.png", height=1.0)
         logo.to_corner(UR, buff=0.4)
-        uk_map = load_image(MEDIA / "aion_map.jpeg", height=6.0)
-        baseline = load_image(MEDIA / "baseline.png", height=6.0)
-        # Laid out as the pair they end up as, so the map does not move when
-        # the baseline arrives beside it.
-        Group(uk_map, baseline).arrange(RIGHT, buff=1.2).move_to(DOWN * 0.45)
+        uk_map = load_image(MEDIA / "aion_map.jpeg", height=6.0).move_to(DOWN * 0.45)
         self.play(FadeIn(title), FadeIn(logo), FadeIn(uk_map), run_time=0.8)
-        self.next_slide()
-        self.play(FadeIn(baseline, shift=LEFT * 0.3), run_time=0.8)
 
 
 # The dark window between the coils in chamber_cropped.png (2475 x 1548 px),

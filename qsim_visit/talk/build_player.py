@@ -22,10 +22,9 @@ TEMPLATE = Path(__file__).parent / "player_template.html"
 # section slide before it.
 SECTION_SLIDES = {
     "AtomInterferometrySlide": "1 · Atom interferometry",
-    "GravitationalWavesSlide": "2 · Gravitational waves",
-    "DarkMatterSlide": "3 · Dark matter",
-    "PrototypeDeviceSlide": "4 · Our prototype device",
-    "FuturePlansSlide": "5 · Future plans",
+    "MotivationSlide": "2 · Motivation",
+    "PrototypeDeviceSlide": "3 · Our prototype device",
+    "FuturePlansSlide": "4 · Future plans",
     "OutroSlide": "Outro",
 }
 # Names for the menu where the class name reads badly once split.
