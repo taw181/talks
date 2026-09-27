@@ -166,7 +166,25 @@ class ContentsSlide(DeckSlide):
         self.play(FadeIn(slide_title(r"Outline")), FadeIn(contents), run_time=0.8)
 
 
+class SectionSlide(DeckSlide):
+    """A section's title, numbered as it is in the outline."""
+
+    SECTION = None  # one of SECTIONS
+
+    def construct(self):
+        number = SECTIONS.index(self.SECTION) + 1
+        title = VGroup(
+            Tex(f"{number}.", font_size=FONT_DECK_TITLE, color=lighten(GUIDE_COLOR)),
+            Tex(self.SECTION, font_size=FONT_DECK_TITLE),
+        ).arrange(RIGHT, buff=0.35)
+        self.play(FadeIn(title), run_time=0.8)
+
+
 # --- atom interferometry ----------------------------------------------------
+class AtomInterferometrySlide(SectionSlide):
+    SECTION = r"Atom interferometry"
+
+
 class SinglePhotonMachZehnderSlide(Clicks, DeckSlide, SinglePhotonMachZehnder):
     pass
 
@@ -180,6 +198,10 @@ class GradiometerSlide(Clicks, DeckSlide, Gradiometer):
 
 
 # --- gravitational waves ----------------------------------------------------
+class GravitationalWavesSlide(SectionSlide):
+    SECTION = r"Gravitational waves"
+
+
 class BlackHoleMergerSlide(DeckSlide, BlackHoleMerger):
     """No stops: the merger plays straight through from the moment the slide
     comes up, and holds on the settled sheet as the slide's own end."""
@@ -200,6 +222,10 @@ class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretch):
 
 
 # --- dark matter ------------------------------------------------------------
+class DarkMatterSlide(SectionSlide):
+    SECTION = r"Dark matter"
+
+
 class DarkMatterScaleSlide(DeckSlide, DarkMatterScale):
     def hold(self):
         self.next_slide(loop=True)
@@ -219,6 +245,10 @@ class DarkMatterPhaseSlide(Clicks, DeckSlide, DarkMatterPhase):
 
 
 # --- our prototype device -------------------------------------------------
+class PrototypeDeviceSlide(SectionSlide):
+    SECTION = r"Our prototype device"
+
+
 class AIONCollabSlide(DeckSlide):
     """Who AION are and where, then the baseline they are building."""
 
@@ -374,20 +404,6 @@ class ExtractedSignalSlide(DeckSlide):
 
 
 # --- future plans ---------------------------------------------------------
-class SectionSlide(DeckSlide):
-    """A section's title, numbered as it is in the outline."""
-
-    SECTION = None  # one of SECTIONS
-
-    def construct(self):
-        number = SECTIONS.index(self.SECTION) + 1
-        title = VGroup(
-            Tex(f"{number}.", font_size=FONT_DECK_TITLE, color=lighten(GUIDE_COLOR)),
-            Tex(self.SECTION, font_size=FONT_DECK_TITLE),
-        ).arrange(RIGHT, buff=0.35)
-        self.play(FadeIn(title), run_time=0.8)
-
-
 class FuturePlansSlide(SectionSlide):
     SECTION = r"Future plans"
 

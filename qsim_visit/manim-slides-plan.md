@@ -22,6 +22,9 @@ Outline, numbered:
 # 1. atom interferometry
 One clock, then two sharing a laser so its noise cancels.
 
+## AtomInterferometrySlide
+Section title "1. Atom interferometry".
+
 ## SinglePhotonMachZehnderSlide (clicks)
 pi/2 - pi - pi/2 driven by single photons, beside the two-level system it
 drives; the atom arrives as |g, p>, kets on each leg as it is drawn.
@@ -36,6 +39,9 @@ Two interferometers, one baseline, one laser: two clocks reading the same.
 Ends on what the difference is made of.
 
 # 2. gravitational waves
+
+## GravitationalWavesSlide
+Section title "2. Gravitational waves".
 
 ## BlackHoleMergerSlide (no stops)
 Flat sheet, two holes dent it, inspiral, merger, ringdown, settled sheet.
@@ -52,6 +58,9 @@ The wave drawn as a stretching baseline (proper-distance picture), h(t) above.
 
 # 3. dark matter
 
+## DarkMatterSlide
+Section title "3. Dark matter".
+
 ## DarkMatterScaleSlide (loops)
 An ultralight dark-matter wave laid across the Earth, out to the Moon, out to
 the Sun; and so, in the lab.
@@ -66,6 +75,9 @@ ClockPhase's geometry with the field through it: the arms are excited over
 different windows, the hands no longer come back together, Phi != 0.
 
 # 4. our prototype device
+
+## PrototypeDeviceSlide
+Section title "4. Our prototype device".
 
 ## AIONCollabSlide
 The AION collaboration: UK map + logo, click, baseline image beside it.
