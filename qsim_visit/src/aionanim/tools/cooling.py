@@ -28,6 +28,30 @@ COIL_ARROW_LENGTH = 0.5
 UP_BEAM_WIDTH = 0.6 * MOT_BEAM_WIDTH  # narrower, so it shows inside the down beam
 
 
+# A slightly-off-axis view for beams that leave the page: a unit step out of
+# the page (towards the viewer) is drawn as this short step down and to the
+# left, and a beam is drawn wider at its near end than at its far one.
+OBLIQUE_Z = np.array([-0.42, -0.30, 0.0])
+MOT_BEAM_TAPER = 0.45  # fractional width change per unit of depth
+
+
+def project(v):
+    """A 3D direction (x right, y up, z out of the page) on the page."""
+    v = np.asarray(v, dtype=float)
+    return np.array([v[0], v[1], 0.0]) + v[2] * OBLIQUE_Z
+
+
+def oblique_ring(center, radius, color=GUIDE_COLOR):
+    """A circle in the plane across the push axis (y up, z out of the page),
+    in the oblique view: the depth cue for beams that leave the page."""
+    center = np.asarray(center, dtype=float)
+    ts = np.linspace(0, TAU, 65)
+    ring = VMobject(stroke_color=color, stroke_width=2, stroke_opacity=0.45)
+    ring.set_points_smoothly([center + project([0, radius * np.cos(t), radius * np.sin(t)])
+                              for t in ts])
+    return ring
+
+
 def chevron(direction, tip, color, size=MOT_BEAM_WIDTH * 0.45):
     """An open arrowhead: two strokes meeting at ``tip``, pointing along ``direction``."""
     d = normalize(direction)
@@ -45,12 +69,30 @@ class MotBeams(VGroup):
     the beam power is ``beams.animate.set_intensity(...)``.
     """
 
-    def __init__(self, color, center, axes=MOT_AXES, reach=MOT_BEAM_REACH, **kwargs):
+    def __init__(self, color, center, axes=MOT_AXES, reach=MOT_BEAM_REACH,
+                 directions=None, **kwargs):
+        """``axes`` are in-page angles in degrees. ``directions`` instead are
+        3D unit vectors (z out of the page), drawn in the oblique view of
+        ``project``: foreshortened, and tapering from near end to far."""
         super().__init__(**kwargs)
         center = np.array(center, dtype=float)
         self.bands = VGroup()
         self.heads = VGroup()
-        for angle in axes:
+        for v in directions or ():
+            d, depth = project(v), v[2]
+            n = normalize(rotate_vector(d, PI / 2))
+            corners = []
+            for sign in (1, -1):
+                half = MOT_BEAM_WIDTH / 2 * (1 + sign * MOT_BEAM_TAPER * depth)
+                end = center + sign * d * reach
+                corners.append((end + n * half, end - n * half))
+                self.heads.add(chevron(
+                    -sign * d, center + sign * d * reach * MOT_CHEVRON_AT, color,
+                    size=MOT_BEAM_WIDTH * 0.45 * (1 + sign * MOT_BEAM_TAPER * depth),
+                ))
+            (a, b), (c, e) = corners
+            self.bands.add(Polygon(a, c, e, b, stroke_width=0, fill_color=color))
+        for angle in (axes if directions is None else ()):
             d = rotate_vector(RIGHT, angle * DEGREES)
             self.bands.add(
                 Rectangle(width=2 * reach, height=MOT_BEAM_WIDTH, stroke_width=0,
