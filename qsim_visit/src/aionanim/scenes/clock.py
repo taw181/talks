@@ -7,7 +7,8 @@ the two hands, and a symmetric interferometer comes back to zero. The
 gradiometer then compares two such clocks at opposite ends of the baseline
 through one laser, and the wave changes the light travel time between them.
 The readout is written as what it is made of, Phi = Phi_interferometer +
-Phi_laser, and it is the first term that the symmetric clock zeroes.
+Phi_laser: the symmetric clock zeroes the first term, and the phase the pulses
+write in leaves the second on the dial.
 ClockPhaseTerms is the same scene with that budget marked up, naming the laser
 term the gradiometer exists to cancel.
 """
@@ -30,6 +31,7 @@ from aionanim.tools.clock import (
     fire_vertical_pulse,
     make_clock_hand,
     make_dial,
+    phase_sweep,
     readout_equation,
     show_phase_budget,
 )
@@ -50,6 +52,12 @@ CP_TERMS = np.array([-2.3, 2.0, 0.0])
 # -omega_A T for a leg spent in |e>. Smaller than the Mach-Zehnder's, since
 # the phases make them long.
 CP_KET_FONT = FONT_AXIS
+# The laser's phase at each pulse, in radians. Arbitrary, but not special: an
+# arm picks phi_n up when it absorbs from pulse n and gives it back when it
+# emits, so the hands jump at the pulses by exactly the phases the kets carry,
+# and what is left between them at the end is phi_1 - 2 phi_2 + phi_3 -- here
+# 1.3 rad, a split between the ports that reads at a glance.
+CP_LASER_PHASES = (1.2, 0.1, 0.3)
 CP_KET_BUFF = CLOCK_ATOM_RADIUS + 0.05  # clear of an atom flying past
 
 
@@ -60,9 +68,13 @@ class ClockPhase(Scene):
     reads out is the angle between them. See the comment above CLOCK_TURNS for
     why a single arm is not a clock and why the hands are still right.
 
-    The null this establishes is the point: both arms spend the same time in
-    |e>, so the hands come back together and the interferometer reads zero.
-    Everything the gradiometer measures is a departure from that.
+    Both arms spend the same time in |e>, so the atoms' own term is a null:
+    omega_A T cancels between the hands. What does not cancel is the laser's.
+    Each pulse writes its phase phi_n onto the arm it acts on -- the hand
+    jumps as it fires -- so the hands end phi_1 - 2 phi_2 + phi_3 apart, the
+    dial shows that sector and the ports split by it. That leftover is the
+    laser's phase noise in a real measurement, and the gradiometer exists to
+    cancel it; everything it then measures is a departure from the null.
     """
 
     def beat(self):
@@ -122,6 +134,10 @@ class ClockPhase(Scene):
         hand_lo = make_clock_hand(arm_lo, kicked_last)
         hand_hi = make_clock_hand(arm_hi, kicked_first)
         self.add(hand_lo, hand_hi, big_lo, big_hi)
+        # The hands count -phase (they turn forwards while the ket's
+        # -omega_A T grows), so a phase the laser adds turns a hand back.
+        phi1, phi2, phi3 = CP_LASER_PHASES
+        self.laser_jump([(kicked_first, -phi1)])
 
         # --- leg 1: the kicked arm is the excited one ------------------------
         kets = [
@@ -135,7 +151,7 @@ class ClockPhase(Scene):
         draw_legs(self, [
             (arm_lo, a, b, ATOM_COLOR),
             (arm_hi, a, b_up, KICKED_COLOR),
-        ], extra=[kicked_first.animate.set_value(rate * CP_T),
+        ], extra=[kicked_first.animate.increment_value(rate * CP_T),
                   *[FadeIn(k) for k in kets]])
         self.beat()
 
@@ -153,6 +169,7 @@ class ClockPhase(Scene):
             big_hi.animate.set_color(lighten(ATOM_COLOR)),
             run_time=0.5,
         )
+        self.laser_jump([(kicked_first, +phi2), (kicked_last, -phi2)])
 
         # --- leg 2: and so the other hand turns --------------------------------
         kets = [
@@ -164,12 +181,13 @@ class ClockPhase(Scene):
         draw_legs(self, [
             (arm_lo, b, c, KICKED_COLOR),
             (arm_hi, b_up, c, ATOM_COLOR),
-        ], extra=[kicked_last.animate.set_value(rate * CP_T),
+        ], extra=[kicked_last.animate.increment_value(rate * CP_T),
                   *[FadeIn(k) for k in kets]])
         self.beat()
 
         # --- recombine ----------------------------------------------------------
         self.pulse(c[0], 3, [arm_lo])
+        self.laser_jump([(kicked_first, -phi3)])
 
         # --- and the readout ----------------------------------------------------
         # The arms are spent: the pulse has mixed them into the two output
@@ -177,7 +195,10 @@ class ClockPhase(Scene):
         # with them -- the phase is a population from here on, and the dial is
         # where it is still shown as an angle.
         self.remove(arm_lo, arm_hi, hand_lo, hand_hi)
-        gap = (kicked_first.get_value() - kicked_last.get_value()) % TAU
+        # From the lower arm's hand forwards to the upper's: the laser has left
+        # the upper one phi_1 - 2 phi_2 + phi_3 ahead.
+        sweep, gap = phase_sweep(CP_DIAL, kicked_first, kicked_last)
+        self.play(FadeIn(sweep), run_time=0.6)
         draw_ports(self, c, CP_OUT, 0.5 * (1 + np.cos(gap)))
         # bottom right, as the Mach-Zehnder has it: the bottom left is the
         # pulses' captions
@@ -202,11 +223,24 @@ class ClockPhase(Scene):
                 r"equal time in $|e\rangle$",
                 font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
             ),
+            # ...and what is left is the laser's: the sector on the dial.
+            MathTex(
+                r"\Phi = \Phi_{\text{laser}} = \phi_1 - 2\phi_2 + \phi_3",
+                font_size=FONT_STATE, color=LASER_COLOR,
+            ),
         ).arrange(DOWN, buff=0.2).next_to(dial, DOWN, buff=0.5)
         self.play(Flash(dial[0], **{**FLASH_STYLE, "color": AREA_COLOR}), run_time=0.5)
         self.play(FadeIn(result), run_time=1.0)
         self.wait(2.0)
         self.phase_budget(budget)
+
+    def laser_jump(self, jumps):
+        """The laser writes its phase in: each (tracker, delta) hand turns by
+        delta, on the spot, just after the pulse that wrote it."""
+        self.play(
+            *[t.animate.increment_value(d) for t, d in jumps],
+            run_time=0.5,
+        )
 
     def pulse(self, x, n, hits):
         """Pulse n, captioned with the laser phase phi_n it writes in."""

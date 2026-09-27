@@ -29,8 +29,8 @@ from aionanim.tools.primitives import (
 # windows -- arm 1 over leg 1, and the mirror hands the excitation to arm 2
 # for leg 2 -- so each integrates its own stretch of the oscillation. Equal
 # window lengths no longer mean equal phase, the hands miss each other and the
-# ports split. It is ClockPhase's null broken by the source rather than by the
-# geometry.
+# ports split. It is ClockPhase's omega_A T null broken by the source rather
+# than by the geometry.
 #
 # Deliberately off resonance. omega_phi = pi / T would put the three pulses on
 # zero crossings with each leg exactly a half-cycle, which reads as if the

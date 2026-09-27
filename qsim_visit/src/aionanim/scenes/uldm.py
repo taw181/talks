@@ -1,6 +1,6 @@
 """An ultralight dark-matter field read out by a clock interferometer.
 
-DarkMatterPhase is ClockPhase with that null broken. An oscillating ultralight
+DarkMatterPhase is ClockPhase with its omega_A T null broken. An oscillating ultralight
 scalar field modulates the fundamental constants, and with them the Sr clock
 frequency: omega_A -> omega_A [1 + eps cos(omega_phi t + theta)]. The mirror
 hands the excitation from one arm to the other halfway through, so the two
@@ -72,8 +72,8 @@ DM_LAW = np.array([-1.8, 0.75, 0.0])
 class DarkMatterPhase(Scene):
     """The same clock, with a dark-matter field oscillating through it.
 
-    ClockPhase's interferometer is symmetric and its hands come back together.
-    These do not. The field modulates omega_A; the two arms are excited over
+    ClockPhase's interferometer is symmetric: omega_A T cancels between its
+    hands, and only the laser's phase separates them. Here it does not cancel. The field modulates omega_A; the two arms are excited over
     different windows of the oscillation, so each hand winds up by its own
     integral; the angle left between them is Phi, and the last pulse turns it
     into two populations that are no longer all-or-nothing.
@@ -164,7 +164,7 @@ class DarkMatterPhase(Scene):
         # --- the readout ------------------------------------------------------
         # The hands have missed each other, so the sector between them is the
         # measurement rather than a rounding error, and both ports come out
-        # populated: neither the bright fringe ClockPhase ends on nor a null.
+        # populated, from the field alone.
         self.remove(self.arm_lo, self.arm_hi, self.hand_lo, self.hand_hi)
         sweep, gap = phase_sweep(CP_DIAL, kicked_last, kicked_first)
         self.play(Flash(dial[0], **{**FLASH_STYLE, "color": AREA_COLOR}), run_time=0.5)

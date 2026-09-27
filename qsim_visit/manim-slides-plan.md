@@ -32,9 +32,12 @@ pi/2 - pi - pi/2 driven by single photons, beside the two-level system it
 drives; the atom arrives as |g, p>, kets on each leg as it is drawn.
 
 ## 5. ClockPhaseTermsSlide (clicks)
-"The interferometer is a clock": hands per arm, phases phi_n under each pulse,
-the null (both arms spend equal time in |e>). Then Phi = Phi_interferometer +
-Phi_laser, with the laser term circled as the one the gradiometer cancels.
+"The interferometer is a clock": hands per arm, phases phi_n under each pulse.
+Each pulse writes its laser phase onto the arm it drives (the hand jumps), so
+while omega_A T cancels (equal time in |e>), the hands end phi_1 - 2 phi_2 +
+phi_3 apart: a sector on the dial and both ports populated. Then Phi =
+Phi_interferometer + Phi_laser, with the laser term circled as the one the
+gradiometer cancels.
 
 ## 6. GradiometerSlide (clicks)
 Two interferometers, one baseline, one laser: two clocks reading the same.
