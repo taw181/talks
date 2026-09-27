@@ -37,7 +37,7 @@ from aionanim.scenes.cooling import CoolingSequence
 from aionanim.scenes.dai_data import LaserNoiseLissajous
 from aionanim.scenes.dipole import DipoleTrapLoading, SignalInjection
 from aionanim.scenes.gradiometer import Gradiometer
-from aionanim.scenes.gradiometer_gw import GradiometerGWStretch
+from aionanim.scenes.gradiometer_gw import GradiometerGWStretchContinuous
 from aionanim.scenes.gravitational_waves import BlackHoleMerger, MergerOnSensitivityPlot
 from aionanim.scenes.gw_landscape import SensitivityBuildUp
 from aionanim.scenes.light_shift import LightShiftSignal
@@ -45,7 +45,7 @@ from aionanim.scenes.lmt import LargeMomentumTransfer, LMTMachZehnder
 from aionanim.scenes.sequence import ExperimentSequenceSimple
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
-from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhase
+from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhaseContinuous
 from aionanim.scenes.uldm_scale import DarkMatterScale
 from aionanim.tools.layout import image_point, load_image, numbered_list, slide_title
 from aionanim.tools.primitives import make_cloud
@@ -291,8 +291,10 @@ class SensitivityLandscapeSlide(Clicks, DeckSlide, SensitivityBuildUp):
     GAP_FILLERS = ("AION-km",)
 
 
-class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretch):
-    pass
+class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretchContinuous):
+    """Continuous: lab time never stops between the first pulse and the ports,
+    so the far cloud visibly splits L/c after the near one. One click runs the
+    whole sequence; the stops are the set-up before it and the readout after."""
 
 
 # --- dark matter ------------------------------------------------------------
@@ -310,8 +312,9 @@ class DarkMatterFieldSlide(RunsOnIntoLoops, DeckSlide, DarkMatterField):
         self.loop(super().hold)
 
 
-class DarkMatterPhaseSlide(Clicks, DeckSlide, DarkMatterPhase):
-    pass
+class DarkMatterPhaseSlide(Clicks, DeckSlide, DarkMatterPhaseContinuous):
+    """Continuous: the field keeps oscillating while the pulses fire, so one
+    click runs the interferometer from the first pulse to the ports."""
 
 
 # --- our prototype device -------------------------------------------------

@@ -56,6 +56,7 @@ LIGO and one merger, the other mergers, LISA, ET, the gap between them, then
 AION-km filling it. No AEDGE.
 
 ## 11. GradiometerGWStretchSlide (clicks)
+Continuous: lab time never stops, so one click runs the pulses through to the ports.
 The wave drawn as a stretching baseline (proper-distance picture), h(t) above.
 
 # 3. dark matter
@@ -73,6 +74,7 @@ does to a clock: couplings walk the Sr clock transition up and down (level
 diagram at double size).
 
 ## 15. DarkMatterPhaseSlide (clicks)
+Continuous: lab time never stops, so one click runs the pulses through to the ports.
 ClockPhase's geometry with the field through it: the arms are excited over
 different windows, the hands no longer come back together, Phi != 0.
 
