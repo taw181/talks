@@ -342,7 +342,8 @@ class BlackHoleMerger(ThreeDScene):
         and the remnant, updaters already stopped on the sheet."""
 
     def beat(self):
-        """The pause once the signal is up and once the ringdown has settled:
+        """The pause once the signal is up and once the ringdown has settled
+        (after the settling, so a click never lands on a still sheet):
         nothing here, a click on the slide version."""
 
     def construct(self):
@@ -434,10 +435,10 @@ class BlackHoleMerger(ThreeDScene):
             rate_func=linear,
             run_time=T_END - T_INSPIRAL - MERGE_BLEND,
         )
-        self.beat()
 
         # --- 6. one hole, one well, a sheet nearly flat again -------------
         self.wait(2.0)
+        self.beat()
         sheet.clear_updaters()
         if self.AMBIENT_ROTATION:
             self.stop_ambient_camera_rotation()

@@ -1,6 +1,6 @@
 """An ultralight dark-matter field read out by a clock interferometer.
 
-DarkMatterPhase is ClockPhase with that null broken. An oscillating ultralight
+DarkMatterPhase is ClockPhase with its omega_A T null broken. An oscillating ultralight
 scalar field modulates the fundamental constants, and with them the Sr clock
 frequency: omega_A -> omega_A [1 + eps cos(omega_phi t + theta)]. The mirror
 hands the excitation from one arm to the other halfway through, so the two
@@ -72,8 +72,8 @@ DM_LAW = np.array([-1.8, 0.75, 0.0])
 class DarkMatterPhase(Scene):
     """The same clock, with a dark-matter field oscillating through it.
 
-    ClockPhase's interferometer is symmetric and its hands come back together.
-    These do not. The field modulates omega_A; the two arms are excited over
+    ClockPhase's interferometer is symmetric: omega_A T cancels between its
+    hands, and only the laser's phase separates them. Here it does not cancel. The field modulates omega_A; the two arms are excited over
     different windows of the oscillation, so each hand winds up by its own
     integral; the angle left between them is Phi, and the last pulse turns it
     into two populations that are no longer all-or-nothing.
@@ -131,7 +131,6 @@ class DarkMatterPhase(Scene):
         self.remove(still)
         self.add(always_redraw(moving), always_redraw(detuning), marker)
         self.wait(0.4)
-        self.beat()
 
         # One tracker per arm, as in ClockPhase, but each advanced by the
         # integral over its own window instead of by rate * T.
@@ -151,6 +150,7 @@ class DarkMatterPhase(Scene):
         self.big_lo = dial_hand(CP_DIAL, kicked_last, lighten(ATOM_COLOR))
         self.big_hi = dial_hand(CP_DIAL, kicked_first, lighten(KICKED_COLOR))
         self.add(self.big_lo, self.big_hi)
+        self.beat()
 
         # What the instrument does, which is the one part a continuous
         # variant rewrites. Everything either side of it -- the trace, the
@@ -164,12 +164,11 @@ class DarkMatterPhase(Scene):
         # --- the readout ------------------------------------------------------
         # The hands have missed each other, so the sector between them is the
         # measurement rather than a rounding error, and both ports come out
-        # populated: neither the bright fringe ClockPhase ends on nor a null.
+        # populated, from the field alone.
         self.remove(self.arm_lo, self.arm_hi, self.hand_lo, self.hand_hi)
         sweep, gap = phase_sweep(CP_DIAL, kicked_last, kicked_first)
         self.play(Flash(dial[0], **{**FLASH_STYLE, "color": AREA_COLOR}), run_time=0.5)
         self.play(FadeIn(sweep), run_time=0.7)
-        self.beat()
         draw_ports(self, c, CP_OUT, 0.5 * (1 + np.cos(gap)), extra=self.port_extra())
         self.play(Write(readout_equation()), run_time=1.0)
 
@@ -281,6 +280,7 @@ class DarkMatterPhase(Scene):
             self.kicked_last.animate.set_value(leg_two),
             now.animate.set_value(c[0]),
         ])
+        self.beat()
 
         # --- recombine -------------------------------------------------------
         self.play(FadeIn(dots[2], scale=0.4), run_time=0.3)

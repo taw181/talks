@@ -16,6 +16,9 @@ wrappers below turn the hook into a slide break:
 - hold() is DarkMatterScale's and DarkMatterField's one period of the field;
   the slide loops it.
 
+A looping stop is still one click: RunsOnIntoLoops plays each stretch straight
+on into its loop, and the click moves on from the loop.
+
 The deck order lives in talk/deck.sh, which renders, presents and converts:
 
     talk/deck.sh render h     # -q h; `l` for a quick look
@@ -34,7 +37,7 @@ from aionanim.scenes.cooling import CoolingSequence
 from aionanim.scenes.dai_data import LaserNoiseLissajous
 from aionanim.scenes.dipole import DipoleTrapLoading, SignalInjection
 from aionanim.scenes.gradiometer import Gradiometer
-from aionanim.scenes.gradiometer_gw import GradiometerGWStretch
+from aionanim.scenes.gradiometer_gw import GradiometerGWStretchContinuous
 from aionanim.scenes.gravitational_waves import BlackHoleMerger, MergerOnSensitivityPlot
 from aionanim.scenes.gw_landscape import SensitivityBuildUp
 from aionanim.scenes.light_shift import LightShiftSignal
@@ -42,7 +45,7 @@ from aionanim.scenes.lmt import LargeMomentumTransfer, LMTMachZehnder
 from aionanim.scenes.sequence import ExperimentSequenceSimple
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
-from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhase
+from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhaseContinuous
 from aionanim.scenes.uldm_scale import DarkMatterScale
 from aionanim.tools.layout import image_point, load_image, numbered_list, slide_title
 from aionanim.tools.primitives import make_cloud
@@ -74,17 +77,69 @@ SLIDE_SETTLE = 0.1
 
 
 # --- how a scene's hooks become slide breaks -------------------------------
+def deck_order():
+    """The slide classes in talk/deck.txt, in order, as deck.sh reads them."""
+    lines = (Path(__file__).parent / "deck.txt").read_text(encoding="utf-8").splitlines()
+    return [slide for line in lines if (slide := line.split("#")[0].strip())]
+
+
+DECK = deck_order()
+
+
+def make_footer(number, total):
+    """The progress bar along the bottom edge, filled to this slide's place in
+    the deck, and the slide's number in the corner above the end of it."""
+    width = config.frame_width
+    bottom = -config.frame_y_radius + PROGRESS_BAR_HEIGHT / 2
+    track = Rectangle(
+        width=width, height=PROGRESS_BAR_HEIGHT, stroke_width=0,
+        fill_color=PROGRESS_TRACK_COLOR, fill_opacity=1,
+    ).move_to([0, bottom, 0])
+    fill = Rectangle(
+        width=width * number / total, height=PROGRESS_BAR_HEIGHT, stroke_width=0,
+        fill_color=PROGRESS_FILL_COLOR, fill_opacity=1,
+    ).align_to(track, LEFT).set_y(bottom)
+    label = Tex(str(number), font_size=FONT_SLIDE_NUMBER, color=SLIDE_NUMBER_COLOR)
+    label.next_to(track, UP, buff=0.1).to_edge(RIGHT, buff=0.15)
+    label.set_stroke(PLOT_BACKGROUND, width=4, background=True)  # legible over photos
+    return VGroup(track, fill, label)
+
+
 class DeckSlide(Slide):
-    """Every slide in the deck: a Slide that stops on its finished frame.
+    """Every slide in the deck: a Slide that stops on its finished frame, with
+    the footer (progress bar and slide number) over everything it draws.
 
     Looping slides are left without the settling hold: their last frame is
     their first, so the one manim leaves out is the one a loop would repeat.
+
+    The footer is a foreground mobject, so it stays on top of whatever the
+    scene adds; it is pinned to the frame in a 3D scene, rides along with a
+    moving camera, and is kept out of any remove(), since a scene may clear
+    the page with remove(*self.mobjects).
     """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.wait_time_between_slides = SLIDE_SETTLE
         self.wait_between_looping_slides = False
+        self.footer = None
+
+    def setup(self):
+        super().setup()
+        name = type(self).__name__
+        if name not in DECK:
+            return
+        self.footer = make_footer(DECK.index(name) + 1, len(DECK))
+        if isinstance(self, ThreeDScene):
+            self.add_fixed_in_frame_mobjects(self.footer)
+        elif isinstance(self, MovingCameraScene):
+            frame = self.camera.frame  # moves, but never zooms
+            offset = self.footer.get_center() - frame.get_center()
+            self.footer.add_updater(lambda m: m.move_to(frame.get_center() + offset))
+        self.add_foreground_mobject(self.footer)
+
+    def remove(self, *mobjects):
+        return super().remove(*[m for m in mobjects if m is not self.footer])
 
 
 class Clicks:
@@ -94,13 +149,32 @@ class Clicks:
         self.next_slide()
 
 
-class LoopingStages:
-    """stage_break() loops two seconds of the running stage, then stops."""
+class RunsOnIntoLoops:
+    """Each stretch plays straight on into the loop after it, so a stage is one
+    click however it is cut: the click starts the stage, and its loop holds
+    the screen until the next. (Without auto_next the stretch would stop on its
+    last frame and need a click of its own to start its loop.)
+
+    auto_next belongs to the segment a next_slide() opens; one with nothing
+    before it sets the options of the slide's first segment instead.
+    """
+
+    def setup(self):
+        super().setup()
+        self.next_slide(auto_next=True)
+
+    def loop(self, hold):
+        """Loop what hold() plays until the click, then run on into the next."""
+        self.next_slide(loop=True)
+        hold()
+        self.next_slide(auto_next=True)
+
+
+class LoopingStages(RunsOnIntoLoops):
+    """stage_break() loops two seconds of the running stage until the click."""
 
     def stage_break(self):
-        self.next_slide(loop=True)
-        self.wait(2)
-        self.next_slide()
+        self.loop(lambda: self.wait(2))
 
 
 # --- intro -------------------------------------------------------------------
@@ -166,7 +240,25 @@ class ContentsSlide(DeckSlide):
         self.play(FadeIn(slide_title(r"Outline")), FadeIn(contents), run_time=0.8)
 
 
+class SectionSlide(DeckSlide):
+    """A section's title, numbered as it is in the outline."""
+
+    SECTION = None  # one of SECTIONS
+
+    def construct(self):
+        number = SECTIONS.index(self.SECTION) + 1
+        title = VGroup(
+            Tex(f"{number}.", font_size=FONT_DECK_TITLE, color=lighten(GUIDE_COLOR)),
+            Tex(self.SECTION, font_size=FONT_DECK_TITLE),
+        ).arrange(RIGHT, buff=0.35)
+        self.play(FadeIn(title), run_time=0.8)
+
+
 # --- atom interferometry ----------------------------------------------------
+class AtomInterferometrySlide(SectionSlide):
+    SECTION = r"Atom interferometry"
+
+
 class SinglePhotonMachZehnderSlide(Clicks, DeckSlide, SinglePhotonMachZehnder):
     pass
 
@@ -180,6 +272,10 @@ class GradiometerSlide(Clicks, DeckSlide, Gradiometer):
 
 
 # --- gravitational waves ----------------------------------------------------
+class GravitationalWavesSlide(SectionSlide):
+    SECTION = r"Gravitational waves"
+
+
 class BlackHoleMergerSlide(DeckSlide, BlackHoleMerger):
     """No stops: the merger plays straight through from the moment the slide
     comes up, and holds on the settled sheet as the slide's own end."""
@@ -195,30 +291,37 @@ class SensitivityLandscapeSlide(Clicks, DeckSlide, SensitivityBuildUp):
     GAP_FILLERS = ("AION-km",)
 
 
-class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretch):
-    pass
+class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretchContinuous):
+    """Continuous: lab time never stops between the first pulse and the ports,
+    so the far cloud visibly splits L/c after the near one. One click runs the
+    whole sequence; the stops are the set-up before it and the readout after."""
 
 
 # --- dark matter ------------------------------------------------------------
-class DarkMatterScaleSlide(DeckSlide, DarkMatterScale):
+class DarkMatterSlide(SectionSlide):
+    SECTION = r"Dark matter"
+
+
+class DarkMatterScaleSlide(RunsOnIntoLoops, DeckSlide, DarkMatterScale):
     def hold(self):
-        self.next_slide(loop=True)
-        super().hold()
-        self.next_slide()
+        self.loop(super().hold)
 
 
-class DarkMatterFieldSlide(DeckSlide, DarkMatterField):
+class DarkMatterFieldSlide(RunsOnIntoLoops, DeckSlide, DarkMatterField):
     def hold(self):
-        self.next_slide(loop=True)
-        super().hold()
-        self.next_slide()
+        self.loop(super().hold)
 
 
-class DarkMatterPhaseSlide(Clicks, DeckSlide, DarkMatterPhase):
-    pass
+class DarkMatterPhaseSlide(Clicks, DeckSlide, DarkMatterPhaseContinuous):
+    """Continuous: the field keeps oscillating while the pulses fire, so one
+    click runs the interferometer from the first pulse to the ports."""
 
 
 # --- our prototype device -------------------------------------------------
+class PrototypeDeviceSlide(SectionSlide):
+    SECTION = r"Our prototype device"
+
+
 class AIONCollabSlide(DeckSlide):
     """Who AION are and where, then the baseline they are building."""
 
@@ -374,38 +477,43 @@ class ExtractedSignalSlide(DeckSlide):
 
 
 # --- future plans ---------------------------------------------------------
-class SectionSlide(DeckSlide):
-    """A section's title, numbered as it is in the outline."""
-
-    SECTION = None  # one of SECTIONS
-
-    def construct(self):
-        number = SECTIONS.index(self.SECTION) + 1
-        title = VGroup(
-            Tex(f"{number}.", font_size=FONT_DECK_TITLE, color=lighten(GUIDE_COLOR)),
-            Tex(self.SECTION, font_size=FONT_DECK_TITLE),
-        ).arrange(RIGHT, buff=0.35)
-        self.play(FadeIn(title), run_time=0.8)
-
-
 class FuturePlansSlide(SectionSlide):
     SECTION = r"Future plans"
 
 
+# The baseline figure (baseline.png, 295 x 707 px): its own "L", covered and
+# relabelled with AION-10's length, and the arrow the label goes beside.
+BASELINE_L_PX = ((258, 326), (294, 379))  # upper left, lower right of the "L"
+BASELINE_ARROW_PX = (244, 383)  # the arrow's midpoint
+
+
 class Aion10BeecroftSlide(DeckSlide):
-    """The stairwell, then the building cut away round it -- laid out as the
-    row they end up in, so nothing moves. The building is a tall, narrow
-    cutaway, so it takes nearly the full height of the slide to be legible;
-    it sits right of the title, so it can rise level with it."""
+    """The 10 m baseline and the stairwell it runs down, then the building cut
+    away round it -- laid out as the row they end up in, so nothing moves.
+    The building is a tall, narrow cutaway, so it takes nearly the full height
+    of the slide to be legible; it sits right of the title, so it can rise
+    level with it."""
 
     def construct(self):
         title = slide_title(r"AION-10 at Oxford")
+        baseline = load_image(MEDIA / "baseline.png", height=5.2)
         stairwell = load_image(MEDIA / "stairwell.jpg", height=4.9)
         building = load_image(MEDIA / "beecroft.jpeg", height=config.frame_height - 0.4)
-        Group(stairwell, building).arrange(RIGHT, buff=0.4).set_x(0)
+        Group(baseline, stairwell, building).arrange(RIGHT, buff=0.7).set_x(0.2)
+        baseline.set_y(-0.45)
         stairwell.set_y(-0.45)
         building.set_y(0)
-        self.play(FadeIn(title), FadeIn(stairwell), run_time=0.8)
+
+        # white over the figure's own "L", and the length in its place
+        ul, dr = [image_point(baseline, *p) for p in BASELINE_L_PX]
+        cover = Rectangle(width=dr[0] - ul[0], height=ul[1] - dr[1], stroke_width=0,
+                          fill_color=WHITE, fill_opacity=1).move_to((ul + dr) / 2)
+        # in the figure's own hand: black sans, along the arrow, where the L was
+        length = Tex(r"\textsf{10\,m}", font_size=FONT_ANNOTATION, color=BLACK)
+        length.rotate(PI / 2).move_to(cover)
+        labelled = Group(baseline, cover, length)
+
+        self.play(FadeIn(title), FadeIn(labelled), FadeIn(stairwell), run_time=0.8)
         self.next_slide()
         self.play(FadeIn(building, shift=LEFT * 0.3), run_time=0.8)
 

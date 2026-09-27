@@ -31,6 +31,7 @@ from aionanim.tools.cooling import (
     make_baffle,
     make_push_beam,
     make_up_beam,
+    oblique_ring,
 )
 from aionanim.tools.sequence import STAGES, SrLevels, Stage, Timeline, stage_heading
 
@@ -50,7 +51,10 @@ COOL_NARROWBAND_INTENSITY = 0.85  # of the beams' starting brightness
 TWOD_CENTER = COOL_MOT_CENTER + LEFT * 12.0
 TWOD_CAMERA = TWOD_CENTER + [2.0, 0.35, 0]  # where the camera starts
 TWOD_HEADING_CORNER = TWOD_CAMERA + COOL_HEADING_CORNER
-TWOD_AXES = (45, 135)  # two pairs across the oven's stream, as usually sketched
+# Two pairs at 45 degrees in the plane across the push axis: up/down and in/out
+# of the page, so they cool the atoms across the stream and leave them free
+# along it, which is the push beam's to drive. Drawn in the oblique view.
+TWOD_DIRECTIONS = (np.array([0, 1, 1]) / np.sqrt(2), np.array([0, 1, -1]) / np.sqrt(2))
 TWOD_BEAM_REACH = 1.6
 TWOD_NOZZLE = TWOD_CENTER + DOWN * 2.1
 TWOD_BAFFLE = TWOD_CENTER + RIGHT * 4.5
@@ -169,8 +173,10 @@ class CoolingSequence(MovingCameraScene):
         oven = Oven(TWOD_NOZZLE)
         oven_label = Tex(r"Sr oven", font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR))
         oven_label.next_to(oven, RIGHT, buff=0.3)
-        beams = MotBeams(TRANSITION_461_COLOR, TWOD_CENTER, axes=TWOD_AXES,
+        beams = MotBeams(TRANSITION_461_COLOR, TWOD_CENTER, directions=TWOD_DIRECTIONS,
                          reach=TWOD_BEAM_REACH)
+        # the plane the beams lie in, so they read as leaving the page
+        beams.add_to_back(oblique_ring(TWOD_CENTER, TWOD_BEAM_REACH * 0.85))
         baffle = make_baffle(TWOD_BAFFLE)
         baffle_label = Tex(r"baffle", font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR))
         baffle_label.next_to(baffle, DOWN, buff=0.2)

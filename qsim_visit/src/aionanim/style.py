@@ -160,6 +160,17 @@ LIGHT_SHIFT_COLOR = GREEN_C
 # Bounded rather than a bare wash, unlike the field and strain windows: those
 # mark a stretch of an oscillation that was always there, where this one marks
 # a beam being switched on and off, and the two edges are those two moments.
+# Something unspecified acting on the atoms for a stretch of the sequence --
+# the generic version of the light-shift beam, drawn the same way (bounded:
+# it is on for a while, then off) in a colour of its own.
+PERTURBATION_COLOR = ManimColor("#e0b04a")
+PERTURBATION_STYLE = dict(
+    stroke_width=2,
+    stroke_color=PERTURBATION_COLOR,
+    stroke_opacity=0.6,
+    fill_color=PERTURBATION_COLOR,
+    fill_opacity=0.16,
+)
 LIGHT_SHIFT_STYLE = dict(
     stroke_width=2,
     stroke_color=LIGHT_SHIFT_COLOR,
@@ -493,6 +504,14 @@ CALLOUT_CORNER_RADIUS = 0.12
 CARTOON_CLOUD_N = 70
 CARTOON_CLOUD_RADIUS = 0.5
 CARTOON_CLOUD_DOT_RADIUS = 0.06
+# The deck's footer, on every slide: a thin bar along the bottom edge that
+# fills as the talk goes on, and the slide's number in the corner above its
+# end. Kept small and grey so it reads as furniture, not content.
+PROGRESS_BAR_HEIGHT = 0.05
+PROGRESS_TRACK_COLOR = ManimColor("#303030")  # just off the background
+PROGRESS_FILL_COLOR = GREY_B
+FONT_SLIDE_NUMBER = 18
+SLIDE_NUMBER_COLOR = GREY_B
 # A slot for a figure still to come: a reference, not content, so dashed and
 # in the construction grey.
 PLACEHOLDER_STYLE = dict(

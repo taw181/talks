@@ -18,9 +18,11 @@ from aionanim.tools.clock import (
     ground_share,
     make_clock_hand,
     make_dial,
+    phase_sweep,
     show_phase_budget,
 )
 from aionanim.tools.gradiometer import (
+    GR_ARM,
     GR_DIALS,
     GR_DIAL_RADIUS,
     GR_LAG,
@@ -41,13 +43,27 @@ from aionanim.tools.primitives import (
     state_colors,
 )
 
+# Some effect on the atoms, over the middle of each interferometer's second
+# leg in that interferometer's own time -- the upper one L/c after the lower.
+# A signal that varies in time is caught at two different moments, so the two
+# pick up different phases and the difference keeps it: the upper hand sweeps
+# on further than the lower. Generic on purpose, as on the clock slide.
+GR_EFFECT_SPAN = (0.25, 0.75)  # of the second leg
+GR_EFFECT_PAD = 0.2  # the boxes' reach above and below each interferometer
+GR_EFFECT_PHASE = {"low": 0.45, "up": 1.0}
+GR_EFFECT_TIME = 2.5
+
 
 class Gradiometer(Scene):
     """Two interferometers, one baseline, one laser -- so, two clocks.
 
     The quiet twin of GradiometerGW: same geometry, same dials, nothing
-    passing through. Both clocks therefore read the same, which is the null
-    the wave has to break, and it ends on what the difference is made of.
+    passing through, so both clocks read the same. Then, without replaying,
+    some unspecified effect acts on each interferometer over its second leg,
+    in its own time -- the upper one L/c after the lower -- and the two hands
+    sweep on by different amounts, so the difference keeps it. It ends on what
+    that difference is made of: the propagation term survives, the laser's
+    cancels.
     """
 
     def beat(self):
@@ -85,7 +101,6 @@ class Gradiometer(Scene):
             font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
         ).to_corner(UL).shift(DOWN * 0.7)
         self.play(FadeIn(dials), FadeIn(hand_key), run_time=0.6)
-        self.beat()
 
         # --- the two clouds ----------------------------------------------
         atoms = {
@@ -98,6 +113,7 @@ class Gradiometer(Scene):
         seed_low = make_atom(radius=CLOCK_ATOM_RADIUS).move_to(low[0])
         seed_up = make_atom(radius=CLOCK_ATOM_RADIUS).move_to(up[0])
         self.play(FadeIn(seed_low, scale=0.5), FadeIn(seed_up, scale=0.5), run_time=0.6)
+        self.beat()
 
         # --- pulse 1: the beamsplitter -----------------------------------
         fire_pulse(self, GR_T0, flash=[seed_low, seed_up])
@@ -134,19 +150,20 @@ class Gradiometer(Scene):
             r"L/c\ \text{later}", font_size=FONT_LEGEND, color=LASER_COLOR
         ).next_to(up[0], UP, buff=0.3)
         self.play(FadeIn(lag_note), run_time=0.5)
-        self.beat()
 
         draw_legs(self, [
             (atoms["low"][0], low[0], low[1], ATOM_COLOR),
             (atoms["low"][1], low[0], low[2], KICKED_COLOR),
             (atoms["up"][0], up[0], up[1], ATOM_COLOR),
             (atoms["up"][1], up[0], up[2], KICKED_COLOR),
-        ], fade=[lag_note], extra=[
+        ], extra=[
             phase[c][1].animate.set_value(rate * excited[c][0])
             for c in ("low", "up")
         ])
+        self.beat()
 
         # --- pulse 2: the mirror ------------------------------------------
+        self.play(FadeOut(lag_note), run_time=0.3)
         fire_pulse(self, GR_T0 + GR_T, flash=[a for p in atoms.values() for a in p])
         self.play(
             *[state_colors(p[0], KICKED_COLOR) for p in atoms.values()],
@@ -198,6 +215,42 @@ class Gradiometer(Scene):
             run_time=0.5,
         )
         self.beat()
+
+        # --- some effect on the atoms -----------------------------------------
+        # Not replayed: a box on each interferometer, and the hand of the arm
+        # excited there (the one kicked at the mirror) sweeping on by what it
+        # picked up, while a line crosses each box.
+        boxes, cursors, sweeps = VGroup(), VGroup(), []
+        for cloud, v, z in (("low", low, GR_LOWER_Z), ("up", up, GR_UPPER_Z)):
+            start, end = (v[1][0] + f * (v[3][0] - v[1][0]) for f in GR_EFFECT_SPAN)
+            box = Rectangle(
+                width=end - start, height=GR_ARM + 2 * GR_EFFECT_PAD,
+                **PERTURBATION_STYLE,
+            ).move_to([(start + end) / 2, z + GR_ARM / 2, 0])
+            boxes.add(box)
+            cursors.add(Line(box.get_corner(DL), box.get_corner(UL),
+                             color=PERTURBATION_COLOR, stroke_width=3))
+            sweeps.append(always_redraw(
+                lambda c=cloud: phase_sweep(
+                    GR_DIALS[c], phase[c][1], phase[c][0], GR_DIAL_RADIUS
+                )[0]
+            ))
+        box_label = Tex(
+            r"some effect on the atoms", font_size=FONT_LEGEND,
+            color=PERTURBATION_COLOR,
+        ).next_to(boxes[1], UP, buff=0.25)
+        self.play(FadeIn(boxes), FadeIn(box_label), run_time=0.8)
+        self.bring_to_back(boxes)
+        self.add(*sweeps)
+        self.play(
+            *[phase[c][0].animate.increment_value(GR_EFFECT_PHASE[c])
+              for c in ("low", "up")],
+            *[cursor.animate.align_to(box, RIGHT) for cursor, box in zip(cursors, boxes)],
+            rate_func=linear, run_time=GR_EFFECT_TIME,
+        )
+        self.play(FadeOut(cursors), run_time=0.3)
+        self.beat()
+
         show_phase_budget(
             self, GR_TERMS, laser_struck=True, laser_label=r"cancelled",
             difference_lhs=r"\Delta\Phi = \Phi_{\text{upper}} - \Phi_{\text{lower}}",

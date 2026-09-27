@@ -377,6 +377,7 @@ class LightShiftSignal(GradiometerGW):
         ], extra=[
             phase[c][0].animate.set_value(rate * GR_T) for c in ("low", "up")
         ])
+        self.beat()
 
         # --- pulse 3: recombine -------------------------------------------
         # Anchored on the two recombination points, which sit an arm above
