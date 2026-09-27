@@ -6,7 +6,7 @@ that arm is excited, but what the last pulse reads out is the angle between
 the two hands, and a symmetric interferometer comes back to zero. The
 gradiometer then compares two such clocks at opposite ends of the baseline
 through one laser, and the wave changes the light travel time between them.
-The readout is written as what it is made of, Phi = Phi_interferometer +
+The readout is written as what it is made of, Phi = Phi_propagation +
 Phi_laser: the symmetric clock zeroes the first term, and the phase the pulses
 write in leaves the second on the dial.
 ClockPhaseTerms is the same scene with that budget marked up, naming the laser
@@ -58,6 +58,11 @@ CP_KET_FONT = FONT_AXIS
 # and what is left between them at the end is phi_1 - 2 phi_2 + phi_3 -- here
 # 1.3 rad, a split between the ports that reads at a glance.
 CP_LASER_PHASES = (1.2, 0.1, 0.3)
+# Something acting on the atoms over the middle of the second leg, as a
+# fraction of it, and the extra phase it leaves on the arm excited there.
+CP_EFFECT_SPAN = (0.25, 0.75)
+CP_EFFECT_PAD = 0.3  # the box's reach above and below the two arms
+CP_EFFECT_PHASE = 0.9
 CP_KET_BUFF = CLOCK_ATOM_RADIUS + 0.05  # clear of an atom flying past
 
 
@@ -213,25 +218,29 @@ class ClockPhase(Scene):
         self.play(Write(budget), run_time=1.4)
         self.beat()
 
-        # The symmetric clock zeroes the atoms' term, not the whole phase: the
-        # laser writes its phase in whatever the arms do.
-        result = VGroup(
-            MathTex(r"\Phi_{\text{interferometer}} = 0", font_size=FONT_STATE),
-            Tex(
-                # Kept short so it stays under the dial and clear of the
-                # ports' own labels off to the left.
-                r"equal time in $|e\rangle$",
-                font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
-            ),
-            # ...and what is left is the laser's: the sector on the dial.
-            MathTex(
-                r"\Phi = \Phi_{\text{laser}} = \phi_1 - 2\phi_2 + \phi_3",
-                font_size=FONT_STATE, color=LASER_COLOR,
-            ),
-        ).arrange(DOWN, buff=0.2).next_to(dial, DOWN, buff=0.5)
-        self.play(Flash(dial[0], **{**FLASH_STYLE, "color": AREA_COLOR}), run_time=0.5)
-        self.play(FadeIn(result), run_time=1.0)
-        self.wait(2.0)
+        # Phi_propagation: something acting on the atoms between the pulses.
+        # Not replayed -- the box says where and when, and the hand of the arm
+        # that was excited there (the lower one, on the second leg) moves on
+        # by what it picked up, which widens the sector the laser left.
+        start, end = (b[0] + f * CP_T for f in CP_EFFECT_SPAN)
+        box = Rectangle(
+            width=end - start, height=CP_ARM + 2 * CP_EFFECT_PAD,
+            **PERTURBATION_STYLE,
+        ).move_to([(start + end) / 2, CP_Z + CP_ARM / 2, 0])
+        box_label = VGroup(
+            Tex(r"some effect on the atoms", font_size=FONT_LEGEND,
+                color=PERTURBATION_COLOR),
+            MathTex(r"\omega_A \to \omega_A + \delta", font_size=FONT_LEGEND,
+                    color=PERTURBATION_COLOR),
+        ).arrange(DOWN, buff=0.12).next_to(box, UP, buff=1.0)  # clear of the top leg's ket
+        self.play(FadeIn(box), FadeIn(box_label), run_time=0.8)
+        self.effect_label = box_label  # the budget's term labels need its band
+        self.bring_to_back(box)
+        self.remove(sweep)
+        live = always_redraw(lambda: phase_sweep(CP_DIAL, kicked_first, kicked_last)[0])
+        self.add(live)
+        self.play(kicked_last.animate.increment_value(CP_EFFECT_PHASE), run_time=1.4)
+        self.wait(1.0)
         self.phase_budget(budget)
 
     def laser_jump(self, jumps):
@@ -258,7 +267,7 @@ class ClockPhase(Scene):
 class ClockPhaseTerms(ClockPhase):
     """ClockPhase, and then what each term of the phase it read out is worth.
 
-    Phi = Phi_interferometer + Phi_laser, with the separation term of the
+    Phi = Phi_propagation + Phi_laser, with the separation term of the
     usual decomposition neglected as it is everywhere else in this talk. The
     first is the signal: omega_A times the difference in time the two arms
     spend excited, which is what a passing wave moves. The laser term is
@@ -271,6 +280,9 @@ class ClockPhaseTerms(ClockPhase):
 
     def phase_budget(self, budget):
         self.beat()
+        # The box stays to say where the signal came from; its caption goes,
+        # since the terms' own labels land in the same band.
+        self.play(FadeOut(self.effect_label), run_time=0.4)
         show_phase_budget(
             self, CP_TERMS, laser_struck=False, laser_label=r"noisy", eq=budget
         )

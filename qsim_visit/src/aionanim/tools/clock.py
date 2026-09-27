@@ -249,7 +249,7 @@ def budget_equation(lhs, term_prefix="", font_size=FONT_STATE):
         return r"\," + term_prefix + r"\Phi_{\text{" + name + r"}}" + trailing
 
     return MathTex(
-        lhs, "=", term("interferometer"), "+", term("laser", trailing=""),
+        lhs, "=", term("propagation"), "+", term("laser", trailing=""),
         font_size=font_size,
     )
 
