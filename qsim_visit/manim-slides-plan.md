@@ -43,7 +43,10 @@ sector. Last, the propagation term circled as the signal, the laser's as noisy.
 
 ## 6. GradiometerSlide (clicks)
 Two interferometers, one baseline, one laser: two clocks reading the same.
-Ends on what the difference is made of.
+Then a box of "some effect on the atoms" on each interferometer, over its
+second leg in its own time (the upper one L/c later); the hands sweep on by
+different amounts, so the dials differ. Ends on the budget: Delta Phi_propagation
+the signal, Delta Phi_laser struck out as cancelled.
 
 # 2. gravitational waves
 
