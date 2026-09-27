@@ -1,4 +1,6 @@
+<meta charset="utf-8">
 <title>Freiburg AION Talk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -17,7 +19,8 @@
     --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   }
-  html, body { height: 100%; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; margin: 0; }
   body {
     background: var(--ground);
     color: var(--ink);
@@ -29,7 +32,11 @@
     height: 100%;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    grid-template-areas: "top" "stage" "bar";
   }
+  .top { grid-area: top; }
+  .stage { grid-area: stage; }
+  .bar { grid-area: bar; }
 
   /* --- top line: where in the talk ---------------------------------- */
   .top {
@@ -89,6 +96,9 @@
     padding: 8px 14px; border-radius: 999px; font-size: 13px; color: var(--ink);
   }
   .hint.gone { opacity: 0; }
+  .stage { align-content: center; gap: 14px; }
+  .turn { display: none; margin: 0; font-size: 13px; color: var(--muted); text-align: center; padding-inline: 16px; }
+  @media (orientation: portrait) and (pointer: coarse) { .turn { display: block; } }
 
   /* --- controls ------------------------------------------------------ */
   .bar {
@@ -150,6 +160,7 @@
 
   /* A phone on its side: every pixel of height to the screen. */
   @media (orientation: landscape) and (max-height: 520px) {
+    .app { grid-template-rows: 1fr auto; grid-template-areas: "stage" "bar"; }
     .top { display: none; }
     .bar { padding-block: 6px calc(6px + env(safe-area-inset-bottom, 0px)); }
     button { height: 38px; min-width: 40px; }
@@ -172,6 +183,7 @@
       </div>
       <div class="hint gone" id="hint"><span>Tap right to go on · tap left to go back</span></div>
     </div>
+    <p class="turn">Turn your phone sideways for a bigger picture.</p>
   </main>
 
   <footer class="bar">
@@ -250,13 +262,28 @@ function reveal(v) {
     }
     v.classList.add("on");
   };
-  if (v.readyState >= 2) swap();
-  else v.addEventListener("loadeddata", swap, { once: true });
+  // Setting currentTime starts a seek, which can drop readyState below
+  // "has a frame" on a video that loaded long ago: wait for whichever
+  // event says a frame is there now.
+  if (v.readyState >= 2 && !v.seeking) return swap();
+  for (const ev of ["loadeddata", "seeked", "playing", "canplay"]) {
+    v.addEventListener(ev, swap, { once: true });
+  }
 }
 
 function atEnd(v) {
-  const seek = () => { v.currentTime = Math.max(0, v.duration - 0.04); };
-  v.pause();
+  const seek = () => {
+    const end = Math.max(0, v.duration - 0.04);
+    if (v.seekable.length && v.seekable.end(0) >= end) {
+      v.pause();
+      v.currentTime = end;
+    } else {
+      // A host that will not serve byte ranges cannot seek: run to the end fast.
+      v.playbackRate = 16;
+      v.addEventListener("ended", () => { v.playbackRate = 1; }, { once: true });
+      v.play().catch(() => {});
+    }
+  };
   if (v.readyState >= 1) seek(); else v.addEventListener("loadedmetadata", seek, { once: true });
 }
 
@@ -271,14 +298,14 @@ function go(i, mode) {
   i = Math.max(0, Math.min(n - 1, i));
   cur = i;
   const v = video(i);
-  if (mode === "play" || segs[i].loop) { v.currentTime = 0; play(v); }
+  if (mode === "play" || segs[i].loop) { v.playbackRate = 1; v.currentTime = 0; play(v); }
   else atEnd(v);
   reveal(v);
   tidy(i);
   ui();
 }
 
-function playing(v) { return v && !v.paused && !v.ended && !v.loop; }
+function playing(v) { return v && !v.paused && !v.ended && !v.loop && v.playbackRate === 1; }
 
 function next() {
   const v = cache.get(cur);

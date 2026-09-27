@@ -31,6 +31,9 @@ SECTION_SLIDES = {
 # Names for the menu where the class name reads badly once split.
 NAMES = {
     "TitleSlide": "Title",
+    "SinglePhotonMachZehnderSlide": "Single-photon Mach-Zehnder",
+    "ClockPhaseTermsSlide": "The interferometer is a clock",
+    "LaserNoiseLissajousSlide": "Laser noise and the Lissajous ellipse",
     "ContentsSlide": "Outline",
     "AIONCollabSlide": "The AION collaboration",
     "AIONChambersSlide": "AION chambers across the UK",
