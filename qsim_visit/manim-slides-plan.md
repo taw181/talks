@@ -35,10 +35,11 @@ drives; the atom arrives as |g, p>, kets on each leg as it is drawn.
 "The interferometer is a clock": hands per arm, phases phi_n under each pulse.
 Each pulse writes its laser phase onto the arm it drives (the hand jumps), so
 the hands end phi_1 - 2 phi_2 + phi_3 apart: a sector on the dial and both
-ports populated. Then Phi = Phi_propagation + Phi_laser, and a box for some
-unspecified effect on the atoms over the second leg: without replaying, the
-lower arm's hand (excited there) advances and the sector widens. Last, the
-propagation term circled as the signal, the laser term as noisy.
+ports populated, read as Phi = Phi_laser = phi_1 - 2 phi_2 + phi_3. Then a box
+for some unspecified effect on the atoms over the second leg: the equation
+becomes Phi = Phi_propagation + Phi_laser, and without replaying, the lower
+arm's hand (excited there) sweeps on as a line crosses the box, widening the
+sector. Last, the propagation term circled as the signal, the laser's as noisy.
 
 ## 6. GradiometerSlide (clicks)
 Two interferometers, one baseline, one laser: two clocks reading the same.

@@ -63,6 +63,7 @@ CP_LASER_PHASES = (1.2, 0.1, 0.3)
 CP_EFFECT_SPAN = (0.25, 0.75)
 CP_EFFECT_PAD = 0.3  # the box's reach above and below the two arms
 CP_EFFECT_PHASE = 0.9
+CP_EFFECT_TIME = 2.5  # the hand sweeps as the effect acts, not in a jump
 CP_KET_BUFF = CLOCK_ATOM_RADIUS + 0.05  # clear of an atom flying past
 
 
@@ -210,36 +211,56 @@ class ClockPhase(Scene):
         self.play(Write(readout_equation().to_corner(DR)), run_time=1.0)
         self.beat()
 
-        # What the ports have just read out, term by term. The note has said
-        # its piece, and the band it sits in is the only one wide enough for
-        # the equation.
+        # What the ports have just read out: so far, only the laser's phase.
+        # The note has said its piece, and the band it sits in is the only
+        # one wide enough for the equation.
         self.play(FadeOut(note), run_time=0.5)
-        budget = budget_equation(r"\Phi").move_to(CP_TERMS)
-        self.play(Write(budget), run_time=1.4)
+        laser_only = MathTex(
+            r"\Phi", "=", r"\,\Phi_{\text{laser}}", "=",
+            r"\phi_1 - 2\phi_2 + \phi_3",
+            font_size=FONT_STATE,
+        ).move_to(CP_TERMS)
+        self.play(Write(laser_only), run_time=1.4)
         self.beat()
 
         # Phi_propagation: something acting on the atoms between the pulses.
         # Not replayed -- the box says where and when, and the hand of the arm
-        # that was excited there (the lower one, on the second leg) moves on
-        # by what it picked up, which widens the sector the laser left.
+        # that was excited there (the lower one, on the second leg) sweeps on
+        # by what it picked up, in step with a line crossing the box, which
+        # widens the sector the laser left. The equation gains the term and
+        # loses its "= phi_1 - 2 phi_2 + phi_3", which is no longer all of it.
         start, end = (b[0] + f * CP_T for f in CP_EFFECT_SPAN)
         box = Rectangle(
             width=end - start, height=CP_ARM + 2 * CP_EFFECT_PAD,
             **PERTURBATION_STYLE,
         ).move_to([(start + end) / 2, CP_Z + CP_ARM / 2, 0])
-        box_label = VGroup(
-            Tex(r"some effect on the atoms", font_size=FONT_LEGEND,
-                color=PERTURBATION_COLOR),
-            MathTex(r"\omega_A \to \omega_A + \delta", font_size=FONT_LEGEND,
-                    color=PERTURBATION_COLOR),
-        ).arrange(DOWN, buff=0.12).next_to(box, UP, buff=1.0)  # clear of the top leg's ket
-        self.play(FadeIn(box), FadeIn(box_label), run_time=0.8)
+        box_label = Tex(
+            r"some effect on the atoms", font_size=FONT_LEGEND,
+            color=PERTURBATION_COLOR,
+        ).next_to(box, UP, buff=0.75)  # clear of the top leg's ket
+        budget = budget_equation(r"\Phi").move_to(CP_TERMS)
+        self.play(
+            FadeIn(box), FadeIn(box_label),
+            ReplacementTransform(laser_only[0], budget[0]),
+            ReplacementTransform(laser_only[1], budget[1]),
+            ReplacementTransform(laser_only[2], budget[4]),
+            FadeOut(laser_only[3:]),
+            FadeIn(budget[2:4]),
+            run_time=1.0,
+        )
         self.effect_label = box_label  # the budget's term labels need its band
         self.bring_to_back(box)
         self.remove(sweep)
         live = always_redraw(lambda: phase_sweep(CP_DIAL, kicked_first, kicked_last)[0])
         self.add(live)
-        self.play(kicked_last.animate.increment_value(CP_EFFECT_PHASE), run_time=1.4)
+        cursor = Line(box.get_corner(DL), box.get_corner(UL),
+                      color=PERTURBATION_COLOR, stroke_width=3)
+        self.play(
+            kicked_last.animate.increment_value(CP_EFFECT_PHASE),
+            cursor.animate.align_to(box, RIGHT),
+            rate_func=linear, run_time=CP_EFFECT_TIME,
+        )
+        self.play(FadeOut(cursor), run_time=0.3)
         self.wait(1.0)
         self.phase_budget(budget)
 
