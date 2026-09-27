@@ -481,20 +481,39 @@ class FuturePlansSlide(SectionSlide):
     SECTION = r"Future plans"
 
 
+# The baseline figure (baseline.png, 295 x 707 px): its own "L", covered and
+# relabelled with AION-10's length, and the arrow the label goes beside.
+BASELINE_L_PX = ((258, 326), (294, 379))  # upper left, lower right of the "L"
+BASELINE_ARROW_PX = (244, 383)  # the arrow's midpoint
+
+
 class Aion10BeecroftSlide(DeckSlide):
-    """The stairwell, then the building cut away round it -- laid out as the
-    row they end up in, so nothing moves. The building is a tall, narrow
-    cutaway, so it takes nearly the full height of the slide to be legible;
-    it sits right of the title, so it can rise level with it."""
+    """The 10 m baseline and the stairwell it runs down, then the building cut
+    away round it -- laid out as the row they end up in, so nothing moves.
+    The building is a tall, narrow cutaway, so it takes nearly the full height
+    of the slide to be legible; it sits right of the title, so it can rise
+    level with it."""
 
     def construct(self):
         title = slide_title(r"AION-10 at Oxford")
+        baseline = load_image(MEDIA / "baseline.png", height=5.2)
         stairwell = load_image(MEDIA / "stairwell.jpg", height=4.9)
         building = load_image(MEDIA / "beecroft.jpeg", height=config.frame_height - 0.4)
-        Group(stairwell, building).arrange(RIGHT, buff=0.4).set_x(0)
+        Group(baseline, stairwell, building).arrange(RIGHT, buff=0.7).set_x(0.2)
+        baseline.set_y(-0.45)
         stairwell.set_y(-0.45)
         building.set_y(0)
-        self.play(FadeIn(title), FadeIn(stairwell), run_time=0.8)
+
+        # white over the figure's own "L", and the length in its place
+        ul, dr = [image_point(baseline, *p) for p in BASELINE_L_PX]
+        cover = Rectangle(width=dr[0] - ul[0], height=ul[1] - dr[1], stroke_width=0,
+                          fill_color=WHITE, fill_opacity=1).move_to((ul + dr) / 2)
+        # in the figure's own hand: black sans, along the arrow, where the L was
+        length = Tex(r"\textsf{10\,m}", font_size=FONT_ANNOTATION, color=BLACK)
+        length.rotate(PI / 2).move_to(cover)
+        labelled = Group(baseline, cover, length)
+
+        self.play(FadeIn(title), FadeIn(labelled), FadeIn(stairwell), run_time=0.8)
         self.next_slide()
         self.play(FadeIn(building, shift=LEFT * 0.3), run_time=0.8)
 
