@@ -123,11 +123,7 @@ class GradiometerGW(Scene):
                 ("up", r"$\Phi_{\text{upper}}$"),
             )
         ])
-        hand_key = Tex(
-            r"each hand turns while in $|e\rangle$",
-            font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
-        ).to_corner(UR)
-        self.play(FadeIn(dials), FadeIn(hand_key), run_time=0.6)
+        self.play(FadeIn(dials), run_time=0.6)
 
         # --- the two clouds ----------------------------------------------
         atoms = {
@@ -631,11 +627,7 @@ class GradiometerGWStretch(GradiometerGW):
                 ("up", r"$\Phi_{\text{upper}}$"),
             )
         ])
-        hand_key = Tex(
-            r"each hand turns while in $|e\rangle$",
-            font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
-        ).to_corner(UR)
-        self.play(FadeIn(dials), FadeIn(hand_key), run_time=0.6)
+        self.play(FadeIn(dials), run_time=0.6)
 
         atoms = {
             "low": [

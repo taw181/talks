@@ -90,13 +90,7 @@ class DarkMatterPhase(Scene):
             r"Ultralight dark matter: the phase does not cancel",
             font_size=FONT_TITLE,
         ).to_corner(UL)
-        # The trace wants the whole top strip, so the rule for reading the
-        # hands goes opposite the title rather than under it.
-        hand_key = Tex(
-            r"each hand turns while in $|e\rangle$",
-            font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
-        ).to_corner(UR)
-        self.play(FadeIn(title), FadeIn(hand_key), run_time=0.9)
+        self.play(FadeIn(title), run_time=0.9)
 
         a = np.array([CP_T0, CP_Z, 0.0])
         b = a + RIGHT * CP_T

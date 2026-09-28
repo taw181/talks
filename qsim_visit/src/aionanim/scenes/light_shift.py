@@ -154,14 +154,7 @@ class LightShiftSignal(GradiometerGW):
                 ("up", r"$\Phi_{\text{upper}}$"),
             )
         ])
-        # Upper right here rather than under the title, which the beam's own
-        # label needs: it is the one caption that has to sit over the
-        # interferometer it is about.
-        hand_key = Tex(
-            r"each hand turns while in $|e\rangle$",
-            font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
-        ).to_corner(UR)
-        self.play(FadeIn(dials), FadeIn(hand_key), run_time=0.6)
+        self.play(FadeIn(dials), run_time=0.6)
 
         # --- the two clouds ----------------------------------------------
         atoms = {
@@ -228,7 +221,7 @@ class LightShiftSignal(GradiometerGW):
         # supplies it, the package scene has none and keeps the dials.
         image = self.readout_image()
         if image is not None:
-            self.play(FadeOut(dials), FadeOut(hand_key), *[FadeOut(m) for m in self.big],
+            self.play(FadeOut(dials), *[FadeOut(m) for m in self.big],
                       *[FadeOut(m) for m in sweeps], run_time=0.6)
             self.play(FadeIn(image), run_time=0.8)
             self.beat()
@@ -310,7 +303,7 @@ class LightShiftSignal(GradiometerGW):
     def imaging_line(self, x, name, color, atoms):
         """A 461 nm pulse up the baseline at time x, named for the state it
         images. It stops just past the topmost atom it lights, as the clock's
-        pulses do, rather than running on through the key in the corner."""
+        pulses do, rather than running on up the frame."""
         top = max(a.get_top()[1] for a in atoms) + 0.25
         pulse = Line([x, GR_LASER_Z, 0], [x, top, 0],
                      color=IMAGING_COLOR, stroke_width=PULSE_STROKE_WIDTH)
