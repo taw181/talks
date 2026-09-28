@@ -386,7 +386,9 @@ ULDM_EXCLUDED_STYLE = dict(stroke_width=0, fill_color=GUIDE_COLOR, fill_opacity=
 ULDM_EXCLUDED_EDGE = dict(stroke_width=1.5, color=GUIDE_COLOR, stroke_opacity=0.8)
 # The mass a figure is drawing, marked across the plot: in the field's own
 # colour, since it is that field's mass, with a dot where it meets a curve.
-ULDM_MARK_STYLE = dict(stroke_width=2, color=FIELD_COLOR, stroke_opacity=0.9)
+# Faint across the whole plot, full strength over the couplings still open.
+ULDM_MARK_STYLE = dict(stroke_width=2.5, color=FIELD_COLOR, stroke_opacity=1.0)
+ULDM_MARK_FAINT_OPACITY = 0.35
 ULDM_MARK_DOT_RADIUS = 0.065
 # An inset has to fit beside a full figure, so its type is a notch below the
 # footer's-plus: the smallest that still reads from the back of a room.
