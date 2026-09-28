@@ -11,8 +11,9 @@ which is why DarkMatterField could draw it as just phi(t) at one place.
 
 AION's range is 1e-17 to 1e-12 eV (Badurina et al., JCAP 05 (2020) 011,
 arXiv:1911.11755). The same paper's reach in the photon coupling sits in an
-inset on the left, with the mass of each step marked across it: the mark
-slides along the mass axis as the camera pulls back.
+inset on the right, with the mass of each step marked across it: the mark
+slides along the mass axis as the camera pulls back. The formula and each
+step's numbers make a column down the left.
 
 The wave is drawn moving at c, so what it shows is lambda_C, as the caption
 says. The field itself is coherent over its de Broglie wavelength, about
@@ -66,13 +67,14 @@ DS_X = (-7.2, 7.2)  # the wave runs off both edges of the frame
 # the same in every view.
 DS_PERIOD = 2.0
 DS_ZOOM_TIME = 2.5
-DS_STATS = np.array([6.6, 2.75, 0.0])  # upper-right corner of the numbers
-# AION's reach, top left under the formula and over the wave: the lower-left
-# corner of its axes, and their size. Its tick labels and axis names hang off
-# the left and bottom of that, down to just clear of the wave's crests.
-DS_INSET_ORIGIN = np.array([-5.75, 0.0, 0.0])
-DS_INSET_WIDTH = 5.3
-DS_INSET_HEIGHT = 1.95
+DS_STATS = np.array([-6.6, 1.2, 0.0])  # upper-left corner of the numbers
+# AION's reach, top right over the wave, beside the column of text: the
+# lower-left corner of its axes, and their size. Its tick labels and axis
+# names hang off the left and bottom of that, down to just clear of the
+# wave's crests; its top stays under the end of the title.
+DS_INSET_ORIGIN = np.array([1.9, 0.1, 0.0])
+DS_INSET_WIDTH = 4.8
+DS_INSET_HEIGHT = 3.0
 
 
 class DarkMatterScale(Scene):
@@ -103,7 +105,7 @@ class DarkMatterScale(Scene):
                 r"the distance light covers in one oscillation",
                 font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
             ),
-        ).arrange(RIGHT, buff=0.4)  # one row, to leave the inset the space under it
+        ).arrange(DOWN, buff=0.2, aligned_edge=LEFT)  # a column, left of the inset
         formula.next_to(title, DOWN, buff=0.3).align_to(title, LEFT)
 
         # --- the camera, and what it is looking at ---------------------------
@@ -261,8 +263,8 @@ class DarkMatterScale(Scene):
         ]
         if note is not None:
             rows.append(Tex(note, font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR)))
-        stats = VGroup(*rows).arrange(DOWN, buff=0.16, aligned_edge=RIGHT)
-        stats.move_to(DS_STATS, aligned_edge=UR)
+        stats = VGroup(*rows).arrange(DOWN, buff=0.16, aligned_edge=LEFT)
+        stats.move_to(DS_STATS, aligned_edge=UL)
         return VGroup(brace, tag, stats, mass_label(self.inset_axes, mass))
 
     def fly_to(self, view, mass, outgoing):
