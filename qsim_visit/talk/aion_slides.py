@@ -34,6 +34,7 @@ from manim_slides import Slide
 
 from aionanim.bibliography import AUTHOR_YEAR, FULL, SHORT, format_reference, load_bibliography
 from aionanim.style import *
+from aionanim.scenes.aedge import AEDGESensitivity
 from aionanim.scenes.clock import ClockPhaseTerms
 from aionanim.scenes.cooling import CoolingSequence
 from aionanim.scenes.dai_data import LaserNoiseLissajous
@@ -637,6 +638,20 @@ class AICECernSlide(DeckSlide):
         depth.set_stroke(**PHOTO_LABEL_OUTLINE, background=True, family=False)
         label.set_stroke(**PHOTO_LABEL_OUTLINE, background=True)
         self.play(FadeIn(figure), FadeIn(depth), FadeIn(label), run_time=0.8)
+
+
+
+class AEDGESlide(Clicks, DeckSlide, AEDGESensitivity):
+    """The two sensitivity plots as the talk has shown them, then a click
+    puts AEDGE on both."""
+
+    CITE = (
+        LIGO_PAPER,
+        ("LISA", "LISA:2017pwj"),
+        ("ET", "Punturo:2010zz"),
+        ("AION", "badurinaAIONAtomInterferometer2020"),
+        ("AEDGE", "AEDGE:2019nxb"),
+    )
 
 
 # --- outro -------------------------------------------------------------------
