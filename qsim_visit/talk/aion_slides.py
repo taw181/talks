@@ -32,7 +32,13 @@ from pathlib import Path
 from manim import *
 from manim_slides import Slide
 
-from aionanim.bibliography import AUTHOR_YEAR, FULL, SHORT, format_reference, load_bibliography
+from aionanim.bibliography import (
+    AUTHOR_YEAR,
+    FULL,
+    SHORT,
+    format_reference,
+    load_bibliography,
+)
 from aionanim.style import *
 from aionanim.scenes.aedge import AEDGESensitivity
 from aionanim.scenes.clock import ClockPhaseTerms
@@ -89,7 +95,9 @@ SLIDE_SETTLE = 0.1
 # --- how a scene's hooks become slide breaks -------------------------------
 def deck_order():
     """The slide classes in talk/deck.txt, in order, as deck.sh reads them."""
-    lines = (Path(__file__).parent / "deck.txt").read_text(encoding="utf-8").splitlines()
+    lines = (
+        (Path(__file__).parent / "deck.txt").read_text(encoding="utf-8").splitlines()
+    )
     return [slide for line in lines if (slide := line.split("#")[0].strip())]
 
 
@@ -110,13 +118,23 @@ def make_footer(number, total):
     width = config.frame_width
     bottom = -config.frame_y_radius + PROGRESS_BAR_HEIGHT / 2
     track = Rectangle(
-        width=width, height=PROGRESS_BAR_HEIGHT, stroke_width=0,
-        fill_color=PROGRESS_TRACK_COLOR, fill_opacity=1,
+        width=width,
+        height=PROGRESS_BAR_HEIGHT,
+        stroke_width=0,
+        fill_color=PROGRESS_TRACK_COLOR,
+        fill_opacity=1,
     ).move_to([0, bottom, 0])
-    fill = Rectangle(
-        width=width * number / total, height=PROGRESS_BAR_HEIGHT, stroke_width=0,
-        fill_color=PROGRESS_FILL_COLOR, fill_opacity=1,
-    ).align_to(track, LEFT).set_y(bottom)
+    fill = (
+        Rectangle(
+            width=width * number / total,
+            height=PROGRESS_BAR_HEIGHT,
+            stroke_width=0,
+            fill_color=PROGRESS_FILL_COLOR,
+            fill_opacity=1,
+        )
+        .align_to(track, LEFT)
+        .set_y(bottom)
+    )
     label = Tex(str(number), font_size=FONT_SLIDE_NUMBER, color=SLIDE_NUMBER_COLOR)
     label.next_to(track, UP, buff=0.1).to_edge(RIGHT, buff=0.15)
     label.set_stroke(PLOT_BACKGROUND, width=4, background=True)  # legible over photos
@@ -160,8 +178,10 @@ class DeckSlide(Slide):
 
     def citation(self):
         if all(isinstance(c, tuple) for c in self.CITE):
-            return labelled_citation([(label, cite(*keys)) for label, *keys in self.CITE],
-                                     fmt=CITE_LABELLED_FORMAT)
+            return labelled_citation(
+                [(label, cite(*keys)) for label, *keys in self.CITE],
+                fmt=CITE_LABELLED_FORMAT,
+            )
         return citation(*cite(*self.CITE), fmt=self.CITE_FORMAT)
 
     def _pin(self, mob):
@@ -328,7 +348,9 @@ MERGER_PAPERS = (("mergers", "Ajith:2007kx"), ("Planck", "Planck:2018vyg"))
 # The recorded data on the left panel is GW150914 itself: its ~1000-author
 # byline stands in for the collaboration, the way papers like it are usually
 # cited, rather than truncating to one name and "et al.".
-GW150914_KEY = "ligoscientificcollaborationandvirgocollaborationObservationGravitationalWaves2016"
+GW150914_KEY = (
+    "ligoscientificcollaborationandvirgocollaborationObservationGravitationalWaves2016"
+)
 GW150914_FORMAT = replace(CITE_LABELLED_FORMAT, collaboration="LIGO Collaboration")
 
 
@@ -340,20 +362,26 @@ class MergerOnSensitivityPlotSlide(Clicks, DeckSlide, MergerOnSensitivityPlot):
     CITE_CORNER = DR  # under the plot, clear of the LIGO figure's time axis
 
     def citation(self):
-        ligo = [*cite("LIGOScientific:2014pky"), format_reference(BIB[GW150914_KEY], GW150914_FORMAT)]
-        items = [("LIGO", ligo), *[(label, cite(*keys)) for label, *keys in MERGER_PAPERS]]
+        ligo = [
+            *cite("LIGOScientific:2014pky"),
+            format_reference(BIB[GW150914_KEY], GW150914_FORMAT),
+        ]
+        items = [
+            ("LIGO", ligo),
+            *[(label, cite(*keys)) for label, *keys in MERGER_PAPERS],
+        ]
         return labelled_citation(items, fmt=CITE_LABELLED_FORMAT)
 
 
 class SensitivityLandscapeSlide(Clicks, DeckSlide, SensitivityBuildUp):
-    """The landscape without AEDGE: AION-km is the one gap filler here."""
+    """The landscape without AEDGE: AION's three stages fill the gap."""
 
-    GAP_FILLERS = ("AION-km",)
+    GAP_FILLERS = ("AION-10", "AION-100", "AION-km")
     CITE = (
         LIGO_PAPER,
         ("LISA", "LISA:2017pwj"),
         ("ET", "Punturo:2010zz"),
-        ("AION-km", "Badurina:2019hst"),
+        ("AION-10/100/km", "badurinaAIONAtomInterferometer2020"),
         *MERGER_PAPERS,
     )
     CITE_CORNER = UR  # the plot fills the slide down to its axis label
@@ -366,6 +394,11 @@ class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretchContinuou
 
 
 class DarkMatterScaleSlide(RunsOnIntoLoops, DeckSlide, DarkMatterScale):
+    CITE = ("badurinaAIONAtomInterferometer2020",)  # the inset's curves
+    # short, to end before the Earth's limb in the first view and clear the
+    # verdict in the last
+    CITE_FORMAT = AUTHOR_YEAR
+
     def hold(self):
         self.loop(super().hold)
 
@@ -412,16 +445,20 @@ class ChamberSlide(DeckSlide):
         photo.to_edge(LEFT, buff=0.4).set_y(-0.45)
         ul, dr = [image_point(photo, *p) for p in CHAMBER_WINDOW_PX]
         box = Rectangle(
-            width=dr[0] - ul[0], height=ul[1] - dr[1],
-            stroke_color=CALLOUT_COLOR, stroke_width=CALLOUT_STROKE_WIDTH,
+            width=dr[0] - ul[0],
+            height=ul[1] - dr[1],
+            stroke_color=CALLOUT_COLOR,
+            stroke_width=CALLOUT_STROKE_WIDTH,
         ).move_to((ul + dr) / 2)
 
         panel = RoundedRectangle(
             corner_radius=CALLOUT_CORNER_RADIUS,
             width=config.frame_x_radius - 0.4 - photo.get_right()[0] - 0.6,
             height=photo.height,
-            stroke_color=CALLOUT_COLOR, stroke_width=CALLOUT_STROKE_WIDTH,
-            fill_color=PLOT_BACKGROUND, fill_opacity=1,
+            stroke_color=CALLOUT_COLOR,
+            stroke_width=CALLOUT_STROKE_WIDTH,
+            fill_color=PLOT_BACKGROUND,
+            fill_opacity=1,
         )
         panel.next_to(photo, RIGHT, buff=0.6).match_y(photo)
         joins = VGroup(
@@ -432,19 +469,32 @@ class ChamberSlide(DeckSlide):
         lower = make_cloud(DOWN * CHAMBER_GAP / 2, LOWER_CLOUD_COLOR, seed=1)
         upper = make_cloud(UP * CHAMBER_GAP / 2, UPPER_CLOUD_COLOR, seed=2)
         gap = DoubleArrow(
-            DOWN * CHAMBER_GAP / 2, UP * CHAMBER_GAP / 2,
-            buff=0, stroke_width=4, color=lighten(GUIDE_COLOR),
+            DOWN * CHAMBER_GAP / 2,
+            UP * CHAMBER_GAP / 2,
+            buff=0,
+            stroke_width=4,
+            color=lighten(GUIDE_COLOR),
             max_tip_length_to_length_ratio=0.12,
         ).shift(RIGHT * (CARTOON_CLOUD_RADIUS + 0.25))
-        label = MathTex(r"\sim\!2\,\mathrm{mm}", r"\ll 1\,\mathrm{km}",
-                        font_size=FONT_ANNOTATION)
+        label = MathTex(
+            r"\sim\!2\,\mathrm{mm}", r"\ll 1\,\mathrm{km}", font_size=FONT_ANNOTATION
+        )
         label.next_to(gap, RIGHT, buff=0.15)
         # centred as it ends up, with the km in, so nothing moves when it arrives
         VGroup(lower, upper, gap, label).move_to(panel)
 
-        self.play(FadeIn(title), FadeIn(photo), FadeIn(box), FadeIn(joins),
-                  FadeIn(panel), FadeIn(lower), FadeIn(upper), FadeIn(gap),
-                  FadeIn(label[0]), run_time=0.8)
+        self.play(
+            FadeIn(title),
+            FadeIn(photo),
+            FadeIn(box),
+            FadeIn(joins),
+            FadeIn(panel),
+            FadeIn(lower),
+            FadeIn(upper),
+            FadeIn(gap),
+            FadeIn(label[0]),
+            run_time=0.8,
+        )
         self.next_slide()
         self.play(FadeIn(label[1], shift=LEFT * 0.2), run_time=0.6)
 
@@ -467,15 +517,18 @@ class ExperimentSequenceSlide(DeckSlide, ExperimentSequenceSimple):
     there. Its reference list is from AION.bib, in full, and as in the
     package cut to the papers its stages cite."""
 
-    REFERENCES = [format_reference(ref, FULL) for ref in cite(
-        "strayCentralizedDesignProduction2024",
-        "pasatembouProgressUltracoldSr2024",
-        "baynhamPrototypeDifferentialAtom2026",
-    )][:SEQ_SIMPLE_REFERENCES]
+    REFERENCES = [
+        format_reference(ref, FULL)
+        for ref in cite(
+            "strayCentralizedDesignProduction2024",
+            "pasatembouProgressUltracoldSr2024",
+            "baynhamPrototypeDifferentialAtom2026",
+        )
+    ][:SEQ_SIMPLE_REFERENCES]
 
 
 class CoolingSequenceSlide(LoopingStages, DeckSlide, CoolingSequence):
-    CITE = ("walkerHighfluxSourceCold2026", "pasatembouProgressUltracoldSr2024")
+    CITE = "pasatembouProgressUltracoldSr2024"
 
 
 class DipoleTrapLoadingSlide(LoopingStages, DeckSlide, DipoleTrapLoading):
@@ -505,11 +558,14 @@ class LightShiftSignalSlide(Clicks, DeckSlide, LightShiftSignalContinuous):
         image = load_image(MEDIA / "atom_phase_image.png", height=5.4)
         image.to_edge(RIGHT, buff=0.25).set_y(-0.25)
         left, width = image.get_left()[0], image.width
-        labels = VGroup(*[
-            Tex(name, font_size=FONT_STATE, color=lighten(color))
-            .move_to([left + f * width, image.get_top()[1] + 0.3, 0])
-            for name, (f, color) in self.IMAGE_COLUMNS.items()
-        ])
+        labels = VGroup(
+            *[
+                Tex(name, font_size=FONT_STATE, color=lighten(color)).move_to(
+                    [left + f * width, image.get_top()[1] + 0.3, 0]
+                )
+                for name, (f, color) in self.IMAGE_COLUMNS.items()
+            ]
+        )
         return Group(image, labels)
 
 
@@ -533,8 +589,10 @@ class AllanDeviationSlide(DeckSlide):
 
     def construct(self):
         title = slide_title(r"Allan deviation")
-        steps = [load_image(FIGURES / f"{name}.png", height=6.6)
-                 for name in ("adev_sql", "adev_lln", "adev")]
+        steps = [
+            load_image(FIGURES / f"{name}.png", height=6.6)
+            for name in ("adev_sql", "adev_lln", "adev")
+        ]
         for step in steps:
             step.next_to(title, DOWN, buff=0.2).set_x(0)
         self.play(FadeIn(title), FadeIn(steps[0]), run_time=0.8)
@@ -588,8 +646,13 @@ class Aion10BeecroftSlide(DeckSlide):
 
         # white over the figure's own "L", and the length in its place
         ul, dr = [image_point(baseline, *p) for p in BASELINE_L_PX]
-        cover = Rectangle(width=dr[0] - ul[0], height=ul[1] - dr[1], stroke_width=0,
-                          fill_color=WHITE, fill_opacity=1).move_to((ul + dr) / 2)
+        cover = Rectangle(
+            width=dr[0] - ul[0],
+            height=ul[1] - dr[1],
+            stroke_width=0,
+            fill_color=WHITE,
+            fill_opacity=1,
+        ).move_to((ul + dr) / 2)
         # in the figure's own hand: black sans, along the arrow, where the L was
         length = Tex(r"\textsf{10\,m}", font_size=FONT_ANNOTATION, color=BLACK)
         length.rotate(PI / 2).move_to(cover)
@@ -638,7 +701,6 @@ class AICECernSlide(DeckSlide):
         depth.set_stroke(**PHOTO_LABEL_OUTLINE, background=True, family=False)
         label.set_stroke(**PHOTO_LABEL_OUTLINE, background=True)
         self.play(FadeIn(figure), FadeIn(depth), FadeIn(label), run_time=0.8)
-
 
 
 class AEDGESlide(Clicks, DeckSlide, AEDGESensitivity):
