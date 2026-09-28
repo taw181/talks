@@ -43,7 +43,6 @@ from aionanim.scenes.gradiometer_gw import GradiometerGWStretchContinuous
 from aionanim.scenes.gravitational_waves import BlackHoleMerger, MergerOnSensitivityPlot
 from aionanim.scenes.gw_landscape import SensitivityBuildUp
 from aionanim.scenes.light_shift import LightShiftSignalContinuous
-from aionanim.scenes.lmt import LargeMomentumTransfer, LMTMachZehnder
 from aionanim.scenes.sequence import SEQ_SIMPLE_REFERENCES, ExperimentSequenceSimple
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
@@ -638,24 +637,6 @@ class AICECernSlide(DeckSlide):
         depth.set_stroke(**PHOTO_LABEL_OUTLINE, background=True, family=False)
         label.set_stroke(**PHOTO_LABEL_OUTLINE, background=True)
         self.play(FadeIn(figure), FadeIn(depth), FadeIn(label), run_time=0.8)
-
-
-class LargeMomentumTransferSlide(DeckSlide, LargeMomentumTransfer):
-    """No stops: the ladder plays straight through."""
-
-
-class LMTMachZehnderSlide(Clicks, DeckSlide, LMTMachZehnder):
-    """A click after each stage, then the area against the N = 1 one."""
-
-
-class LMTResultsSlide(DeckSlide):
-    """The upper/lower Lissajous ellipses from 1 to 71 LMT pulses."""
-
-    def construct(self):
-        title = slide_title(r"Large momentum transfer: results")
-        figure = load_image(MEDIA / "lmt_ellipses.png", width=13.0)
-        figure.next_to(title, DOWN, buff=0.35).set_x(0)
-        self.play(FadeIn(title), FadeIn(figure), run_time=0.8)
 
 
 # --- outro -------------------------------------------------------------------

@@ -37,8 +37,5 @@ ExtractedSignalSlide
 FuturePlansSlide
 Aion10BeecroftSlide
 AICECernSlide
-LargeMomentumTransferSlide
-LMTMachZehnderSlide
-LMTResultsSlide
 # outro
 OutroSlide
