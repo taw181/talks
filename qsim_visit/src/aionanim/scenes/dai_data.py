@@ -57,7 +57,7 @@ LISSAJOUS_SIZE = 4.2
 # --- pacing ---------------------------------------------------------------
 # Ease in, so the first shots arrive slowly enough to be followed one at a
 # time and the rest fill in quickly.
-BUILD_TIME = 14.0
+BUILD_TIME = 6.0
 SHRINK_TIME = 1.5
 
 # --- LaserNoiseLissajous: the fringe panels stacked -----------------------
