@@ -351,6 +351,10 @@ GW_SOURCE_COLOR = HORIZON_GLOW
 GW_SOURCE_RADIUS = 0.08
 GW_SOURCE_GLOW_RADIUS = 0.2
 GW_SOURCE_GLOW_OPACITY = 0.3
+# The stretch of the track a recorded event's data covers, once the data is
+# shown: the blue of the Livingston trace in LIGO's GW150914 figure, since the
+# orange of the Hanford one is already the LIGO curve's and the source dot's.
+GW_DATA_WINDOW_COLOR = "#35a8e0"
 # Merger tracks in a crowd are drawn a notch thinner than a lone one, so
 # nine of them don't outweigh the detector curves they're read against.
 GW_TRACK_CROWD_WIDTH = 2

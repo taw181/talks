@@ -468,6 +468,10 @@ SIDE_TRACE_WIDTH = 6.4
 LIGO_DATA_IMAGE = data_path("images", "ligo20160211a.jpg")
 LIGO_DATA_HEIGHT = 6.3
 LIGO_DATA_CENTER = np.array([SIDE_SHEET_X, -0.75, 0.0])
+# The figure runs from t = 0.25 s to 0.46 s with the peak at 0.42 s: from
+# 0.17 s before merger (36 Hz on this track, the 35 Hz LIGO quote) on through
+# the ringdown. That stretch of the track is recoloured as the data comes in.
+LIGO_DATA_BEFORE_MERGER = 0.17
 
 # Ten years into T_INSPIRAL: the time left to merger is squeezed as
 # (fraction of the inspiral left) ** CHIRP_WARP, so the dot crawls through
@@ -618,6 +622,12 @@ class MergerOnSensitivityPlot(BlackHoleMerger):
         readout.add_updater(tick)
         tick(readout)
 
+        f_data = frequency_before_merger(LIGO_DATA_BEFORE_MERGER, SOURCE_MASS, SOURCE_Z)
+        self.data_window = ahead.copy().pointwise_become_partial(
+            ahead, (np.log10(f_data) - log_f[0]) / (log_f[-1] - log_f[0]), 1
+        ).set_stroke(color=GW_DATA_WINDOW_COLOR, opacity=1.0)
+        self.source = source
+
         self.trace = make_trace(clock, SIDE_TRACE_CENTER, SIDE_TRACE_WIDTH)
         plot = VGroup(region, frame, ligo, ligo_label, ahead, source_label)
         live = VGroup(lit, source, heading, readout, self.trace)
@@ -631,11 +641,13 @@ class MergerOnSensitivityPlot(BlackHoleMerger):
         data.height = LIGO_DATA_HEIGHT
         data.move_to(LIGO_DATA_CENTER)
         self.trace.clear_updaters()
-        self.add_fixed_in_frame_mobjects(data)
+        self.add_fixed_in_frame_mobjects(data, self.data_window)
+        self.add(self.source)  # the dot stays on top of the recoloured track
         self.play(
             FadeOut(spacetime),
             FadeOut(self.trace),
             FadeIn(data, target_position=self.trace, scale=0.4),
+            Create(self.data_window),
             run_time=1.5,
         )
         self.wait(3.0)
