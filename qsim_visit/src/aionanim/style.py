@@ -516,6 +516,15 @@ PROGRESS_TRACK_COLOR = ManimColor("#303030")  # just off the background
 PROGRESS_FILL_COLOR = GREY_B
 FONT_SLIDE_NUMBER = 18
 SLIDE_NUMBER_COLOR = GREY_B
+# A citation: furniture too, in the footer's grey and size, bottom left just
+# above the progress bar, kept clear of the slide number at the far right.
+# Several stack upward; a line too long is shrunk to fit, never wrapped.
+FONT_CITATION = FONT_SLIDE_NUMBER
+CITATION_COLOR = SLIDE_NUMBER_COLOR
+CITATION_EDGE_BUFF = 0.15  # from the left edge, as the number is from the right
+CITATION_BOTTOM = PROGRESS_BAR_HEIGHT + 0.1  # above the frame's bottom edge
+CITATION_MAX_WIDTH = 12.5
+CITATION_LINE_BUFF = 0.06
 # A slot for a figure still to come: a reference, not content, so dashed and
 # in the construction grey.
 PLACEHOLDER_STYLE = dict(
