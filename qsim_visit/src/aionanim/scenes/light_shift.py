@@ -32,8 +32,8 @@ from aionanim.tools.gradiometer import (
 from aionanim.tools.primitives import (
     draw_legs,
     fluoresce,
+    fluorescence,
     make_atom,
-    make_guide,
     state_colors,
 )
 from aionanim.tools.spacetime import (
@@ -96,11 +96,21 @@ LS_PHASE = -TAU / 3
 # takes over.
 LS_IMAGE_S = 2.8
 LS_IMAGE_P = 3.6
+# Every port gets an atom, including one the drawn phase sends (almost)
+# nothing to: the camera images both states in both clouds, and the readout
+# image the slide ends on shows all four. A port below this share is drawn
+# at it rather than left as an empty guide.
+LS_PORT_FLOOR = 0.5
 
 
 def along(start, end, f):
     """A fraction f of the way from one corner to the next."""
     return start + (end - start) * f
+
+
+def along_port(origin, rise, x):
+    """Where a port leaving `origin` at slope `rise` is at time x."""
+    return origin + (x - origin[0]) * (RIGHT + UP * rise)
 
 
 class LightShiftSignal(GradiometerGW):
@@ -251,26 +261,11 @@ class LightShiftSignal(GradiometerGW):
         nothing leaves the page. The lower cloud was recombined L/c before the
         upper one, so its ports fly on alone until the pulse reaches the upper
         cloud, and then both clouds fly together to the S pulse, which lights
-        the |g> atoms; the |e> atoms fly on to the P pulse. A port that got
-        nothing is a guide running the whole way to P.
+        the |g> atoms; the |e> atoms fly on to the P pulse.
         """
-        def along_port(origin, rise, x):
-            return origin + (x - origin[0]) * (RIGHT + UP * rise)
-
-        ports, empty = [], VGroup()  # ports: (atom, origin, rise, colour)
-        for cloud, v in (("low", self.low), ("up", self.up)):
-            p_ground = ground_share(self.phase[cloud][1], self.phase[cloud][0])
-            for p, color, rise in (
-                (p_ground, ATOM_COLOR, 0.0),
-                (1.0 - p_ground, KICKED_COLOR, self.port_slope(cloud)),
-            ):
-                if p < PORT_EMPTY:
-                    empty.add(make_guide(v[3], along_port(v[3], rise, LS_IMAGE_P)))
-                    continue
-                atom = make_atom(color, radius=CLOCK_ATOM_RADIUS, opacity=p)
-                self.add(atom.move_to(v[3]))
-                ports.append((atom, v[3], rise, color))
-        self.play(*[FadeIn(m) for m in (*sweeps, empty)], run_time=0.7)
+        ports = [port for cloud in ("low", "up") for port in self.port_atoms(cloud)]
+        self.add(*[atom for atom, *_ in ports])
+        self.play(*[FadeIn(m) for m in sweeps], run_time=0.7)
 
         def fly_to(x, which):
             if not which:
@@ -296,18 +291,39 @@ class LightShiftSignal(GradiometerGW):
             pulse = self.imaging_pulse(x, name, color, atoms)
             fluoresce(self, atoms, fade=[pulse])
 
-    def imaging_pulse(self, x, name, color, atoms):
+    def port_atoms(self, cloud):
+        """A cloud's two ports as (atom, origin, rise, colour), placed at its
+        recombination point but not yet on the scene. Each atom's opacity is
+        its port's share, floored at LS_PORT_FLOOR."""
+        v = self.vertices(cloud)
+        p_ground = ground_share(self.phase[cloud][1], self.phase[cloud][0])
+        return [
+            (make_atom(color, radius=CLOCK_ATOM_RADIUS,
+                       opacity=max(p, LS_PORT_FLOOR)).move_to(v[3]),
+             v[3], rise, color)
+            for p, color, rise in (
+                (p_ground, ATOM_COLOR, 0.0),
+                (1.0 - p_ground, KICKED_COLOR, self.port_slope(cloud)),
+            )
+        ]
+
+    def imaging_line(self, x, name, color, atoms):
         """A 461 nm pulse up the baseline at time x, named for the state it
         images. It stops just past the topmost atom it lights, as the clock's
-        pulses do, rather than running on through the key in the corner.
-        Returns it, to go out with the fluorescence."""
+        pulses do, rather than running on through the key in the corner."""
         top = max(a.get_top()[1] for a in atoms) + 0.25
         pulse = Line([x, GR_LASER_Z, 0], [x, top, 0],
                      color=IMAGING_COLOR, stroke_width=PULSE_STROKE_WIDTH)
         caption = Tex(name, font_size=FONT_STATE, color=lighten(color))
         caption.next_to([x, GR_LASER_Z, 0], UR, buff=0.12)
-        self.play(Create(pulse), FadeIn(caption), rate_func=linear, run_time=0.6)
         return VGroup(pulse, caption)
+
+    def imaging_pulse(self, x, name, color, atoms):
+        """imaging_line, drawn climbing. Returns it, to go out with the
+        fluorescence."""
+        pulse, caption = drawn = self.imaging_line(x, name, color, atoms)
+        self.play(Create(pulse), FadeIn(caption), rate_func=linear, run_time=0.6)
+        return drawn
 
     def fly(self):
         """Three pulses and two legs, with the beam on across the middle of
@@ -451,8 +467,60 @@ class LightShiftSignalContinuous(RunsContinuously, LightShiftSignal):
                            on_near=lambda: self.mirror("low"),
                            on_far=lambda: self.mirror("up"))
         clear(drawn, GR_T0 + 1.5 * GR_T)
-        drawn = self.shoot(2, near=[low[3]], far=[up[3]])
+        drawn = self.shoot(2, near=[low[3]], far=[up[3]],
+                           on_near=lambda: self.recombine("low"),
+                           on_far=lambda: self.recombine("up"))
         clear(drawn, clock.get_value() + PULSE_LINGER)
+
+    def recombine(self, cloud):
+        """The last pulse turns a cloud's arms into its ports, on arrival.
+
+        The ports are put on their own worldlines at once, out to the pulse
+        that images them -- S for |g>, P for |e> -- and park there, so the
+        lower cloud's ports are already flying while the pulse is still
+        climbing to the upper one.
+        """
+        clock = self.clock
+        pair = self.atoms[cloud]
+        k = 0 if cloud == "low" else 2
+        for atom in pair:
+            atom.clear_updaters()
+        self.remove(*pair, *self.hands[k:k + 2])
+        ports = self.port_atoms(cloud)
+        for atom, origin, rise, color in ports:
+            end = along_port(
+                origin, rise, LS_IMAGE_S if color == ATOM_COLOR else LS_IMAGE_P
+            )
+            self.add(growing_trail([origin, end], color, clock))
+            carry(atom, worldline([origin, end]), clock)
+        self.add(*[atom for atom, *_ in ports])
+        self.ports = getattr(self, "ports", []) + ports
+
+    def close(self, sweeps):
+        """The imaging readout with lab time running.
+
+        The sectors arrive while the ports fly to S. A vertical pulse is one
+        instant in lab time, so each is strobed on whole rather than climbing,
+        and the |g> atoms light up while the |e> atoms fly on to P: the one
+        place the stop-start readout would freeze them mid-flight. Once they
+        are at P nothing is moving any more, and the last imaging is played
+        with the clock stood still.
+        """
+        clock = self.clock
+        ground = [atom for atom, *_, color in self.ports if color == ATOM_COLOR]
+        excited = [atom for atom, *_, color in self.ports if color == KICKED_COLOR]
+        run_to(self, clock, LS_IMAGE_S, *[FadeIn(m) for m in sweeps])
+
+        s_pulse = self.imaging_line(LS_IMAGE_S, "S", ATOM_COLOR, ground)
+        s_halos, s_light = fluorescence(ground)
+        self.add(s_pulse)
+        run_to(self, clock, LS_IMAGE_P, *s_light)
+
+        p_pulse = self.imaging_line(LS_IMAGE_P, "P", KICKED_COLOR, excited)
+        p_halos, p_light = fluorescence(excited)
+        self.add(p_pulse)
+        self.play(*p_light, FadeOut(s_halos), FadeOut(s_pulse), run_time=0.8)
+        self.play(FadeOut(p_halos), FadeOut(p_pulse), run_time=0.5)
 
     def shoot(self, k, near, far, fade=(), on_near=None, on_far=None):
         """One pulse. No wave here, so every one of them is the quiet one."""

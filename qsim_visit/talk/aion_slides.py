@@ -42,7 +42,7 @@ from aionanim.scenes.gradiometer import Gradiometer
 from aionanim.scenes.gradiometer_gw import GradiometerGWStretchContinuous
 from aionanim.scenes.gravitational_waves import BlackHoleMerger, MergerOnSensitivityPlot
 from aionanim.scenes.gw_landscape import SensitivityBuildUp
-from aionanim.scenes.light_shift import LightShiftSignal
+from aionanim.scenes.light_shift import LightShiftSignalContinuous
 from aionanim.scenes.lmt import LargeMomentumTransfer, LMTMachZehnder
 from aionanim.scenes.sequence import SEQ_SIMPLE_REFERENCES, ExperimentSequenceSimple
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
@@ -490,8 +490,9 @@ class VelocitySlicingSlide(LoopingStages, DeckSlide, VelocitySlicing):
 DAI_PAPER = "baynhamPrototypeDifferentialAtom2026"
 
 
-class LightShiftSignalSlide(Clicks, DeckSlide, LightShiftSignal):
-    """The readout ends on the camera image of the two clouds, S left and P
+class LightShiftSignalSlide(Clicks, DeckSlide, LightShiftSignalContinuous):
+    """Continuous: lab time never stops from the first pulse to the imaging,
+    so the beam is a window the atoms fly through. The readout ends on the camera image of the two clouds, S left and P
     right, in place of the dials."""
 
     CITE = (DAI_PAPER,)

@@ -197,18 +197,29 @@ def arm_ket(excited, phase=None, font_size=FONT_LEGEND, stacked=False):
     return state_label(rf"{factor}\,{ket}", color, font_size)
 
 
+def fluorescence(atoms):
+    """What fluoresce plays, unplayed: (halos, the animations lighting them).
+
+    For a scene that has to play them alongside something else -- lab time
+    running on, in a continuous one.
+    """
+    halos = VGroup(*[
+        Circle(radius=atom.width * 0.85, stroke_width=0, fill_color=IMAGING_COLOR,
+               fill_opacity=FLUORESCENCE_HALO_OPACITY).move_to(atom)
+        for atom in atoms
+    ])
+    return halos, [
+        *[FadeIn(h, scale=0.5) for h in halos],
+        *[Flash(a, **FLUORESCENCE_FLASH) for a in atoms],
+    ]
+
+
 def fluoresce(scene, atoms, fade=(), run_time=0.8):
     """Atoms caught by an imaging pulse light up in its blue.
 
     The halo is the scattered light, and goes out again; the atoms stay.
     `fade` goes out with the halo: the pulse that did the imaging, say.
     """
-    halos = [
-        Circle(radius=atom.width * 0.85, stroke_width=0, fill_color=IMAGING_COLOR,
-               fill_opacity=FLUORESCENCE_HALO_OPACITY).move_to(atom)
-        for atom in atoms
-    ]
-    scene.play(*[FadeIn(h, scale=0.5) for h in halos],
-               *[Flash(a, **FLUORESCENCE_FLASH) for a in atoms],
-               run_time=run_time)
+    halos, light = fluorescence(atoms)
+    scene.play(*light, run_time=run_time)
     scene.play(*[FadeOut(m) for m in (*halos, *fade)], run_time=0.5)

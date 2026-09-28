@@ -13,13 +13,19 @@ from aionanim.physics.gw_signals import load_sensitivity
 from aionanim.style import *
 
 
-def sensitivity_axes(log_f_range, log_h_range, origin, width, height):
+def sensitivity_axes(log_f_range, log_h_range, origin, width, height,
+                     x_label="Frequency / Hz", y_label="Characteristic strain",
+                     tick_font=FONT_TICK, label_font=FONT_AXIS, label_every=(1, 1),
+                     buff=0.15):
     """Log-log axes in decades, with 10^n tick labels, as (axes, frame).
 
     The axes run from 0, not from the log ranges themselves: Axes draws each
     axis through the coordinate origin, which would put the frequency axis at
     h = 1. plot_point does the conversion. Ranges may end on half decades;
-    only whole decades get a tick label.
+    only whole decades get a tick label, and of those only every
+    label_every[0]th on x and label_every[1]th on y (the multiples of it).
+    The defaults are the strain plots'; another quantity passes its own axis
+    labels (Tex), or None to leave one off, and a small plot smaller type.
     """
     (f0, f1), (h0, h1) = log_f_range, log_h_range
     axes = Axes(
@@ -35,20 +41,25 @@ def sensitivity_axes(log_f_range, log_h_range, origin, width, height):
     axes.log_origin = (f0, h0)
     axes.log_top = h1
     axes.shift(origin - axes.c2p(0, 0))
-    decade = lambda n: MathTex(rf"10^{{{n}}}", font_size=FONT_TICK, color=PLOT_FOREGROUND)
+    decade = lambda n: MathTex(rf"10^{{{n}}}", font_size=tick_font, color=PLOT_FOREGROUND)
     x_ticks = VGroup(*(
-        decade(n).next_to(plot_point(axes, n, h0), DOWN, buff=0.15)
+        decade(n).next_to(plot_point(axes, n, h0), DOWN, buff=buff)
         for n in range(int(np.ceil(f0)), int(np.floor(f1)) + 1)
+        if n % label_every[0] == 0
     ))
     y_ticks = VGroup(*(
-        decade(n).next_to(plot_point(axes, f0, n), LEFT, buff=0.15)
+        decade(n).next_to(plot_point(axes, f0, n), LEFT, buff=buff)
         for n in range(int(np.ceil(h0)), int(np.floor(h1)) + 1)
+        if n % label_every[1] == 0
     ))
-    x_label = Tex("Frequency / Hz", font_size=FONT_AXIS, color=PLOT_FOREGROUND)
-    x_label.next_to(x_ticks, DOWN, buff=0.15).set_x(axes.x_axis.get_center()[0])
-    y_label = Tex("Characteristic strain", font_size=FONT_AXIS, color=PLOT_FOREGROUND)
-    y_label.rotate(PI / 2).next_to(y_ticks, LEFT, buff=0.15)
-    return axes, VGroup(axes, x_ticks, y_ticks, x_label, y_label)
+    frame = VGroup(axes, x_ticks, y_ticks)
+    if x_label is not None:
+        x_label = Tex(x_label, font_size=label_font, color=PLOT_FOREGROUND)
+        frame.add(x_label.next_to(x_ticks, DOWN, buff=buff).set_x(axes.x_axis.get_center()[0]))
+    if y_label is not None:
+        y_label = Tex(y_label, font_size=label_font, color=PLOT_FOREGROUND)
+        frame.add(y_label.rotate(PI / 2).next_to(y_ticks, LEFT, buff=buff))
+    return axes, frame
 
 
 def plot_point(axes, log_f, log_h):
