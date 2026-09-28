@@ -10,7 +10,9 @@ where it is about the Earth-Sun distance. Even the shortest dwarfs any lab,
 which is why DarkMatterField could draw it as just phi(t) at one place.
 
 AION's range is 1e-17 to 1e-12 eV (Badurina et al., JCAP 05 (2020) 011,
-arXiv:1911.11755).
+arXiv:1911.11755). The same paper's reach in the photon coupling sits in an
+inset on the left, with the mass of each step marked across it: the mark
+slides along the mass axis as the camera pulls back.
 
 The wave is drawn moving at c, so what it shows is lambda_C, as the caption
 says. The field itself is coherent over its de Broglie wavelength, about
@@ -21,6 +23,7 @@ import numpy as np
 from manim import *
 
 from aionanim.style import *
+from aionanim.tools.uldm_plot import mass_label, mass_mark, uldm_inset
 
 
 # --- the numbers ------------------------------------------------------------
@@ -45,7 +48,7 @@ def compton(mass):
 # Each view is how many metres one scene unit stands for, and where the Earth's
 # centre sits on screen. Zooming animates both at once, the scale in log space, so the
 # bodies move as they would under a real camera.
-DS_Y = -0.5  # the line the bodies and the wave sit on
+DS_Y = -1.55  # the line the bodies and the wave sit on: low, under the inset
 DS_SPAN = 9.0  # Earth to Moon, or Earth to Sun, on screen
 VIEW_MOON = (EARTH_MOON / DS_SPAN, -0.5 * DS_SPAN, DS_Y)
 # Close enough in that the Earth is its limb along the bottom of the frame and
@@ -56,7 +59,7 @@ VIEW_EARTH = (
     EARTH_RADIUS / EARTH_VIEW_RADIUS, 0.0, DS_Y - 1.0 - EARTH_VIEW_RADIUS
 )
 VIEW_SUN = (EARTH_SUN / DS_SPAN, -0.5 * DS_SPAN, DS_Y)
-DS_AMPLITUDE = 0.9
+DS_AMPLITUDE = 0.65
 DS_X = (-7.2, 7.2)  # the wave runs off both edges of the frame
 # One period of the drawn wave, in seconds of scene time. The real periods run
 # from milliseconds to minutes across the range, so this is a display rate,
@@ -64,6 +67,12 @@ DS_X = (-7.2, 7.2)  # the wave runs off both edges of the frame
 DS_PERIOD = 2.0
 DS_ZOOM_TIME = 2.5
 DS_STATS = np.array([6.6, 2.75, 0.0])  # upper-right corner of the numbers
+# AION's reach, top left under the formula and over the wave: the lower-left
+# corner of its axes, and their size. Its tick labels and axis names hang off
+# the left and bottom of that, down to just clear of the wave's crests.
+DS_INSET_ORIGIN = np.array([-5.75, 0.0, 0.0])
+DS_INSET_WIDTH = 5.3
+DS_INSET_HEIGHT = 1.95
 
 
 class DarkMatterScale(Scene):
@@ -94,8 +103,8 @@ class DarkMatterScale(Scene):
                 r"the distance light covers in one oscillation",
                 font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
             ),
-        ).arrange(DOWN, buff=0.2, aligned_edge=LEFT)
-        formula.next_to(title, DOWN, buff=0.45).align_to(title, LEFT)
+        ).arrange(RIGHT, buff=0.4)  # one row, to leave the inset the space under it
+        formula.next_to(title, DOWN, buff=0.3).align_to(title, LEFT)
 
         # --- the camera, and what it is looking at ---------------------------
         self.log_scale = ValueTracker(np.log10(VIEW_EARTH[0]))
@@ -104,6 +113,13 @@ class DarkMatterScale(Scene):
         self.theta = ValueTracker(0.0)
         self.wavelength = compton(AION_MASSES[1])  # metres
         self.wave_opacity = ValueTracker(0.0)
+        # the mass the mark on the inset stands at, moved with the camera
+        self.log_mass = ValueTracker(np.log10(AION_MASSES[1]))
+        inset = uldm_inset(DS_INSET_ORIGIN, DS_INSET_WIDTH, DS_INSET_HEIGHT)
+        self.inset_axes = inset.axes
+
+        def mark():
+            return mass_mark(inset.axes, 10 ** self.log_mass.get_value(), label=None)
 
         def body(metres, radius, color):
             r = max(radius / 10 ** self.log_scale.get_value(), BODY_MIN_RADIUS)
@@ -147,12 +163,17 @@ class DarkMatterScale(Scene):
             AION_MASSES[1], r"\lambda_C \approx 1200\ \text{km}",
             r"240\ \text{Hz}", r"heavy end of AION's range",
         )
+        # The mark faded in as a still and swapped for the live one, which
+        # an always_redraw has to be: it cannot be faded itself.
+        still = mark()
         self.play(
-            FadeIn(formula), FadeIn(marks),
+            FadeIn(formula), FadeIn(marks), FadeIn(inset), FadeIn(still),
             self.wave_opacity.animate.set_value(1.0),
             self.theta.animate.increment_value(TAU * 0.5),
             rate_func=linear, run_time=DS_PERIOD / 2,
         )
+        self.remove(still)
+        self.add(always_redraw(mark))
         self.play(
             self.theta.animate.increment_value(TAU * 0.5),
             rate_func=linear, run_time=DS_PERIOD / 2,
@@ -214,7 +235,9 @@ class DarkMatterScale(Scene):
         """One wavelength braced under the wave, and the numbers for this mass.
 
         The brace starts at the Earth: in the Moon view that puts its far end
-        on the Moon, which is the comparison being made.
+        on the Moon, which is the comparison being made. The m_phi at the foot
+        of the inset's mark comes and goes with the numbers, while the mark
+        itself slides.
         """
         start = self.screen_x(0.0)
         end = self.screen_x(compton(mass))
@@ -240,7 +263,7 @@ class DarkMatterScale(Scene):
             rows.append(Tex(note, font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR)))
         stats = VGroup(*rows).arrange(DOWN, buff=0.16, aligned_edge=RIGHT)
         stats.move_to(DS_STATS, aligned_edge=UR)
-        return VGroup(brace, tag, stats)
+        return VGroup(brace, tag, stats, mass_label(self.inset_axes, mass))
 
     def fly_to(self, view, mass, outgoing):
         """Move the camera to `view`, with the wave out of sight while it goes.
@@ -258,6 +281,7 @@ class DarkMatterScale(Scene):
             self.log_scale.animate.set_value(np.log10(view[0])),
             self.earth_x.animate.set_value(view[1]),
             self.earth_y.animate.set_value(view[2]),
+            self.log_mass.animate.set_value(np.log10(mass)),
             run_time=DS_ZOOM_TIME, rate_func=smooth,
         )
         self.wavelength = compton(mass)

@@ -20,7 +20,6 @@ from manim import *
 from aionanim.style import *
 from aionanim.tools.clock import (
     CP_ARM,
-    CP_DIAL,
     CP_OUT,
     CP_T,
     CP_T0,
@@ -47,6 +46,7 @@ from aionanim.tools.spacetime import (
     worldline,
 )
 from aionanim.tools.uldm import (
+    DM_MASS,
     DM_OMEGA,
     dm_field,
     dm_phase,
@@ -54,6 +54,7 @@ from aionanim.tools.uldm import (
     make_field_trace,
     make_modulated_levels,
 )
+from aionanim.tools.uldm_plot import mass_mark, uldm_inset
 
 
 # Where the scalings go: the rest of CP_READOUT's strip, right of the readout
@@ -67,6 +68,17 @@ CP_SCALING_WIDTH = 8.4
 # the band between the field's trace and the interferometer, which is where the
 # modulation law goes -- it belongs to both, so it sits between them
 DM_LAW = np.array([-1.8, 0.75, 0.0])
+# AION's reach for such a field, top right under the hand key, with the mass
+# this one stands for (DM_MASS) marked on it: the lower-left corner of its
+# axes, and their size. It takes the top of ClockPhase's dial column, so the
+# dial moves down under it and is drawn a little smaller, which leaves its
+# verdict room above the scaling line.
+DM_INSET_ORIGIN = np.array([2.6, 1.5, 0.0])
+DM_INSET_WIDTH = 4.0
+DM_INSET_HEIGHT = 1.55
+DM_DIAL = np.array([4.7, -0.1, 0.0])
+DM_DIAL_RADIUS = 0.78
+DM_RESULT_BUFF = 0.25  # between the dial's caption and the verdict under it
 
 
 class DarkMatterPhase(Scene):
@@ -106,12 +118,17 @@ class DarkMatterPhase(Scene):
 
         # --- what is passing through ---------------------------------------
         trace, bands, dots = make_field_trace([(a[0], b[0]), (b[0], c[0])])
+        inset = uldm_inset(DM_INSET_ORIGIN, DM_INSET_WIDTH, DM_INSET_HEIGHT)
+        inset.add(mass_mark(inset.axes, DM_MASS))
         law = MathTex(
             r"\omega_A \to \omega_A\left[1 + \varepsilon\cos"
             r"(\omega_\phi t + \theta)\right]",
             font_size=FONT_ANNOTATION, color=FIELD_COLOR,
         ).move_to(DM_LAW)
-        self.play(FadeIn(trace[0]), Create(trace[1]), FadeIn(trace[2]), run_time=1.2)
+        self.play(
+            FadeIn(trace[0]), Create(trace[1]), FadeIn(trace[2]), FadeIn(inset),
+            run_time=1.2,
+        )
         self.play(Write(law), run_time=1.2)
         self.beat()
 
@@ -141,14 +158,14 @@ class DarkMatterPhase(Scene):
         # behind the phase they are drawing. Invisible either way.
         self.add(kicked_first, kicked_last)
 
-        dial = make_dial(CP_DIAL, r"accumulated phase")
+        dial = make_dial(DM_DIAL, r"accumulated phase", radius=DM_DIAL_RADIUS)
         self.play(FadeIn(dial), run_time=0.6)
 
         self.seed = make_atom(radius=CLOCK_ATOM_RADIUS).move_to(a)
         self.play(FadeIn(self.seed, scale=0.5), run_time=0.5)
 
-        self.big_lo = dial_hand(CP_DIAL, kicked_last, lighten(ATOM_COLOR))
-        self.big_hi = dial_hand(CP_DIAL, kicked_first, lighten(KICKED_COLOR))
+        self.big_lo = dial_hand(DM_DIAL, kicked_last, lighten(ATOM_COLOR), DM_DIAL_RADIUS)
+        self.big_hi = dial_hand(DM_DIAL, kicked_first, lighten(KICKED_COLOR), DM_DIAL_RADIUS)
         self.add(self.big_lo, self.big_hi)
         self.beat()
 
@@ -166,7 +183,7 @@ class DarkMatterPhase(Scene):
         # measurement rather than a rounding error, and both ports come out
         # populated, from the field alone.
         self.remove(self.arm_lo, self.arm_hi, self.hand_lo, self.hand_hi)
-        sweep, gap = phase_sweep(CP_DIAL, kicked_last, kicked_first)
+        sweep, gap = phase_sweep(DM_DIAL, kicked_last, kicked_first, DM_DIAL_RADIUS)
         self.play(Flash(dial[0], **{**FLASH_STYLE, "color": AREA_COLOR}), run_time=0.5)
         self.play(FadeIn(sweep), run_time=0.7)
         draw_ports(self, c, CP_OUT, 0.5 * (1 + np.cos(gap)), extra=self.port_extra())
@@ -180,7 +197,7 @@ class DarkMatterPhase(Scene):
                 r"different $\omega_A$ per leg",
                 font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
             ),
-        ).arrange(DOWN, buff=0.2).next_to(dial, DOWN, buff=0.5)
+        ).arrange(DOWN, buff=0.2).next_to(dial, DOWN, buff=DM_RESULT_BUFF)
         self.play(FadeIn(result), run_time=1.0)
         self.beat()
 
@@ -398,19 +415,26 @@ class DarkMatterPhaseContinuous(DarkMatterPhase):
 # --- DarkMatterField geometry ----------------------------------------------
 # The field on its own, before any interferometer: a trace scrolling along the
 # top strip, what it is on the left below it, and on the right the clock
-# transition it drags. The trace is an oscilloscope rather than a space-time
+# transition it drags, over AION's reach for such a field with the mass this
+# one stands for (DM_MASS) marked on it. The trace is an oscilloscope rather than a space-time
 # diagram -- the newest instant sits at its right-hand end, where a marker
 # rides it -- so it can run for as long as a slide is held without walking
 # off the frame.
-DF_TRACE_Z = 2.1
-DF_TRACE_AMPLITUDE = 0.55
+DF_TRACE_Z = 2.5
+DF_TRACE_AMPLITUDE = 0.45
 DF_TRACE_X = (-6.3, 5.9)  # oldest instant on the left, now on the right
-DF_TEXT = np.array([-6.3, 0.55, 0.0])  # upper-left corner of the text column
-DF_LEVELS = np.array([3.7, -1.25, 0.0])  # the modulated transition
-# DarkMatterPhase's level diagram, blown up: here it has the whole right half
-# below the trace to itself.
-DF_LEVEL_SCALE = 2.0
-DF_LEVEL_TEXT_SCALE = 1.35  # its labels grow less, to sit with the text column
+DF_TEXT = np.array([-6.3, 1.3, 0.0])  # upper-left corner of the text column
+DF_LEVELS = np.array([3.9, 0.2, 0.0])  # the modulated transition
+# DarkMatterPhase's level diagram, blown up: here it has the top of the right
+# half below the trace to itself, with the inset under it.
+DF_LEVEL_SCALE = 1.3
+DF_LEVEL_TEXT_SCALE = 1.15  # its labels grow less, to sit with the text column
+# AION's reach, bottom right under the levels: the lower-left corner of its
+# axes and their size. Tick labels and axis names hang off the left and the
+# bottom, clear of the text column and of the slide number.
+DF_INSET_ORIGIN = np.array([1.3, -3.0, 0.0])
+DF_INSET_WIDTH = 5.3
+DF_INSET_HEIGHT = 1.85
 # One period of the field, in the lab time that drives both the trace and the
 # levels. Advanced at V, so a slide held on this scene loops seamlessly over
 # exactly one oscillation.
@@ -532,8 +556,12 @@ class DarkMatterField(Scene):
             r"a clock transition reads the field directly",
             font_size=FONT_ANNOTATION,
         ).next_to(clock_text, DOWN, buff=0.45, aligned_edge=LEFT)
+        # ...and how well: AION's reach for a field of this one's mass. Static
+        # from here on, so the loop after it still closes on its first frame.
+        inset = uldm_inset(DF_INSET_ORIGIN, DF_INSET_WIDTH, DF_INSET_HEIGHT)
+        inset.add(mass_mark(inset.axes, DM_MASS))
         self.play(
-            FadeIn(verdict, shift=UP * 0.15),
+            FadeIn(verdict, shift=UP * 0.15), FadeIn(inset),
             now.animate.increment_value(1.0 * V),
             rate_func=linear, run_time=1.0,
         )

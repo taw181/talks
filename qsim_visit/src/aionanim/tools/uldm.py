@@ -7,6 +7,7 @@ diagram, and the two-level diagram whose upper level rides that trace.
 import numpy as np
 from manim import *
 
+from aionanim.physics.uldm_sensitivity import AION10_T, mass_from_frequency
 from aionanim.style import *
 from aionanim.tools.clock import (
     CP_T,
@@ -40,6 +41,15 @@ from aionanim.tools.primitives import (
 # sin^2(omega_phi T / 2), which is only zero at omega_phi T = 2 pi m.
 DM_OMEGA = 1.2 * PI / CP_T
 DM_THETA = -0.15 * PI  # the field's phase at the first pulse
+# The mass the figure stands for, which is what the ULDM inset marks.
+# DM_OMEGA is a display rate, tied to the drawing's own T (CP_T), so it has no
+# mass of its own. What carries over to an instrument is the phase the field
+# turns through in one interrogation time, DM_OMEGA * CP_T = 1.2 pi, and on
+# the paper's AION-10, T = 1.4 s (Badurina et al. 2020, Table 1), that same
+# omega_phi T is f = 0.6 / 1.4 s = 0.43 Hz: m_phi = h f = 1.8e-15 eV, inside
+# the band AION-10 is projected to cover (above 0.3 Hz).
+DM_FREQUENCY = DM_OMEGA * CP_T / AION10_T / TAU  # Hz
+DM_MASS = mass_from_frequency(DM_FREQUENCY)  # eV
 # The fractional swing in omega_A, exaggerated in the same spirit as
 # GW_LAG_GAIN: bounds on a scalar coupling in this mass range sit below about
 # 1e-16, so this is some fifteen orders of magnitude too big. What the figure
