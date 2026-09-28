@@ -1,7 +1,7 @@
-"""Characteristic-strain sensitivity curves of LISA, LIGO, ET, AION-km and AEDGE,
-with black-hole merger tracks laid over them.
+"""Characteristic-strain sensitivity curves of LISA, LIGO, ET, AION-10, AION-100,
+AION-km and AEDGE, with black-hole merger tracks laid over them.
 
-All five curves digitised from ``GW_exclusion_plot.svg`` into
+All seven curves digitised from ``GW_exclusion_plot.svg`` into
 ``aionanim/data/gw_sensitivity/`` (see each CSV's header for the shapes it came from),
 drawn together on the source figure's axes, each region shaded down to its
 curve and labelled beside it.
@@ -50,6 +50,8 @@ H_RANGE = (1e-24, 3e-15)
 DETECTORS = {
     "AEDGE": ("aedge", (1.5e-2, 1.5e-23)),
     "LISA": ("lisa", (2e-4, 1.2e-21)),
+    "AION-10": ("aion_10", (9e-2, 2.5e-16)),
+    "AION-100": ("aion_100", (2e2, 3.5e-17)),
     "AION-km": ("aion_km", (2e2, 3e-19)),
     "ET": ("et", (1.2e2, 3e-24)),
     "LIGO": ("ligo", (1.8e1, 1.5e-21)),
