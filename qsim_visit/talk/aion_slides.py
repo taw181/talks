@@ -32,7 +32,7 @@ from pathlib import Path
 from manim import *
 from manim_slides import Slide
 
-from aionanim.bibliography import FULL, SHORT, format_reference, load_bibliography
+from aionanim.bibliography import AUTHOR_YEAR, FULL, SHORT, format_reference, load_bibliography
 from aionanim.style import *
 from aionanim.scenes.clock import ClockPhaseTerms
 from aionanim.scenes.cooling import CoolingSequence
@@ -49,7 +49,7 @@ from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
 from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhaseContinuous
 from aionanim.scenes.uldm_scale import DarkMatterScale
-from aionanim.tools.citations import citation, place_citation
+from aionanim.tools.citations import citation, labelled_citation, place_citation
 from aionanim.tools.layout import image_point, load_image, numbered_list, slide_title
 from aionanim.tools.primitives import make_cloud
 from aionanim.tools.video import VideoFrame, load_video_frames
@@ -63,6 +63,8 @@ BIB = load_bibliography(Path(__file__).parent.parent / "AION.bib")
 # How a slide's footer citation reads. replace() it for another look: keep=
 # names an author through the et al., collaboration= replaces the list.
 CITE_FORMAT = replace(SHORT, highlight=("Walker, T",))
+# ...and a slide citing many papers, as (label, key) pairs, run on together
+CITE_LABELLED_FORMAT = replace(AUTHOR_YEAR, highlight=("Walker, T",))
 
 TITLE = (r"A prototype differential atom interferometer", r"for fundamental physics")
 AUTHOR = r"Thomas Walker"
@@ -124,7 +126,10 @@ def make_footer(number, total):
 class DeckSlide(Slide):
     """Every slide in the deck: a Slide that stops on its finished frame, with
     the footer (progress bar and slide number) over everything it draws, and
-    the references it names in CITE (AION.bib keys) bottom left above it.
+    the references it names in CITE (AION.bib keys) bottom left above it:
+    one line each, or, if CITE holds (label, key, ...) tuples, run on together
+    as "label: Author et al. (year)". CITE_CORNER moves it off something the
+    footer would cover.
 
     Looping slides are left without the settling hold: their last frame is
     their first, so the one manim leaves out is the one a loop would repeat.
@@ -137,6 +142,7 @@ class DeckSlide(Slide):
 
     CITE = ()
     CITE_FORMAT = CITE_FORMAT
+    CITE_CORNER = DL
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -147,10 +153,16 @@ class DeckSlide(Slide):
     def setup(self):
         super().setup()
         if self.CITE:
-            self._pin(place_citation(citation(*cite(*self.CITE), fmt=self.CITE_FORMAT)))
+            self._pin(place_citation(self.citation(), self.CITE_CORNER))
         name = type(self).__name__
         if name in DECK:
             self._pin(make_footer(DECK.index(name) + 1, len(DECK)))
+
+    def citation(self):
+        if all(isinstance(c, tuple) for c in self.CITE):
+            return labelled_citation([(label, cite(*keys)) for label, *keys in self.CITE],
+                                     fmt=CITE_LABELLED_FORMAT)
+        return citation(*cite(*self.CITE), fmt=self.CITE_FORMAT)
 
     def _pin(self, mob):
         """``mob`` on top, fixed on the screen, and out of reach of remove()."""
@@ -306,14 +318,31 @@ class BlackHoleMergerSlide(DeckSlide, BlackHoleMerger):
     comes up, and holds on the settled sheet as the slide's own end."""
 
 
+# The sensitivity curves are digitised from an internal AION figure, whose
+# own sources aren't known, so each detector cites the paper that set it out;
+# the merger tracks cite their waveform model and the cosmology that sets
+# their distances.
+LIGO_PAPER = ("LIGO", "LIGOScientific:2014pky")
+MERGER_PAPERS = (("mergers", "Ajith:2007kx"), ("Planck", "Planck:2018vyg"))
+
+
 class MergerOnSensitivityPlotSlide(Clicks, DeckSlide, MergerOnSensitivityPlot):
-    pass
+    CITE = (LIGO_PAPER, *MERGER_PAPERS)
+    CITE_CORNER = DR  # under the plot, clear of the LIGO figure's time axis
 
 
 class SensitivityLandscapeSlide(Clicks, DeckSlide, SensitivityBuildUp):
     """The landscape without AEDGE: AION-km is the one gap filler here."""
 
     GAP_FILLERS = ("AION-km",)
+    CITE = (
+        LIGO_PAPER,
+        ("LISA", "LISA:2017pwj"),
+        ("ET", "Punturo:2010zz"),
+        ("AION-km", "Badurina:2019hst"),
+        *MERGER_PAPERS,
+    )
+    CITE_CORNER = UR  # the plot fills the slide down to its axis label
 
 
 class GradiometerGWStretchSlide(Clicks, DeckSlide, GradiometerGWStretchContinuous):

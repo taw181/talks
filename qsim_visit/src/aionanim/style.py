@@ -523,8 +523,10 @@ FONT_CITATION = FONT_SLIDE_NUMBER
 CITATION_COLOR = SLIDE_NUMBER_COLOR
 CITATION_EDGE_BUFF = 0.15  # from the left edge, as the number is from the right
 CITATION_BOTTOM = PROGRESS_BAR_HEIGHT + 0.1  # above the frame's bottom edge
+CITATION_NUMBER_CLEARANCE = 0.7  # a bottom-right one ends this far in, left of it
 CITATION_MAX_WIDTH = 12.5
 CITATION_LINE_BUFF = 0.06
+CITATION_SEPARATOR = r"\enspace$\cdot$\enspace "  # between labelled citations
 # a dark halo round the letters, so a line over a photograph still reads
 CITATION_OUTLINE = dict(color=PLOT_BACKGROUND, width=7, opacity=0.9)
 # A slot for a figure still to come: a reference, not content, so dashed and

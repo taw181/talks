@@ -98,6 +98,7 @@ class Reference:
     kind: str  # article, misc, ...
     authors: tuple[Name, ...]
     fields: dict = field(hash=False)
+    more_authors: bool = False  # the list ends "and others", as INSPIRE's do
 
     def __getitem__(self, name):
         return self.fields[name]
@@ -108,11 +109,14 @@ class Reference:
 
 def _reference(entry):
     fields = {f.key.lower(): str(f.value) for f in entry.fields if f.key != "author"}
-    authors = tuple(
+    authors = [
         Name(tuple(n.first), tuple(n.von), tuple(n.last), tuple(n.jr))
         for n in (entry["author"] if "author" in entry else [])
-    )
-    return Reference(entry.key, entry.entry_type.lower(), authors, fields)
+    ]
+    more = bool(authors) and authors[-1] == Name(last=("others",))
+    if more:
+        authors.pop()
+    return Reference(entry.key, entry.entry_type.lower(), tuple(authors), fields, more)
 
 
 @lru_cache
@@ -206,14 +210,14 @@ def _list_authors(ref, fmt):
             text = fmt.highlight_tex.format(text)
         return text
 
-    if len(names) <= fmt.max_authors:
+    if len(names) <= fmt.max_authors and not ref.more_authors:
         rendered = [render(n) for n in names]
         if len(rendered) <= 2:
             return " and ".join(rendered)
         return ", ".join(rendered[:-1]) + ", and " + rendered[-1]
 
     shown = sorted(
-        set(range(fmt.shown_authors))
+        set(range(min(fmt.shown_authors, len(names))))
         | {i for i, n in enumerate(names) if any(n.matches(s) for s in fmt.keep)}
     )
     pieces, previous = [], -1
@@ -223,7 +227,7 @@ def _list_authors(ref, fmt):
         pieces.append(render(names[i]))
         previous = i
     text = ", ".join(pieces)
-    if previous < len(names) - 1:
+    if previous < len(names) - 1 or ref.more_authors:
         text += " " + fmt.et_al
     return text
 
