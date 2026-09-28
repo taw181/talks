@@ -386,6 +386,10 @@ ULDM_EXCLUDED_EDGE = dict(stroke_width=1.5, color=GUIDE_COLOR, stroke_opacity=0.
 ULDM_MARK_STYLE = dict(stroke_width=2.5, color=FIELD_COLOR, stroke_opacity=1.0)
 ULDM_MARK_FAINT_OPACITY = 0.35
 ULDM_MARK_DOT_RADIUS = 0.065
+# An outline in the page colour round the plot's labels: in a small inset a
+# curve can't always be kept out from under one, and this breaks the line
+# cleanly round the letters rather than drawing it through them.
+ULDM_LABEL_OUTLINE = dict(color=PLOT_BACKGROUND, width=3)
 # An inset has to fit beside a full figure, so its type is a notch below the
 # footer's-plus: the smallest that still reads from the back of a room.
 FONT_INSET_TICK = 18

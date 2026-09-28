@@ -24,6 +24,7 @@ from aionanim.tools.uldm_plot import (
     ULDM_LABEL_EVERY,
     ULDM_LOG_D,
     ULDM_LOG_M,
+    excluded_label,
     excluded_region,
     uldm_curves,
 )
@@ -65,7 +66,10 @@ AE_ULDM_STAGES = {
     "AION-km": (("aion_km",), (-13.2, -9.0), RIGHT),
     "AEDGE": (("aedge",), (-16.2, -13.4), DR),
 }
-AE_EXCLUDED_LABEL = (-18.8, -1.7)  # left end, inside the grey
+
+# The grey region's name, over AION-10's label in the V of its curve: this
+# panel has the height for both there, which the insets do not.
+AE_EXCLUDED_LABEL = (-15.4, -0.65)
 
 AE_STEP_TIME = 1.5
 
@@ -118,17 +122,16 @@ class AEDGESensitivity(Scene):
         curves = uldm_curves(dm_axes)
         dm = {name: uldm_stage(dm_axes, curves, name) for name in AE_ULDM_STAGES}
         excluded = excluded_region(dm_axes)
-        excluded_label = Tex(
-            r"excluded", font_size=FONT_TICK, color=lighten(GUIDE_COLOR),
-        ).next_to(plot_point(dm_axes, *AE_EXCLUDED_LABEL), RIGHT, buff=0)
+        excluded_name = excluded_label(dm_axes, FONT_TICK, AE_EXCLUDED_LABEL, ORIGIN)
         dm_title = Tex(r"Ultralight dark matter", font_size=FONT_AXIS)
         dm_title.next_to(dm_axes, UP, buff=AE_PANEL_TITLE_BUFF)
 
         # --- what the talk has shown so far ---------------------------------
         before = [
             *(m for name in AE_GW_BEFORE for m in gw[name]),
-            excluded, excluded_label,
+            excluded,
             *(m for name, piece in dm.items() if name != "AEDGE" for m in piece),
+            excluded_name,  # over the curves
         ]
         self.play(
             FadeIn(title), FadeIn(gw_frame), FadeIn(gw_title),
