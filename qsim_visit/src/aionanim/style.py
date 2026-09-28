@@ -317,6 +317,8 @@ GW_DETECTOR_COLORS = {
     "LISA": "#8fb032",
     "LIGO": "#c56e1a",
     "ET": "#ffbf00",
+    "AION-10": "#47b66d",
+    "AION-100": "#eb6235",
     "AION-km": "#a5609d",
     "AEDGE": "#6685d9",
 }
