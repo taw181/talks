@@ -60,8 +60,8 @@ AE_GW_BEFORE = ("LISA", "LIGO", "ET", "AION-10", "AION-100", "AION-km")
 # name: (stems, label anchor (log m, log d_e), side).
 AE_ULDM_STAGES = {
     # in the V of their goal curves, as in the insets (tools/uldm_plot.py)
-    "AION-10": (("aion10_initial", "aion10_goal"), (-15.7, -1.9), ORIGIN),
-    "AION-100": (("aion100_initial", "aion100_goal"), (-15.8, -5.6), ORIGIN),
+    "AION-10": (("aion10_goal",), (-15.7, -1.9), ORIGIN),
+    "AION-100": (("aion100_goal",), (-15.8, -5.6), ORIGIN),
     "AION-km": (("aion_km",), (-13.2, -9.0), RIGHT),
     "AEDGE": (("aedge",), (-16.2, -13.4), DR),
 }

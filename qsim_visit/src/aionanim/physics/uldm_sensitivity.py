@@ -17,12 +17,13 @@ DATA_DIR = data_path("uldm_sensitivity")
 
 H_EV = 4.135668e-15  # Planck's constant, eV s
 
-# stem: label, strongest reach last so it is drawn on top. The solid curves
-# only: the paper's dotted continuations (0.1-0.3 Hz) are left out.
+# stem: label, strongest reach last so it is drawn on top: the curves the
+# plots draw. The solid curves only: the paper's dotted continuations
+# (0.1-0.3 Hz) are left out. AION-10 and AION-100 are their goal scenarios,
+# one line per stage as on the gravitational-wave plot; the initial ones
+# are in the data too (aion10_initial, aion100_initial) and load by stem.
 ULDM_SCENARIOS = {
-    "aion10_initial": "AION-10 (initial)",
     "aion10_goal": "AION-10 (goal)",
-    "aion100_initial": "AION-100 (initial)",
     "aion100_goal": "AION-100 (goal)",
     "aedge": "AEDGE",
     "aion_km": "AION-km",

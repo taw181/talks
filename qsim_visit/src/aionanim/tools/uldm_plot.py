@@ -9,8 +9,8 @@ figure puts it beside itself with the mass it is drawing marked across it
 parameter space.
 
 It is an inset, so it is built to be read small: the axes are labelled every
-few decades, and the six curves carry four labels, since a stage's initial
-and goal curves share a hue (the initial one fainter) and one name.
+few decades, and there are four curves, one per stage (AION-10 and AION-100
+at their goal scenarios), each labelled in its colour.
 """
 
 from functools import lru_cache
@@ -124,7 +124,6 @@ def uldm_curves(axes):
         curves[stem] = _polyline(
             axes, *clipped(stem, axes.log_top),
             stroke_color=ULDM_COLORS[stem], stroke_width=ULDM_CURVE_WIDTH,
-            stroke_opacity=ULDM_INITIAL_OPACITY if stem.endswith("_initial") else 1.0,
         )
     return curves
 

@@ -368,19 +368,15 @@ GW_BAND_EDGE_STYLE = dict(
 
 # AION's reach for ultralight dark matter (coupling against mass), drawn as a
 # small inset beside the dark-matter figures. Each experiment keeps its
-# colour from the GW plot, so AION-10 is the same green on both; a stage's
-# initial and goal curves share that hue, the initial one fainter, so one
-# label names the pair. The region other experiments have already ruled out
+# colour from the GW plot, so AION-10 is the same green on both. The region other experiments have already ruled out
 # is the construction grey: a reference, not something AION measures.
 ULDM_COLORS = {
     stem: GW_DETECTOR_COLORS[name]
     for stem, name in [
-        ("aion10_initial", "AION-10"), ("aion10_goal", "AION-10"),
-        ("aion100_initial", "AION-100"), ("aion100_goal", "AION-100"),
+        ("aion10_goal", "AION-10"), ("aion100_goal", "AION-100"),
         ("aion_km", "AION-km"), ("aedge", "AEDGE"),
     ]
 }
-ULDM_INITIAL_OPACITY = 0.45
 ULDM_CURVE_WIDTH = 2.5
 ULDM_EXCLUDED_STYLE = dict(stroke_width=0, fill_color=GUIDE_COLOR, fill_opacity=0.28)
 ULDM_EXCLUDED_EDGE = dict(stroke_width=1.5, color=GUIDE_COLOR, stroke_opacity=0.8)
