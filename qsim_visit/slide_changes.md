@@ -1,1 +1,0 @@
-aion-10 slide needs the shaft image on the right remove.
