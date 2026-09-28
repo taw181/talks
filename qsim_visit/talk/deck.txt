@@ -16,8 +16,8 @@ MergerOnSensitivityPlotSlide
 SensitivityLandscapeSlide
 GradiometerGWStretchSlide
 # then dark matter, and what it does to the clock transition in one interferometer
-DarkMatterScaleSlide
 DarkMatterFieldSlide
+DarkMatterScaleSlide
 DarkMatterPhaseSlide
 # our prototype device
 PrototypeDeviceSlide

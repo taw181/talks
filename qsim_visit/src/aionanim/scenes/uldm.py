@@ -8,9 +8,9 @@ arms integrate omega_A over different stretches of the oscillation, the hands
 come back to different angles and the two output ports split. Same instrument
 as the gravitational-wave scenes, pointed at a different source.
 
-DarkMatterField comes before either: the field on its own as a scrolling
-trace, and the clock transition it walks up and down, with no interferometer
-yet. Its pauses go through hold(), one whole oscillation, so a slide can loop
+DarkMatterField comes before either, and before DarkMatterScale: the field
+on its own as a scrolling trace, and the clock transition it walks up and
+down, with no interferometer yet. Its pauses go through hold(), one whole oscillation, so a slide can loop
 them without a jump.
 """
 
@@ -476,14 +476,10 @@ class DarkMatterField(Scene):
             r"\phi(t) = \phi_0 \cos\!\left(m_\phi c^2 t/\hbar\right)",
             font_size=FONT_ANNOTATION, color=FIELD_COLOR,
         )
-        wave_note = VGroup(*[
-            Tex(line, font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR))
-            for line in (
-                r"light enough to act as one classical wave",
-                r"$\rho_{\text{DM}} = \tfrac{1}{2} m_\phi^2 \phi_0^2"
-                r" \approx 0.4\ \text{GeV/cm}^3$",
-            )
-        ]).arrange(DOWN, buff=0.14, aligned_edge=LEFT)
+        wave_note = Tex(
+            r"light enough to act as one classical wave",
+            font_size=FONT_LEGEND, color=lighten(GUIDE_COLOR),
+        )
         wave_text = VGroup(field, wave_note).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
         wave_text.move_to(DF_TEXT, aligned_edge=UL)
 
@@ -504,8 +500,8 @@ class DarkMatterField(Scene):
         self.hold()
 
         # --- what it does to a clock ----------------------------------------
-        couplings = MathTex(
-            r"m_e,\ \alpha \;\to\; \text{oscillate with } \phi",
+        couplings = Tex(
+            r"Coupling to standard model fields?",
             font_size=FONT_ANNOTATION,
         )
         law = MathTex(

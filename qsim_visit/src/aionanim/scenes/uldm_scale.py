@@ -1,14 +1,13 @@
 """How big an ultralight dark-matter wave is, measured against the solar system.
 
-DarkMatterScale comes before DarkMatterField. The mass sets the scale, through
+DarkMatterScale comes after DarkMatterField. The mass sets the scale, through
 the Compton wavelength lambda_C = h / (m_phi c): the distance light covers in
 one oscillation of the field. The scene goes through AION's range from
 heavy to light, so each step zooms out: it opens on the heavy end, where
 lambda_C is about a tenth of the Earth, pulls back to the middle of the
 range, where it is the distance to the Moon, and then to the light end,
 where it is about the Earth-Sun distance. Even the shortest dwarfs any lab,
-which is what hands over to DarkMatterField: at one place, the wave is just
-phi(t).
+which is why DarkMatterField could draw it as just phi(t) at one place.
 
 AION's range is 1e-17 to 1e-12 eV (Badurina et al., JCAP 05 (2020) 011,
 arXiv:1911.11755).
