@@ -29,8 +29,7 @@ def citation(*refs, fmt=SHORT, numbered=False, font_size=FONT_CITATION,
     lines.arrange(DOWN, aligned_edge=LEFT, buff=CITATION_LINE_BUFF)
     if lines.width > max_width:
         lines.scale_to_fit_width(max_width)
-    # legible over a photograph, as the slide number is
-    lines.set_stroke(PLOT_BACKGROUND, width=4, background=True)
+    lines.set_stroke(**CITATION_OUTLINE, background=True)
     return lines
 
 

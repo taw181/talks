@@ -26,11 +26,13 @@ The deck order lives in talk/deck.sh, which renders, presents and converts:
     talk/deck.sh html         # aion_talk.html, standalone
 """
 
+from dataclasses import replace
 from pathlib import Path
 
 from manim import *
 from manim_slides import Slide
 
+from aionanim.bibliography import FULL, SHORT, format_reference, load_bibliography
 from aionanim.style import *
 from aionanim.scenes.clock import ClockPhaseTerms
 from aionanim.scenes.cooling import CoolingSequence
@@ -42,11 +44,12 @@ from aionanim.scenes.gravitational_waves import BlackHoleMerger, MergerOnSensiti
 from aionanim.scenes.gw_landscape import SensitivityBuildUp
 from aionanim.scenes.light_shift import LightShiftSignal
 from aionanim.scenes.lmt import LargeMomentumTransfer, LMTMachZehnder
-from aionanim.scenes.sequence import ExperimentSequenceSimple
+from aionanim.scenes.sequence import SEQ_SIMPLE_REFERENCES, ExperimentSequenceSimple
 from aionanim.scenes.single_photon import SinglePhotonMachZehnder
 from aionanim.scenes.slicing import VelocitySlicing
 from aionanim.scenes.uldm import DarkMatterField, DarkMatterPhaseContinuous
 from aionanim.scenes.uldm_scale import DarkMatterScale
+from aionanim.tools.citations import citation, place_citation
 from aionanim.tools.layout import image_point, load_image, numbered_list, slide_title
 from aionanim.tools.primitives import make_cloud
 from aionanim.tools.video import VideoFrame, load_video_frames
@@ -54,6 +57,12 @@ from aionanim.tools.video import VideoFrame, load_video_frames
 MEDIA = Path(__file__).parent / "media"
 # The measured-data plots plot_scripts/ draw from the package data.
 FIGURES = Path(__file__).parent.parent / "figures"
+# The talk's references, exported from the Zotero collection; a slide cites
+# them by key through DeckSlide.CITE.
+BIB = load_bibliography(Path(__file__).parent.parent / "AION.bib")
+# How a slide's footer citation reads. replace() it for another look: keep=
+# names an author through the et al., collaboration= replaces the list.
+CITE_FORMAT = replace(SHORT, highlight=("Walker, T",))
 
 TITLE = (r"A prototype differential atom interferometer", r"for fundamental physics")
 AUTHOR = r"Thomas Walker"
@@ -85,6 +94,14 @@ def deck_order():
 DECK = deck_order()
 
 
+def cite(*keys):
+    """The deck's references under these keys, failing on one not in AION.bib."""
+    missing = [k for k in keys if k not in BIB]
+    if missing:
+        raise KeyError(f"not in AION.bib: {', '.join(missing)}")
+    return [BIB[k] for k in keys]
+
+
 def make_footer(number, total):
     """The progress bar along the bottom edge, filled to this slide's place in
     the deck, and the slide's number in the corner above the end of it."""
@@ -106,39 +123,48 @@ def make_footer(number, total):
 
 class DeckSlide(Slide):
     """Every slide in the deck: a Slide that stops on its finished frame, with
-    the footer (progress bar and slide number) over everything it draws.
+    the footer (progress bar and slide number) over everything it draws, and
+    the references it names in CITE (AION.bib keys) bottom left above it.
 
     Looping slides are left without the settling hold: their last frame is
     their first, so the one manim leaves out is the one a loop would repeat.
 
-    The footer is a foreground mobject, so it stays on top of whatever the
-    scene adds; it is pinned to the frame in a 3D scene, rides along with a
-    moving camera, and is kept out of any remove(), since a scene may clear
-    the page with remove(*self.mobjects).
+    The footer and citation are foreground mobjects, so they stay on top of
+    whatever the scene adds; they are pinned to the frame in a 3D scene, ride
+    along with a moving camera, and are kept out of any remove(), since a
+    scene may clear the page with remove(*self.mobjects).
     """
+
+    CITE = ()
+    CITE_FORMAT = CITE_FORMAT
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.wait_time_between_slides = SLIDE_SETTLE
         self.wait_between_looping_slides = False
-        self.footer = None
+        self.furniture = []
 
     def setup(self):
         super().setup()
+        if self.CITE:
+            self._pin(place_citation(citation(*cite(*self.CITE), fmt=self.CITE_FORMAT)))
         name = type(self).__name__
-        if name not in DECK:
-            return
-        self.footer = make_footer(DECK.index(name) + 1, len(DECK))
+        if name in DECK:
+            self._pin(make_footer(DECK.index(name) + 1, len(DECK)))
+
+    def _pin(self, mob):
+        """``mob`` on top, fixed on the screen, and out of reach of remove()."""
         if isinstance(self, ThreeDScene):
-            self.add_fixed_in_frame_mobjects(self.footer)
+            self.add_fixed_in_frame_mobjects(mob)
         elif isinstance(self, MovingCameraScene):
             frame = self.camera.frame  # moves, but never zooms
-            offset = self.footer.get_center() - frame.get_center()
-            self.footer.add_updater(lambda m: m.move_to(frame.get_center() + offset))
-        self.add_foreground_mobject(self.footer)
+            offset = mob.get_center() - frame.get_center()
+            mob.add_updater(lambda m: m.move_to(frame.get_center() + offset))
+        self.add_foreground_mobject(mob)
+        self.furniture.append(mob)
 
     def remove(self, *mobjects):
-        return super().remove(*[m for m in mobjects if m is not self.footer])
+        return super().remove(*[m for m in mobjects if m not in self.furniture])
 
 
 class Clicks:
@@ -384,6 +410,8 @@ class AIONChambersSlide(DeckSlide):
     """The same chamber built at each AION site in 2022: the photos carry
     their own captions."""
 
+    CITE = ("strayCentralizedDesignProduction2024",)
+
     def construct(self):
         title = slide_title(r"AION chambers across the UK")
         figure = load_image(MEDIA / "aion_chambers.png", height=6.9)
@@ -393,11 +421,18 @@ class AIONChambersSlide(DeckSlide):
 
 class ExperimentSequenceSlide(DeckSlide, ExperimentSequenceSimple):
     """No stops: the shot plays through to the loaded lower trap and holds
-    there."""
+    there. Its reference list is from AION.bib, in full, and as in the
+    package cut to the papers its stages cite."""
+
+    REFERENCES = [format_reference(ref, FULL) for ref in cite(
+        "strayCentralizedDesignProduction2024",
+        "pasatembouProgressUltracoldSr2024",
+        "baynhamPrototypeDifferentialAtom2026",
+    )][:SEQ_SIMPLE_REFERENCES]
 
 
 class CoolingSequenceSlide(LoopingStages, DeckSlide, CoolingSequence):
-    pass
+    CITE = ("walkerHighfluxSourceCold2026", "pasatembouProgressUltracoldSr2024")
 
 
 class DipoleTrapLoadingSlide(LoopingStages, DeckSlide, DipoleTrapLoading):
@@ -408,9 +443,15 @@ class VelocitySlicingSlide(LoopingStages, DeckSlide, VelocitySlicing):
     pass
 
 
+# The paper the prototype's results are from.
+DAI_PAPER = "baynhamPrototypeDifferentialAtom2026"
+
+
 class LightShiftSignalSlide(Clicks, DeckSlide, LightShiftSignal):
     """The readout ends on the camera image of the two clouds, S left and P
     right, in place of the dials."""
+
+    CITE = (DAI_PAPER,)
 
     # the image's two columns, as fractions of its width from the left
     IMAGE_COLUMNS = {"S": (0.27, ATOM_COLOR), "P": (0.78, KICKED_COLOR)}
@@ -428,18 +469,22 @@ class LightShiftSignalSlide(Clicks, DeckSlide, LightShiftSignal):
 
 
 class SignalInjectionSlide(LoopingStages, DeckSlide, SignalInjection):
-    pass
+    CITE = (DAI_PAPER,)
 
 
 class LaserNoiseLissajousSlide(Clicks, DeckSlide, LaserNoiseLissajous):
     """The quiet run full size, then shrunk to the top panel with the noisy
     run below it, both onto the one Lissajous plot."""
 
+    CITE = (DAI_PAPER,)
+
 
 class AllanDeviationSlide(DeckSlide):
     """The differential phase's Allan deviation, built up as in
     plot_scripts/interferometer_data.py: the standard quantum limit alone,
     then the quiet run on it, then the noisy run beside it."""
+
+    CITE = (DAI_PAPER,)
 
     def construct(self):
         title = slide_title(r"Allan deviation")
@@ -456,6 +501,8 @@ class AllanDeviationSlide(DeckSlide):
 
 class ExtractedSignalSlide(DeckSlide):
     """Fig. 5a redrawn: each imprinted frequency found where it was put."""
+
+    CITE = (DAI_PAPER,)
 
     def construct(self):
         title = slide_title(r"Extracted signals")
@@ -481,6 +528,8 @@ class Aion10BeecroftSlide(DeckSlide):
     The building is a tall, narrow cutaway, so it takes nearly the full height
     of the slide to be legible; it sits right of the title, so it can rise
     level with it."""
+
+    CITE = ("bongsAION10TechnicalDesign2025",)
 
     def construct(self):
         title = slide_title(r"AION-10 at Oxford")
@@ -514,6 +563,8 @@ AICE_SHAFT_PX = ((940, 207), (940, 525))
 class AICECernSlide(DeckSlide):
     """The AICE figure, which carries its own title, with the shaft's depth
     marked on it."""
+
+    CITE = ("arduiniTechnicalProposalAtom2026",)
 
     def construct(self):
         figure = load_image(MEDIA / "aice.png", width=config.frame_width)
