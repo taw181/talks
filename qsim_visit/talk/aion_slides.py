@@ -492,8 +492,9 @@ DAI_PAPER = "baynhamPrototypeDifferentialAtom2026"
 
 class LightShiftSignalSlide(Clicks, DeckSlide, LightShiftSignalContinuous):
     """Continuous: lab time never stops from the first pulse to the imaging,
-    so the beam is a window the atoms fly through. The readout ends on the camera image of the two clouds, S left and P
-    right, in place of the dials."""
+    so the beam is a window the atoms fly through. The readout ends on the
+    camera image of the two clouds, S left and P right, in place of the
+    dials."""
 
     CITE = (DAI_PAPER,)
 

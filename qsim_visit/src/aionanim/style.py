@@ -366,6 +366,33 @@ GW_BAND_EDGE_STYLE = dict(
     dash_length=0.1, stroke_width=2, stroke_opacity=0.6, color=PLOT_FOREGROUND
 )
 
+# AION's reach for ultralight dark matter (coupling against mass), drawn as a
+# small inset beside the dark-matter figures. Each experiment keeps its
+# colour from the GW plot, so AION-10 is the same green on both; a stage's
+# initial and goal curves share that hue, the initial one fainter, so one
+# label names the pair. The region other experiments have already ruled out
+# is the construction grey: a reference, not something AION measures.
+ULDM_COLORS = {
+    stem: GW_DETECTOR_COLORS[name]
+    for stem, name in [
+        ("aion10_initial", "AION-10"), ("aion10_goal", "AION-10"),
+        ("aion100_initial", "AION-100"), ("aion100_goal", "AION-100"),
+        ("aion_km", "AION-km"), ("aedge", "AEDGE"),
+    ]
+}
+ULDM_INITIAL_OPACITY = 0.45
+ULDM_CURVE_WIDTH = 2.5
+ULDM_EXCLUDED_STYLE = dict(stroke_width=0, fill_color=GUIDE_COLOR, fill_opacity=0.28)
+ULDM_EXCLUDED_EDGE = dict(stroke_width=1.5, color=GUIDE_COLOR, stroke_opacity=0.8)
+# The mass a figure is drawing, marked across the plot: in the field's own
+# colour, since it is that field's mass, with a dot where it meets a curve.
+ULDM_MARK_STYLE = dict(stroke_width=2, color=FIELD_COLOR, stroke_opacity=0.9)
+ULDM_MARK_DOT_RADIUS = 0.065
+# An inset has to fit beside a full figure, so its type is a notch below the
+# footer's-plus: the smallest that still reads from the back of a room.
+FONT_INSET_TICK = 18
+FONT_INSET_LABEL = 20
+
 
 # --- the experimental sequence --------------------------------------------
 # One shot of the experiment laid out as a timeline, with the Sr level scheme
