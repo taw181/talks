@@ -325,10 +325,24 @@ class BlackHoleMergerSlide(DeckSlide, BlackHoleMerger):
 LIGO_PAPER = ("LIGO", "LIGOScientific:2014pky")
 MERGER_PAPERS = (("mergers", "Ajith:2007kx"), ("Planck", "Planck:2018vyg"))
 
+# The recorded data on the left panel is GW150914 itself: its ~1000-author
+# byline stands in for the collaboration, the way papers like it are usually
+# cited, rather than truncating to one name and "et al.".
+GW150914_KEY = "ligoscientificcollaborationandvirgocollaborationObservationGravitationalWaves2016"
+GW150914_FORMAT = replace(CITE_LABELLED_FORMAT, collaboration="LIGO Collaboration")
+
 
 class MergerOnSensitivityPlotSlide(Clicks, DeckSlide, MergerOnSensitivityPlot):
+    """The left panel becomes real LIGO data partway through, so its citation
+    joins the detector paper under the same "LIGO" label."""
+
     CITE = (LIGO_PAPER, *MERGER_PAPERS)
     CITE_CORNER = DR  # under the plot, clear of the LIGO figure's time axis
+
+    def citation(self):
+        ligo = [*cite("LIGOScientific:2014pky"), format_reference(BIB[GW150914_KEY], GW150914_FORMAT)]
+        items = [("LIGO", ligo), *[(label, cite(*keys)) for label, *keys in MERGER_PAPERS]]
+        return labelled_citation(items, fmt=CITE_LABELLED_FORMAT)
 
 
 class SensitivityLandscapeSlide(Clicks, DeckSlide, SensitivityBuildUp):
