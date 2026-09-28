@@ -35,14 +35,16 @@ ULDM_LOG_D = (-16, 0)
 ULDM_LABEL_EVERY = (2, 4)  # 10^-18, -16, ... on x; 10^-16, -12, ... on y, as the paper
 ULDM_TICK_BUFF = 0.08
 # Where each label goes, in (log10 m, log10 d_e), and which side of that
-# point it hangs: the two AION stages to the left of where their curves
-# start (both start at 0.3 Hz), between their initial and goal lines, the way
-# the paper labels them; AION-km right of its line, and AEDGE under the end
-# of its own, in the empty lower right -- anywhere left of that, a mark at the
-# light end of the range would run through it.
+# point it hangs: AION-10 and AION-100 centred in the V of their goal curves
+# (carried below 0.3 Hz, each curve turns back up on the left, so there is
+# no longer an open end to label), a little left of the middle so the mass
+# the dark-matter slides mark (~1.8e-15 eV) clears them; AION-km right of
+# its line, and AEDGE under the end of its own, in the empty lower right --
+# anywhere left of that, a mark at the light end of the range would run
+# through it.
 ULDM_LABELS = {
-    "AION-10": ((-15.2, -2.7), LEFT),
-    "AION-100": ((-15.2, -6.0), LEFT),
+    "AION-10": ((-15.7, -1.9), ORIGIN),
+    "AION-100": ((-15.8, -5.6), ORIGIN),
     "AION-km": ((-13.3, -8.8), RIGHT),
     "AEDGE": ((-14.0, -13.1), UR),
 }
@@ -62,19 +64,30 @@ def _log_curve(stem):
 
 
 def clipped(stem, top):
-    """A curve's (log m, log d) cut where it first rises through `top`."""
+    """A curve's (log m, log d), cut to the stretch under `top` around its
+    lowest point: where it comes down through `top` on the left, if it does
+    (the AION curves carried below 0.3 Hz do), and goes up through it on the
+    right."""
     x, y = _log_curve(stem)
-    over = np.nonzero(y > top)[0]
-    if len(over) == 0:
-        return x, y
-    k = over[0]
-    if k == 0:
+    low = int(np.argmin(y))
+    if y[low] > top:
         return x[:0], y[:0]
-    s = (top - y[k - 1]) / (y[k] - y[k - 1])
-    return (
-        np.append(x[:k], x[k - 1] + s * (x[k] - x[k - 1])),
-        np.append(y[:k], top),
-    )
+    over = np.nonzero(y > top)[0]
+    left = over[over < low]
+    right = over[over > low]
+    i = left[-1] + 1 if len(left) else 0
+    j = right[0] if len(right) else len(x)
+    xs, ys = x[i:j], y[i:j]
+
+    def crossing(a, b):
+        s = (top - y[a]) / (y[b] - y[a])
+        return x[a] + s * (x[b] - x[a])
+
+    if i > 0:
+        xs, ys = np.insert(xs, 0, crossing(i - 1, i)), np.insert(ys, 0, top)
+    if j < len(x):
+        xs, ys = np.append(xs, crossing(j - 1, j)), np.append(ys, top)
+    return xs, ys
 
 
 def uldm_axes(origin, width, height):
